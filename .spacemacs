@@ -26,8 +26,10 @@
      spotify
      erc
      org
+     spell-checking
      markdown
      haskell
+     idris
      evernote
      python
      c-c++
@@ -208,6 +210,19 @@ layers configuration."
         (lambda (&optional arg) (interactive "P") (sp-wrap-with-pair "[")))
       (define-key evil-normal-state-map ",w{"        ; wrap with {}
         (lambda (&optional arg) (interactive "P") (sp-wrap-with-pair "{")))
+
+      ;; Spell Checker Configuration
+      ;; Disable by default
+      (setq-default dotspacemacs-configuration-layers
+                    '((spell-checking :variables spell-checking-enable-by-default nil)))
+
+      ;; Enable auto-dictionary mode
+      (setq-default dotspacemacs-configuration-layers
+                    '((spell-checking :variables spell-checking-enable-auto-dictionary t)))
+
+      ;; Enable auto-completion on mispelled word
+      (setq-default dotspacemacs-configuration-layers
+                    '((spell-checking :variables =enable-flyspell-auto-completion= t)))
       )
 )
 
