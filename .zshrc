@@ -77,6 +77,60 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 #upgrade alias
 alias updateSys="sudo pacman -Syyu && stack update"
 
+# Alias to auto connect to os2 Operating Systems 2 server
+alias connOS2="ssh -J youngjef@flip.engr.oregonstate.edu youngjef@os2.engr.oregonstate.edu"
+
+# function to pull a file to os2 server
+pullFile () {
+	case "$#" in 
+		1)  echo "Pulling $1 from server to home dir"
+			$(scp -oProxyJump=youngjef@flip.engr.oregonstate.edu youngjef@os2.engr.oregonstate.edu:~/$1 ~/)
+			echo "All Done!"
+			return 0
+			;;
+
+		2)  echo "Pulling $1 from server to $2"
+			$(scp -oProxyJump=youngjef@flip.engr.oregonstate.edu youngjef@os2.engr.oregonstate.edu:~/$1 $2)
+			echo "All Done!"
+			return 0
+			;;
+
+		*)	echo "Usage: $0 file_name [destination]"
+			return 1
+			;;
+	esac
+}
+
+# function to pull a file to os2 server
+pushFile () {
+	case "$#" in 
+		1)  echo "Pushing $1 to server home dir"
+			$(scp -oProxyJump=youngjef@flip.engr.oregonstate.edu $1 youngjef@os2.engr.oregonstate.edu:~/)
+			echo "All Done!"
+			return 0
+			;;
+
+		2)  echo "Pushing $1 to server to $2"
+			$(scp -oProxyJump=youngjef@flip.engr.oregonstate.edu $1 youngjef@os2.engr.oregonstate.edu:~/$2)
+			echo "All Done!"
+			return 0
+			;;
+
+		*)	echo "Usage: $0 file_name [destination]"
+			return 1
+			;;
+	esac
+}
+
+#add rust to path
+export PATH="${PATH}:$HOME/.cargo/env"
+
+# sourcing for virtualenvwrapper, python 3
+source /usr/bin/virtualenvwrapper.sh
+
+# Environment var for postgres data directory
+export PGDATA="/var/lib/postgres/data"
+
 #function wrapUp { zle up-history }
 #function wrapDown { zle down-history }
 ## Better history keybinds
