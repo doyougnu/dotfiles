@@ -20,6 +20,7 @@ import Graphics.X11.ExtraTypes.XF86
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 import XMonad.Actions.SpawnOn
+import XMonad.Config.Kde
 
 
 ------------------------------------------------------------------------
@@ -27,10 +28,11 @@ import XMonad.Actions.SpawnOn
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
-myTerminal = "/usr/bin/terminator"
+-- myTerminal = "/run/current-system/sw/bin/konsole"
+myTerminal = "alacritty"
 
--- The command to lock the screen or show the screensaver.
-myScreensaver = "/usr/bin/lxqt-leave --suspend"
+-- Suspend the system
+mySuspend = "systemctl hibernate"
 
 -- The command to take a selective screenshot, where you select
 -- what you'd like to capture on the screen.
@@ -41,14 +43,15 @@ myScreenshot = "/usr/bin/deepin-screenshot"
 
 -- The command to use as a launcher, to launch commands that don't have
 -- preset keybindings.
--- myLauncher = "$(yeganesh -x -- -fn '-*-terminus-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#7C7C7C' -sf '#CEFFAC')"
 myLauncher = "dmenu_run"
 
--- Use pcmanfm-qt for files
-myFS = "/usr/bin/pcmanfm-qt"
+myMusic = "spotify"
+
+-- Use dolphin for files
+myFS = "dolphin"
 
 -- Use firefox for browser
-myBrowser = "/usr/bin/firefox"
+myBrowser = "firefox"
 
 -- Use emacs as server
 myIDE = "sh ~/dotfiles/em.sh"
@@ -74,15 +77,30 @@ myWorkspaces = ["1:Space","2:Web","3:Music","4:Comms","5:Dump"] ++ map show [6..
 -- To match on the WM_NAME, you can use 'title' in the same way that
 -- 'className' and 'resource' are used below.
 --
-myManageHook = composeAll
-    [ className =? "lxqt-notificationd" --> (doF W.focusUp <+> doFloat)
-    , className =? "Gimp"           --> doFloat
-    , resource  =? "gpicview"       --> doFloat
-    , className =? "MPlayer"        --> doFloat
-    , className =? "Slack"          --> doShift "4:Comms"
-    , className =? "spotify"        --> doShift "3:Music"
-    , isFullscreen --> (doF W.focusDown <+> doFullFloat)]
+-- myManageHook = composeAll
+--   [ className =? "Gimp"           --> doFloat
+--    , resource  =? "gpicview"       --> doFloat
+--    , className =? "Desktop — Plasma" --> doIgnore
+--    , className =? "Desktop"          --> doIgnore
+--    , className =? "MPlayer"        --> doFloat
+--    , className =? "Slack"          --> doShift "4:Comms"
+--    , className =? "spotify"        --> doShift "3:Music"
+--    , isFullscreen --> (doF W.focusDown <+> doFullFloat)]
 
+myManageHook = manageDocks <+> composeAll (concat $
+     [ [ className   =? c --> doFloat           | c <- myIgnore]
+     , [ title       =? t --> doFloat           | t <- myOtherFloats]
+     , [ className   =? c --> doF (W.shift "2:Web")   | c <- webApps]
+     , [ className   =? c --> doF (W.shift "3:Music") | c <- musicApps]
+     , [ className   =? c --> doF (W.shift "4:Comms") | c <- ircApps]
+     ])
+  where
+    myFloats      = []
+    myOtherFloats = []
+    myIgnore      = ["plasmashell", "plasmashell"]
+    webApps       = ["Navigator", "Firefox"] -- open on desktop 2
+    musicApps     = ["spotify", "Spotify"]   -- open on desktop 3
+    ircApps       = ["slack", "Slack"]       -- open on desktop 4
 
 ------------------------------------------------------------------------
 -- Layouts
@@ -152,7 +170,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
   -- Lock the screen using command specified by myScreensaver.
   , ((modMask .|. controlMask, xK_l),
-     spawn myScreensaver)
+     spawn mySuspend)
 
   -- Spawn the launcher using command specified by myLauncher.
   -- Use this to launch programs without a key binding.
@@ -170,6 +188,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- On Mod d open the file bro
   , ((modMask, xK_f),
      spawn myFS)
+
+  , ((modMask, xK_m),
+     spawn myMusic)
 
   -- Take a selective screenshot using the command specified by mySelectScreenshot.
   , ((modMask .|. shiftMask, xK_p),
@@ -358,25 +379,25 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- per-workspace layout choices.
 --
 -- By default, do nothing.
--- myStartupHook = do (spawnOn "2:Web" "vivaldi-stable") >>
+myStartupHook = return ()
+-- myStartupHook = do (spawnOn "2:Web" "firefox") >>
 --                      (spawnOn "4:Comms" "slack") >>
---                      (spawnOn "4:Comms" "discord") >>
 --                      (spawnOn "3:Music" "spotify")
-myStartupHook = do (spawn "/usr/bin/emacs --daemon") -- spawn emacs as a server
+-- myStartupHook = do (spawn "/run/current-system/sw/bin/emacs --daemon") -- spawn emacs as a server
 
 ------------------------------------------------------------------------
 -- Run xmonad with all the defaults we set up.
 --
+-- ON NIXOS, do this to recompile: nix-shell -p 'xmonad-with-packages.override { packages = p: with p; [ xmonad-extras xmonad-contrib xmonad]; }'
 main = do
   xmproc <- spawnPipe "xmobar ~/.xmonad/xmobar.hs"
   xmonad =<< dzen defaults {
-  -- xmonad $ defaults {
-      logHook = dynamicLogWithPP $ xmobarPP {
-            ppOutput = hPutStrLn xmproc
-          , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
-          , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
-          , ppSep = "   "
-      }
+     logHook = dynamicLogWithPP $ xmobarPP {
+               ppOutput = hPutStrLn xmproc
+             , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
+             , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
+             , ppSep = "   "
+     }
       , manageHook = manageDocks <+> myManageHook
       -- , startupHook = setWMName "LG3D"
   }
@@ -390,7 +411,7 @@ main = do
 --
 -- No need to modify this.
 --
-defaults = defaultConfig {
+defaults = kdeConfig {
     -- simple stuff
     terminal           = myTerminal,
     focusFollowsMouse  = myFocusFollowsMouse,
