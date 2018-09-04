@@ -8,30 +8,75 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./power-tune.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
+  boot.loader.timeout = 4;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub.useOSProber = true;
+  boot.loader.grub.device = "/dev/sda";
+  
+  # boot the applesmc kernel module, acpi_osi gives better battery life on macs
+  boot.kernelModules = [ "applesmc" "acpi_osi=" ];
 
-  networking.hostName = "Voltron"; # Define your hostname.
-  networking.wireless.enable = false;  # Enables wireless support via wpa_supplicant.
+  # macbook specific audio stuff
+  boot.extraModprobeConfig = ''
+   options libata.force=noncq
+  #  options resume=/dev/sda5
+   options snd_hda_intel index=0 model=intel-mac-auto id=PCH
+   options snd_hda_intel index=1 model=intel-mac-auto id=HDMI
+   options snd_hda_intel model=mbp101
+   options hid_apple fnmode=2
+  '';
+  
+   # enable acceleration for 32-bit
+   hardware.opengl.driSupport32Bit = true;
+
+  ## Enable pulseaudio and bluetooth
+  hardware.bluetooth.enable = true;
+  sound.enable = true;
+  sound.mediaKeys.enable = true;
+  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.support32Bit = true;
+  hardware.pulseaudio.package = pkgs.pulseaudioFull;
+  hardware.pulseaudio.zeroconf.discovery.enable = true;
+
+  networking.networkmanager.enable = true;
+  #networking.networkmanager.wifi.powersave = true;
+  networking.hostName = "7thChamber"; # Define your hostname.
+  #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Select internationalisation properties.
-  # i18n = {
-  #   consoleFont = "Lat2-Terminus16";
-  #   consoleKeyMap = "us";
-  #   defaultLocale = "en_US.UTF-8";
-  # };
+  i18n = {
+    consoleFont = "Lat2-Terminus16";
+    consoleKeyMap = "us";
+    defaultLocale = "en_US.UTF-8";
+  };
+  programs.zsh = {
+    enable = true;
+    enableAutosuggestions = true;
+    ohMyZsh.enable = true;
+    ohMyZsh.plugins = [ "git" ];
+    ohMyZsh.theme = "robbyrussell";
+    syntaxHighlighting.enable = true;
+  };
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  # environment.systemPackages = with pkgs; [
-  #   wget vim
-  # ];
+  environment.systemPackages = with pkgs; [
+    wget vim emacs git binutils manpages coreutils gcc gnumake iw sshfs nix
+    dzen2 dmenu stdenv pkgconfig zlib spotify slack weechat curl pianobar
+    google-chrome xlibs.xmodmap htop neofetch aspellDicts.en leiningen openjdk
+    z3 aspell texlive.combined.scheme-full ghc stack cabal-install
+    mpd pciutils wirelesstools dropbox-cli powertop microcodeIntel thermald mbpfan
+    evince coq libreoffice gimp z3 postman rustc zsh-autosuggestions oh-my-zsh
+    unzip
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -51,120 +96,60 @@
   # networking.firewall.enable = false;
 
   # Enable CUPS to print documents.
-  services.printing.enable = false;
+  # services.printing.enable = true;
 
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
+  # set vim to default editor
+  environment.variables.EDITOR = "vim";
 
-  # Disable touchpad support.
-  # services.xserver.libinput.enable = false;
+  users.extraUsers.doyougnu = { # don't forget to set a password with passwd
+      extraGroups = ["networkmanager" "wheel" "audio" "pulse" "docker" "networkmanager"];
+      uid = 1729;
+      shell = pkgs.zsh;
+      home = "/home/doyougnu";
+    };
 
-  # Enable the KDE Desktop Environment.
-  # services.xserver.displayManager.sddm.enable = true;
-  # services.xserver.displayManager.lightdm.enable = true;
-  # services.xserver.desktopManager.xfce.enable = true;
+  # Enable the XServer settings
   services.xserver = {
 
     # Enable the X11 windowing system.
     enable = true;
     layout = "us";
-
-    # Disable touchpad support.
-    libinput.enable = false;
-
-    # AMD Settings
-    # use open source driver
-    videoDrivers = [ "ati" ];
-
-    # Use Xmonad as the window manager
-    # windowManager.xmonad = {
-    # enable = true;
-    # enableContribAndExtras = true;
-    # };
-
-    # Display and DE
-    # displayManager.sddm.enable = true;
+    libinput.enable = true;
     displayManager = {
       sddm.enable = true;
       sessionCommands = '' ${pkgs.xlibs.xmodmap}/bin/xmodmap ~/.Xmodmap '';
     };
-    desktopManager.plasma5.enable = true;
+
+  # set to KDE
+  desktopManager = {
+    plasma5.enable = true;
+    default = "plasma5";
+    };
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.extraUsers.doyougnu = {
-    isNormalUser = true;
-    shell = pkgs.fish;
-    home = "/home/doyougnu";
-    extraGroups = [ "wheel" "audio" "pulse" "sound" "docker"];
-    uid = 1729;
-  };
+  # nice compton settings
+  # services.compton = {
+  # enable          = true;
+  # fade            = true;
+  # inactiveOpacity = "0.9";
+  # shadow          = true;
+  # fadeDelta       = 1;
+  # };
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
   system.stateVersion = "17.09"; # Did you read the comment?
-
-  ############## Begin My Config ######################
-  ## Allow unfree
+  
+  # allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  ## Absolutely Essential Packages
-  environment.systemPackages = with pkgs; [ emacs
-                                            vim
-                                            wget
-                                            git
-                                            binutils
-                                            manpages
-                                            coreutils
-                                            rxvt_unicode
-                                            gcc
-                                            gnumake
-                                            iw
-                                            sshfs
-                                            nix
-                                            dzen2
-                                            dmenu
-                                            stdenv
-                                            pkgconfig
-                                            zlib
-                                            # spotify
-                                            slack
-                                            weechat
-                                            curl
-                                            pianobar
-                                            drive
-                                            google-chrome
-                                            alsaLib
-                                            xlibs.xmodmap
-                                            htop
-                                            neofetch
-                                            aspellDicts.en
-                                            leiningen
-                                            openjdk
-                                            z3
-                                            aspell
-                                            texlive.combined.scheme-full
-                                            cairo
-                                            # haskell dependencies
-                                            ghc
-                                            stack
-                                            cabal-install
-                                          ];
+  # Set emacs to daemon mode
+  # services.emacs.enable = true;
 
-  # enable acceleration for 32-bit
-  hardware.opengl.driSupport32Bit = true;
-
-  ## Enable pulseaudio
-  sound.enable = true;
-  sound.mediaKeys.enable = true;
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.support32Bit = true;
-  hardware.pulseaudio.package = pkgs.pulseaudioFull;
-  hardware.pulseaudio.zeroconf.discovery.enable = true;
+  # docker
+  virtualisation.docker.enable = true; 
 
   ## some fonts
   fonts.fonts = with pkgs; 
@@ -179,11 +164,12 @@
     dina-font
     proggyfonts
     source-code-pro
+    siji
+    nerdfonts
+    font-awesome_5
+    font-awesome_4
+    material-icons
+    emacs-all-the-icons-fonts
+    numix-icon-theme-circle
    ];
-
-  # docker
-  virtualisation.docker.enable = true;
-
-  # use emacs daemon
-  services.emacs.enable = true;
 }

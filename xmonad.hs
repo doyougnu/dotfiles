@@ -29,7 +29,7 @@ import XMonad.Config.Kde
 -- certain contrib modules.
 --
 -- myTerminal = "/run/current-system/sw/bin/konsole"
-myTerminal = "alacritty"
+myTerminal = "konsole"
 
 -- Suspend the system
 mySuspend = "systemctl hibernate"
@@ -54,7 +54,7 @@ myFS = "dolphin"
 myBrowser = "firefox"
 
 -- Use emacs as server
-myIDE = "sh ~/dotfiles/em.sh"
+myIDE = "emacs"
 
 ------------------------------------------------------------------------
 -- Workspaces
@@ -157,7 +157,7 @@ myBorderWidth = 2
 -- ("right alt"), which does not conflict with emacs keybindings. The
 -- "windows key" is usually mod4Mask.
 --
-myModMask = mod1Mask
+myModMask = mod4Mask
 
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   ----------------------------------------------------------------------
@@ -193,49 +193,49 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      spawn myMusic)
 
   -- Take a selective screenshot using the command specified by mySelectScreenshot.
-  , ((modMask .|. shiftMask, xK_p),
-     spawn mySelectScreenshot)
+  -- , ((modMask .|. shiftMask, xK_p),
+  --    spawn mySelectScreenshot)
 
   -- Take a full screenshot using the command specified by myScreenshot.
-  , ((modMask .|. controlMask .|. shiftMask, xK_p),
-     spawn myScreenshot)
+  -- , ((modMask .|. controlMask .|. shiftMask, xK_p),
+  --    spawn myScreenshot)
 
+  -- Mute volume.
+  , ((0, xF86XK_AudioMute),
+     spawn "amixer -q set Master toggle")
+  --
+  -- Decrease volume.
+  , ((0, xF86XK_AudioLowerVolume),
+     spawn "amixer -q set Master 5%-")
+  --
+  -- Increase volume.
+  , ((0, xF86XK_AudioRaiseVolume),
+     spawn "amixer -q set Master 5%+")
+  --
   -- -- Mute volume.
-  -- , ((0, xF86XK_AudioMute),
-  --    spawn "amixer -q set Master toggle")
+  , ((modMask .|. controlMask, xK_m),
+     spawn "amixer -q set Master toggle")
 
   -- -- Decrease volume.
-  -- , ((0, xF86XK_AudioLowerVolume),
-  --    spawn "amixer -q set Master 10%-")
+  , ((modMask .|. controlMask, xK_j),
+     spawn "amixer -q set Master 10%-")
 
   -- -- Increase volume.
-  -- , ((0, xF86XK_AudioRaiseVolume),
-  --    spawn "amixer -q set Master 10%+")
+  , ((modMask .|. controlMask, xK_k),
+     spawn "amixer -q set Master 10%+")
 
-  -- -- Mute volume.
-  -- , ((modMask .|. controlMask, xK_m),
-  --    spawn "amixer -q set Master toggle")
-
-  -- -- Decrease volume.
-  -- , ((modMask .|. controlMask, xK_j),
-  --    spawn "amixer -q set Master 10%-")
-
-  -- -- Increase volume.
-  -- , ((modMask .|. controlMask, xK_k),
-  --    spawn "amixer -q set Master 10%+")
-
-  -- -- Audio previous.
-  -- , ((0, 0x1008FF16),
-  --    spawn "")
-
-  -- -- Play/pause.
-  -- , ((0, 0x1008FF14),
-  --    spawn "")
-
-  -- -- Audio next.
-  -- , ((0, 0x1008FF17),
-  --    spawn "")
-
+  -- Audio previous.
+  , ((0, 0x1008FF16),
+     spawn "")
+  --
+  -- Play/pause.
+  , ((0, 0x1008FF14),
+     spawn "")
+  --
+  -- Audio next.
+  , ((0, 0x1008FF17),
+     spawn "")
+  --
   -- -- Eject CD tray.
   -- , ((0, 0x1008FF2C),
   --    spawn "eject -T")
@@ -383,18 +383,17 @@ myStartupHook = return ()
 -- myStartupHook = do (spawnOn "2:Web" "firefox") >>
 --                      (spawnOn "4:Comms" "slack") >>
 --                      (spawnOn "3:Music" "spotify")
--- myStartupHook = do (spawn "/run/current-system/sw/bin/emacs --daemon") -- spawn emacs as a server
 
 ------------------------------------------------------------------------
 -- Run xmonad with all the defaults we set up.
 --
 -- ON NIXOS, do this to recompile: nix-shell -p 'xmonad-with-packages.override { packages = p: with p; [ xmonad-extras xmonad-contrib xmonad]; }'
 main = do
-  xmproc <- spawnPipe "xmobar ~/.xmonad/xmobar.hs"
+  xmproc <- spawnPipe "polybar top"
   xmonad =<< dzen defaults {
      logHook = dynamicLogWithPP $ xmobarPP {
-               ppOutput = hPutStrLn xmproc
-             , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
+               -- ppOutput = hPutStrLn xmproc
+             ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
              , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
              , ppSep = "   "
      }
