@@ -30,18 +30,20 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(javascript
+     graphviz
      yaml
      sql
      (clojure :variables
               clojure-enable-fancify-symbols t)
      git
-     javascript
-     react
      html
-     (c-c++ :variables
-            c-basic-offset 8)
-     racket
+     nixos
+     julia
+     (mu4e :variables
+           mu4e-account-alist t
+           mu4e-enable-notifications t
+           mu4e-enable-mode-line t)
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -51,7 +53,6 @@ values."
      auto-completion
      better-defaults
      emacs-lisp
-     rust
      (latex :variables
             latex-enable-auto-fill t
             latex-enable-folding t)
@@ -64,7 +65,6 @@ values."
               haskell-enable-hindent-style "johan-tibell"
               flycheck-select-checker 'haskell-hlint)
      org
-     erc
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom
@@ -291,7 +291,7 @@ values."
    dotspacemacs-folding-method 'evil
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
-   dotspacemacs-smartparens-strict-mode t
+   dotspacemacs-smartparens-strict-mode nil
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
    ;; over any automatically added closing parenthesis, bracket, quote, etc…
    ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
@@ -359,6 +359,8 @@ you should place your code here."
     (lambda (&optional arg) (interactive "P") (sp-wrap-with-pair "[")))
   (define-key evil-normal-state-map ",w{"        ; wrap with {}
     (lambda (&optional arg) (interactive "P") (sp-wrap-with-pair "{")))
+  (define-key evil-normal-state-map ",w$"        ; wrap with {}
+    (lambda (&optional arg) (interactive "P") (sp-wrap-with-pair "$")))
 
   ;; make lisp mode easy access
   (define-key evil-normal-state-map "." 'lisp-state-toggle-lisp-state)
@@ -369,6 +371,13 @@ you should place your code here."
   (with-eval-after-load 'cider
     (define-key cider-repl-mode-map (kbd "C-k") 'cider-repl-previous-input)
     (define-key cider-repl-mode-map (kbd "C-j") 'cider-repl-next-input))
+
+
+  ;; bibtex bibliography setup, TODO set this to read from subdir in future
+  (setq org-ref-default-bibliography '("~/Research/VSat/paper/bib/choicecalc.bib"
+                                       "~/Research/VSat/paper/bib/satsolvers.bib"
+                                       "~/Research/VSat/paper/bib/softprodline.bib"
+                                       "~/Research/Qual/qualbib.bib"))
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;; org-mode config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (setq org-todo-keywords '((type "TODO" "NEXT" "IN PROG" "HOLD" "DONE")))
@@ -403,6 +412,76 @@ you should place your code here."
 
   ;; tell emacs to auto update files from disk when they update
   (global-auto-revert-mode 1)
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;; tidal config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (add-to-list 'load-path "~/Programming/musak/lib")
+  (require 'tidal)
+  (setq tidal-interpreter "~/.local/bin/stack")
+  (setq tidal-interpreter-arguments (list "ghci" "--ghci-options" "-XOverloadedStrings"))
+
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;; mu4e config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (setq mu4e-account-alist
+        '(("college"
+           (mu4e-sent-messages-behavior sent)
+           (mu4e-sent-folder "/college/sent")
+           (mu4e-drafts-folder "/college/drafts")
+           (user-mail-address "youngjef@oregonstate.edu")
+           (user-full-name "Jeff"))
+          ("gmail"
+           ;; Under each account, set the account-specific variables you want.
+           (mu4e-sent-messages-behavior sent)
+           (mu4e-sent-folder "/gmail/[Gmail]/.sent")
+           (mu4e-drafts-folder "/gmail/[Gmail]/.drafts")
+           (user-mail-address "jmy6342@gmail.com")
+           (user-full-name "Jeff"))))
+
+  (mu4e/mail-account-reset)
+
+  ;;; Mail directory shortcuts
+  (setq mu4e-maildir-shortcuts
+        '(("/gmail/INBOX" . ?g)
+          ("/college/INBOX" . ?c)))
+
+  ;;; Bookmarks
+  (setq mu4e-bookmarks
+        `(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
+          ("date:today..now" "Today's messages" ?t)
+          ("date:7d..now" "Last 7 days" ?w)
+          ("mime:image/*" "Messages with images" ?p)
+          (,(mapconcat 'identity
+                       (mapcar
+                        (lambda (maildir)
+                          (concat "maildir:" (car maildir)))
+                        mu4e-maildir-shortcuts) " OR ")
+           "All inboxes" ?i)))
+
+
+  ;;; Testing out OS notifications. Change this with extreme prejudice if
+  ;;; distracted
+  (with-eval-after-load 'mu4e-alert
+    ;; Enable Desktop notifications
+    (mu4e-alert-set-default-style 'notifications)) ; For linux
+  ;; (mu4e-alert-set-default-style 'libnotify))  ; Alternative for linux
+  ;; (mu4e-alert-set-default-style 'notifier))   ; For Mac OSX (through the
+                                        ; terminal notifier app)
+  ;; (mu4e-alert-set-default-style 'growl))      ; Alternative for Mac OSX
+
+  ;; something about ourselves
+  (setq
+   user-mail-address "youngjef@oregonstate.edu"
+   user-full-name  "Jeff"
+   mu4e-compose-signature "- Jeff")
+
+  ;; sending mail, emacs >= 24 only
+  (setq message-send-mail-function 'smtpmail-send-it
+      smtpmail-stream-type 'starttls
+      smtpmail-default-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-service 587)
+
+  ;; don't keep message buffers around
+  (setq message-kill-buffer-on-exit t)
   )
 
 
@@ -438,7 +517,7 @@ This function is called at the very end of Spacemacs initialization."
  '(cider-repl-wrap-history t)
  '(package-selected-packages
    (quote
-    (magit-svn gitignore-templates evil-goggles dotenv-mode proof-general company-coq company-math math-symbol-lists yaml-mode graphviz-dot-mode org-mime yapfify web-mode web-beautify toml-mode tagedit sql-indent smeargle slim-mode scss-mode sass-mode racket-mode faceup racer pyvenv pytest pyenv-mode py-isort pug-mode pony-mode pip-requirements orgit org-ref pdf-tools key-chord ivy tablist magit-gitflow livid-mode skewer-mode simple-httpd live-py-mode less-css-mode json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc hy-mode helm-pydoc helm-gitignore helm-css-scss helm-bibtex parsebib haml-mode gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link flycheck-rust evil-magit magit magit-popup ghub let-alist erc-yt erc-view-log erc-social-graph erc-image erc-hl-nicks emmet-mode disaster cython-mode company-web web-completion-data company-tern dash-functional tern company-c-headers company-auctex company-anaconda coffee-mode cmake-mode clojure-snippets clj-refactor inflections edn multiple-cursors paredit peg clang-format cider-eval-sexp-fu cider seq queue clojure-mode cargo rust-mode biblio biblio-core auctex-latexmk auctex anaconda-mode pythonic powerline spinner hydra parent-mode projectile pkg-info epl flx smartparens iedit anzu evil goto-chg undo-tree highlight f s diminish bind-map bind-key packed helm avy helm-core async popup xterm-color unfill shell-pop org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download mwim multi-term mmm-mode markdown-toc markdown-mode intero htmlize hlint-refactor hindent helm-hoogle helm-company helm-c-yasnippet haskell-snippets gnuplot git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-commit with-editor dash git-gutter gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck-haskell flycheck eshell-z eshell-prompt-extras esh-help diff-hl company-statistics company-ghci company-ghc ghc haskell-mode company-cabal company cmm-mode auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete zenburn-theme ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (yasnippet-snippets writeroom-mode visual-fill-column symon string-inflection spaceline-all-the-icons prettier-js password-generator overseer org-brain nix-mode mu4e-maildirs-extension mu4e-alert magit-svn julia-repl julia-mode json-navigator hierarchy impatient-mode helm-xref helm-purpose window-purpose imenu-list helm-org-rifle helm-nixos-options helm-mu helm-git-grep gitignore-templates evil-org treepy graphql evil-lion evil-goggles evil-cleverparens editorconfig doom-modeline eldoc-eval shrink-path all-the-icons memoize counsel-projectile counsel swiper company-nixos-options nixos-options sesman centered-cursor-mode browse-at-remote font-lock+ dotenv-mode proof-general company-coq company-math math-symbol-lists yaml-mode graphviz-dot-mode org-mime yapfify web-mode web-beautify toml-mode tagedit sql-indent smeargle slim-mode scss-mode sass-mode racket-mode faceup racer pyvenv pytest pyenv-mode py-isort pug-mode pony-mode pip-requirements orgit org-ref pdf-tools key-chord ivy tablist magit-gitflow livid-mode skewer-mode simple-httpd live-py-mode less-css-mode json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc hy-mode helm-pydoc helm-gitignore helm-css-scss helm-bibtex parsebib haml-mode gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link flycheck-rust evil-magit magit magit-popup ghub let-alist erc-yt erc-view-log erc-social-graph erc-image erc-hl-nicks emmet-mode disaster cython-mode company-web web-completion-data company-tern dash-functional tern company-c-headers company-auctex company-anaconda coffee-mode cmake-mode clojure-snippets clj-refactor inflections edn multiple-cursors paredit peg clang-format cider-eval-sexp-fu cider seq queue clojure-mode cargo rust-mode biblio biblio-core auctex-latexmk auctex anaconda-mode pythonic powerline spinner hydra parent-mode projectile pkg-info epl flx smartparens iedit anzu evil goto-chg undo-tree highlight f s diminish bind-map bind-key packed helm avy helm-core async popup xterm-color unfill shell-pop org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download mwim multi-term mmm-mode markdown-toc markdown-mode intero htmlize hlint-refactor hindent helm-hoogle helm-company helm-c-yasnippet haskell-snippets gnuplot git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-commit with-editor dash git-gutter gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck-haskell flycheck eshell-z eshell-prompt-extras esh-help diff-hl company-statistics company-ghci company-ghc ghc haskell-mode company-cabal company cmm-mode auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete zenburn-theme ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
