@@ -4,7 +4,9 @@
 
 { config, pkgs, ... }:
 
-{
+  let 
+    unstable = import <unstable> {};
+  in {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -18,12 +20,9 @@
   boot.loader.grub.useOSProber = true;
   boot.loader.grub.device = "/dev/sda";
   
-  # boot the applesmc kernel module, acpi_osi gives better battery life on macs
-  boot.kernelModules = [ "applesmc" "acpi_osi=" ];
-
   # macbook specific audio stuff
   boot.extraModprobeConfig = ''
-   options libata.force=noncq
+  #  options libata.force=noncq
   #  options resume=/dev/sda5
    options snd_hda_intel index=0 model=intel-mac-auto id=PCH
    options snd_hda_intel index=1 model=intel-mac-auto id=HDMI
@@ -44,7 +43,7 @@
   hardware.pulseaudio.zeroconf.discovery.enable = true;
 
   networking.networkmanager.enable = true;
-  #networking.networkmanager.wifi.powersave = true;
+  networking.networkmanager.wifi.powersave = true;
   networking.hostName = "7thChamber"; # Define your hostname.
   #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -56,7 +55,7 @@
   };
   programs.zsh = {
     enable = true;
-    enableAutosuggestions = true;
+    autosuggestions.enable = true;
     ohMyZsh.enable = true;
     ohMyZsh.plugins = [ "git" ];
     ohMyZsh.theme = "robbyrussell";
@@ -66,17 +65,22 @@
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
+  # enable jupyter service for IJulia notebook
+  # services.jupyter.enable = true;
+
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     wget vim emacs git binutils manpages coreutils gcc gnumake iw sshfs nix
     dzen2 dmenu stdenv pkgconfig zlib spotify slack weechat curl pianobar
-    google-chrome xlibs.xmodmap htop neofetch aspellDicts.en leiningen openjdk
+    google-chrome xlibs.xmodmap htop neofetch aspellDicts.en openjdk
     z3 aspell texlive.combined.scheme-full ghc stack cabal-install
-    mpd pciutils wirelesstools dropbox-cli powertop microcodeIntel thermald mbpfan
-    evince coq libreoffice gimp z3 postman rustc zsh-autosuggestions oh-my-zsh
-    unzip
-  ];
+    mpd pciutils wirelesstools powertop microcodeIntel thermald mbpfan
+    evince coq libreoffice gimp z3 rustc zsh-autosuggestions oh-my-zsh
+    unzip glibc graphviz alacritty unstable.julia mu offlineimap openssl cacert postfix
+    gnutls networkmanagerapplet nix-prefetch-git idris clojure dropbox unstable.leiningen
+    cairo xmonad-log playerctl
+    ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -101,6 +105,9 @@
   # set vim to default editor
   environment.variables.EDITOR = "vim";
 
+  # java gui fix for xmonad
+  environment.variables._JAVA_AWT_WM_NONREPARENTING="1";
+
   users.extraUsers.doyougnu = { # don't forget to set a password with passwd
       extraGroups = ["networkmanager" "wheel" "audio" "pulse" "docker" "networkmanager"];
       uid = 1729;
@@ -120,21 +127,25 @@
       sessionCommands = '' ${pkgs.xlibs.xmodmap}/bin/xmodmap ~/.Xmodmap '';
     };
 
-  # set to KDE
+  # set to Mate
   desktopManager = {
-    plasma5.enable = true;
-    default = "plasma5";
+    # plasma5.enable = true;
+    mate.enable = true;
+    # default = "plasma5";
     };
   };
 
-  # nice compton settings
-  # services.compton = {
-  # enable          = true;
-  # fade            = true;
-  # inactiveOpacity = "0.9";
-  # shadow          = true;
-  # fadeDelta       = 1;
-  # };
+  # enable redshift
+  services.redshift = {
+    enable = true;
+    # provider = "geoclue2";
+    latitude = "44";
+    longitude = "123";
+  };
+  # services.redshift.brightness.day = "0.8";
+  # services.redshift.brightness.night = "0.4";
+  # services.redshift.latitude = "0.0000";
+  # services.redshift.longitude = "0.0000";
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
@@ -171,5 +182,7 @@
     material-icons
     emacs-all-the-icons-fonts
     numix-icon-theme-circle
+    hack-font
+    ubuntu_font_family
    ];
 }

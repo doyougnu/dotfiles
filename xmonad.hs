@@ -19,8 +19,12 @@ import XMonad.Util.EZConfig(additionalKeys)
 import Graphics.X11.ExtraTypes.XF86
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
+import qualified DBus            as D
+import qualified DBus.Client     as D
 import XMonad.Actions.SpawnOn
-import XMonad.Config.Kde
+import qualified Codec.Binary.UTF8.String as UTF8
+-- import XMonad.Config.Kde
+import XMonad.Config.Mate
 
 
 ------------------------------------------------------------------------
@@ -29,7 +33,7 @@ import XMonad.Config.Kde
 -- certain contrib modules.
 --
 -- myTerminal = "/run/current-system/sw/bin/konsole"
-myTerminal = "konsole"
+myTerminal = "alacritty"
 
 -- Suspend the system
 mySuspend = "systemctl hibernate"
@@ -48,7 +52,7 @@ myLauncher = "dmenu_run"
 myMusic = "spotify"
 
 -- Use dolphin for files
-myFS = "dolphin"
+myFS = "caja --no-desktop $HOME"
 
 -- Use firefox for browser
 myBrowser = "firefox"
@@ -99,7 +103,7 @@ myManageHook = manageDocks <+> composeAll (concat $
     myOtherFloats = []
     myIgnore      = ["plasmashell", "plasmashell"]
     webApps       = ["Navigator", "Firefox"] -- open on desktop 2
-    musicApps     = ["spotify", "Spotify"]   -- open on desktop 3
+    musicApps     = ["Spotify"]              -- open on desktop 3
     ircApps       = ["slack", "Slack"]       -- open on desktop 4
 
 ------------------------------------------------------------------------
@@ -146,7 +150,7 @@ xmobarTitleColor = "#FFB6B0"
 xmobarCurrentWorkspaceColor = "#CEFFAC"
 
 -- Width of the window border in pixels.
-myBorderWidth = 2
+myBorderWidth = 1
 
 
 ------------------------------------------------------------------------
@@ -189,7 +193,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_f),
      spawn myFS)
 
-  , ((modMask, xK_m),
+  , ((modMask, xK_a),
      spawn myMusic)
 
   -- Take a selective screenshot using the command specified by mySelectScreenshot.
@@ -379,7 +383,7 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- per-workspace layout choices.
 --
 -- By default, do nothing.
-myStartupHook = return ()
+myStartupHook = setWMName "LG3D"
 -- myStartupHook = do (spawnOn "2:Web" "firefox") >>
 --                      (spawnOn "4:Comms" "slack") >>
 --                      (spawnOn "3:Music" "spotify")
@@ -389,18 +393,33 @@ myStartupHook = return ()
 --
 -- ON NIXOS, do this to recompile: nix-shell -p 'xmonad-with-packages.override { packages = p: with p; [ xmonad-extras xmonad-contrib xmonad]; }'
 main = do
-  xmproc <- spawnPipe "polybar top"
+  xmproc <- spawnPipe "$HOME/.config/polybar/launch.sh"
+  xmproc <- spawnPipe "xmodmap $HOME/.Xmodmap"
+  dbus <- D.connectSession
+  D.requestName dbus (D.busName_ "org.xmonad.Log")
+    [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
+
   xmonad =<< dzen defaults {
-     logHook = dynamicLogWithPP $ xmobarPP {
-               -- ppOutput = hPutStrLn xmproc
-             ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
-             , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
-             , ppSep = "   "
-     }
-      , manageHook = manageDocks <+> myManageHook
-      -- , startupHook = setWMName "LG3D"
+     logHook = dynamicLogWithPP $ (myLogHook dbus) 
+     , manageHook = manageDocks <+> myManageHook
   }
 
+-- Override the PP values as you would otherwise, adding colors etc depending
+-- on  the statusbar used
+myLogHook :: D.Client -> PP
+myLogHook dbus = def { ppOutput = dbusOutput dbus }
+
+-- Emit a DBus signal on log updates
+dbusOutput :: D.Client -> String -> IO ()
+dbusOutput dbus str = do
+    let signal = (D.signal objectPath interfaceName memberName) {
+            D.signalBody = [D.toVariant $ UTF8.decodeString str]
+        }
+    D.emit dbus signal
+  where
+    objectPath = D.objectPath_ "/org/xmonad/Log"
+    interfaceName = D.interfaceName_ "org.xmonad.Log"
+    memberName = D.memberName_ "Update"
 
 ------------------------------------------------------------------------
 -- Combine it all together
@@ -410,7 +429,7 @@ main = do
 --
 -- No need to modify this.
 --
-defaults = kdeConfig {
+defaults = mateConfig {
     -- simple stuff
     terminal           = myTerminal,
     focusFollowsMouse  = myFocusFollowsMouse,
