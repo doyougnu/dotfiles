@@ -12,6 +12,10 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
+alias hg='history | grep'
+
+bindkey "^k" history-beginning-search-backward
+bindkey "^l" history-beginning-search-forward
 bindkey -v "^p" up-line-or-history
 bindkey -v "^n" down-line-or-history
 bindkey -v "fd" vi-cmd-mode
