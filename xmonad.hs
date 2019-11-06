@@ -210,11 +210,14 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_a),
      spawn myMusic)
 
+  -- change themes with mod + ctrl + t
   , ((modMask .|. controlMask, xK_t), themePrompt def)
 
+  -- run arbritrary commands in a popup prompt
   , ((modMask, xK_o),
      prompt ("alacritty -e") greenXPConfig)
 
+  -- lookup stuff in a dictionary easily and pipe to notification
   , ((modMask, xK_i),
      lookupPrompt)
 
@@ -418,7 +421,8 @@ lookupInDict arg = do
   safeSpawn "notify-send" ["-t", "2500", res]
 
 lookupPrompt :: X ()
-lookupPrompt = inputPrompt greenXPConfig "?: " ?+ lookupInDict
+lookupPrompt = inputPrompt greenXPConfig "λ" ?+ lookupInDict
+
 ------------------------------------------------------------------------
 ------------------------------------------------------------------------
 -- Run xmonad with all the defaults we set up.
