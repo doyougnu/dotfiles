@@ -14,8 +14,9 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.Spiral
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
-import XMonad.Util.Run(spawnPipe)
+import XMonad.Util.Run(spawnPipe,runProcessWithInput,safeSpawn)
 import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Util.Themes
 import Graphics.X11.ExtraTypes.XF86
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -25,6 +26,10 @@ import XMonad.Actions.SpawnOn
 import qualified Codec.Binary.UTF8.String as UTF8
 -- import XMonad.Config.Kde
 import XMonad.Config.Mate
+import XMonad.Prompt
+import XMonad.Prompt.Input
+import XMonad.Prompt.Shell
+import XMonad.Prompt.Theme
 
 
 ------------------------------------------------------------------------
@@ -116,13 +121,22 @@ myManageHook = manageDocks <+> composeAll (concat $
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = avoidStruts (
+-- myLayout = avoidStruts (
+--     tabbed shrinkText myTheme |||
+--     ThreeColMid 1 (3/100) (1/2) |||
+--     Tall 1 (3/100) (1/2) |||
+--     Mirror (Tall 1 (3/100) (1/2)) |||
+--     Full |||
+--     spiral (6/7)) |||
+--     noBorders (fullscreenFull Full)
+
+myLayout =
+    tabbed shrinkText (theme robertTheme) |||
     ThreeColMid 1 (3/100) (1/2) |||
     Tall 1 (3/100) (1/2) |||
     Mirror (Tall 1 (3/100) (1/2)) |||
-    tabbed shrinkText tabConfig |||
     Full |||
-    spiral (6/7)) |||
+    spiral (6/7) |||
     noBorders (fullscreenFull Full)
 
 
@@ -134,20 +148,20 @@ myNormalBorderColor  = "#7c7c7c"
 myFocusedBorderColor = "#ffb6b0"
 
 -- Colors for text and backgrounds of each tab when in "Tabbed" layout.
-tabConfig = defaultTheme {
-    activeBorderColor = "#7C7C7C",
-    activeTextColor = "#CEFFAC",
-    activeColor = "#000000",
-    inactiveBorderColor = "#7C7C7C",
-    inactiveTextColor = "#EEEEEE",
-    inactiveColor = "#000000"
-}
+-- myTheme = defaultTheme {
+--     activeBorderColor = "#7C7C7C",
+--     activeTextColor = "#CEFFAC",
+--     activeColor = "#000000",
+--     inactiveBorderColor = "#7C7C7C",
+--     inactiveTextColor = "#EEEEEE",
+--     inactiveColor = "#000000"
+-- }
 
 -- Color of current window title in xmobar.
-xmobarTitleColor = "#FFB6B0"
+-- xmobarTitleColor = "#FFB6B0"
 
 -- Color of current workspace in xmobar.
-xmobarCurrentWorkspaceColor = "#CEFFAC"
+-- xmobarCurrentWorkspaceColor = "#CEFFAC"
 
 -- Width of the window border in pixels.
 myBorderWidth = 1
@@ -195,6 +209,14 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
   , ((modMask, xK_a),
      spawn myMusic)
+
+  , ((modMask .|. controlMask, xK_t), themePrompt def)
+
+  , ((modMask, xK_o),
+     prompt ("alacritty -e") greenXPConfig)
+
+  , ((modMask, xK_i),
+     lookupPrompt)
 
   -- Take a selective screenshot using the command specified by mySelectScreenshot.
   -- , ((modMask .|. shiftMask, xK_p),
@@ -389,9 +411,19 @@ myStartupHook = setWMName "LG3D"
 --                      (spawnOn "3:Music" "spotify")
 
 ------------------------------------------------------------------------
+-- custom stuff
+lookupInDict :: String -> X ()
+lookupInDict arg = do
+  res <- runProcessWithInput "sdcv" [] arg
+  safeSpawn "notify-send" ["-t", "2500", res]
+
+lookupPrompt :: X ()
+lookupPrompt = inputPrompt greenXPConfig "?: " ?+ lookupInDict
+------------------------------------------------------------------------
+------------------------------------------------------------------------
 -- Run xmonad with all the defaults we set up.
 --
--- ON NIXOS, do this to recompile: nix-shell -p 'xmonad-with-packages.override { packages = p: with p; [ xmonad-extras xmonad-contrib xmonad]; }'
+-- ON NIXOS, do this to recompile: nix-shell -p 'xmonad-with-packages.override { packages = p: with p; [ xmonad-extras xmonad-contrib xmonad dbus]; }'
 main = do
   xmproc <- spawnPipe "$HOME/.config/polybar/launch.sh"
   xmproc <- spawnPipe "xmodmap $HOME/.Xmodmap"
@@ -400,7 +432,7 @@ main = do
     [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
 
   xmonad =<< dzen defaults {
-     logHook = dynamicLogWithPP $ (myLogHook dbus) 
+     logHook = dynamicLogWithPP $ (myLogHook dbus)
      , manageHook = manageDocks <+> myManageHook
   }
 
@@ -417,9 +449,9 @@ dbusOutput dbus str = do
         }
     D.emit dbus signal
   where
-    objectPath = D.objectPath_ "/org/xmonad/Log"
+    objectPath    = D.objectPath_ "/org/xmonad/Log"
     interfaceName = D.interfaceName_ "org.xmonad.Log"
-    memberName = D.memberName_ "Update"
+    memberName    = D.memberName_ "Update"
 
 ------------------------------------------------------------------------
 -- Combine it all together
@@ -444,7 +476,7 @@ defaults = mateConfig {
     mouseBindings      = myMouseBindings,
 
     -- hooks, layouts
-    layoutHook         = smartBorders $ myLayout,
+    layoutHook         = smartBorders myLayout,
     manageHook         = myManageHook,
     startupHook        = myStartupHook
 }

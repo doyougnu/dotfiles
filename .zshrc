@@ -14,6 +14,11 @@ compinit
 
 alias hg='history | grep'
 
+function lookup () { sdcv $1 | less }
+function _lookup () { sdcv $1 }
+
+function lookup-notify () { notify-send -t 2000 "$(lookup $1)" }
+
 bindkey "^k" history-beginning-search-backward
 bindkey "^l" history-beginning-search-forward
 bindkey -v "^p" up-line-or-history
