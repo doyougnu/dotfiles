@@ -63,7 +63,9 @@ myFS = "caja --no-desktop $HOME"
 myBrowser = "firefox"
 
 -- Use emacs as server
-myIDE = "emacs"
+myIDE = "emacsclient --create-frame"
+
+myIDESameBuf = "emacsclient --create-frame --tty"
 
 ------------------------------------------------------------------------
 -- Workspaces
@@ -186,6 +188,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   [ ((modMask .|. shiftMask, xK_Return),
      spawn $ XMonad.terminal conf)
 
+  , ((modMask .|. controlMask, xK_Return),
+     safeSpawn "emacsclient" ["-c", "-e", "(eshell)"])
+
   -- Lock the screen using command specified by myScreensaver.
   , ((modMask .|. controlMask, xK_l),
      spawn mySuspend)
@@ -202,6 +207,10 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- On Mod f open the browser
   , ((modMask, xK_s),
      spawn myIDE)
+
+  -- On Mod f open the browser
+  , ((modMask .|. shiftMask, xK_s),
+     spawn myIDESameBuf)
 
   -- On Mod d open the file bro
   , ((modMask, xK_f),
