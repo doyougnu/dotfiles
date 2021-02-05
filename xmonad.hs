@@ -24,8 +24,9 @@ import qualified DBus            as D
 import qualified DBus.Client     as D
 import XMonad.Actions.SpawnOn
 import qualified Codec.Binary.UTF8.String as UTF8
+import qualified XMonad.Util.Brightness as Bright
 -- import XMonad.Config.Kde
-import XMonad.Config.Mate
+-- import XMonad.Config.Mate
 import XMonad.Prompt
 import XMonad.Prompt.Input
 import XMonad.Prompt.Shell
@@ -41,7 +42,7 @@ import XMonad.Prompt.Theme
 myTerminal = "alacritty"
 
 -- Suspend the system
-mySuspend = "systemctl hibernate"
+mySuspend = "systemctl suspend"
 
 -- The command to take a selective screenshot, where you select
 -- what you'd like to capture on the screen.
@@ -66,6 +67,8 @@ myBrowser = "firefox"
 myIDE = "emacsclient --create-frame"
 
 myIDESameBuf = "emacsclient --create-frame --tty"
+
+myWallPapers = "/home/doyougnu/Dropbox/wallpapers"
 
 ------------------------------------------------------------------------
 -- Workspaces
@@ -241,26 +244,63 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Mute volume.
   , ((0, xF86XK_AudioMute),
      spawn "amixer -q set Master toggle")
-  --
+
   -- Decrease volume.
   , ((0, xF86XK_AudioLowerVolume),
      spawn "amixer -q set Master 5%-")
-  --
+
   -- Increase volume.
   , ((0, xF86XK_AudioRaiseVolume),
      spawn "amixer -q set Master 5%+")
-  --
+
+  -- Decrease brightness.
+  , ((0, xF86XK_MonBrightnessDown),
+     spawn "light -U 10")
+
+  -- Increase brightness.
+  , ((0, xF86XK_MonBrightnessUp),
+     spawn "light -A 10")
+
   -- -- Mute volume.
   , ((modMask .|. controlMask, xK_m),
      spawn "amixer -q set Master toggle")
 
   -- -- Decrease volume.
   , ((modMask .|. controlMask, xK_j),
-     spawn "amixer -q set Master 10%-")
+     spawn "amixer -q set Master 5%-")
 
   -- -- Increase volume.
   , ((modMask .|. controlMask, xK_k),
-     spawn "amixer -q set Master 10%+")
+     spawn "amixer -q set Master 5%+")
+
+  -- Pause any spotify music
+  , ((modMask .|. controlMask, xK_n),
+     safeSpawn "dbus-send" [ "--print-reply"
+                           , "--dest=org.mpris.MediaPlayer2.spotify"
+                           , "/org/mpris/MediaPlayer2"
+                           , "org.mpris.MediaPlayer2.Player.PlayPause"])
+
+  -- Pause any spotify music
+  , ((modMask .|. controlMask, xK_comma),
+     safeSpawn "dbus-send" [ "--print-reply"
+                           , "--dest=org.mpris.MediaPlayer2.spotify"
+                           , "/org/mpris/MediaPlayer2"
+                           , "org.mpris.MediaPlayer2.Player.Previous"])
+
+  -- Pause any spotify music
+  , ((modMask .|. controlMask, xK_period),
+     safeSpawn "dbus-send" [ "--print-reply"
+                           , "--dest=org.mpris.MediaPlayer2.spotify"
+                           , "/org/mpris/MediaPlayer2"
+                           , "org.mpris.MediaPlayer2.Player.Next"])
+
+  -- Decrease brightness.
+  , ((modMask .|. controlMask, xK_i),
+     spawn "light -U 10")
+
+  -- -- Increase volume.
+  , ((modMask .|. controlMask, xK_o),
+     spawn "light -A 10")
 
   -- Audio previous.
   , ((0, 0x1008FF16),
@@ -416,11 +456,9 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- with mod-q.  Used by, e.g., XMonad.Layout.PerWorkspace to initialize
 -- per-workspace layout choices.
 --
--- By default, do nothing.
-myStartupHook = setWMName "LG3D"
--- myStartupHook = do (spawnOn "2:Web" "firefox") >>
---                      (spawnOn "4:Comms" "slack") >>
---                      (spawnOn "3:Music" "spotify")
+myStartupHook = do
+  setWMName "LG3D"
+  safeSpawn "feh" ["--randomize", "--bg-scale", myWallPapers]
 
 ------------------------------------------------------------------------
 -- custom stuff
@@ -474,7 +512,7 @@ dbusOutput dbus str = do
 --
 -- No need to modify this.
 --
-defaults = mateConfig {
+defaults = defaultConfig {
     -- simple stuff
     terminal           = myTerminal,
     focusFollowsMouse  = myFocusFollowsMouse,
