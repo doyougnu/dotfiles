@@ -58,7 +58,6 @@ This function should only modify configuration layer settings."
      better-defaults
      emacs-lisp
      bibtex
-     markdown
      (org :variables
           org-want-todo-bindings t
           org-src-preserve-indentation nil     ;; align source code blocks to parent indentation
@@ -231,8 +230,7 @@ It should only modify the values of Spacemacs settings."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
    dotspacemacs-startup-lists '((recents . 5)
-                                (projects . 7)
-                                (agenda . 5))
+                                (projects . 7))
 
    ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
@@ -530,6 +528,9 @@ before packages are loaded."
   (setq projectile-enable-caching t)
   (setq standard-indent 2)
 
+  ;; garbage collect messages
+  (setq garbage-collection-messages t)
+
   ;; Fix font in daemon mode
   (add-to-list 'default-frame-alist
                '(font . "-ADBE-Source Code Pro-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1"))
@@ -639,26 +640,21 @@ before packages are loaded."
   (setq org-todo-keywords '((type "TODO" "NEXT" "IN PROG" "HOLD" "|" "DONE" "CANCELLED")))
 
   (setq org-journal-dir "~/sync/org/journal")
-  (setq org-agenda-files (list "/home/doyougnu/sync/org/"))
   (setq org-agenda-file-regexp "\\`[^.].*\\.org\\'\\|\\`[0-9]+\\'")
-
- ;; (setq org-agenda-files
- ;;       '("/home/doyougnu/sync/org/daily.org"
- ;;         "/home/doyougnu/sync/org/ideas.org" "/home/doyougnu/sync/org/lab-notebook.org" "/home/doyougnu/sync/org/long_term_goals.org" "/home/doyougnu/sync/org/paper-checklist.org" "/home/doyougnu/sync/org/research.org" "/home/doyougnu/sync/org/side-projects.org" "/home/doyougnu/sync/org/journal/2021/02/01.org"))
-
+  (setq org-agenda-files (directory-files-recursively "/home/doyougnu/sync/org/" org-agenda-file-regexp))
 
   (spacemacs/set-leader-keys "aojc" 'org-journal-open-current-journal-file)
 
-  (setq org-tag-alist '(("research" . ?r)
-                        ("workout" . ?w)
-                        ("club" . ?u)
+  (setq org-tag-alist '(("research"   . ?r)
+                        ("workout"    . ?w)
+                        ("club"       . ?u)
                         ("literature" . ?i)
-                        ("class" . ?c)
-                        ("homework" . ?h)
-                        ("dnd" . ?d)
-                        ("personal" . ?p)
-                        ("teaching" . ?t)
-                        ("longterm" . ?l)))
+                        ("class"      . ?c)
+                        ("homework"   . ?h)
+                        ("dnd"        . ?d)
+                        ("personal"   . ?p)
+                        ("teaching"   . ?t)
+                        ("longterm"   . ?l)))
 
   ;; Define the custum capture templates
   ;; See: http://cachestocaches.com/2016/9/my-workflow-org-agenda/
@@ -737,36 +733,35 @@ before packages are loaded."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-  (custom-set-variables
-   ;; custom-set-variables was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   '(ansi-color-names-vector
-     ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
-   '(evil-want-Y-yank-to-eol nil)
-   '(hl-todo-keyword-faces
-     '(("TODO" . "#dc752f")
-       ("NEXT" . "#dc752f")
-       ("THEM" . "#2d9574")
-       ("PROG" . "#4f97d7")
-       ("OKAY" . "#4f97d7")
-       ("DONT" . "#f2241f")
-       ("FAIL" . "#f2241f")
-       ("DONE" . "#86dc2f")
-       ("NOTE" . "#b1951d")
-       ("KLUDGE" . "#b1951d")
-       ("HACK" . "#b1951d")
-       ("TEMP" . "#b1951d")
-       ("FIXME" . "#dc752f")
-       ("XXX+" . "#dc752f")
-       ("\\?\\?\\?+" . "#dc752f"))))
-
-
-  (custom-set-faces
-   ;; custom-set-faces was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   )
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
+ '(evil-want-Y-yank-to-eol nil)
+ '(hl-todo-keyword-faces
+   '(("TODO" . "#dc752f")
+     ("NEXT" . "#dc752f")
+     ("THEM" . "#2d9574")
+     ("PROG" . "#4f97d7")
+     ("OKAY" . "#4f97d7")
+     ("DONT" . "#f2241f")
+     ("FAIL" . "#f2241f")
+     ("DONE" . "#86dc2f")
+     ("NOTE" . "#b1951d")
+     ("KLUDGE" . "#b1951d")
+     ("HACK" . "#b1951d")
+     ("TEMP" . "#b1951d")
+     ("FIXME" . "#dc752f")
+     ("XXX+" . "#dc752f")
+     ("\\?\\?\\?+" . "#dc752f")))
+ '(org-agenda-files '("/home/doyougnu/sync/org/journal/2021/02/01.org")))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 )
