@@ -33,55 +33,68 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(csv
-     sql
+   '(html
+     shell-scripts
+     csv
+     gtags
      yaml
      git
-     c-c++
-     html
      nixos
-     json
-     ranger
-     julia
+     common-lisp
+     markdown
+     (julia :variables
+            julia-backend 'ess
+            julia-mode-enable-ess t
+            inferior-julia-program "nix-shell"
+            inferior-julia-args "--run julia")
+
+     (erc :variables
+          erc-default-server "irc.libera.chat"
+          erc-server-list
+          '(("irc.libera.chat"
+             :port "6687"
+             :ssl t
+             :nick "doyougnu"))
+          erc-autojoin-channels-alist
+          '(("#haskell" "#racket" "#nixos" "##hntop"))
+          erc-lurker-hide-list '("JOIN" "PART" "QUIT")
+          erc-hide-list '("JOIN" "PART" "QUIT"))
+
+     (forth :variables
+            forth-executable "gforth")
+
+     (racket :variables
+             racket-pretty-lambda t
+             racket-pretty-print t)
+
+     (gerbil :variables
+             gerbil-gxi "/home/doyougnu/.nix-profile/bin/gxi"
+             gerbil-home "/run/current-system/sw"
+             gambit-home "/run/current-system/sw")
+
      ess
-     scala
-     racket
-     ivy
+     helm
      (deft :variables
        deft-zetteldeft t
-       deft-directory "/home/doyougnu/sync/.deft"
+       deft-directory "/home/doyougnu/sync/org/.deft"
        deft-auto-save-interval 20.0)
+     (j :variables
+        j-console-cmd "jconsole")
+     ranger
      (auto-completion :variables
-                      ;; global-company-mode t
-                      auto-completion-return-key-behavior nil
-                      auto-completion-complete-with-key-sequence "kj")
+                      global-company-mode t
+                      auto-completion-return-key-behavior nil)
      better-defaults
      emacs-lisp
-     bibtex
-     (org :variables
-          org-want-todo-bindings t
-          org-src-preserve-indentation nil     ;; align source code blocks to parent indentation
-          org-edit-src-indentation 0           ;; align source code blocks to parent indentation
-          org-enforce-todo-dependencies t
-          org-clock-persist 'history
-          org-clock-idle-time 15
-          org-enable-roam-support t
-          org-enable-org-journal-support t
-          org-journal-enable-cache t
-          org-journal-file-type 'weekly
-          org-journal-dir "~/sync/org/journal"
-          org-journal-file-format "%Y/%m/%d.org"
-          ;; org-journal-skip-carryover-drawers (list "LOGBOOK")
-          ;; org-journal-carryover-items (add-to-list 'IN PROG=\"IN PROG\" 'org-journal-carryover-items)
-          org-journal-enable-agenda-integration t
-          )
-
      (latex :variables
             latex-enable-auto-fill t
-            latex-enable-magic t
-            latex-enable-folding t
-            latex-build-command "LaTeX"
-            )
+            latex-enable-folding   t
+            latex-enable-magic     t
+            latex-build-command "LaTeX")
+     bibtex
+     dyg-org
+     org
+
      (shell :variables
             org-pretty-entities t
             set-input-method 'TeX
@@ -95,49 +108,42 @@ This function should only modify configuration layer settings."
             shell-default-term-shell "/run/current-system/sw/bin/zsh"
             )
 
-     (gerbil :variables
-             gerbil-gxi "~/.nix-profile/bin/gxi")
      spell-checking
      syntax-checking
      version-control
      themes-megapack
 
-   (haskell :variables
-            haskell-tags-on-save t
-            haskell-enable-hindent t
-            haskell-completion-backend 'dante
-            haskell-process-type 'cabal-new-repl
-            haskell-process-wrapper-function '(lambda (argv)
-                                               (append (list "nix-shell" "-I" "." "--command" )
-                                                       (list (mapconcat 'identity argv " "))))
-            )
+     (haskell :variables
+              haskell-tags-on-save t
+              haskell-process-suggest-restart nil
+              haskell-enable-hindent-style "johan-tibell"
+              haskell-completion-backend 'dante
+              )
+     )
 
-   )
+   ;; List of additional packages that will be installed without being
+   ;; wrapped in a layer. If you need some configuration for these
+   ;; packages, then consider creating a layer. You can also put the
+   ;; configuration in `dotspacemacs/user-config'.
+   ;; To use a local version of a package, use the `:location' property:
+   ;; '(your-package :location "~/path/to/your-package/")
+   ;; Also include the dependencies as they will not be resolved automatically.
+   dotspacemacs-additional-packages '(nix-sandbox direnv)
 
+   ;; A list of packages that cannot be updated.
+   dotspacemacs-frozen-packages '()
 
-  ;; List of additional packages that will be installed without being
-  ;; wrapped in a layer. If you need some configuration for these
-  ;; packages, then consider creating a layer. You can also put the
-  ;; configuration in `dotspacemacs/user-config'.
-  ;; To use a local version of a package, use the `:location' property:
-  ;; '(your-package :location "~/path/to/your-package/")
-  ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(nix-sandbox lsp-haskell lsp-ui)
+   ;; A list of packages that will not be installed and loaded.
+   dotspacemacs-excluded-packages '()
 
-  ;; A list of packages that cannot be updated.
-  dotspacemacs-frozen-packages '()
-
-  ;; A list of packages that will not be installed and loaded.
-  dotspacemacs-excluded-packages '()
-
-  ;; Defines the behaviour of Spacemacs when installing packages.
-  ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
-  ;; `used-only' installs only explicitly used packages and deletes any unused
-  ;; packages as well as their unused dependencies. `used-but-keep-unused'
-  ;; installs only the used packages but won't delete unused ones. `all'
-  ;; installs *all* packages supported by Spacemacs and never uninstalls them.
-  ;; (default is `used-only')
-  dotspacemacs-install-packages 'used-only))
+   ;; Defines the behaviour of Spacemacs when installing packages.
+   ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
+   ;; `used-only' installs only explicitly used packages and deletes any unused
+   ;; packages as well as their unused dependencies. `used-but-keep-unused'
+   ;; installs only the used packages but won't delete unused ones. `all'
+   ;; installs *all* packages supported by Spacemacs and never uninstalls them.
+   ;; (default is `used-only')
+   dotspacemacs-install-packages 'used-only))
 
 (defun dotspacemacs/init ()
   "Initialization:
@@ -182,7 +188,7 @@ It should only modify the values of Spacemacs settings."
    ;; This is an advanced option and should not be changed unless you suspect
    ;; performance issues due to garbage collection operations.
    ;; (default '(100000000 0.1))
-   dotspacemacs-gc-cons '(100000000 0.2)
+   dotspacemacs-gc-cons '(100000000 0.1)
 
    ;; If non-nil then Spacelpa repository is the primary source to install
    ;; a locked version of packages. If nil then Spacemacs will install the
@@ -209,10 +215,10 @@ It should only modify the values of Spacemacs settings."
    ;; `hybrid state' with `emacs' key bindings. The value can also be a list
    ;; with `:variables' keyword (similar to layers). Check the editing styles
    ;; section of the documentation for details on available variables.
-   ;; (default  'vim)
+   ;; (default 'vim)
    dotspacemacs-editing-style 'vim
 
-   ;; If emacs non-nil output loading progress in `*Messages*' buffer. (default nil)
+   ;; If non-nil output loading progress in `*Messages*' buffer. (default nil)
    dotspacemacs-verbose-loading nil
 
    ;; Specify the startup banner. Default value is `official', it displays
@@ -221,7 +227,7 @@ It should only modify the values of Spacemacs settings."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'random
+   dotspacemacs-startup-banner 'official
 
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
@@ -230,7 +236,8 @@ It should only modify the values of Spacemacs settings."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
    dotspacemacs-startup-lists '((recents . 5)
-                                (projects . 7))
+                                (projects . 7)
+                                (agenda . 5))
 
    ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
@@ -245,11 +252,9 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(graham
-                         spolsky
+   dotspacemacs-themes '(spolsky
                          minimal-light
                          ritchie
-                         hickey
                          zenburn
                          spacemacs-dark
                          spacemacs-light)
@@ -261,7 +266,8 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
+   ;; dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
+   dotspacemacs-mode-line-theme '(vanilla)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
@@ -302,7 +308,7 @@ It should only modify the values of Spacemacs settings."
    ;; and TAB or `C-m' and `RET'.
    ;; In the terminal, these pairs are generally indistinguishable, so this only
    ;; works in the GUI. (default nil)
-   dotspacemacs-distinguish-gui-tab nil
+   dotspacemacs-distinguish-gui-tab t
 
    ;; Name of the default layout (default "Default")
    dotspacemacs-default-layout-name "Default"
@@ -392,7 +398,7 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil unicode symbols are displayed in the mode line.
    ;; If you use Emacs as a daemon and wants unicode characters only in GUI set
    ;; the value to quoted `display-graphic-p'. (default t)
-   dotspacemacs-mode-line-unicode-symbols t
+   dotspacemacs-mode-line-unicode-symbols nil
 
    ;; If non-nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters point
@@ -434,7 +440,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil, start an Emacs server if one is not already running.
    ;; (default nil)
-   dotspacemacs-enable-server t
+   dotspacemacs-enable-server nil
 
    ;; Set the emacs server socket location.
    ;; If nil, uses whatever the Emacs default is, otherwise a directory path
@@ -484,7 +490,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Either nil or a number of seconds. If non-nil zone out after the specified
    ;; number of seconds. (default nil)
-   dotspacemacs-zone-out-when-idle 300
+   dotspacemacs-zone-out-when-idle 600
 
    ;; Run `spacemacs/prettify-org-buffer' when
    ;; visiting README.org files of Spacemacs.
@@ -520,7 +526,7 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  ;; Use Unicode
+  ;;;;;;;;;;;;;;;;;;;;;;;;;; Misc Settings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (set-language-environment "UTF-8")
   (set-default-coding-systems 'utf-8)
 
@@ -531,6 +537,40 @@ before packages are loaded."
   ;; garbage collect messages
   (setq garbage-collection-messages t)
 
+  ;; debugging
+  ;; (setq debug-on-error t)
+
+  ;; emacs direnv for haskell stuff
+  (direnv-mode)
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;; Custom Chords ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (define-key evil-normal-state-map (kbd "SPC j c") 'avy-goto-char-in-line)
+  (define-key evil-normal-state-map "-"             'ranger)
+
+  (spacemacs/declare-prefix "oz" "zetteldeft")
+  (spacemacs/declare-prefix "oe" "emacs-tools")
+
+  (spacemacs/set-leader-keys "ozz" 'deft)
+  (spacemacs/set-leader-keys "ozf" 'zetteldeft-find-file)
+  (spacemacs/set-leader-keys "ozn" 'zetteldeft-new-file)
+
+  (spacemacs/set-leader-keys "oec" 'emacs-lisp-byte-compile-and-load)
+
+  (setf epa-pinentry-mode 'loopback)
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;; org-mode config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (setq-default initial-major-mode 'org-mode)
+
+  (spacemacs/set-leader-keys (kbd "aojc") 'dyg/org-open-default-todo-file)
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;; Eshell Config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (eval-after-load "esh-proc" '(add-to-list 'eshell-needs-pipe "entr"))
+  (evil-set-initial-state 'term-mode 'emacs) ;; fixes evil-mode in ansi-term
+
+  ;; Use Unicode
+  (set-language-environment "UTF-8")
+  (set-default-coding-systems 'utf-8)
+
   ;; Fix font in daemon mode
   (add-to-list 'default-frame-alist
                '(font . "-ADBE-Source Code Pro-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1"))
@@ -540,21 +580,11 @@ before packages are loaded."
 
   ;; Define fill paragraph for evil
   (define-key evil-normal-state-map (kbd "C-;") 'fill-paragraph)
-  (define-key evil-normal-state-map (kbd "SPC j c") 'avy-goto-char-in-line)
-
-  ;; ranger settings
-  (ranger-override-dired-mode t)
-  (setq ranger-cleanup-eagerly t)
-  (define-key evil-normal-state-map "-" 'ranger)
-  ;; (setq debug-on-error t)
 
   ;; better autocomplete menu using ivy
   (defun setup-eshell-ivy-completion ()
     (define-key eshell-mode-map [remap eshell-pcomplete] 'completion-at-point))
   (add-hook 'eshell-mode-hook #'setup-eshell-ivy-completion)
-
-  ;; make sure entr works in eshell
-  (with-eval-after-load "esh-proc" (add-to-list 'eshell-needs-pipe "entr"))
 
   ;; Make evil-mode up/down operate in screen lines instead of logical lines
   (define-key evil-motion-state-map "j" 'evil-next-visual-line)
@@ -565,8 +595,12 @@ before packages are loaded."
   (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
 
   ;; racket niceties
-  (add-hook 'racket-mode-hook      #'racket-unicode-input-method-enable)
-  (add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable)
+  ;; FYI: these cause weird issues with evil-escape mode: notable typing
+  ;; "for" turns into "fr o" for some reason
+  ;; (add-hook 'racket-mode-hook      #'racket-unicode-input-method-enable)
+  ;; (add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable)
+  ;; (with-eval-after-load '(require 'racket-xp))
+  ;; (add-hook 'racket-mode-hook #'racket-xp-mode)
 
   ;; clojure mode config
   (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
@@ -596,100 +630,29 @@ before packages are loaded."
   (evil-leader/set-key "q q" 'spacemacs/frame-killer)
 
   ;; set better algorithm for checking LaTeX master files
-  (setq-default TeX-master nil) ; Query for master file.
+  ;; (setq-default TeX-master nil) ; Query for master file.
 
-  ;; bibtex bibliography setup, TODO set this to read from subdir in future
-  ;; (setq org-ref-default-bibliography
-  ;;       (directory-files-recursively projectile-project-root "\\.bib$"))
-  ;; (setq org-ref-default-bibliography '("~/Research/LambdaLand/VSAT/OOPSLA2019/bib/choicecalc.bib"
-  ;;                                      "~/Research/LambdaLand/VSAT/OOPSLA2019/bib/satsolvers.bib"
-  ;;                                      "~/Research/LambdaLand/VSAT/OOPSLA2019/bib/softprodline.bib"
-  ;;                                      "~/Research/LambdaLand/VSAT/OOPSLA2019/bib/thomas.bib"
-  ;;                                      "~/Research/LambdaLand/VSAT/OOPSLA2019/bib/MYabrv.bib"))
-
-  ;;;;;;;;;;;;;;;;;;;;;;;;;; org-mode config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (setq org-M-RET-may-split-line nil) ;; make sure evil doesn't split lines on an insert
-  (setq org-insert-heading-respect-content t)
-  (setq org-id-link-to-org-use-id t)  ;; use header id's as links
-
-  (with-eval-after-load org-roam-mode
-    (setq org-roam-dailies-directory "~/Dropbox/orgmode/roam")
-    (setq org-roam-dailies-capture-templates
-          '(("l" "lab" entry
-             #'org-roam-capture--get-point
-             "* %?"
-             :file-name "daily/%<%Y-%m-%d>"
-             :head "#+title: %<%Y-%m-%d>\n"
-             :olp ("Lab notes"))
-
-            ("j" "journal" entry
-             #'org-roam-capture--get-point
-             "* %?"
-             :file-name "daily/%<%Y-%m-%d>"
-             :head "#+title: %<%Y-%m-%d>\n"
-             :olp ("Journal")))))
+  (with-eval-after-load 'cider
+    (define-key cider-repl-mode-map (kbd "C-k") 'cider-repl-previous-input)
+    (define-key cider-repl-mode-map (kbd "C-j") 'cider-repl-next-input))
 
 
-  (defun date-hook-fn ()
-    (goto-char (line-end-position))
-    (org-newline-and-indent)
-    (insert "CLOSED: ")
-    (org-insert-time-stamp (current-time) t))
-  (add-hook 'org-checkbox-statistics-done 'date-hook-fn)
-
-  (setq org-todo-keywords '((type "TODO" "NEXT" "IN PROG" "HOLD" "|" "DONE" "CANCELLED")))
-
-  (setq org-journal-dir "~/sync/org/journal")
-  (setq org-agenda-file-regexp "\\`[^.].*\\.org\\'\\|\\`[0-9]+\\'")
-  (setq org-agenda-files (directory-files-recursively "/home/doyougnu/sync/org/" org-agenda-file-regexp))
-
-  (spacemacs/set-leader-keys "aojc" 'org-journal-open-current-journal-file)
-
-  (setq org-tag-alist '(("research"   . ?r)
-                        ("workout"    . ?w)
-                        ("club"       . ?u)
-                        ("literature" . ?i)
-                        ("class"      . ?c)
-                        ("homework"   . ?h)
-                        ("dnd"        . ?d)
-                        ("personal"   . ?p)
-                        ("teaching"   . ?t)
-                        ("longterm"   . ?l)))
-
-  ;; Define the custum capture templates
-  ;; See: http://cachestocaches.com/2016/9/my-workflow-org-agenda/
-  (setq org-capture-templates
-        '(
-          ;; ("t" "todo" entry (file org-default-notes-file)
-           ;; "* TODO %?\n%u\n%a\n" :clock-in t :clock-resume t)
-          ("m" "Meeting" entry (file org-default-notes-file)
-           "* MEETING with %? :MEETING:\n%t" :clock-in t :clock-resume t)
-          ("d" "Diary" entry (file+olp+datetree "~/org/diary.org")
-           "* %?\n%U\n" :clock-in t :clock-resume t)
-          ("i" "Idea" entry (file org-default-notes-file)
-           "* %? :IDEA: \n%t" :clock-in t :clock-resume t)
-          ("n" "Next Task" entry (file+headline org-default-notes-file "Tasks")
-           "** NEXT %? \nDEADLINE: %t")
-          ("t" "todo" entry (file+headline org-default-notes-file "todo")
-           "** TODO %? \nSCHEDULED: %t")))
-
-
-  (setq org-refile-targets (quote ((nil :maxlevel . 3)
-                                   (org-agenda-files :maxlevel . 3))))
-
+  (with-eval-after-load 'biblatex
+    (setq org-ref-default-bibliography
+          (directory-files-recursively projectile-project-root "\\.bib$")))
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;; coq config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Never auto-complete when exiting insert mode.
-  ;; (setq evil-want-abbrev-expand-on-insert-exit nil)
-  ;; (setq abbrev-expand-function #'ignore)
+  (setq evil-want-abbrev-expand-on-insert-exit nil)
+  (setq abbrev-expand-function #'ignore)
 
   ;; Don't move cursor when evaluating previous proof tactic.
-  ;; (setq proof-next-command-insert-space nil)
-  ;; (setq coq-one-command-per-line nil)
+  (setq proof-next-command-insert-space nil)
+  (setq coq-one-command-per-line nil)
 
 
   ;; tell emacs to auto update files from disk when they update
-  ;; (global-auto-revert-mode 1)
+  (global-auto-revert-mode 1)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;; haskell config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; This changes the evil "O" and "o" keys for haskell-mode to make sure that
@@ -702,13 +665,6 @@ before packages are loaded."
     (evil-previous-line)
     (haskell-indentation-indent-line)
     (evil-append-line nil))
-
-  (add-hook 'haskell-mode-hook #'lsp)
-  (add-hook 'haskell-literate-mode-hook #'lsp)
-
-  (add-hook 'haskell-mode-hook 'flycheck-mode)
-  (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
-  (add-hook 'haskell-mode-hook 'dante-mode)
 
   (defun haskell-evil-open-below ()
     (interactive)
@@ -724,10 +680,23 @@ before packages are loaded."
     (kbd "C-k") 'haskell-interactive-mode-history-next)
 
 
+  ;;;;;;;;;;;;;;;;;;;;;;;;; Common Lisp Config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (evil-define-key '(normal insert) slime-repl-mode-map
+    (kbd "C-j") 'slime-repl-previous-input
+    (kbd "C-k") 'slime-repl-next-input)
 
-)
 
+  ;;;;;;;;;;;;;;;;;;;;;;;;; J Config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (custom-set-faces
+   '(j-verb-face        ((t (:foreground "Red"))))
+   '(j-adverb-face      ((t (:foreground "gold"))))
+   '(j-conjunction-face ((t (:foreground "deep sky blue"))))
+   '(j-other-face       ((t (:foreground "medium sea green")))))
 
+  )
+
+;; Do not write anything past this comment. This is where Emacs will
+;; auto-generate custom variable definitions.
 (defun dotspacemacs/emacs-custom-settings ()
   "Emacs custom settings.
 This is an auto-generated function, do not modify its content directly, use
@@ -739,29 +708,75 @@ This function is called at the very end of Spacemacs initialization."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
-   ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
+   ["#3F3F3F" "#CC9393" "#7F9F7F" "#F0DFAF" "#8CD0D3" "#DC8CC3" "#93E0E3" "#DCDCCC"])
+ '(company-quickhelp-color-background "#4F4F4F")
+ '(company-quickhelp-color-foreground "#DCDCCC")
  '(evil-want-Y-yank-to-eol nil)
- '(hl-todo-keyword-faces
-   '(("TODO" . "#dc752f")
-     ("NEXT" . "#dc752f")
-     ("THEM" . "#2d9574")
-     ("PROG" . "#4f97d7")
-     ("OKAY" . "#4f97d7")
-     ("DONT" . "#f2241f")
-     ("FAIL" . "#f2241f")
-     ("DONE" . "#86dc2f")
-     ("NOTE" . "#b1951d")
-     ("KLUDGE" . "#b1951d")
-     ("HACK" . "#b1951d")
-     ("TEMP" . "#b1951d")
-     ("FIXME" . "#dc752f")
-     ("XXX+" . "#dc752f")
-     ("\\?\\?\\?+" . "#dc752f")))
- '(org-agenda-files '("/home/doyougnu/sync/org/journal/2021/02/01.org")))
+ '(fci-rule-color "#383838" t)
+ '(nrepl-message-colors
+   '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
+ '(org-agenda-files
+   '("/home/doyougnu/sync/org/research.org" "/home/doyougnu/sync/org/meetings.org" "/home/doyougnu/sync/org/projects.org" "/home/doyougnu/sync/org/refile.org" "/home/doyougnu/sync/org/journal/2021/06/21.org"))
+ '(package-selected-packages
+   '(bm helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-org helm-nixos-options helm-mode-manager helm-ls-git helm-hoogle helm-gitignore helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag flyspell-correct-helm ace-jump-helm-line web-beautify prettier-js impatient-mode simple-httpd helm-css-scss counsel-css add-node-modules-path direnv lsp-ui lsp-python-ms lsp-pyright lsp-origami origami lsp-latex lsp-ivy dap-mode lsp-treemacs bui ein polymode anaphora websocket yapfify sphinx-doc pytest pyenv-mode py-isort poetry pippel pipenv pyvenv pip-requirements nose live-py-mode importmagic epc concurrent deferred cython-mode company-anaconda blacken anaconda-mode pythonic forth-mode zetteldeft deft helm-gtags company-quickhelp ox-gfm nix-sandbox nix-haskell-mode insert-shebang bibtex-completion fish-mode erc-yt erc-view-log erc-social-graph erc-image erc-hl-nicks csv-mode company-shell zenburn-theme zen-and-art-theme yaml-mode xterm-color ws-butler winum white-sand-theme which-key wgrep web-mode volatile-highlights vi-tilde-fringe uuidgen use-package unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme subatomic256-theme subatomic-theme sql-indent spaceline powerline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smex smeargle slime-company slime slim-mode shell-pop seti-theme scss-mode sass-mode reverse-theme restart-emacs request rebecca-theme ranger rainbow-delimiters railscasts-theme racket-mode faceup purple-haze-theme pug-mode professional-theme popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el paradox orgit organic-green-theme org-ref pdf-tools key-chord tablist org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-plus-contrib org-mime org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme nix-mode neotree naquadah-theme mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc markdown-mode majapahit-theme magit-gitflow magit-popup madhat2r-theme macrostep lush-theme lorem-ipsum linum-relative link-hint light-soap-theme jbeans-theme jazz-theme ivy-hydra ir-black-theme intero inkpot-theme indent-guide idris-mode prop-menu hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers parent-mode highlight-indentation heroku-theme hemisu-theme helm-make helm-bibtex parsebib helm helm-core hc-zenburn-theme haskell-snippets haml-mode gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md gandalf-theme fuzzy flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck-haskell flycheck flx-ido flx flatui-theme flatland-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exotica-theme exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit transient git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree ess-smart-equals ess-R-data-view ctable ess julia-mode espresso-theme eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dumb-jump f s dracula-theme django-theme diminish diff-hl define-word darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme counsel-projectile projectile counsel swiper ivy company-web web-completion-data company-statistics company-nixos-options nixos-options company-ghci company-ghc ghc haskell-mode company-cabal company-auctex company common-lisp-snippets column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized cmm-mode clues-theme clojure-snippets clj-refactor hydra inflections edn multiple-cursors paredit peg lv clean-aindent-mode cider-eval-sexp-fu eval-sexp-fu cider sesman spinner queue pkg-info parseedn clojure-mode parseclj a epl cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme bind-map bind-key biblio biblio-core dash badwolf-theme auto-yasnippet yasnippet auto-highlight-symbol auto-dictionary auto-compile packed auctex async apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link avy ac-ispell auto-complete popup sublime-themes))
+ '(safe-local-variable-values
+   '((dante-repl-command-line "nix-shell" "--pure" "--run" "cabal new-repl --builddir=newdist/dante")
+     (dante-project-root . "~/programming/ghc-build-diagnostics")
+     (dante-project-root . "/home/doyougnu/programming/ghc")
+     (inferior-haskell-root-dir . "~/programming/ghc")
+     (dante-repl-command-line "nix-shell" "--run" "hadrian/ghci")
+     (dante-methods stack)
+     (dante-target . "sbv:SBVBench")
+     (inferior-haskell-root-dir . "~/Research/VSmt/haskell/vsmt")
+     (haskell-process-type . cabal-new-repl)
+     (dante-repl-command-line "nix-shell" "--pure" "--attr" "vsmt-shell" "release.nix" "--run" "cabal new-repl")
+     (dante-project-root . "~/Research/VSmt/haskell/vsmt")
+     (dante-methods nix-ghci)
+     (dante-target . "sbv")
+     (dante-project-root . "~/Programming/sbv")))
+ '(vc-annotate-background "#2B2B2B")
+ '(vc-annotate-color-map
+   '((20 . "#BC8383")
+     (40 . "#CC9393")
+     (60 . "#DFAF8F")
+     (80 . "#D0BF8F")
+     (100 . "#E0CF9F")
+     (120 . "#F0DFAF")
+     (140 . "#5F7F5F")
+     (160 . "#7F9F7F")
+     (180 . "#8FB28F")
+     (200 . "#9FC59F")
+     (220 . "#AFD8AF")
+     (240 . "#BFEBBF")
+     (260 . "#93E0E3")
+     (280 . "#6CA0A3")
+     (300 . "#7CB8BB")
+     (320 . "#8CD0D3")
+     (340 . "#94BFF3")
+     (360 . "#DC8CC3")))
+ '(vc-annotate-very-old-color "#DC8CC3")
+ '(warning-suppress-log-types
+   '(((python python-shell-prompt-regexp))
+     ((python python-shell-prompt-regexp))
+     (comp)
+     (:warning)))
+ '(warning-suppress-types
+   '((comp)
+     (comp)
+     (comp)
+     ((python python-shell-prompt-regexp))
+     ((python python-shell-prompt-regexp))
+     ((python python-shell-prompt-regexp))
+     ((python python-shell-prompt-regexp))
+     (comp)
+     (:warning))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(j-adverb-face ((t (:foreground "gold"))))
+ '(j-conjunction-face ((t (:foreground "deep sky blue"))))
+ '(j-other-face ((t (:foreground "medium sea green"))))
+ '(j-verb-face ((t (:foreground "Red")))))
 )
