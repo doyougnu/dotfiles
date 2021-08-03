@@ -5,7 +5,28 @@ let unstable = import <unstable> { overlays = [
         url = https://github.com/nix-community/emacs-overlay/archive/master.tar.gz;
       }))
     ];};
+
     myEmacs = import ./emacs.nix { pkgs = unstable; };
+
+    config  = import ./config.nix;
+
+    haskell-env = with unstable.haskell.packages.${config.ghc.version}; [
+      cabal-install
+      haskell-language-server
+      hlint
+      hindent
+      apply-refact
+      hasktags
+      stylish-haskell
+    ];
+
+    haskell-ghc = unstable.haskell.packages.${config.ghc.version}.ghcWithHoogle
+      (p: with p; [ mtl
+                    hspec
+                    tasty
+                    tasty-hunit
+                    sbv
+      ]);
 
 in {
   # Let Home Manager install and manage itself.
@@ -19,6 +40,10 @@ in {
   # services
   services.lorri.enable = true;
 
+  # emacs
+  services.emacs.enable = true;
+  services.emacs.package = myEmacs;
+
  programs.zsh = {
     enable = true;
     autocd = true;
@@ -26,6 +51,7 @@ in {
     enableAutosuggestions = true;
     enableCompletion      = true;
     shellAliases = {
+
       hg = "history | grep";
 
       nsr = "nix-shell --pure --run";
@@ -80,6 +106,7 @@ pts += -ticky' > _ticky/hadrian.settings; hb --flavour=validate --build-root=_ti
     enableZshIntegration = true;
   };
 
+
   home.packages = with unstable; [
     chez
     chromium
@@ -88,8 +115,7 @@ pts += -ticky' > _ticky/hadrian.settings; hb --flavour=validate --build-root=_ti
     dunst
     entr
     firefox
-    haskell-language-server
-    ghc
+    haskell-ghc
     gerbil
     guile
     libevent
@@ -111,6 +137,8 @@ pts += -ticky' > _ticky/hadrian.settings; hb --flavour=validate --build-root=_ti
     # xfce4-notifyd
     zip
   ] ++
+    haskell-env
+    ++
   (with pkgs;
     [ tdesktop
       thunderbird
