@@ -44,21 +44,19 @@ in {
   services.emacs.enable = true;
   services.emacs.package = myEmacs;
 
- programs.zsh = {
+  programs.fish = {
     enable = true;
-    autocd = true;
-    dotDir = ".config/zsh";
-    enableAutosuggestions = true;
-    enableCompletion      = true;
     shellAliases = {
-
       hg = "history | grep";
+      ec = "emacsclient -cn";
 
       nsr = "nix-shell --pure --run";
       nsc = "nix-shell --pure --command";
       ns  = "nix-shell";
       hm = "home-manager";
 
+      hbR   = "hadrian/build clean && ./boot && ./configure && hadrian/build -j";
+      hbc   = "hadrian/build clean && hadrian/build -j";
       hb   = "hadrian/build -j";
       hbq  = "hb --flavour=quick";
       hbqs = "hbq --skip='//*.mk' --skip='stage1:lib:rts'";
@@ -72,49 +70,73 @@ pts += -ticky' > _ticky/hadrian.settings; hb --flavour=validate --build-root=_ti
       hbtf = "hbts --freeze1";
     };
 
-    initExtraBeforeCompInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-    initExtra = ''
-      bindkey -v "^k" history-substring-search-up
-      bindkey -v "^j" history-substring-search-down
-      bindkey -v "^p" up-line-or-history
-      bindkey -v "^n" down-line-or-history
-      bindkey -v "fd" vi-cmd-mode
-      bindkey -v "^l" autosuggest-accept
-      bindkey -v "^ " autosuggest-execute
+    plugins = [{
+                 name = "fasd";
+                 src = pkgs.fetchFromGitHub
+                   {
+                     owner  = "oh-my-fish";
+                     repo   = "plugin-fasd";
+                     rev    = "98c4c729780d8bd0a86031db7d51a97d55025cf5";
+                     sha256 = "0m0q0x66b498lxmma9l9qxpzfkms4g7mg26xb6kh2p55vil1547h";
+                   };
+               }
+               {
+                 name = "neolambda";
+                 src = pkgs.fetchFromGitHub
+                   {
+                     owner  = "ipatch";
+                     repo   = "theme-neolambda";
+                     rev    = "9b79e74624de9bbd3405e9feded51b77777b8be7";
+                     sha256 = "0id4av6a93h1iczsiqj19r30zjm967ckxxsaa66d830fch65fs4l";
+                   };
+               }
+               {
+                 name = "done";
+                 src = pkgs.fetchFromGitHub
+                   {
+                     owner  = "franciscolourenco";
+                     repo   = "done";
+                     rev    = "7fda8f2c3e79835d5c1e6721fa48fe5ed4ba0858";
+                     sha256 = "1snysg52fr1h6n188jhqzny4sfgzcjgpa9r9qvj9smkg7zmplmsy";
+                 };
+               }];
 
-      [[ ! -f ~/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
-      source ~/.config/zsh/plugins/functions ## there's probably a better way but this works
+    shellInit = ''
+
+     function fish_user_key_bindings
+       fish_vi_key_bindings
+       bind -M insert \ck history-token-search-backward
+       bind -M insert \cj history-token-search-forward
+       bind -M visual \ck up-or-search
+       bind -M visual \cj down-or-search
+       bind -M insert fd "if commandline -P; commandline -f cancel; else; set fish_bind_mode default; commandline -f backward-char force-repaint; end"
+       bind -M insert \cp up-or-search
+       bind -M insert \cn down-or-search
+       bind -M visual \cp up-or-search
+       bind -M visual \cn down-or-search
+       bind -M insert \cl accept-autosuggestion
+       bind -M insert -k nul 'accept-autosuggestion execute'
+       bind -M visual p  fish_clipboard_paste
+     end
       '';
 
-    plugins = [
-      {
-        name = "powerlevel10k";
-        src  = unstable.zsh-powerlevel10k;
-        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-      }
-    ];
-    oh-my-zsh = {
-      enable = true;
-      plugins = [ "git" "history-substring-search" "z" "colored-man-pages"
-                ];
-    };
-
   };
 
-  programs.fzf = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
+  ## manually load the plugins
+  xdg.configFile."fish/conf.d/plugin-neolambda.fish".text = pkgs.lib.mkAfter ''
+  for f in $plugin_dir/*.fish
+    source $f
+  end
+  '';
 
   home.packages = with unstable; [
     chez
     chromium
     cowsay
     discord
-    dunst
     entr
     firefox
+    fasd
     haskell-ghc
     gerbil
     guile
