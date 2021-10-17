@@ -48,7 +48,7 @@ in {
     enable = true;
     shellAliases = {
       hg = "history | grep";
-      ec = "emacsclient -cn";
+      e  = "emacsclient -cn";
 
       nsr = "nix-shell --pure --run";
       nsc = "nix-shell --pure --command";

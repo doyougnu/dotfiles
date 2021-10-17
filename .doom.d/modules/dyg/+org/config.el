@@ -17,6 +17,7 @@
   ;; keeping it grouped
 
   (setq org-directory                  "~/sync/org")
+  (setq evil-org-special-o/O           '(table-row item))
   (setq org-want-todo-bindings         t)
   (setq org-enforce-todo-dependencies  t)
   (setq org-clock-persist              'history)
