@@ -39,7 +39,11 @@
 
        (:prefix ("e" . "emacs-tools")
         :desc "Byte-compile-and-load" "c" #'emacs-lisp-byte-compile-and-load
-        :desc "Set-variable"          "s" #'set-variable)
+        :desc "Set-variable"          "s" #'set-variable
+        :desc "Revert buffer"         "r" #'revert-buffer
+        :desc "Highlight at point"    "h" #'highlight-symbol-at-point
+        :desc "Highlight at point"    "H" #'unhighlight-regexp
+        )
 
        (:prefix ("i" . "IRC")
         :desc "Init" "i" #'=irc))
