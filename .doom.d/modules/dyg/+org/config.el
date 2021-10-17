@@ -16,6 +16,7 @@
   ;; this is the stuff that would normally be wrapped in a :variables. I like
   ;; keeping it grouped
 
+  (setq org-directory                  "~/sync/org")
   (setq org-want-todo-bindings         t)
   (setq org-enforce-todo-dependencies  t)
   (setq org-clock-persist              'history)

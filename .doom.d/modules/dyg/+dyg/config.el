@@ -11,9 +11,12 @@
 ;;
 ;;; License: GPLv3
 
-;; convieniences
-(define-key! evil-normal-state-map (kbd "C-j") 'dyg/newline-below)
-(define-key! evil-normal-state-map (kbd "C-k") 'dyg/newline-above)
+;; convieniences, we have to unbind C-k in lispy for our global key
+(map! :after lispy
+      (:map lispy-mode-map "C-k" nil)
+      (:map evil-normal-state-map
+       "C-j" #'dyg/newline-below
+       "C-k" #'dyg/newline-above))
 
 (setq doom-scratch-initial-major-mode 'org-mode)
 
