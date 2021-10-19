@@ -192,4 +192,5 @@
        +org                ; custom org mode settings
        +irc                ; custom irc settings
        +dyg                ; my custom key binds
+       +ispell             ; custom keybinds for spelling, mimicking spacemacs
        )
