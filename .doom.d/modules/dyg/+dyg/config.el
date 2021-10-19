@@ -42,7 +42,7 @@
         :desc "Set-variable"          "s" #'set-variable
         :desc "Revert buffer"         "r" #'revert-buffer
         :desc "Highlight at point"    "h" #'highlight-symbol-at-point
-        :desc "Highlight at point"    "H" #'unhighlight-regexp
+        :desc "Remove Highlight"      "H" #'unhighlight-regexp
         )
 
        (:prefix ("i" . "IRC")

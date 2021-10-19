@@ -193,4 +193,5 @@
        +irc                ; custom irc settings
        +dyg                ; my custom key binds
        +ispell             ; custom keybinds for spelling, mimicking spacemacs
+       +cl                 ; custom common lisp and sly contribs/settings
        )
