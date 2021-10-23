@@ -12,3 +12,5 @@
 **** https://feeds.arstechnica.com/arstechnica/index.xml :ars:
 **** https://www.theverge.com/rss/index.xml :theverge:
 **** http://rss.slashdot.org/Slashdot/slashdotMain :slashdot:
+** Science :science:
+***  https://3quarksdaily.com/feed :3qd:

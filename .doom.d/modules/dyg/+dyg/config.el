@@ -39,7 +39,7 @@
 
        (:prefix ("e" . "emacs-tools")
         :desc "Byte-compile-and-load" "c" #'emacs-lisp-byte-compile-and-load
-        :desc "Set-variable"          "s" #'set-variable
+        :desc "Set variable"          "s" #'set-variable
         :desc "Revert buffer"         "r" #'revert-buffer
         :desc "Highlight at point"    "h" #'highlight-symbol-at-point
         :desc "Remove Highlight"      "H" #'unhighlight-regexp
@@ -47,8 +47,14 @@
 
        (:prefix ("i" . "IRC")
         :desc "Init" "i" #'=irc))
+
       (:prefix-map ("r" . "kill-ring")
-       :desc "Kill-ring" "y" #'counsel-yank-pop))
+       :desc "Kill-ring" "y" #'counsel-yank-pop)
+
+      (:prefix-map ("S" . "spelling")
+       :desc "Correct-word-at-point" "s" #'ispell-word
+       :desc "Correct buffer"        "b" #'ispell-buffer))
 
 (map! :map company-active-map
-       "C-l" #'company-complete-selection)
+      "C-l" #'company-complete-selection
+      "C-;" #'fill-paragraph)
