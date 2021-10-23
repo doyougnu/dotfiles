@@ -181,7 +181,7 @@
        ;;emms
        everywhere                   ; *leave* Emacs!? You must be joking
        irc                          ; how neckbeards socialize
-       ;;(rss +org)        ; emacs as an RSS reader
+       (rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
 
        :config
@@ -194,4 +194,5 @@
        +dyg                ; my custom key binds
        +ispell             ; custom keybinds for spelling, mimicking spacemacs
        +cl                 ; custom common lisp and sly contribs/settings
+       +rss
        )

@@ -1,0 +1,14 @@
+#+TITLE: Elfeed
+
+* root :elfeed:
+** Programming :programming:
+*** [[https://this-week-in-rust.org/rss.xml][This Week in Rust]] :rust:
+*** https://news.ycombinator.com/rss :hacker:
+*** https://www.reddit.com/r/emacs.rss :emacs:
+*** https://www.reddit.com/r/haskell.rss :haskell:
+*** https://www.reddit.com/r/Common_Lisp.rss :common-lisp:
+** News :news:
+*** Top news :tops:
+**** https://feeds.arstechnica.com/arstechnica/index.xml :ars:
+**** https://www.theverge.com/rss/index.xml :theverge:
+**** http://rss.slashdot.org/Slashdot/slashdotMain :slashdot:

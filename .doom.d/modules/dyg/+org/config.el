@@ -206,6 +206,13 @@
   (map!
    (:map org-mode-map
     :localleader
-     (:prefix ("s" . "tree/subtree")
-        "i" #'org-insert-subheading)))
+    (:prefix ("s" . "tree/subtree")
+     "i" #'org-insert-subheading)
+
+    (:prefix ("x" . "text")
+     "c" #'dyg/org-insert-code
+     "s" #'dyg/org-insert-strikethrough
+     "i" #'dyg/org-insert-italics
+     "u" #'dyg/org-insert-underline
+     "b" #'dyg/org-insert-bold)))
   )

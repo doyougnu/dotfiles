@@ -333,3 +333,33 @@
                   nil))  ; available to archive
             (or subtree-end (point-max)))
         next-headline))))
+
+;;;###autoload
+(defun dyg/org-insert-strikethrough ()
+  (interactive)
+  (org-emphasize ?\+)
+  (evil-insert 1))
+
+;;;###autoload
+(defun dyg/org-insert-italics  ()
+  (interactive)
+  (org-emphasize ?\/)
+  (evil-insert 1))
+
+;;;###autoload
+(defun dyg/org-insert-underline ()
+  (interactive)
+  (org-emphasize ?\_)
+  (evil-insert 1))
+
+;;;###autoload
+(defun dyg/org-insert-bold ()
+  (interactive)
+  (org-emphasize ?\*)
+  (evil-insert 1))
+
+;;;###autoload
+(defun dyg/org-insert-code ()
+  (interactive)
+  (org-emphasize ?\~)
+  (evil-insert 1))
