@@ -48,6 +48,9 @@
                                         ; Exclude DONE state tasks from refile targets
   (setf org-refile-target-verify-function 'dyg/verify-refile-target)
 
+  ;; ensure blank lines between trees and subtrees
+  (setq org-blank-before-new-entry '(list (heading . t) (plain-list-item . t)))
+
   ;; never split headlines
   (setf org-M-RET-may-split-line           nil)
   (setf org-insert-heading-respect-content t)
@@ -202,7 +205,7 @@
 
           ("orgblog" :components ("org-notes" "org-static"))))
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;; Custom key binds ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;; Custom key binds ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (map!
    (:map org-mode-map
     :localleader
@@ -215,4 +218,11 @@
      "i" #'dyg/org-insert-italics
      "u" #'dyg/org-insert-underline
      "b" #'dyg/org-insert-bold)))
+
   )
+
+(map! :after evil-org
+      :map evil-org-mode-map
+      :ni "C-<return>" nil
+      :ni "C-<return>" #'evil-org-org-insert-heading-respect-content-below
+      )
