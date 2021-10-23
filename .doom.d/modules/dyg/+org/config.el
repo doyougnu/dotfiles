@@ -214,7 +214,11 @@
      "s" #'dyg/org-insert-strikethrough
      "i" #'dyg/org-insert-italics
      "u" #'dyg/org-insert-underline
-     "b" #'dyg/org-insert-bold)))
+     "b" #'dyg/org-insert-bold))
+
+   :after flyspell
+   :map org-mode-map
+   :ni "C-;" #'fill-paragraph)
 
   )
 
