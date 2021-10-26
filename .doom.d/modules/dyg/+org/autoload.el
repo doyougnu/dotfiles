@@ -363,3 +363,9 @@
   (interactive)
   (org-emphasize ?\~)
   (evil-insert 1))
+
+;;;###autoload
+(defun dyg/org-insert-comment ()
+  (interactive)
+  (org-insert-comment)
+  (evil-insert 1))

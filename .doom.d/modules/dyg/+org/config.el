@@ -214,7 +214,14 @@
      "s" #'dyg/org-insert-strikethrough
      "i" #'dyg/org-insert-italics
      "u" #'dyg/org-insert-underline
-     "b" #'dyg/org-insert-bold))
+     "b" #'dyg/org-insert-bold)
+
+    (:prefix ("i" . "insert")
+     "i" #'org-insert-item
+     "b" #'org-insert-structure-template
+     "c" #'dyg/org-insert-comment
+     "l" #'org-insert-link
+     "n" #'org-add-note))
 
    :after flyspell
    :map org-mode-map
