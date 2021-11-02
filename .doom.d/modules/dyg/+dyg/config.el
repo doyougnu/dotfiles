@@ -12,13 +12,16 @@
 ;;; License: GPLv3
 
 ;; convieniences, we have to unbind C-k in lispy for our global key
-(map! :after lispy
-      (:map lispy-mode-map "C-k" nil)
-      (:map evil-normal-state-map
-       "C-j" #'dyg/newline-below
-       "C-k" #'dyg/newline-above))
+(map! (:after lispy
+       (:map lispy-mode-map "C-k" nil)
+       (:map evil-normal-state-map
+        "C-j" #'dyg/newline-below
+        "C-k" #'dyg/newline-above)))
 
 (setq doom-scratch-initial-major-mode 'org-mode)
+
+;; always prefer newer .el files
+(setq load-prefer-newer t)
 
 ;; deft setup
 (setq deft-directory "/home/doyougnu/sync/org/.deft")
@@ -38,11 +41,12 @@
         :desc "new-file" "n" #'deft-new-file)
 
        (:prefix ("e" . "emacs-tools")
-        :desc "Byte-compile-and-load" "c" #'emacs-lisp-byte-compile-and-load
-        :desc "Set variable"          "s" #'set-variable
-        :desc "Revert buffer"         "r" #'revert-buffer
-        :desc "Highlight at point"    "h" #'highlight-symbol-at-point
-        :desc "Remove Highlight"      "H" #'unhighlight-regexp
+        :desc "Byte-compile-and-load"    "c" #'emacs-lisp-byte-compile-and-load
+        :desc "Byte recompile directory" "C" #'byte-recompile-directory
+        :desc "Set variable"             "s" #'set-variable
+        :desc "Revert buffer"            "r" #'revert-buffer
+        :desc "Highlight at point"       "h" #'highlight-symbol-at-point
+        :desc "Remove Highlight"         "H" #'unhighlight-regexp
         )
 
        (:prefix ("i" . "IRC")
