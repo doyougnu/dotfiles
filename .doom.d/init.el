@@ -198,4 +198,5 @@
 
        :+lang
        bqn
+       elisp
        )
