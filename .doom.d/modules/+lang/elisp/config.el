@@ -5,7 +5,7 @@
  :localleader
  :map emacs-lisp-mode-map
  :desc "ielm" "'" #'ielm/begin
- :nv "," #'ielm/eval-current-form
+ :nv "," #'ielm/defun
 
  (:prefix ("e" . "Eval")
   "r" #'ielm/send-region
