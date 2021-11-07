@@ -23,6 +23,9 @@
 ;; always prefer newer .el files
 (setq load-prefer-newer t)
 
+;; faster which-keys
+(setq which-key-idle-delay 0.15)
+
 ;; deft setup
 (setq deft-directory "/home/doyougnu/sync/org/.deft")
 (setq deft-use-filename-as-title t)
