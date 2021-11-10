@@ -2,11 +2,14 @@
 
 * root :elfeed:
 ** Programming :programming:
-*** [[https://this-week-in-rust.org/rss.xml][This Week in Rust]] :rust:
 *** https://news.ycombinator.com/rss :hacker:
 *** https://www.reddit.com/r/emacs.rss :emacs:
-*** https://www.reddit.com/r/haskell.rss :haskell:
-*** https://www.reddit.com/r/Common_Lisp.rss :common-lisp:
+*** https://scottlocklin.wordpress.com/feed/ :locklin:
+*** https://randomascii.wordpress.com/?feed=rss :random-ascii:
+*** https://blog.regehr.org/feed/ :regehr:
+*** https://www.profgalloway.com/feed :galloway:
+*** https://brandur.org/articles.atom :bandur:
+*** https://pharr.org/matt/blog/feed :pharr:
 ** News :news:
 *** Top news :tops:
 **** https://feeds.arstechnica.com/arstechnica/index.xml :ars:
@@ -14,3 +17,6 @@
 **** http://rss.slashdot.org/Slashdot/slashdotMain :slashdot:
 ** Science :science:
 ***  https://3quarksdaily.com/feed :3qd:
+*** https://acoup.blog/feed :acoup:
+*** https://www.themarginalian.org/feed :brain-pickings:
+*** https://www.math.columbia.edu/~woit/wordpress/?feed=rss :not-even-wrong:

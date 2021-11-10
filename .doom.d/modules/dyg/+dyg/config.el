@@ -60,7 +60,10 @@
 
       (:prefix-map ("S" . "spelling")
        :desc "Correct-word-at-point" "s" #'ispell-word
-       :desc "Correct buffer"        "b" #'ispell-buffer))
+       :desc "Correct buffer"        "b" #'ispell-buffer)
+
+      (:when (featurep! :tools lsp)
+       :desc "lsp-imenu" "cI" #'lsp-ui-imenu))
 
 (map! :map company-active-map
       "C-l" #'company-complete-selection
