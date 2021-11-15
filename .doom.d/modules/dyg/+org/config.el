@@ -225,9 +225,12 @@
 
    :after flyspell
    :map org-mode-map
-   :ni "C-;" #'fill-paragraph)
+   :ni "C-;" #'fill-paragraph))
 
-  )
+(map!
+   :after evil-org-agenda
+   :map evil-org-agenda-mode-map
+   :m "S" #'org-save-all-org-buffers)
 
 (map! :after evil-org
       :map evil-org-mode-map
