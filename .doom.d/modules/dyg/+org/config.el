@@ -223,6 +223,12 @@
      "l" #'org-insert-link
      "n" #'org-add-note))
 
+   (:map org-capture-mode-map
+    :localleader
+    "," #'org-capture-finalize
+    "k" #'org-capture-kill
+    "r" #'org-capture-refile)
+
    :after flyspell
    :map org-mode-map
    :ni "C-;" #'fill-paragraph)
@@ -233,3 +239,7 @@
       :map evil-org-mode-map
       :ni "C-<return>" #'evil-org-org-insert-heading-respect-content-below
       :ni "S-<return>" #'org-meta-return)
+
+(map! :after evil-org-agenda
+      :map evil-org-agenda-mode-map
+      :m "S" #'org-save-all-org-buffers)

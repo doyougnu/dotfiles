@@ -53,7 +53,9 @@
         )
 
        (:prefix ("i" . "IRC")
-        :desc "Init" "i" #'=irc))
+        :desc "Init" "i" #'=irc)
+
+       "j" #'org-agenda)
 
       (:prefix-map ("r" . "kill-ring")
        :desc "Kill-ring" "y" #'counsel-yank-pop)
@@ -68,3 +70,10 @@
 (map! :map company-active-map
       "C-l" #'company-complete-selection
       "C-;" #'fill-paragraph)
+
+(map!
+ :after with-editor
+ :map with-editor-mode-map
+ :localleader
+ "," #'with-editor-finish
+ "k" #'with-editor-cancel)

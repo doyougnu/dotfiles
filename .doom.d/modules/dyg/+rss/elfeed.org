@@ -10,6 +10,8 @@
 *** https://www.profgalloway.com/feed :galloway:
 *** https://brandur.org/articles.atom :bandur:
 *** https://pharr.org/matt/blog/feed :pharr:
+** Engineering :engineering:
+*** https://randsinrepose.com/feed/ :randsinrepose:
 ** News :news:
 *** Top news :tops:
 **** https://feeds.arstechnica.com/arstechnica/index.xml :ars:
