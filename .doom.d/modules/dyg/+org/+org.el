@@ -22,8 +22,8 @@
   (setq org-clock-persist              'history)
   (setq org-clock-idle-time            15)
   (setq org-src-tab-acts-natively      t)
-(setq org-cycle-separator-lines      1)
-(setq org-enable-github-support      t)
+  (setq org-cycle-separator-lines      1)
+  (setq org-enable-github-support      t)
   (setq org-projectile-file            "project.org")
   (setq org-enable-org-journal-support t)
   (setq org-journal-enable-cache       t)
@@ -40,6 +40,10 @@
 
   ;; don't set bookmarks on a capture
   (setf org-capture-bookmark             nil)
+
+  ;; org archive settings
+  (setq org-archive-mark-done nil)
+  (setq org-archive-location "%s_archive::* Archived Tasks")
 
   ;; don't fontify the refile created bookmarks
   (setf bookmark-fontify                 nil)
