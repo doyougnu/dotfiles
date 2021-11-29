@@ -42,6 +42,10 @@ in {
 
   services.gpg-agent = {
     enable = true;
+    extraConfig = ''
+    allow-emacs-pinentry
+    allow-loopback-pinentry
+    '';
   };
 
 
