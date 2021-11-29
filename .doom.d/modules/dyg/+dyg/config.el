@@ -41,7 +41,7 @@
        (:prefix ("d" . "deft")
         :desc "Deft" "d" #'deft
         :desc "find-file" "f" #'deft-find-file
-        :desc "new-file" "n" #'deft-new-file)
+        :desc "new-file" "n" #'deft-new-file-named)
 
        (:prefix ("e" . "emacs-tools")
         :desc "Byte-compile-and-load"    "c" #'emacs-lisp-byte-compile-and-load
