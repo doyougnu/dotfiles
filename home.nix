@@ -2,7 +2,7 @@
 
 let unstable = import <unstable> { overlays = [
       (import (builtins.fetchTarball {
-        url = https://github.com/nix-community/emacs-overlay/archive/master.tar.gz;
+        url = https://github.com/nix-community/emacs-overlay/archive/1e2a3151b27167d2cbe099718ad5bf99de40cd46.tar.gz;
       }))
     ];};
 
@@ -10,7 +10,7 @@ let unstable = import <unstable> { overlays = [
 
     config  = import ./config.nix;
 
-    haskell-env = with unstable.haskell.packages.${config.ghc.version}; [
+    haskell-env = with pkgs.haskell.packages.${config.ghc.version}; [
       cabal-install
       haskell-language-server
       hlint
@@ -20,7 +20,7 @@ let unstable = import <unstable> { overlays = [
       stylish-haskell
     ];
 
-    haskell-ghc = unstable.haskell.packages.${config.ghc.version}.ghcWithHoogle
+    haskell-ghc = pkgs.haskell.packages.${config.ghc.version}.ghcWithHoogle
       (p: with p; [ mtl
                     hspec
                     tasty
@@ -31,11 +31,26 @@ let unstable = import <unstable> { overlays = [
 in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+  programs.git = {
+    enable    = true;
+    userEmail = "jeffrey.young@iohk.io";
+    userName  = "doyougnu";
+    signing.signByDefault = true;
+    signing.key = "57403751AE1F59BBC10771F5AF59A1E46422D9C9";
+    ignores = [ "TAGS" "GPATH" "GRTAGS" "GTAGS" ".dir-locals.el" "dist-newstyle" ];
+  };
+
+  services.gpg-agent = {
+    enable = true;
+  };
+
+
 
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "doyougnu";
   home.homeDirectory = "/home/doyougnu";
+
 
   # services
   services.lorri.enable = true;
@@ -51,9 +66,11 @@ in {
       e  = "emacsclient -cn";
 
       nsr = "nix-shell --pure --run";
+      nr  = "nix-shell  --run";
       nsc = "nix-shell --pure --command";
       ns  = "nix-shell";
-      hm = "home-manager";
+      hm  = "home-manager";
+      hms = "home-manager switch";
 
       hbR   = "hadrian/build clean && ./boot && ./configure && hadrian/build -j";
       hbc   = "hadrian/build clean && hadrian/build -j";
@@ -102,6 +119,16 @@ pts += -ticky' > _ticky/hadrian.settings; hb --flavour=validate --build-root=_ti
                }];
 
     shellInit = ''
+     ## setup gpg for fish
+     ## set -gx GPG_TTY (tty)
+
+     # Add the following to your shell init to set up gpg-agent automatically for every shell
+     # if test -f ~/.gnupg/.gpg-agent-info && not pgrep gpg-agent
+     #     source ~/.gnupg/.gpg-agent-info
+     #     export GPG_AGENT_INFO
+     # else
+     #     eval (gpg-agent --daemon)
+     # end
 
      function fish_user_key_bindings
        fish_vi_key_bindings
@@ -130,8 +157,8 @@ pts += -ticky' > _ticky/hadrian.settings; hb --flavour=validate --build-root=_ti
   '';
 
   home.packages = with unstable; [
+    cbqn
     chez
-    chromium
     cowsay
     discord
     entr
@@ -139,6 +166,7 @@ pts += -ticky' > _ticky/hadrian.settings; hb --flavour=validate --build-root=_ti
     fasd
     haskell-ghc
     gerbil
+    google-chrome
     guile
     libevent
     libnotify
@@ -146,6 +174,7 @@ pts += -ticky' > _ticky/hadrian.settings; hb --flavour=validate --build-root=_ti
     myEmacs
     pinentry
     ranger
+    ripgrep
     rsync
     sbcl
     sdcv
@@ -156,13 +185,13 @@ pts += -ticky' > _ticky/hadrian.settings; hb --flavour=validate --build-root=_ti
     xclip
     xdg-dbus-proxy
     xdg-desktop-portal
-    # xfce4-notifyd
     zip
   ] ++
     haskell-env
     ++
   (with pkgs;
     [ tdesktop
+      valgrind
       thunderbird
   ]);
 
