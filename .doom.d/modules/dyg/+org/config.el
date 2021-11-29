@@ -95,7 +95,7 @@
 
   ;; Custom agenda command definitions
   (setq org-agenda-custom-commands
-        '(("n" "Agenda"
+        '((" " "Agenda"
            ((agenda "" nil)
             (tags "REFILE"
                   ((org-agenda-overriding-header "Tasks to Refile")
@@ -177,7 +177,7 @@
   (setq org-outline-path-complete-in-steps nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;; Org Archiving Config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (setq-default org-archive-default-directory "~/sync/org/.archive/")
+  (setq-default org-archive-default-directory "~/sync/org/.archive")
   (setq org-archive-location (concat
                               org-archive-default-directory
                               "%s_archive::* Archived Tasks"))
@@ -231,12 +231,9 @@
 
    :after flyspell
    :map org-mode-map
-   :ni "C-;" #'fill-paragraph))
+   :ni "C-;" #'fill-paragraph)
 
-(map!
-   :after evil-org-agenda
-   :map evil-org-agenda-mode-map
-   :m "S" #'org-save-all-org-buffers)
+  )
 
 (map! :after evil-org
       :map evil-org-mode-map
