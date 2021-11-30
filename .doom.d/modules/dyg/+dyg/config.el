@@ -26,6 +26,10 @@
 ;; faster which-keys
 (setq which-key-idle-delay 0.15)
 
+;; setup EasyPG for gpg
+(setq epa-file-encrypt-to '("jeffrey.young@iohk.io"))
+(setq epg-pinentry-mode 'loopback)
+
 ;; deft setup
 (setq deft-directory "/home/doyougnu/sync/org/.deft")
 (setq deft-use-filename-as-title t)

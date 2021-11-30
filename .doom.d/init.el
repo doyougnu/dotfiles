@@ -196,6 +196,7 @@
        +cl                   ; custom common lisp and sly contribs/settings
        +rss
        +flycheck
+       +pinentry
 
        :+lang
        bqn
