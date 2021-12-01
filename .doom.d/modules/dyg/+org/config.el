@@ -63,12 +63,7 @@
                             (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "MEETING")))
 
 
-  (setq org-agenda-files '("~/sync/org/research.org"
-                           "~/sync/org/personal.org"
-                           "~/sync/org/long-term.org"
-                           "~/sync/org/job/"
-                           "~/sync/org/projects.org"
-                           "~/sync/org/refile.org"))
+  (setq org-agenda-files (directory-files-recursively "~/sync/org/" "\\.org$"))
 
 
 
