@@ -31,18 +31,26 @@ let unstable = import <unstable> { overlays = [
 in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  # git setup
   programs.git = {
     enable    = true;
     userEmail = "jeffrey.young@iohk.io";
     userName  = "doyougnu";
     signing.signByDefault = true;
-    signing.key = "57403751AE1F59BBC10771F5AF59A1E46422D9C9";
+    signing.key = "0xAF59A1E46422D9C9";
     ignores = [ "TAGS" "GPATH" "GRTAGS" "GTAGS" ".dir-locals.el" "dist-newstyle" "*.elc"];
   };
 
-  services.gpg-agent = {
+  programs.gpg = {
     enable = true;
-    maxCacheTtl = 7200;
+    settings = {
+      default-key = "0xAF59A1E46422D9C9";
+    };
+  };
+  services.gpg-agent = {
+    enable         = true;
+    maxCacheTtl    = 7200;
     pinentryFlavor = "emacs";
     extraConfig = ''
     allow-emacs-pinentry
