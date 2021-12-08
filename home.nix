@@ -1,32 +1,38 @@
 { config, pkgs, ... }:
 
-let unstable = import <unstable> { overlays = [
+let pkgsOverlaid = import <nixos> { overlays = [
       (import (builtins.fetchTarball {
         url = https://github.com/nix-community/emacs-overlay/archive/1e2a3151b27167d2cbe099718ad5bf99de40cd46.tar.gz;
       }))
     ];};
+    unstable = import <unstable> {};
 
-    myEmacs = import ./emacs.nix { pkgs = unstable; };
+    myEmacs = import ./emacs.nix { pkgs = pkgsOverlaid; };
 
     config  = import ./config.nix;
 
-    haskell-env = with pkgs.haskell.packages.${config.ghc.version}; [
-      cabal-install
-      haskell-language-server
-      hlint
-      hindent
-      apply-refact
-      hasktags
-      stylish-haskell
-    ];
+    # haskell-env = with pkgs.haskell.packages.${config.ghc.version}; [
+    #   cabal-install
+    #   haskell-language-server
+    #   hlint
+    #   hindent
+    #   apply-refact
+    #   hasktags
+    #   stylish-haskell
+    # ];
 
-    haskell-ghc = pkgs.haskell.packages.${config.ghc.version}.ghcWithHoogle
-      (p: with p; [ mtl
-                    hspec
-                    tasty
-                    tasty-hunit
-                    sbv
-      ]);
+    # haskell-ghc = pkgs.haskell.packages.${config.ghc.version}.ghcWithHoogle
+    #   (p: with p; [ mtl
+    #                 hspec
+    #                 tasty
+    #                 tasty-hunit
+    #                 sbv
+    #   ]);
+    services.hoogle = {
+      enable = true;
+      packages = (hpkgs: with hpkgs; [text mtl containers unordered-containers]);
+      haskellPackages = pkgs.haskellPackages;
+    };
 
 in {
   # Let Home Manager install and manage itself.
@@ -38,8 +44,10 @@ in {
     userEmail = "jeffrey.young@iohk.io";
     userName  = "doyougnu";
     signing.signByDefault = true;
-    signing.key = "0xAF59A1E46422D9C9";
-    ignores = [ "TAGS" "GPATH" "GRTAGS" "GTAGS" ".dir-locals.el" "dist-newstyle" "*.elc"];
+    signing.key = "57403751AE1F59BBC10771F5AF59A1E46422D9C9";
+    ignores = [ "TAGS" "GPATH" "GRTAGS" "GTAGS" ".dir-locals.el" "dist-newstyle"
+                "*.elc" "*.swp"
+              ];
   };
 
   programs.gpg = {
@@ -51,7 +59,7 @@ in {
   services.gpg-agent = {
     enable         = true;
     maxCacheTtl    = 7200;
-    pinentryFlavor = "emacs";
+    pinentryFlavor = "tty";
     extraConfig = ''
     allow-emacs-pinentry
     allow-loopback-pinentry
@@ -178,7 +186,7 @@ pts += -ticky' > _ticky/hadrian.settings; hb --flavour=validate --build-root=_ti
     entr
     firefox
     fasd
-    haskell-ghc
+    # haskell-ghc
     gerbil
     google-chrome
     guile
@@ -201,7 +209,9 @@ pts += -ticky' > _ticky/hadrian.settings; hb --flavour=validate --build-root=_ti
     xdg-desktop-portal
     zip
   ] ++
-    haskell-env
+  [ R
+    rEnv
+  ]
     ++
   (with pkgs;
     [ tdesktop

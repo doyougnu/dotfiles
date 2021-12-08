@@ -2,7 +2,7 @@
     allowUnfree = true;
     allowBroken = true;
     doCheck     = false;
-    ghc.version = "ghc8104";
+    ghc.version = "ghc8107";
     packageOverrides = super: let self = super.pkgs; in
     {
 
@@ -25,6 +25,10 @@
                 rstatix
                 QuantPsyc
                 bit64
+                gdata
+                tidyverse
+                knitr
+                lemon # for pretty printing
                 ];
         };
     };
