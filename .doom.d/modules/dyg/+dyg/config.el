@@ -67,6 +67,9 @@
        :desc "Correct-word-at-point" "s" #'ispell-word
        :desc "Correct buffer"        "b" #'ispell-buffer)
 
+      (:prefix-map ("s" . "search")
+       :desc "Search project for point" "p" #'+default/search-project-for-symbol-at-point)
+
       (:when (featurep! :tools lsp)
        :desc "lsp-imenu" "cI" #'lsp-ui-imenu))
 
@@ -80,3 +83,10 @@
  :localleader
  "," #'with-editor-finish
  "k" #'with-editor-cancel)
+
+;; force ivy to not search until 3 chars have been input
+(after! ivy
+  (setq ivy-more-chars-alist '((counsel-grep . 3)
+                               (counsel-rg . 3)
+                               (counsel-search . 3)
+                               (t . 3))))
