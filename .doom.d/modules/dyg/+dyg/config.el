@@ -73,9 +73,11 @@
       (:when (featurep! :tools lsp)
        :desc "lsp-imenu" "cI" #'lsp-ui-imenu))
 
-(map! :map company-active-map
+(map! (:map company-active-map
       "C-l" #'company-complete-selection
       "C-;" #'fill-paragraph)
+      (:map evil-markdown-mode-map
+       :nv "C-;" #'fill-paragraph))
 
 (map!
  :after with-editor
