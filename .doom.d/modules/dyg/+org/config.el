@@ -55,6 +55,7 @@
   ;; use firefox
   (setf browse-url-browser-function 'browse-url-firefox)
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;; Org Agenda Config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; orgmode organization stuff
   (setq-default org-default-todo-file "~/sync/org/refile.org")
@@ -158,8 +159,9 @@
            "* NEXT %?\n - OneOff made on %U \\\\ \n" :clock-resume t :empty-lines 1)
           ("r" "respond" entry (file org-default-todo-file)
            "* NEXT Respond to %^{Prompt}%:from on %:subject\nSCHEDULED: %t\n%U\n" :clock-resume t :immediate-finish t :empty-lines 1)
-          ("n" "note" entry (file org-default-todo-file)
-           "* %? :NOTE:\n - Note taken on %U \\\\ \n" :clock-resume t :empty-lines 1)
+          ("n" "note" item (function +default/org-notes-headlines)
+           "Note taken on %U \\\\ \n%?"
+           :clock-resume t :empty-lines 1)
           ("i" "idea" entry (file org-default-todo-file)
            "* %? :IDEA:\n - Idea taken on %U \\\\ \n" :clock-resume t :empty-lines 1)
           ("m" "meeting" entry (file org-default-todo-file)
