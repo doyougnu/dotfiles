@@ -42,9 +42,9 @@
 (map! :leader
       (:prefix-map ("j" . "doyougnu")
        (:prefix ("d" . "deft")
-        :desc "Deft" "d" #'deft
+        :desc "Deft"      "d" #'deft
         :desc "find-file" "f" #'deft-find-file
-        :desc "new-file" "n" #'deft-new-file-named)
+        :desc "new-file"  "n" #'deft-new-file-named)
 
        (:prefix ("e" . "emacs-tools")
         :desc "Byte-compile-and-load"    "c" #'emacs-lisp-byte-compile-and-load
@@ -71,7 +71,9 @@
        :desc "Search project for point" "p" #'+default/search-project-for-symbol-at-point)
 
       (:when (featurep! :tools lsp)
-       :desc "lsp-imenu" "cI" #'lsp-ui-imenu))
+       :desc "lsp-imenu" "cI" #'lsp-ui-imenu)
+
+      :desc "Org-capture" "SPC" #'org-capture)
 
 (map! (:map company-active-map
       "C-l" #'company-complete-selection
