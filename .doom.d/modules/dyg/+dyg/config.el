@@ -15,6 +15,7 @@
 (map! (:after lispy
        (:map lispy-mode-map "C-k" nil)
        (:map evil-normal-state-map
+        "C-f" #'dyg/insert
         "C-j" #'dyg/newline-below
         "C-k" #'dyg/newline-above)))
 

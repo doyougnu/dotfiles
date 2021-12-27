@@ -11,3 +11,10 @@
   (interactive)
   (evil-end-of-line)
   (evil-insert-newline-below))
+
+;;;###autoload
+(defun dyg/insert ()
+  (interactive)
+  (let ((input (read-from-minibuffer "Input: ")))
+    (save-excursion
+      (insert input))))

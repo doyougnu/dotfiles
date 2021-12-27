@@ -4,4 +4,7 @@
   :config
   (symex-initialize)
   (map! :leader
-        :desc "Symex-interface" "\\" #'symex-mode-interface))
+        :desc "Symex-interface" "\\" #'symex-mode-interface)
+
+  :custom
+  (symex-modal-backend 'evil))
