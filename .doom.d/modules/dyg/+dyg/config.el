@@ -15,9 +15,12 @@
 (map! (:after lispy
        (:map lispy-mode-map "C-k" nil)
        (:map evil-normal-state-map
-        "C-f" #'dyg/insert
-        "C-j" #'dyg/newline-below
-        "C-k" #'dyg/newline-above)))
+        (:prefix-map ("C-k" . "easy-insert")
+        "i" #'dyg/char-insert
+        "a" #'dyg/char-insert-after
+        "w" #'dyg/word-insert
+        "j" #'dyg/newline-below
+        "k" #'dyg/newline-above))))
 
 (setq doom-scratch-initial-major-mode 'org-mode)
 
@@ -91,7 +94,7 @@
 
 ;; force ivy to not search until 3 chars have been input
 (after! ivy
-  (setq ivy-more-chars-alist '((counsel-grep . 3)
-                               (counsel-rg . 3)
+  (setq ivy-more-chars-alist '((counsel-grep   . 3)
+                               (counsel-rg     . 3)
                                (counsel-search . 3)
-                               (t . 3))))
+                               (t              . 3))))

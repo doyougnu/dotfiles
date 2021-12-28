@@ -3,18 +3,33 @@
 ;;;###autoload
 (defun dyg/newline-above ()
   (interactive)
-  (evil-end-of-line)
-  (evil-insert-newline-above))
+  (save-excursion
+    (evil-end-of-line)
+    (evil-insert-newline-above)))
 
 ;;;###autoload
 (defun dyg/newline-below ()
   (interactive)
-  (evil-end-of-line)
-  (evil-insert-newline-below))
+  (save-excursion
+    (evil-end-of-line)
+    (evil-insert-newline-below)))
 
 ;;;###autoload
-(defun dyg/insert ()
+(defun dyg/word-insert ()
   (interactive)
   (let ((input (read-from-minibuffer "Input: ")))
     (save-excursion
       (insert input))))
+
+;;;###autoload
+(defun dyg/char-insert ()
+  (interactive)
+  (save-excursion
+    (insert (read-char))))
+
+;;;###autoload
+(defun dyg/char-insert-after ()
+  (interactive)
+  (save-excursion
+    (forward-char)
+    (insert (read-char))))
