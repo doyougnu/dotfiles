@@ -83,6 +83,8 @@
       "C-l" #'company-complete-selection
       "C-;" #'fill-paragraph)
       (:map evil-markdown-mode-map
+       :nv "C-;" #'fill-paragraph)
+      (:map global-map
        :nv "C-;" #'fill-paragraph))
 
 (map!
