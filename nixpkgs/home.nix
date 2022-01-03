@@ -25,6 +25,7 @@ let sources = import ./nix/sources.nix;
       stylish-haskell
     ];
 
+    common-lisp-env = with unstable.lispPackages; [ hunchentoot anaphora ];
     # haskell-ghc = pkgs.haskell.packages.${config.ghc.version}.ghcWithHoogle
     #   (p: with p; [ mtl
     #                 hspec
@@ -219,6 +220,8 @@ pts += -ticky' > _ticky/hadrian.settings; hb --flavour=validate --build-root=_ti
   [ R
     rEnv
   ]
+    ++
+    common-lisp-env
     ++
   (with pkgs;
     [ gmp
