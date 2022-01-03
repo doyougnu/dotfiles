@@ -1,25 +1,29 @@
 { config, pkgs, ... }:
 
-let pkgsOverlaid = import <nixos> { overlays = [
+let sources = import ./nix/sources.nix;
+    pkgsOverlaid = import sources.nixpkgs { overlays = [
       (import (builtins.fetchTarball {
-        url = https://github.com/nix-community/emacs-overlay/archive/1e2a3151b27167d2cbe099718ad5bf99de40cd46.tar.gz;
+        # url = https://github.com/nix-community/emacs-overlay/archive/1e2a3151b27167d2cbe099718ad5bf99de40cd46.tar.gz;
+        url = https://github.com/nix-community/emacs-overlay/archive/master.tar.gz;
       }))
     ];};
-    unstable = import <unstable> {};
+
+
+    unstable = import sources.nixpkgs-unstable {};
 
     myEmacs = import ./emacs.nix { pkgs = pkgsOverlaid; };
 
     config  = import ./config.nix;
 
-    # haskell-env = with pkgs.haskell.packages.${config.ghc.version}; [
-    #   cabal-install
-    #   haskell-language-server
-    #   hlint
-    #   hindent
-    #   apply-refact
-    #   hasktags
-    #   stylish-haskell
-    # ];
+    haskell-env = with unstable.haskell.packages.${config.ghc.version}; [
+      cabal-install
+      haskell-language-server
+      hlint
+      hindent
+      apply-refact
+      hasktags
+      stylish-haskell
+    ];
 
     # haskell-ghc = pkgs.haskell.packages.${config.ghc.version}.ghcWithHoogle
     #   (p: with p; [ mtl
@@ -59,7 +63,7 @@ in {
   services.gpg-agent = {
     enable         = true;
     maxCacheTtl    = 7200;
-    pinentryFlavor = "tty";
+    # pinentryFlavor = "tty";
     extraConfig = ''
     allow-emacs-pinentry
     allow-loopback-pinentry
@@ -91,12 +95,14 @@ in {
       nr  = "nix-shell  --run";
       nsc = "nix-shell --pure --command";
       ns  = "nix-shell";
-      hm  = "home-manager";
-      hms = "home-manager switch";
+      nsp = "nix-shell -p";
+      hms = "nix-shell ~/.config/nixpkgs/shell.nix --run \'home-manager switch\'";
 
-      hbR   = "hadrian/build clean && ./boot && ./configure && hadrian/build -j";
-      hbc   = "hadrian/build clean && hadrian/build -j";
-      hb   = "hadrian/build -j";
+      nivu = "nix-shell -p niv --run 'niv update'";
+
+      hbR   = "nix-shell --pure --run 'hadrian/build clean && ./boot && ./configure && hadrian/build -j --flavour=perf'";
+      hbc   = "nix-shell --pure --run 'hadrian/build clean && hadrian/build -j --flavour=perf'";
+      hb   = "nix-shell --pure --run 'hadrian/build -j'";
       hbq  = "hb --flavour=quick";
       hbqs = "hbq --skip='//*.mk' --skip='stage1:lib:rts'";
       hbqf = "hbqs --freeze1";
@@ -195,6 +201,7 @@ pts += -ticky' > _ticky/hadrian.settings; hb --flavour=validate --build-root=_ti
     moreutils
     myEmacs
     pinentry
+    pianobar
     ranger
     ripgrep
     rsync
@@ -214,7 +221,9 @@ pts += -ticky' > _ticky/hadrian.settings; hb --flavour=validate --build-root=_ti
   ]
     ++
   (with pkgs;
-    [ tdesktop
+    [ gmp
+      numactl
+      tdesktop
       valgrind
       thunderbird
   ]);

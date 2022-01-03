@@ -1,0 +1,6 @@
+function lookup () { sdcv $1 | less }
+function _lookup () { sdcv $1 }
+
+function lookup-notify () { notify-send -t 2000 "$(lookup $1)" }
+
+function weather () { curl wttr.in/corvallis }
