@@ -25,7 +25,14 @@ let sources = import ./nix/sources.nix;
       stylish-haskell
     ];
 
-    common-lisp-env = with unstable.lispPackages; [ hunchentoot anaphora ];
+    common-lisp-env = with unstable.lispPackages; [ hunchentoot
+                                                    anaphora
+                                                    alexandria
+                                                    cl-json
+                                                    spinneret
+                                                    bordeaux-threads
+                                                    simple-tasks
+                                                  ];
     # haskell-ghc = pkgs.haskell.packages.${config.ghc.version}.ghcWithHoogle
     #   (p: with p; [ mtl
     #                 hspec
