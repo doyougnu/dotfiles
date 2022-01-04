@@ -6,7 +6,8 @@
         haskell-interactive-popup-errors nil)
 
   (when (featurep! :lang haskell +lsp)
-      (setq lsp-file-watch-threshold 10000)
+      (setq lsp-file-watch-threshold 10000
+            lsp-haskell-importlens-on nil)
       (after! lsp-ui
         (setq lsp-ui-doc-position      'top)))
 
