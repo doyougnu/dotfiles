@@ -41,6 +41,8 @@
 
   ;; don't set bookmarks on a capture
   (setf org-capture-bookmark             nil)
+  ;; request a note everytime we clock out on clocked in item
+  (setf org-log-note-clock-out           t)
 
   ;; don't fontify the refile created bookmarks
   (setf bookmark-fontify                 nil)
