@@ -5,7 +5,8 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages '(sly))
  '(safe-local-variable-values
-   '((haskell-process-path-ghci "/home/doyougnu/programming/ghc/hadrian/ghci-cabal")
+   '((buffer-file-coding-system . utf-8-unix)
+     (haskell-process-path-ghci "/home/doyougnu/programming/ghc/hadrian/ghci-cabal")
      (lsp-haskell-process-args-hie "--cwd /home/doyougnu/programming/ghc compiler")
      (inferior-haskell-root-dir "/home/doyougnu/programming/ghc")
      (haskell-process-type . ghci)))
