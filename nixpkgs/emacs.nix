@@ -12,10 +12,7 @@ To run the newly compiled executable:
 
 $ ./result/bin/emacs
 */
-{ pkgs ? import <nixpkgs> {}
-, config
-, unstable
-}:
+{ pkgs ? import <nixpkgs> {} }:
 
 
 
@@ -32,16 +29,6 @@ let
 
   emacsWithPackages = (pkgs.emacsPackagesGen myEmacs).emacsWithPackages;
 
-  haskell-env = with unstable.haskell.packages.${config.ghc.version}; [
-    cabal-install
-    haskell-language-server
-    hlint
-    hindent
-    apply-refact
-    hasktags
-    stylish-haskell
-    pandoc
-  ];
 
 in
   emacsWithPackages (epkgs: (with epkgs.melpaStablePackages; [
@@ -69,5 +56,5 @@ in
     pkgs.ctags
     pkgs.sqlite
     pkgs.sqlint
-    pkgs.multimarkdown
-  ] ++ haskell-env)
+    pkgs.haskell-language-server
+  ])
