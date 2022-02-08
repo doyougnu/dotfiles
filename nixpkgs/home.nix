@@ -76,12 +76,6 @@ in {
   # services
   services.lorri.enable = true;
 
-  services.hoogle = {
-    enable = true;
-    packages = (hpkgs: with hpkgs; [text mtl containers unordered-containers]);
-    haskellPackages = pkgs.haskellPackages;
-  };
-
   # emacs
   services.emacs.enable = true;
   services.emacs.package = myEmacs;
