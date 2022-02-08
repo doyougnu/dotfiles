@@ -33,12 +33,6 @@ let sources = import ./nix/sources.nix;
     #                 tasty-hunit
     #                 sbv
     #   ]);
-    services.hoogle = {
-      enable = true;
-      packages = (hpkgs: with hpkgs; [text mtl containers unordered-containers]);
-      haskellPackages = pkgs.haskellPackages;
-    };
-
 in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -81,6 +75,12 @@ in {
 
   # services
   services.lorri.enable = true;
+
+  services.hoogle = {
+    enable = true;
+    packages = (hpkgs: with hpkgs; [text mtl containers unordered-containers]);
+    haskellPackages = pkgs.haskellPackages;
+  };
 
   # emacs
   services.emacs.enable = true;
