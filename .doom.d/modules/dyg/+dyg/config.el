@@ -30,6 +30,9 @@
 ;; faster which-keys
 (setq which-key-idle-delay 0.15)
 
+;; nice whitespace
+(global-whitespace-mode +1)
+
 ;; setup EasyPG for gpg
 (setq epg-pinentry-mode 'loopback)
 
