@@ -31,6 +31,9 @@
 (setq which-key-idle-delay 0.15)
 
 ;; nice whitespace
+
+(setq whitespace-style '(face indentation tabs tab-mark spaces space-mark
+                              newline trailing lines-tail))
 (global-whitespace-mode +1)
 
 ;; setup EasyPG for gpg
