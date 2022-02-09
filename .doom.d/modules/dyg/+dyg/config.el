@@ -57,7 +57,7 @@
 (setq epg-pinentry-mode 'loopback)
 
 ;; deft setup
-(setq deft-directory "/home/doyougnu/sync/.deft")
+(setq deft-directory "/home/doyougnu/sync/deft")
 (setq deft-use-filename-as-title t)
 (setq deft-recursive t)
 
