@@ -105,6 +105,10 @@
 (map! (:map company-active-map
       "C-l" #'company-complete-selection
       "C-;" #'fill-paragraph)
+      (:map minibuffer-local-map
+       "C-l" #'minibuffer-complete-and-exit)
+      (:map vertico-map
+       "C-l" #'vertico-insert)
       (:map evil-markdown-mode-map
        :nv "C-;" #'fill-paragraph)
       (:map global-map
@@ -116,6 +120,10 @@
  :localleader
  "," #'with-editor-finish
  "k" #'with-editor-cancel)
+
+;; tinkering with vertico + consult
+(advice-add #'completing-read-multiple
+            :override #'consult-completing-read-multiple)
 
 ;; force ivy to not search until 3 chars have been input
 (after! ivy
