@@ -31,10 +31,27 @@
 (setq which-key-idle-delay 0.15)
 
 ;; nice whitespace
+(setq whitespace-style '(face tabs spaces trailing
+      space-before-tab newline indentation empty space-after-tab
+      space-mark tab-mark))
 
-(setq whitespace-style '(face indentation tabs tab-mark spaces space-mark
-                              newline trailing lines-tail))
-(global-whitespace-mode +1)
+(add-hook 'tuareg-mode-hook   'dyg/set-up-whitespace-handling)
+(add-hook 'c-mode-hook        'dyg/set-up-whitespace-handling)
+(add-hook 'emacs-lisp-mode    'dyg/set-up-whitespace-handling)
+(add-hook 'java-mode-hook     'dyg/set-up-whitespace-handling)
+(add-hook 'lua-mode-hook      'dyg/set-up-whitespace-handling)
+(add-hook 'rust-mode-hook     'dyg/set-up-whitespace-handling)
+(add-hook 'scala-mode-hook    'dyg/set-up-whitespace-handling)
+;; increases input latency too much for some reason
+;; (add-hook 'markdown-mode-hook 'dyg/set-up-whitespace-handling)
+(add-hook 'org-mode-hook      'dyg/set-up-whitespace-handling)
+(add-hook 'haskell-mode-hook  'dyg/set-up-whitespace-handling)
+(add-hook 'python-mode-hook   'dyg/set-up-whitespace-handling)
+(add-hook 'scheme-mode-hook   'dyg/set-up-whitespace-handling)
+(add-hook 'erlang-mode-hook   'dyg/set-up-whitespace-handling)
+(add-hook 'asm-mode-hook      'dyg/set-up-whitespace-handling)
+(add-hook 'nasm-mode-hook     'dyg/set-up-whitespace-handling)
+(add-hook 'yaml-mode-hook     'dyg/set-up-whitespace-handling)
 
 ;; setup EasyPG for gpg
 (setq epg-pinentry-mode 'loopback)

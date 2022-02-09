@@ -33,3 +33,9 @@
   (save-excursion
     (forward-char)
     (insert (read-char))))
+
+;;;###autoload
+(defun dyg/set-up-whitespace-handling ()
+  (interactive)
+  (whitespace-mode 1)
+  (add-to-list 'write-file-functions 'delete-trailing-whitespace))
