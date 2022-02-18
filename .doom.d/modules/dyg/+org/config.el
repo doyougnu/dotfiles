@@ -41,6 +41,7 @@
 
   ;; don't set bookmarks on a capture
   (setf org-capture-bookmark             nil)
+
   ;; request a note everytime we clock out on clocked in item
   (setf org-log-note-clock-out           t)
 
@@ -53,6 +54,13 @@
   ;; never split headlines
   (setf org-M-RET-may-split-line           nil)
   (setf org-insert-heading-respect-content t)
+
+  ;; pretty mode for symbols
+  (add-hook! 'org-mode-hook #'+org-pretty-mode #'(lambda ()
+                                                   (add-hook 'evil-insert-state-entry-hook #'(lambda ()
+                                                                                             (setq-local org-hide-emphasis-markers nil)))
+                                                   (add-hook 'evil-insert-state-exit-hook #'(lambda ()
+                                                                                            (setq-local org-hide-emphasis-markers t)))))
 
   ;; use firefox
   (setf browse-url-browser-function 'browse-url-firefox)

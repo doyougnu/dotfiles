@@ -11,9 +11,9 @@ let sources = import ./nix/sources.nix;
 
     unstable = import sources.nixpkgs-unstable {};
 
-    myEmacs = import ./emacs.nix { pkgs = pkgsOverlaid; };
-
     config  = import ./config.nix;
+
+    myEmacs = import ./emacs.nix { pkgs = pkgsOverlaid; config = config; unstable = unstable; };
 
     haskell-env = with unstable.haskell.packages.${config.ghc.version}; [
       cabal-install
@@ -23,17 +23,9 @@ let sources = import ./nix/sources.nix;
       apply-refact
       hasktags
       stylish-haskell
+      pandoc
     ];
 
-    common-lisp-env = with unstable.lispPackages; [ hunchentoot
-                                                    anaphora
-                                                    alexandria
-                                                    cl-json
-                                                    spinneret
-                                                    bordeaux-threads
-                                                    simple-tasks
-                                                    arrows
-                                                  ];
     # haskell-ghc = pkgs.haskell.packages.${config.ghc.version}.ghcWithHoogle
     #   (p: with p; [ mtl
     #                 hspec
@@ -103,17 +95,16 @@ in {
 
       nivu = "nix-shell -p niv --run 'niv update'";
 
-      hbR   = "nix-shell --pure --run 'hadrian/build clean && ./boot && ./configure && hadrian/build -j --flavour=perf'";
-      hbc   = "nix-shell --pure --run 'hadrian/build clean && hadrian/build -j --flavour=perf'";
-      hb   = "nix-shell --pure --run 'hadrian/build -j'";
-      hbq  = "hb --flavour=quick";
-      hbqs = "hbq --skip='//*.mk' --skip='stage1:lib:rts'";
-      hbqf = "hbqs --freeze1";
-      hbv  = "hb --flavour=validate --build-root=_validate";
-      hbvs = "hbv --skip='//*.mk' --skip='stage1:lib:rts'";
-      hbvf = "hbvs --freeze1";
-      hbt  = "mkdir -p _ticky; [ -e _ticky/hadrian.settings ] || echo 'stage1.*.ghc.hs.opts += -ticky\\nstage1.ghc-bin.ghc.link.o
-pts += -ticky' > _ticky/hadrian.settings; hb --flavour=validate --build-root=_ticky";
+      hbR   = "nix-shell --pure --run 'hadrian/build clean && ./boot && ./configure && hadrian/build -j12 --flavour=perf'";
+      hbc   = "nix-shell --pure --run 'hadrian/build clean && hadrian/build -j12 --flavour=perf'";
+      hb    = "nix-shell --pure --run 'hadrian/build -j12 --flavour=perf'";
+      hbq   = "hb --flavour=quick";
+      hbqs  = "hbq --skip='//*.mk' --skip='stage1:lib:rts'";
+      hbqf  = "hbqs --freeze1";
+      hbv   = "hb --flavour=validate --build-root=_validate";
+      hbvs  = "hbv --skip='//*.mk' --skip='stage1:lib:rts'";
+      hbvf  = "hbvs --freeze1";
+      hbt   = "nix-shell --pure --run 'mkdir -p _ticky; [ -e _ticky/hadrian.settings ] || echo -e \"stage1.*.ghc.hs.opts += -ticky -ddump-simpl -ddump-stg-final -ddump-to-file \\nstage1.ghc-bin.ghc.link.o pts += -ticky -ddump-simpl -ddump-stg-final -ddump-to-file\" > _ticky/hadrian.settings; hadrian/build -j12 --flavour=perf --build-root=_ticky'";
       hbts = "hbt --skip='//*.mk' --skip='stage1:lib:rts'";
       hbtf = "hbts --freeze1";
     };
@@ -195,17 +186,17 @@ pts += -ticky' > _ticky/hadrian.settings; hb --flavour=validate --build-root=_ti
     entr
     firefox
     fasd
-    # haskell-ghc
     gerbil
     google-chrome
     guile
-    glibc
     libevent
     libnotify
     moreutils
     myEmacs
+    multimarkdown
     pinentry
     pianobar
+    qutebrowser
     ranger
     ripgrep
     rsync
@@ -222,9 +213,10 @@ pts += -ticky' > _ticky/hadrian.settings; hb --flavour=validate --build-root=_ti
   ] ++
   [ R
     rEnv
+    pyEnv
   ]
     ++
-    common-lisp-env
+    haskell-env
     ++
   (with pkgs;
     [ gmp
@@ -232,7 +224,6 @@ pts += -ticky' > _ticky/hadrian.settings; hb --flavour=validate --build-root=_ti
       tdesktop
       valgrind
       thunderbird
-      qutebrowser
   ]);
 
   # This value determines the Home Manager release that your
