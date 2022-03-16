@@ -24,6 +24,10 @@
 
 (setq doom-scratch-initial-major-mode 'org-mode)
 
+;; set projectile to recently used and enable caching
+(setq projectile-enable-caching t
+      projectile-sort-order     'recently-active)
+
 ;; always prefer newer .el files
 (setq load-prefer-newer t)
 
