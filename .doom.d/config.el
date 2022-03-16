@@ -26,7 +26,7 @@
 ;; set evil escape to be spacemacs-esque
 (setq-default evil-escape-key-sequence "fd")
 
-;; (setq evil-snipe-override-evil-repeat-keys nil)
+(setq evil-snipe-override-evil-repeat-keys nil)
 (setq doom-localleader-key     ",")
 (setq doom-localleader-alt-key "C-.")
 
