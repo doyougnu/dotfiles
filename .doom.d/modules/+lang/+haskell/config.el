@@ -8,6 +8,18 @@
   (when (featurep! :lang haskell +lsp)
       (setq lsp-file-watch-threshold 10000
             lsp-haskell-importlens-on nil)
+
+      (after! lsp-mode
+        (setq lsp-file-watch-ignored-directories
+              (append '("/store/Programming/ghc/_build"
+                        "/store/Programming/ghc/_ticky"
+                        "/store/Programming/ghc/_validate"
+                        "/store/Programming/ghc/testsuite"
+                        "/store/Programming/ghc/docs"
+                        "/store/Programming/ghc/nofib"
+                        "/store/Programming/ghc/")
+                      lsp-file-watch-ignored-directories)))
+
       (after! lsp-ui
         (setq lsp-ui-doc-position      'top)))
 
