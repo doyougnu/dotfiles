@@ -26,4 +26,7 @@
 
           ;; lsp variables
           lsp-haskell-server-wrapper-function default-nix-wrapper
-          lsp-haskell-server-args '()))))
+          lsp-haskell-server-args '()))
+
+    (map! :leader
+          :desc "Open nix-eshell" "on" #'nix-eshell)))
