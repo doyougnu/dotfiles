@@ -26,7 +26,8 @@
 
 ;; set projectile to recently used and enable caching
 (setq projectile-enable-caching t
-      projectile-sort-order     'recently-active)
+      projectile-sort-order      'recently-active
+      projectile-indexing-method 'hybrid)
 
 ;; always prefer newer .el files
 (setq load-prefer-newer t)
@@ -124,6 +125,10 @@
  :localleader
  "," #'with-editor-finish
  "k" #'with-editor-cancel)
+
+;; use projectile for SPC p c
+(define-key!
+  [remap projectile-compile-project] #'projectile-compile-project)
 
 ;; tinkering with vertico + consult
 (advice-add #'completing-read-multiple

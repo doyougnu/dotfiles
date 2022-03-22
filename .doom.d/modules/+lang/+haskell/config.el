@@ -1,7 +1,7 @@
 ;;; +lang/+haskell/config.el -*- lexical-binding: t; -*-
 
 (after! haskell
-  (setq haskell-process-prompt-restart   nil
+  (setq haskell-process-suggest-restart  nil
         haskell-process-log              t
         haskell-interactive-popup-errors nil)
 
@@ -19,6 +19,13 @@
                         "/store/Programming/ghc/nofib"
                         "/store/Programming/ghc/")
                       lsp-file-watch-ignored-directories)))
+
+      (projectile-register-project-type 'ghc '("ghc.mk" "compiler" "nofib" "rules" "rts" "utils" "testsuite")
+                                        :project-file "compiler/ghc.cabal.in"
+                                        :compile      "nix-shell --pure --run \'hadrian/build -j12 --flavour=perf\'"
+                                        :src-dir      "compiler"
+                                        :configure    "nix-shell --pure --run \'hadrian/build clean && ./boot && ./configure\'"
+                                        :run          "nix-shell --pure --run \'hadrian/ghci\'")
 
       (after! lsp-ui
         (setq lsp-ui-doc-position      'top)))
