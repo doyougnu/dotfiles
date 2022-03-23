@@ -206,7 +206,7 @@
 
        :+editor
        symex
+       multi-compile
 
        :+os
-       nix-sandbox
-       )
+       nix-sandbox)
