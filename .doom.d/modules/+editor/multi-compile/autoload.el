@@ -2,10 +2,9 @@
 
 
 ;;;###autoload
-(defun string/starts-with (string prefix)
+(defun string/starts-with (str prefix)
     "Return t if STRING starts with prefix."
-    (and (stringp string)
-         (string-match (rx-to-string `(: bos ,prefix) t) string)))
+    (and (stringp str) (string-match-p str prefix)))
 
 ;;;###autoload
 (defun in-nix (args)
