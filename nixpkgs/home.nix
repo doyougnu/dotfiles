@@ -75,6 +75,60 @@ in {
 
   # services
   services.lorri.enable = true;
+  services.dunst = {
+    enable = true;
+    settings = {
+        urgency_low = {
+          frame_color = "#268bd2";
+          foreground = "#002b36";
+          background = "#fdf6e3";
+          #timeout = 1;
+        };
+
+        urgency_normal = {
+          # frame_color = "#b58900";
+          background = "#202632";
+          foreground = "#ffffff";
+          #timeout = 1;
+        };
+
+        urgency_critical = {
+          # frame_color = "#dc322f";
+          background = "#ffffff";
+          foreground = "#db0101";
+          #timeout = 1;
+        };
+
+        global = {
+          font = "Iosevka 10";
+          width = 500;
+          height = 900;
+          transparency = 20;
+          # frame_color = "#eceff1";
+          frame_color = "#4287f5";
+          corner_radius = 15;
+          # center text
+          alignment = "center";
+          # full markup parsing
+          markup = "full";
+          format = ''
+          %a
+          <b>%s</b>
+          %b
+          %p'';
+
+          monitor = "1";
+          origin = "bottom-center";
+          offset = "1x1";
+
+          separator_color = "auto";
+          # Width of frame around window
+          frame_width = 1;
+          # Color of frame around window
+        };
+
+    };
+  };
 
   # emacs
   services.emacs.enable = true;
@@ -190,7 +244,7 @@ in {
     google-chrome
     guile
     libevent
-    libnotify
+    # libnotify
     moreutils
     myEmacs
     multimarkdown
@@ -206,7 +260,10 @@ in {
     signal-desktop
     silver-searcher
     spotify
+    slack
     xclip
+    xorg.xwininfo    # for emacs everywhere
+    xdotool          # for emacs everywhere
     xdg-dbus-proxy
     xdg-desktop-portal
     zip
