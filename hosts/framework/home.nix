@@ -1,38 +1,13 @@
-{ config, pkgs, ... }:
+{ pkgs, config, ... }:
 
 let 
-#    sources = import ./nix/sources.nix;
-#    pkgsOverlaid = import sources.nixpkgs { overlays = [
-#      (import (builtins.fetchTarball {
-#        # url = https://github.com/nix-community/emacs-overlay/archive/1e2a3151b27167d2cbe099718ad5bf99de40cd46.tar.gz;
-#        url = https://github.com/nix-community/emacs-overlay/archive/master.tar.gz;
-#      }))
-#    ];};
-##
-##
-#    unstable = import sources.nixpkgs-unstable {};
-#    config  = import ./config.nix;
-#
-#    myEmacs = import ./emacs.nix { pkgs = unstable; config = config; unstable = unstable; };
-
-    haskell-env = with unstable.haskell.packages.${config.ghc.version}; [
-      # cabal-install
-      # haskell-language-server
-      # hlint
-      # hindent
-      # apply-refact
-      # hasktags
-      # stylish-haskell
-      # pandoc
+    myEmacs = import ../../programs/emacs.nix { pkgs = pkgs; config = config; unstable = pkgs; };
+    imports = [ ../../programs/non-free.nix
     ];
 
-    # haskell-ghc = pkgs.haskell.packages.${config.ghc.version}.ghcWithHoogle
-    #   (p: with p; [ mtl
-    #                 hspec
-    #                 tasty
-    #                 tasty-hunit
-    #                 sbv
-    #   ]);
+    haskell-env = with pkgs.haskell.packages.${config.ghc.version}; [
+    ];
+
 in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -197,16 +172,6 @@ in {
                }];
 
     shellInit = ''
-     ## setup gpg for fish
-     ## set -gx GPG_TTY (tty)
-
-     # Add the following to your shell init to set up gpg-agent automatically for every shell
-     # if test -f ~/.gnupg/.gpg-agent-info && not pgrep gpg-agent
-     #     source ~/.gnupg/.gpg-agent-info
-     #     export GPG_AGENT_INFO
-     # else
-     #     eval (gpg-agent --daemon)
-     # end
 
      function fish_user_key_bindings
        fish_vi_key_bindings
@@ -234,19 +199,17 @@ in {
   end
   '';
 
-  home.packages = with unstable; [
+  home.packages = with pkgs; [
     alsa-utils
     cbqn
     chez
     cowsay
     cachix
-    discord
     entr
     firefox
     fasd
     feh
     gerbil
-    google-chrome
     guile
     libevent
     # libnotify
@@ -266,9 +229,6 @@ in {
     shutter
     signal-desktop
     silver-searcher
-    spotify
-    slack
-    steam
     texlive.combined.scheme-full
     xclip
     xorg.xwininfo    # for emacs everywhere
@@ -278,8 +238,8 @@ in {
     zip
   ] ++
   [ R
-    rEnv
-    pyEnv
+    # rEnv
+    # pyEnv
   ]
     ++
     haskell-env
@@ -299,5 +259,5 @@ in {
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  # home.stateVersion = "21.05";
+  home.stateVersion = "21.11";
 }

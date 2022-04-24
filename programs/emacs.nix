@@ -20,27 +20,11 @@ $ ./result/bin/emacs
 
 
 let
-  # myEmacs = (pkgs.emacs.override {
-  #   withGTK3 = true;
-  #   withGTK2 = false;
-  # }).overrideAttrs (attrs: {
-  #   postInstall = (attrs.postInstall or "") + ''
-  #     rm $out/share/applications/emacs.desktop
-  #   '';
-  # });
   myEmacs = pkgs.emacsNativeComp;
 
   emacsWithPackages = (pkgs.emacsPackagesFor myEmacs).emacsWithPackages;
 
   haskell-env = with unstable.haskell.packages.${config.ghc.version}; [
-    # cabal-install
-    # haskell-language-server
-    # hlint
-    # hindent
-    # apply-refact
-    # hasktags
-    # stylish-haskell
-    # pandoc
   ];
 
 in

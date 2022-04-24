@@ -1,8 +1,7 @@
 {
   description = "NixOS configuration and home-manager configurations for mac and debian gnu/linux";
   inputs = {
-    unstable.url       = github:nixos/nixpkgs/nixos-unstable;
-    nixpkgs.url        = github:nixos/nixpkgs/nixos;
+    nixpkgs.url        = github:nixos/nixpkgs/nixos-unstable;
     emacs-overlay.url  = github:nix-community/emacs-overlay;
     nixos-hardware.url = github:nixos/nixos-hardware/master;
     nur.url            = github:nix-community/nur;
@@ -13,9 +12,8 @@
 
   };
 
-  outputs = {emacs-overlay, home-manager, nur, nixos-hardware, nixpkgs, ...}:
+  outputs = inputs@{emacs-overlay, home-manager, nur, nixos-hardware, nixpkgs, ...}:
     let
-
       homeManagerConfFor = config: { ... }: {
         nixpkgs.overlays = [ emacs-overlay.overlay nur.overlay ];
         imports = [ config ];
@@ -28,18 +26,21 @@
         username = "doyougnu";
         stateVersion = "21.11";
       };
-    in {
+    in 
+    {
       nixosConfigurations.framework = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           nixos-hardware.nixosModules.framework 
 	  ./hosts/framework/configuration.nix
+
           home-manager.nixosModules.home-manager {
             home-manager.useUserPackages = true;
             home-manager.users.doyougnu = homeManagerConfFor ./hosts/framework/home.nix;
           }
         ];
       };
+
       framework = framework-system.activationPackage;
       defaultPackage.x86_64-linux = framework-system.activationPackage;
     };

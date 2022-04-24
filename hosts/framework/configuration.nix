@@ -6,17 +6,12 @@
 
   let
   baseconfig = { allowUnfree = true; };
-  unstable   = import <nixpkgs-unstable>  { config = baseconfig;};
   in
   {
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-     # ./cachix.nix
-  #   <unstable/nixos/modules/services/audio/mopidy.nix>
+    [ ./hardware-configuration.nix
     ];
 
-  # disabledModules = ["services/audio/mopidy.nix"];
 
   # use the latest linux kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
