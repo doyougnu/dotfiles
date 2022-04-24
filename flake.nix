@@ -1,5 +1,7 @@
+## architecture taken from: https://github.com/sebastiant/dotfiles
+## thanks!
 {
-  description = "NixOS configuration and home-manager configurations for mac and debian gnu/linux";
+  description = "NixOS configuration and home-manager configurations";
   inputs = {
     nixpkgs.url        = github:nixos/nixpkgs/nixos-unstable;
     emacs-overlay.url  = github:nix-community/emacs-overlay;
