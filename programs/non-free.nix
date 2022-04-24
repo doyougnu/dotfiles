@@ -7,6 +7,7 @@
     "discord"
     "google-chrome"
     "steam"
+    "steam-original"
   ];
 }
 

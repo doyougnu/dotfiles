@@ -2,13 +2,14 @@
 
 let 
     myEmacs = import ../../programs/emacs.nix { pkgs = pkgs; config = config; unstable = pkgs; };
-    imports = [ ../../programs/non-free.nix
-    ];
-
     haskell-env = with pkgs.haskell.packages.${config.ghc.version}; [
     ];
 
 in {
+
+  imports = [ ../../programs/non-free.nix
+            ];
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
@@ -212,11 +213,13 @@ in {
     chez
     cowsay
     cachix
+    discord
     entr
     firefox
     fasd
     feh
     gerbil
+    google-chrome
     guile
     libevent
     # libnotify
@@ -236,6 +239,11 @@ in {
     shutter
     signal-desktop
     silver-searcher
+    slack
+    spotify
+    spotify-unwrapped
+    steam
+    tdesktop
     texlive.combined.scheme-full
     xclip
     xorg.xwininfo    # for emacs everywhere
