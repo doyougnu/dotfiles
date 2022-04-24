@@ -113,10 +113,10 @@ in {
 
   # manually write config files
   # alacritty
-  # xdg.configFile."alacritty/alacritty.yml".source = ../../programs/alacritty.yml;
+  xdg.configFile."alacritty/alacritty.yml".source = ../../programs/alacritty.yml;
   # polybar
-  # xdg.configFile."polybar/config".source    = ../../programs/polybar/config;
-  # xdg.configFile."polybar/launch.sh".source = ../../programs/polybar/launch.sh;
+  xdg.configFile."polybar/config".source    = ../../programs/polybar/config;
+  xdg.configFile."polybar/launch.sh".source = ../../programs/polybar/launch.sh;
 
   programs.fish = {
     enable = true;
@@ -266,5 +266,5 @@ in {
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  # home.stateVersion = "21.11";
+  home.stateVersion = "21.11";
 }
