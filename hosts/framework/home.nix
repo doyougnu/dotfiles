@@ -222,6 +222,7 @@ in {
     google-chrome
     guile
     libevent
+    idris2
     # libnotify
     killall         # for polybar launch script
     moreutils

@@ -21,7 +21,12 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-
+(setq font-family "Source Code Pro")
+(if (equal (display-pixel-width) 2560)
+    (setq doom-font (font-spec :family font-family :size 20)
+          doom-big-font (font-spec :family font-family :size 30))
+  (setq doom-font (font-spec :family font-family :size 16)
+        doom-big-font (font-spec :family font-family :size 24)))
 
 ;; set evil escape to be spacemacs-esque
 (setq-default evil-escape-key-sequence "fd")
