@@ -7,7 +7,8 @@
 
   (when (featurep! :lang haskell +lsp)
       (setq lsp-file-watch-threshold 10000
-            lsp-haskell-importlens-on nil)
+            lsp-haskell-plugin-import-lens-code-lens-on    nil
+            lsp-haskell-plugin-import-lens-code-actions-on nil)
 
       (after! lsp-mode
         (setq lsp-file-watch-ignored-directories
