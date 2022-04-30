@@ -12,7 +12,10 @@
 
 (after! org
 
-;;;;;;;;;;;;;;;;;;;;;;;;; Org General Config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; export github flavored markdown
+  (require 'ox-gfm)
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;; Org General Config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; this is the stuff that would normally be wrapped in a :variables. I like
   ;; keeping it grouped
 

@@ -116,7 +116,7 @@ in {
   # alacritty
   xdg.configFile."alacritty/alacritty.yml".source = ../../programs/alacritty.yml;
   # polybar
-  xdg.configFile."polybar/config".source    = ../../programs/polybar/config;
+  xdg.configFile."polybar/config.ini".source    = ../../programs/polybar/config.ini;
   xdg.configFile."polybar/launch.sh".source = ../../programs/polybar/launch.sh;
 
   programs.fish = {
@@ -222,6 +222,8 @@ in {
     google-chrome
     guile
     libevent
+    lispPackages.arrows
+    lispPackages.quicklisp
     idris2
     # libnotify
     killall         # for polybar launch script
