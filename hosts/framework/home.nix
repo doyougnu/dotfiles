@@ -214,6 +214,7 @@ in {
     cowsay
     cachix
     discord
+    evince
     entr
     firefox
     fasd
