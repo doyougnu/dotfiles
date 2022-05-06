@@ -110,6 +110,9 @@
     user      = "doyougnu";
     dataDir   = "/home/doyougnu/sync";
     configDir = "/home/doyougnu/.config/syncthing";
+    devices = {
+      "voltron" = { id = "QXVXZ3O-M3WUXGW-HVQOIJM-XHIL2QG-AIG5AJW-PYNZF6W-4T7YCUW-N7HFHQC"; };
+    };
   };
 
   # Enable the OpenSSH daemon.
