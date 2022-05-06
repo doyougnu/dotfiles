@@ -113,6 +113,8 @@
     devices = {
       "voltron" = { id = "QXVXZ3O-M3WUXGW-HVQOIJM-XHIL2QG-AIG5AJW-PYNZF6W-4T7YCUW-N7HFHQC"; };
     };
+    overrideFolders = true;
+    overrideDevices = true;
   };
 
   # Enable the OpenSSH daemon.
