@@ -226,6 +226,7 @@ in {
     guile
     libevent
     lispPackages.arrows
+    lispPackages.closer-mop
     lispPackages.quicklisp
     idris2
     # libnotify
