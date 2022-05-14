@@ -118,6 +118,8 @@ in {
   # polybar
   xdg.configFile."polybar/config.ini".source    = ../../programs/polybar/config.ini;
   xdg.configFile."polybar/launch.sh".source = ../../programs/polybar/launch.sh;
+  # xmonad
+  home.file.".xmonad/xmonad.hs".source = ../../programs/xmonad.hs;
 
   programs.fish = {
     enable = true;
