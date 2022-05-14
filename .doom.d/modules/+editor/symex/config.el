@@ -3,8 +3,9 @@
 (use-package! symex
   :config
   (symex-initialize)
-  (map! :leader
+  (map! :map evil-motion-state-map
         :desc "Symex-interface" "\\" #'symex-mode-interface)
 
   :custom
+  (symex-common-lisp-backend 'sly)
   (symex-modal-backend 'evil))
