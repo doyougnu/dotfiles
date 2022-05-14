@@ -209,5 +209,8 @@
        symex
        multi-compile
 
+       :+tools
+       w3m
+
        :+os
        nix-sandbox)

@@ -66,7 +66,7 @@
                                                                                             (setq-local org-hide-emphasis-markers t)))))
 
   ;; use firefox
-  (setf browse-url-browser-function 'browse-url-firefox)
+  ;; (setf browse-url-browser-function 'browse-url-firefox)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;; Org Agenda Config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -256,6 +256,7 @@ in {
     xdotool          # for emacs everywhere
     xdg-dbus-proxy
     xdg-desktop-portal
+    w3m              # text broser for emacs-w3m
     zip
   ] ++
   [ R
