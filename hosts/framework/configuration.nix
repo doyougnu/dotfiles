@@ -121,7 +121,10 @@
   services.openssh.enable = true;
 
   # networking.firewall.allowedTCPPorts = [ ... ];
-  networking.firewall.allowedUDPPortRanges = [ { from = 32768; to = 60999; } ];
+  # networking.firewall.allowedUDPPortRanges = [ { from = 32768; to = 60999; } ];
+  networking.firewall.allowedTCPPorts = [ 8384 22000];
+  networking.firewall.allowedUDPPorts = [ 22000 21027];
+
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
@@ -198,8 +201,10 @@
   programs.light.enable = true;
 
   # enable redshift
-  location.provider = "geoclue2";
   services.redshift.enable = true;
+  location.provider  = "manual";
+  location.latitude  = 42.8;
+  location.longitude = 78.8;
 
   # set autoupgrade channel to most recent
   system.autoUpgrade.channel = https://nixos.org/channels/nixos-19.09;

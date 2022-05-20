@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 
 let 
-    myEmacs = import ../../programs/emacs.nix { pkgs = pkgs; config = config; unstable = pkgs; };
+    myEmacs = import ../../programs/emacs/emacs.nix { pkgs = pkgs; config = config; unstable = pkgs; };
     haskell-env = with pkgs.haskell.packages.${config.ghc.version}; [
     ];
 
@@ -120,6 +120,10 @@ in {
   xdg.configFile."polybar/launch.sh".source = ../../programs/polybar/launch.sh;
   # xmonad
   home.file.".xmonad/xmonad.hs".source = ../../programs/xmonad.hs;
+  # doom emacs
+  home.file.".doom.d/".source = ../../programs/emacs/.doom.d;
+  # this would be nice but it keeps erroring out
+  # home.file.".doom.d/".onChange= "./home/doyougnu/.emacs.d/bin/doom sync";
 
   programs.fish = {
     enable = true;
