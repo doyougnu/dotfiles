@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: math_block
+# key: bm
+# uuid: math_block
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
+# --
+.. math::
+   ${1:math block here}
+
+$0
