@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: directive
+# key: dir
+# uuid: directive
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
+# --
+.. ${directive}::
+   ${block context}
+
+$0
