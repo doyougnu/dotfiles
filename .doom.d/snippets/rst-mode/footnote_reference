@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: footnote_reference
+# key: fr
+# uuid: footnote_reference
+# --
+[${#}]_ $0

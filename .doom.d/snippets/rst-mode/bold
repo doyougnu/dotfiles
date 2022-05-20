@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: bold
+# key: bo
+# uuid: bold
+# --
+*${1:bolded}* $0

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: internal_reference
+# key: ir
+# uuid: internal_reference
+# --
+_\`${1:internal reference}\` $0
