@@ -28,13 +28,21 @@
         username = "doyougnu";
         stateVersion = "21.11";
       };
+
+      desktop-system = home-manager.lib.homeManagerConfiguration {
+        configuration = homeManagerConfFor ./hosts/desktop/home.nix;
+        system = "x86_64-linux";
+        homeDirectory = "/home/doyougnu";
+        username = "doyougnu";
+        stateVersion = "21.11";
+      };
     in 
     {
       nixosConfigurations.framework = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          nixos-hardware.nixosModules.framework 
-	  ./hosts/framework/configuration.nix
+          nixos-hardware.nixosModules.framework
+          ./hosts/framework/configuration.nix
 
           home-manager.nixosModules.home-manager {
             home-manager.useUserPackages = true;
@@ -43,8 +51,20 @@
         ];
       };
 
+      nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/desktop/configuration.nix
+
+          home-manager.nixosModules.home-manager {
+            home-manager.useUserPackages = true;
+            home-manager.users.doyougnu = homeManagerConfFor ./hosts/desktop/home.nix;
+          }
+        ];
+      };
+
       framework = framework-system.activationPackage;
-      defaultPackage.x86_64-linux = framework-system.activationPackage;
+      desktop   = desktop-system.activationPackage;
     };
 }
 

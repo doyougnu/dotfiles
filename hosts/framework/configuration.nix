@@ -176,8 +176,6 @@
          haskellPackages.dbus
          pkgs.xmonad-log
          haskellPackages.xmonad-spotify
-         haskellPackages.xmonad-contrib
-         haskellPackages.xmonad-extras
        ];
      };
      displayManager = {

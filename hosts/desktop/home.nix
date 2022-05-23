@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-    myEmacs = import ../../programs/emacs.nix { pkgs = pkgs; config = config; unstable = pkgs; };
+    myEmacs = import ../../programs/emacs/emacs.nix { pkgs = pkgs; config = config; unstable = pkgs; };
     haskell-env = with pkgs.haskell.packages.${config.ghc.version}; [
     ];
 
@@ -221,21 +221,25 @@ in {
   '';
 
   home.packages = with pkgs; [
+    alsa-utils
     cbqn
     chez
     cowsay
     discord
     entr
+    evince
     firefox
     fasd
     gerbil
     google-chrome
     guile
+    idris2
     libevent
     killall         # for polybar launch script
     moreutils
     myEmacs
     multimarkdown
+    polybar
     pinentry
     pianobar
     qutebrowser
@@ -246,9 +250,12 @@ in {
     sdcv             # for polybar
     shutter
     signal-desktop
-    silver-searcher
     spotify
+    spotify-unwrapped
     slack
+    steam
+    texlive.combined.scheme-full
+    tdesktop
     xclip
     xorg.xwininfo    # for emacs everywhere
     xdotool          # for emacs everywhere
@@ -258,8 +265,8 @@ in {
     zip
   ] ++
   [ R
-    rEnv
-    pyEnv
+    # rEnv
+    # pyEnv
   ]
     ++
     haskell-env

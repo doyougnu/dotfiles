@@ -6,7 +6,6 @@
 
 let
   baseconfig    = { allowUnfree = true; allowBroken = true; };
-  unstable      = import <unstable> { config = baseconfig; };
 in
 {
   imports =
@@ -62,13 +61,10 @@ in
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
 
-    wget vim binutils manpages coreutils gcc gnumake iw sshfs
-    nix dzen2 dmenu stdenv pkgconfig zlib curl feh
-    xlibs.xmodmap htop neofetch aspellDicts.en openjdk aspell mate.caja
-    texlive.combined.scheme-full cabal-install pciutils
-    evince libreoffice gimp unzip cachix notify-osd libao
-    xmonad-with-packages polybar alacritty pavucontrol direnv
-    cacert openssl libnotify emacs upower unstable.glibc
+    wget vim binutils man-pages coreutils gcc gnumake iw sshfs stdenv pkgconfig
+    zlib curl feh xorg.xmodmap htop neofetch aspellDicts.en aspell pciutils
+    unzip cachix libao xmonad-log pavucontrol cacert openssl libnotify emacs
+    alacritty
 
     ];
 
@@ -112,10 +108,10 @@ in
   nix.trustedUsers = [ "root" "doyougnu" ];
 
   nix = {
-     package = pkgs.nixFlakes;
-     extraOptions = ''
-       experimental-features = nix-command flakes;
-     '';
+     package = pkgs.nixUnstable;
+     # extraOptions = ''
+     #   experimental-features = nix-command flakes;
+     # '';
   };
 
   # device auto mounting
@@ -137,11 +133,11 @@ in
     windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;
-      extraPackages = (hpkgs: with hpkgs;
-      [
-        dbus
-        xmonad-spotify
-      ]);
+      extraPackages = haskellPackages: [
+         haskellPackages.dbus
+         pkgs.xmonad-log
+         haskellPackages.xmonad-spotify
+      ];
     };
     layout = "us";
     videoDrivers = [ "nvidia" ];
@@ -152,8 +148,8 @@ in
         user = "doyougnu";
         };
       sessionCommands = ''
-       ${pkgs.xlibs.xmodmap}/bin/xmodmap ~/.Xmodmap
-       ${pkgs.xlibs.xsetroot}/bin/xsetroot -cursor_name left_ptr
+       ${pkgs.xorg.xmodmap}/bin/xmodmap ~/.Xmodmap
+       ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
        '';
     };
 
@@ -196,7 +192,7 @@ in
   fonts.fonts = with pkgs; [
     source-code-pro
     siji
-    unstable.nerdfonts             # nerdfonts broken on stable for 21.11
+    nerdfonts             # nerdfonts broken on stable for 21.11
     font-awesome_5
     font-awesome_4
     material-icons
