@@ -1,6 +1,6 @@
-{ pkgs, config, ... }:
+{ config, pkgs, ... }:
 
-let 
+let
     myEmacs = import ../../programs/emacs.nix { pkgs = pkgs; config = config; unstable = pkgs; };
     haskell-env = with pkgs.haskell.packages.${config.ghc.version}; [
     ];
@@ -25,18 +25,16 @@ in {
               ];
   };
 
-  # if on new PC make sure you `gpg --import secret.key`
   programs.gpg = {
     enable = true;
     settings = {
       default-key = "0xAF59A1E46422D9C9";
     };
   };
-
   services.gpg-agent = {
     enable         = true;
     maxCacheTtl    = 7200;
-    pinentryFlavor = "tty";
+    # pinentryFlavor = "tty";
     extraConfig = ''
     allow-emacs-pinentry
     allow-loopback-pinentry
@@ -78,11 +76,10 @@ in {
         };
 
         global = {
-          font = "Iosevka 12";
+          font = "Iosevka 10";
           width = 500;
           height = 900;
           transparency = 20;
-          # frame_color = "#eceff1";
           frame_color = "#4287f5";
           corner_radius = 15;
           # center text
@@ -112,14 +109,14 @@ in {
   services.emacs.enable = true;
   services.emacs.package = myEmacs;
 
-  # manually write config files
+  # write config files
   # alacritty
   xdg.configFile."alacritty/alacritty.yml".source = ../../programs/alacritty.yml;
   # polybar
-  xdg.configFile."polybar/config.ini".source    = ../../programs/polybar/config.ini;
+  xdg.configFile."polybar/config.ini".source    = ../../programs/polybar/config_desktop;
   xdg.configFile."polybar/launch.sh".source = ../../programs/polybar/launch.sh;
   # xmonad
-  home.file.".xmonad/xmonad.hs".source = ../../programs/xmonad/xmonad_framework.hs;
+  home.file.".xmonad/xmonad.hs".source = ../../programs/xmonad/xmonad_desktop.hs;
 
   programs.fish = {
     enable = true;
@@ -132,7 +129,7 @@ in {
       nsc = "nix-shell --pure --command";
       ns  = "nix-shell";
       nsp = "nix-shell -p";
-      hms = "home-manager switch";
+      hms = "nix-shell ~/.config/nixpkgs/shell.nix --run \'home-manager switch\'";
 
       nivu = "nix-shell -p niv --run 'niv update'";
 
@@ -182,6 +179,16 @@ in {
                }];
 
     shellInit = ''
+     ## setup gpg for fish
+     ## set -gx GPG_TTY (tty)
+
+     # Add the following to your shell init to set up gpg-agent automatically for every shell
+     # if test -f ~/.gnupg/.gpg-agent-info && not pgrep gpg-agent
+     #     source ~/.gnupg/.gpg-agent-info
+     #     export GPG_AGENT_INFO
+     # else
+     #     eval (gpg-agent --daemon)
+     # end
 
      function fish_user_key_bindings
        fish_vi_key_bindings
@@ -210,31 +217,21 @@ in {
   '';
 
   home.packages = with pkgs; [
-    alsa-utils
     cbqn
     chez
     cowsay
-    cachix
     discord
-    evince
     entr
     firefox
     fasd
-    feh
     gerbil
     google-chrome
     guile
     libevent
-    lispPackages.arrows
-    lispPackages.closer-mop
-    lispPackages.quicklisp
-    idris2
-    # libnotify
     killall         # for polybar launch script
     moreutils
     myEmacs
     multimarkdown
-    polybar         # for xmonad
     pinentry
     pianobar
     qutebrowser
@@ -246,23 +243,19 @@ in {
     shutter
     signal-desktop
     silver-searcher
-    slack
     spotify
-    spotify-unwrapped
-    steam
-    tdesktop
-    texlive.combined.scheme-full
+    slack
     xclip
     xorg.xwininfo    # for emacs everywhere
     xdotool          # for emacs everywhere
     xdg-dbus-proxy
     xdg-desktop-portal
-    w3m              # text broser for emacs-w3m
+    w3m              # text browser for emacs-w3m
     zip
   ] ++
   [ R
-    # rEnv
-    # pyEnv
+    rEnv
+    pyEnv
   ]
     ++
     haskell-env
@@ -270,6 +263,7 @@ in {
   (with pkgs;
     [ gmp
       numactl
+      tdesktop
       valgrind
       thunderbird
   ]);

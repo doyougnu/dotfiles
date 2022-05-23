@@ -1,0 +1,207 @@
+# Edit this configuration file to define what should be installed on
+# your system.  Help is available in the configuration.nix(5) man page
+# and in the NixOS manual (accessible by running ‘nixos-help’).
+
+{ config, pkgs, ... }:
+
+let
+  baseconfig    = { allowUnfree = true; allowBroken = true; };
+  unstable      = import <unstable> { config = baseconfig; };
+in
+{
+  imports =
+    [ # Include the results of the hardware scan.
+      ./hardware-configuration.nix
+    ];
+
+  # Use the systemd-boot EFI boot loader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  ## Enable pulseaudio and bluetooth
+  sound.enable = true;
+  sound.mediaKeys.enable = true;
+  hardware.enableAllFirmware = true;
+  hardware.enableRedistributableFirmware = true;
+  hardware.bluetooth.enable = true;
+  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.support32Bit = true;
+  hardware.pulseaudio.package = pkgs.pulseaudioFull;
+  hardware.pulseaudio.zeroconf.discovery.enable = true;
+
+  networking.networkmanager.enable = true;
+  #networking.networkmanager.wifi.powersave = true;
+  networking.hostName = "7thChamber"; # Define your hostname.
+  networking.extraHosts =
+    ''
+    192.168.0.152 pihole.local
+    192.168.0.103 hypervisor.local
+    '';
+
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.UTF-8";
+  console.font = "Lat2-Terminus16";
+  console.keyMap = "us";
+
+#   programs.zsh = {
+#     enable = true;
+#     autosuggestions.enable = true;
+#     ohMyZsh.enable = true;
+#     ohMyZsh.plugins = [ "git" "history-substring-search" "z" "colored-man-pages" ];
+#    syntaxHighlighting.enable = true;
+#     promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+#   };
+
+  # Set your time zone.
+  time.timeZone = "America/New_York";
+
+  # all proprietary
+  nixpkgs.config.allowUnfree = true;
+
+  # List packages installed in system profile. To search by name, run:
+  # $ nix-env -qaP | grep wget
+  environment.systemPackages = with pkgs; [
+
+    wget vim binutils manpages coreutils gcc gnumake iw sshfs
+    nix dzen2 dmenu stdenv pkgconfig zlib curl feh
+    xlibs.xmodmap htop neofetch aspellDicts.en openjdk aspell mate.caja
+    texlive.combined.scheme-full cabal-install pciutils
+    evince libreoffice gimp unzip cachix notify-osd libao
+    xmonad-with-packages polybar alacritty pavucontrol direnv
+    cacert openssl libnotify emacs upower unstable.glibc
+
+    ];
+
+  # Enable the OpenSSH daemon.
+  services.openssh.enable = true;
+
+  services.hoogle = {
+    enable = true;
+    haskellPackages = pkgs.haskellPackages;
+  };
+
+  services.syncthing = {
+    enable    = true;
+    user      = "doyougnu";
+    dataDir   = "/home/doyougnu/sync";
+    configDir = "/home/doyougnu/.config/syncthing";
+    devices = {
+      "voltron" = { id = "QXVXZ3O-M3WUXGW-HVQOIJM-XHIL2QG-AIG5AJW-PYNZF6W-4T7YCUW-N7HFHQC"; };
+    };
+    overrideFolders = true;
+    overrideDevices = true;
+  };
+
+  # set vim to default editor
+  environment.variables.VISUAL       = "emacs";
+  environment.variables.EDITOR       = "emacs";
+  environment.variables.XCURSOR_SIZE = "18";
+
+  users.groups.voltron.gid = 7777;
+  users.extraUsers.doyougnu = { # don't forget to set a password with passwd
+      isNormalUser = true;
+      extraGroups = ["networkmanager" "voltron" "wheel" "audio" "pulse" "docker" ];
+      uid = 1729;
+      shell = pkgs.fish;
+      home = "/home/doyougnu";
+    };
+
+  # anyone in wheel can use the nix daemon via allowed users
+  nix.allowedUsers = ["@wheel"];
+  # Cachix trusted users
+  nix.trustedUsers = [ "root" "doyougnu" ];
+
+  nix = {
+     package = pkgs.nixFlakes;
+     extraOptions = ''
+       experimental-features = nix-command flakes;
+     '';
+  };
+
+  # device auto mounting
+  services.devmon.enable = true;
+
+  # logind to never sleep
+  powerManagement.enable = false;
+  # systemd.targets.sleep.enable = false;
+  # systemd.targets.suspend.enable = false;
+  # systemd.targets.hybrid-sleep.enable = false;
+  systemd.sleep.extraConfig = "HibernateDelaySec=4h";
+  services.logind.extraConfig = "IdleAction=ignore";
+
+  # Enable the XServer settings
+  services.xserver.enable = true;
+  services.xserver = {
+
+    # Enable the X11 windowing system.
+    windowManager.xmonad = {
+      enable = true;
+      enableContribAndExtras = true;
+      extraPackages = (hpkgs: with hpkgs;
+      [
+        dbus
+        xmonad-spotify
+      ]);
+    };
+    layout = "us";
+    videoDrivers = [ "nvidia" ];
+    displayManager = {
+      lightdm.enable = true;
+      autoLogin = {
+        enable = false;
+        user = "doyougnu";
+        };
+      sessionCommands = ''
+       ${pkgs.xlibs.xmodmap}/bin/xmodmap ~/.Xmodmap
+       ${pkgs.xlibs.xsetroot}/bin/xsetroot -cursor_name left_ptr
+       '';
+    };
+
+  };
+
+  ## default is no desktop manager and xmonad
+  services.xserver.displayManager.defaultSession = "none+xmonad";
+  # services.xserver.desktopManager.xfce.enable    = true;
+
+  # Drivers 32bit support
+  hardware.opengl.driSupport32Bit = true;
+
+
+  # nice compton settings
+  services.compton = {
+  enable          = true;
+  fade            = true;
+  inactiveOpacity = 0.80;
+  shadow          = false;
+  fadeDelta       = 1;
+  };
+
+  # This value determines the NixOS release with which your system is to be
+  # compatible, in order to avoid breaking some software such as database
+  # servers. You should change this only after NixOS release notes say you
+  # should.
+  system.stateVersion = "20.03"; # Did you read the comment?
+
+
+
+  # docker
+  virtualisation.docker.enable = false;
+
+  # databases
+  services.mysql.enable  = false;
+  services.mysql.package = pkgs.mysql;
+  services.mysql.group   = "wheel";
+
+  ## some fonts
+  fonts.fonts = with pkgs; [
+    source-code-pro
+    siji
+    unstable.nerdfonts             # nerdfonts broken on stable for 21.11
+    font-awesome_5
+    font-awesome_4
+    material-icons
+    emacs-all-the-icons-fonts
+    numix-icon-theme-circle
+    symbola
+   ];
+}

@@ -1,0 +1,395 @@
+[colors]
+background = black ;#d0303030
+background-transparent = #2F343F
+background-alt = #c0303030
+background-alt-2 = #ff5fafcf
+foreground = #eeeeee
+foreground-alt = #c1c2c3
+
+red = #fb4934
+green = #b8bb26
+yellow = #fabd2f
+blue = #83a598
+purple = #d3869b
+aqua = #8ec07c
+orange = #fe8019
+white = #dddddd
+
+blue_arch = #83afe1
+
+grey = #5b51c9
+grey1 = #5bb1c9
+grey2 = #5bf1c9
+
+primary = green
+secondary = blue
+alert = red
+
+[bar/base]
+width = 100%
+height = 17
+offset-x = 0
+offset-y = 0
+
+background = ${colors.background-alt}
+foreground = ${colors.foreground}
+
+overline-size = 0
+underline-size = 0
+
+border-bottom-size = 0
+border-bottom-color = #ffffff
+
+padding-left = 0
+padding-right = 1
+module-margin-left = 1
+module-margin-right = 1
+
+font-0 = "SpaceMono Nerd Font Mono:fontformat=truetype:size=15:antialias=true;3"
+font-1 = "LiberationMono:fontformat=truetype:size=10:antialias=true;1"
+font-2 = "SpaceMono Nerd Font Mono:pixelsize=10;1"
+font-3 = "Siji:fontformat=truetype:size=12:antialias=true;1"
+
+radius = 0.0
+; fixed-center = false
+
+line-size = 2
+line-color = #f00
+
+border-size = 0
+border-color = #00000000
+
+tray-position = right
+tray-padding = 2
+tray-background = ${root.background}
+
+[bar/top]
+inherit = bar/base
+monitor = DVI-D-0
+width = 100%
+height = 17
+
+; background = #00000000
+; foreground = #ccffffff
+
+; line-color = ${bar/bottom.background}
+line-size = 16
+
+spacing = 2
+padding-right = 5
+module-margin = 4
+
+font-0 = NotoSans-Regular:size=8;2
+font-1 = MaterialIcons:size=10;2
+font-2 = Termsynu:size=8;2
+font-3 = FontAwesome:size=10;2
+font-4 = dina:pixelsize=9;2
+font-5 = siji:pixelsize=10;2
+font-6 = unifont:size=6;2
+
+label-active-font = 2
+
+modules-left = cpu memory
+modules-center = xmonad
+modules-right = pulseaudio filesystem date
+
+[module/xmonad]
+type = custom/script
+exec = xmonad-log
+label = %output:20:50:...%
+format-padding = 4
+
+tail = true
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:30:...%
+
+[module/bspwm]
+type = internal/bspwm
+
+ws-icon-0 = term;
+ws-icon-1 = web;
+ws-icon-2 = code;
+ws-icon-3 = music;
+ws-icon-4 = irssi;
+ws-icon-default = 
+
+format = <label-state> <label-mode>
+
+label-dimmed-underline = ${BAR.background}
+
+label-active = %icon%
+label-active-foreground = #fff
+label-active-background = #773f3f3f
+label-active-underline = #c9665e
+label-active-font = 4
+label-active-padding = 4
+
+label-occupied = %icon%
+label-occupied-foreground = #dd
+label-occupied-underline = #666
+label-occupied-font = 4
+label-occupied-padding = 4
+
+label-urgent = %icon%
+label-urgent-foreground = #000000
+label-urgent-background = #bd2c40
+label-urgent-underline = #9b0a20
+label-urgent-font = 4
+label-urgent-padding = 4
+
+label-empty = %icon%
+label-empty-foreground = #55
+label-empty-font = 4
+label-empty-padding = 4
+
+label-monocle = 
+label-monocle-underline = ${module/bspwm.label-active-underline}
+label-monocle-background = #33ffffff
+label-monocle-padding = 2
+
+label-locked = 
+label-locked-foreground = #bd2c40
+label-locked-underline = ${module/bspwm.label-monocle-underline}
+label-locked-padding = ${module/bspwm.label-monocle-padding}
+
+label-sticky = 
+label-sticky-foreground = #fba922
+label-sticky-underline = ${module/bspwm.label-monocle-underline}
+label-sticky-padding = ${module/bspwm.label-monocle-padding}
+
+label-private = 
+label-private-foreground = #bd2c40
+label-private-underline = ${module/bspwm.label-monocle-underline}
+label-private-padding = ${module/bspwm.label-monocle-padding}
+
+[module/bspwm-tmp]
+type = internal/bspwm
+format = <label-state>
+
+label-active = 
+label-active-padding = 1
+label-occupied = 
+label-occupied-padding = 1
+label-empty = 
+label-empty-padding = 1
+
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+; format = <label> <ramp-coreload>
+label = %percentage-cores%
+
+format-prefix = "%{T2}%{T-} "
+format-prefix-foreground = ${colors.foreground}
+format-underline = ${colors.grey}
+; label = %percentage%%
+
+ramp-coreload-0 = ▁
+ramp-coreload-0-font = 2
+ramp-coreload-0-foreground = #aaff77
+ramp-coreload-1 = ▂
+ramp-coreload-1-font = 2
+ramp-coreload-1-foreground = #aaff77
+ramp-coreload-2 = ▃
+ramp-coreload-2-font = 2
+ramp-coreload-2-foreground = #aaff77
+ramp-coreload-3 = ▄
+ramp-coreload-3-font = 2
+ramp-coreload-3-foreground = #aaff77
+ramp-coreload-4 = ▅
+ramp-coreload-4-font = 2
+ramp-coreload-4-foreground = #fba922
+ramp-coreload-5 = ▆
+ramp-coreload-5-font = 2
+ramp-coreload-5-foreground = #fba922
+ramp-coreload-6 = ▇
+ramp-coreload-6-font = 2
+ramp-coreload-6-foreground = #ff5555
+ramp-coreload-7 = █
+ramp-coreload-7-font = 2
+ramp-coreload-7-foreground = #ff5555
+
+[module/date]
+type = internal/date
+date-alt =    %%{F#fff}%Y-%m-%d%%{F-}  %%{F#fff}%H:%M%%{F-}
+date     = %%{F#fff}%A, %d %B %Y  %%{F#fff}%H:%M%%{F#666}:%%{F#fba922}%S%%{F-}
+
+[module/memory]
+; type = internal/memory
+format = <label> <bar-used>
+label = %gb_used%/%gb_free%
+
+bar-used-width = 30
+bar-used-foreground-0 = #aaff77
+bar-used-foreground-1 = #aaff77
+bar-used-foreground-2 = #fba922
+bar-used-foreground-3 = #ff5555
+bar-used-indicator = |
+bar-used-indicator-font = 6
+bar-used-indicator-foreground = #ff
+bar-used-fill = ─
+bar-used-fill-font = 6
+bar-used-empty = ─
+bar-used-empty-font = 6
+bar-used-empty-foreground = #444444
+
+type = internal/memory
+interval = 2
+format-prefix = "%{T2}%{T-} "
+format-prefix-foreground = ${colors.foreground}
+format-underline = ${colors.grey}
+; label = %percentage_used%%
+
+[module/mpd]
+type = internal/mpd
+format-online = <icon-prev> <icon-stop> <toggle> <icon-next>  <icon-repeat> <icon-random>  <bar-progress> <label-time>  <label-song>
+
+icon-play = 
+icon-pause = 
+icon-stop = 
+icon-prev = 
+icon-next = 
+icon-random = 
+icon-repeat = 
+
+toggle-on-foreground =
+toggle-off-foreground = #55
+
+bar-progress-width = 45
+bar-progress-format = %{A4:mpdseek+2: A5:mpdseek-2:}%fill%%indicator%%empty%%{A A}
+bar-progress-indicator = |
+bar-progress-indicator-foreground = #ff
+bar-progress-indicator-font = 3
+bar-progress-fill = ─
+bar-progress-fill-foreground = #bb
+bar-progress-fill-font = 3
+bar-progress-empty = ─
+bar-progress-empty-font = 3
+bar-progress-empty-foreground = #44
+
+[module/wireless-network]
+type = internal/network
+interface = wlp3s0
+interval = 3.0
+ping-interval = 10
+
+; format-connected = <ramp-signal> <label-connected>
+format-connected = <label-connected>
+label-connected = %essid%
+label-disconnected =    not connected
+label-disconnected-foreground = #66
+
+; ramp-signal-0 = 😱
+; ramp-signal-1 = 😠
+; ramp-signal-2 = 😒
+; ramp-signal-3 = 😊
+; ramp-signal-4 = 😃
+; ramp-signal-5 = 😈
+
+animation-packetloss-0 = 
+animation-packetloss-0-foreground = #ffa64c
+animation-packetloss-1 = 
+animation-packetloss-1-foreground = ${bar/top.foreground}
+animation-packetloss-framerate = 500
+
+[module/wired-network]
+type = internal/network
+interface = net0
+interval = 3.0
+
+label-connected =    %{T3}%local_ip%%{T-}
+label-disconnected-foreground = #66
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+; Soundcard to be used
+; Usually in the format hw:#
+; You can find the different card numbers in `/proc/asound/cards`
+; master-soundcard = hw:0
+; speaker-soundcard = hw:0
+; headphone-soundcard = hw:0
+
+; Name of the master mixer
+; Use the following command to list available mixer controls:
+; $ amixer scontrols | sed -nr "s/.*'([[:alnum:]]+)'.*/\1/p"
+; If master, speaker or headphone-soundcard isn't the default,
+; use `amixer -c #` where # is the number of the master, speaker or headphone soundcard
+; Default: Master
+; master-mixer = Master
+; Optionally define speaker and headphone mixers
+; Default: none
+; speaker-mixer = Speaker
+; Default: none
+; headphone-mixer = Headphone
+
+; NOTE: This is required if headphone_mixer is defined
+; Use the following command to list available device controls
+; $ amixer controls | sed -r "/CARD/\!d; s/.*=([0-9]+).*name='([^']+)'.*/printf '%3.0f: %s\n' '\1' '\2'/e" | sort
+; You may also need to use `amixer -c #` as above for the mixer names
+; Default: none
+; headphone-id = 9
+
+; Use volume mapping (similar to amixer -M and alsamixer), where the increase in volume is linear to the ear
+; Default: false
+mapped = true
+format-volume = <ramp-volume> <label-volume>
+label-muted =   muted
+label-muted-foreground = #66
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-3 = 
+click-right = pavucontrol &
+
+[module/powermenu]
+type = custom/menu
+
+format-padding = 5
+
+label-open = 
+label-close = 
+
+menu-0-0 = Terminate WM
+menu-0-0-foreground = #fba922
+menu-0-0-exec = bspc quit -1
+menu-0-1 = Reboot
+menu-0-1-foreground = #fba922
+menu-0-1-exec = menu_open-1
+menu-0-2 = Power off
+menu-0-2-foreground = #fba922
+menu-0-2-exec = menu_open-2
+
+menu-1-0 = Cancel
+menu-1-0-foreground = #fba922
+menu-1-0-exec = menu_open-0
+menu-1-1 = Reboot
+menu-1-1-foreground = #fba922
+menu-1-1-exec = sudo reboot
+
+menu-2-0 = Power off
+menu-2-0-foreground = #fba922
+menu-2-0-exec = sudo poweroff
+menu-2-1 = Cancel
+menu-2-1-foreground = #fba922
+menu-2-1-exec = menu_open-0
+
+[module/clock]
+type = internal/date
+interval = 2
+date = %%{F#999}%Y-%m-%d%%{F-}  %%{F#fff}%H:%M%%{F-}
+
+[module/filesystem]
+type = internal/fs
+
+; Mountpoints
+mount-0 = /
+mount-1 = /home
+mount-2 = /store
+
+interval = 120 ;; two minutes between updates
+
+spacing = 4 ;; wider space
