@@ -114,7 +114,7 @@ in {
 
   # manually write config files
   # alacritty
-  xdg.configFile."alacritty/alacritty.yml".source = ../../programs/alacritty.yml;
+  xdg.configFile."alacritty/alacritty.yml".source = ../../programs/alacritty/framework.yml;
   # polybar
   xdg.configFile."polybar/config.ini".source    = ../../programs/polybar/config.ini;
   xdg.configFile."polybar/launch.sh".source = ../../programs/polybar/launch.sh;
