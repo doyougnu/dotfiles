@@ -43,6 +43,11 @@ in {
     '';
   };
 
+  services.lorri.enable = true;
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
 
 
   # Home Manager needs a bit of information about you and the
@@ -51,8 +56,6 @@ in {
   home.homeDirectory = "/home/doyougnu";
 
 
-  # services
-  services.lorri.enable = true;
   services.dunst = {
     enable = true;
     settings = {

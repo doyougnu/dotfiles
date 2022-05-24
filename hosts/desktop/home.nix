@@ -31,6 +31,7 @@ in {
       default-key = "0xAF59A1E46422D9C9";
     };
   };
+
   services.gpg-agent = {
     enable         = true;
     maxCacheTtl    = 7200;
@@ -42,6 +43,11 @@ in {
   };
 
 
+  services.lorri.enable = true;
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
 
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -49,8 +55,6 @@ in {
   home.homeDirectory = "/home/doyougnu";
 
 
-  # services
-  services.lorri.enable = true;
   services.dunst = {
     enable = true;
     settings = {
