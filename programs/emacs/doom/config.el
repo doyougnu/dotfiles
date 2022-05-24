@@ -25,8 +25,11 @@
 (if (equal (display-pixel-width) 2560)
     (setq doom-font (font-spec :family font-family :size 20)
           doom-big-font (font-spec :family font-family :size 30))
-  (setq doom-font (font-spec :family font-family :size 16)
-        doom-big-font (font-spec :family font-family :size 24)))
+  (setq doom-font (font-spec :family font-family :size 11)
+        doom-big-font (font-spec :family font-family :size 14)))
+
+;; set private config to dotfiles not nix-store copy
+(setq doom-private-dir "~/dotfiles/programs/emacs/doom")
 
 ;; set evil escape to be spacemacs-esque
 (setq-default evil-escape-key-sequence "fd")
