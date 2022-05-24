@@ -29,6 +29,12 @@
       projectile-sort-order      'recently-active
       projectile-indexing-method 'hybrid)
 
+(if (equal (x-display-pixel-width) 2256)
+    (setq doom-font (font-spec :family font-family :size 16)
+          doom-big-font (font-spec :family font-family :size 24))
+  (setq doom-font (font-spec :family font-family :size 11)
+        doom-big-font (font-spec :family font-family :size 14)))
+
 ;; always prefer newer .el files
 (setq load-prefer-newer t)
 
