@@ -118,7 +118,7 @@ in {
   # xmonad
   home.file.".xmonad/xmonad.hs".source = ../../programs/xmonad/xmonad_desktop.hs;
   # doom emacs
-  home.file.".doom.d/".source = ../../programs/emacs/.doom.d;
+  home.file.".doom.d/".source = ../../programs/emacs/doom;
   # this would be nice but it keeps erroring out
   # home.file.".doom.d/".onChange= "./home/doyougnu/.emacs.d/bin/doom sync";
 
