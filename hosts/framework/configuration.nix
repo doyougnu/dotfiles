@@ -115,31 +115,38 @@
     };
     folders = {
       "org" = {
-        path = "/home/doyougnu/sync/org";
-        devices = [ "voltron" ];
-      };
-      "deft" = {
-        path = "/home/doyougnu/sync/deft";
-        devices = [ "voltron" ];
-      };
-      "dnd" = {
-        path = "/home/doyougnu/sync/dnd";
+        id      = "a5she-s5zwp";
+        path    = "/home/doyougnu/sync/org";
         devices = [ "voltron" ];
       };
       "Books" = {
-        path = "/home/doyougnu/sync/Books";
+        id      = "hq3xr-sqxfw";
+        path    = "/home/doyougnu/sync/Books";
+        devices = [ "voltron" ];
+      };
+      "dnd" = {
+        id      = "ntwfo-bgvsq";
+        path    = "/home/doyougnu/sync/dnd";
         devices = [ "voltron" ];
       };
       "other" = {
-        path = "/home/doyougnu/sync/other";
+        id      = "vshib-2mbq2";
+        path    = "/home/doyougnu/sync/other";
         devices = [ "voltron" ];
       };
-      "keys" = {
-        path = "/home/doyougnu/sync/keys";
+      "deft" = {
+        id      = "wzppz-wf5vh";
+        path    = "/home/doyougnu/sync/deft";
         devices = [ "voltron" ];
       };
       "wallpapers" = {
-        path = "/home/doyougnu/sync/wallpapers";
+        id      = "ydge2-qncvp";
+        path    = "/home/doyougnu/sync/wallpapers";
+        devices = [ "voltron" ];
+      };
+      "keys" = {
+        id      = "yglju-g4hng";
+        path    = "/home/doyougnu/sync/keys";
         devices = [ "voltron" ];
       };
 
@@ -147,7 +154,6 @@
     overrideFolders = true;
     overrideDevices = true;
   };
-
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
