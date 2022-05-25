@@ -113,9 +113,41 @@
     devices = {
       "voltron" = { id = "QXVXZ3O-M3WUXGW-HVQOIJM-XHIL2QG-AIG5AJW-PYNZF6W-4T7YCUW-N7HFHQC"; };
     };
+    folders = {
+      "org" = {
+        path = "/home/doyougnu/sync/org";
+        devices = [ "voltron" ];
+      };
+      "deft" = {
+        path = "/home/doyougnu/sync/deft";
+        devices = [ "voltron" ];
+      };
+      "dnd" = {
+        path = "/home/doyougnu/sync/dnd";
+        devices = [ "voltron" ];
+      };
+      "Books" = {
+        path = "/home/doyougnu/sync/Books";
+        devices = [ "voltron" ];
+      };
+      "other" = {
+        path = "/home/doyougnu/sync/other";
+        devices = [ "voltron" ];
+      };
+      "keys" = {
+        path = "/home/doyougnu/sync/keys";
+        devices = [ "voltron" ];
+      };
+      "wallpapers" = {
+        path = "/home/doyougnu/sync/wallpapers";
+        devices = [ "voltron" ];
+      };
+
+    };
     overrideFolders = true;
     overrideDevices = true;
   };
+
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
