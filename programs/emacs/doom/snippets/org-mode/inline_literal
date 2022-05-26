@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: inline_literal
+# key: l
+# uuid: inline_literal
+# --
+~${1:inline literal}~ $0

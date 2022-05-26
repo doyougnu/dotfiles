@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: underline
+# key: un
+# uuid: underline
+# --
+_${1:underlined}_ $0

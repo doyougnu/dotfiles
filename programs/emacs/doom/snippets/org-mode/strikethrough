@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: strikethrough
+# key: st
+# uuid: strikethrough
+# --
++${1:strikethrough}+ $0

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: reference
+# key: r
+# uuid: reference
+# --
+\`${1:reference}\`_ $0
