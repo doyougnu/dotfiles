@@ -36,6 +36,9 @@
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.support32Bit = true;
 
+  # framework firmware update
+  services.fwupd.enable = true;
+
   # enable acceleration for 32-bit
   hardware.opengl = {
     enable = true;
