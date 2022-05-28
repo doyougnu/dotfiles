@@ -128,6 +128,11 @@ in {
   # this would be nice but it keeps erroring out
   # home.file.".doom.d/".onChange= "./home/doyougnu/.emacs.d/bin/doom sync";
 
+  ## environment variables
+  home.sessionVariables = {
+    LIBGL_ALWAYS_SOFTWARE = "1";
+  };
+
   programs.fish = {
     enable = true;
     shellAliases = {
@@ -231,6 +236,7 @@ in {
     gerbil
     google-chrome
     guile
+    gephi
     libevent
     lispPackages.arrows
     lispPackages.closer-mop

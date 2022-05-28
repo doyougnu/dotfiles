@@ -170,9 +170,9 @@
   # services.printing.enable = true;
 
   # set emacs to default editor
-  environment.variables.EDITOR = "emacs";
-  environment.variables.WINIT_HIDPI_FACTOR = "1";
-  environment.variables.GPG_TTY = "$(tty)";
+  environment.variables.EDITOR                = "emacs";
+  environment.variables.WINIT_HIDPI_FACTOR    = "1";
+  environment.variables.GPG_TTY               = "$(tty)";
 
   # enable blueman service for bluetooth
   hardware.bluetooth.enable = true;
