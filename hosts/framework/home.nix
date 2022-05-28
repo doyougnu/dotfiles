@@ -119,7 +119,7 @@ in {
   # alacritty
   xdg.configFile."alacritty/alacritty.yml".source = ../../programs/alacritty/framework.yml;
   # polybar
-  xdg.configFile."polybar/config.ini".source    = ../../programs/polybar/config.ini;
+  xdg.configFile."polybar/config".source    = ../../programs/polybar/config.ini;
   xdg.configFile."polybar/launch.sh".source = ../../programs/polybar/launch.sh;
   # xmonad
   home.file.".xmonad/xmonad.hs".source = ../../programs/xmonad/xmonad_framework.hs;
@@ -258,13 +258,10 @@ in {
     sdcv             # for polybar
     shutter
     signal-desktop
-    silver-searcher
     slack
     spotify
-    spotify-unwrapped
     steam
     tdesktop
-    texlive.combined.scheme-full
     xclip
     xorg.xwininfo    # for emacs everywhere
     xdotool          # for emacs everywhere

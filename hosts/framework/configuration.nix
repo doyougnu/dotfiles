@@ -50,6 +50,7 @@
       vaapiVdpau
       libvdpau-va-gl
       intel-media-driver
+      intel-compute-runtime
     ];
     extraPackages32 = with pkgs.pkgsi686Linux; [
       libva
@@ -80,20 +81,15 @@
     enable = true;
   };
 
-#  nix = {
-#     package = pkgs.nixFlakes;
-#     extraOptions = lib.strings.optionalString (config.nix.package == pkgs.nixFlakes)
-#       "experimental-features = nix-command flakes";
-#  };
-
-  # programs.zsh = {
-  #   enable = true;
-  #   autosuggestions.enable = true;
-  #   ohMyZsh.enable = true;
-  #   ohMyZsh.plugins = [ "git" "history-substring-search" "colored-man-pages" "z" "web-search" ];
-  #   # ohMyZsh.theme = "";
-  #   syntaxHighlighting.enable = true;
-  # };
+  # use flakes and trusted for cachix
+  nix = {
+     package = pkgs.nixUnstable;
+     extraOptions = ''
+       experimental-features = nix-command flakes
+     '';
+     allowedUsers = ["@wheel"];
+     trustedUsers = [ "root" "doyougnu" ];
+  };
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -119,12 +115,6 @@
     openssl gnutls git libnotify emacs alsaLib xmonad-log
     dmenu
   ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.bash.enableCompletion = true;
-  # programs.mtr.enable = true;
-
 
   # List services that you want to enable:
   services.syncthing = {
@@ -195,6 +185,7 @@
   environment.variables.EDITOR                = "emacs";
   environment.variables.WINIT_HIDPI_FACTOR    = "1";
   environment.variables.GPG_TTY               = "$(tty)";
+  environment.variables.VDPAU_DRIVER          = "va_gl";
 
   # enable blueman service for bluetooth
   hardware.bluetooth.enable = true;
@@ -211,14 +202,11 @@
 
   users.extraUsers.doyougnu = { # don't forget to set a password with passwd
       isNormalUser = true;
-      extraGroups = ["networkmanager" "wheel" "audio" "pulse" "docker" "video"];
+      extraGroups = ["syncthing" "networkmanager" "wheel" "audio" "pulse" "docker" "video"];
       uid = 1729;
       shell = pkgs.fish;
       home = "/home/doyougnu";
     };
-
-  # add myself to trusted users for cachix
-  nix.trustedUsers = [ "doyougnu" ];
 
   # Enable the XServer settings
   services.xserver = {

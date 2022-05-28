@@ -8,6 +8,6 @@
     "google-chrome"
     "steam"
     "steam-original"
+    "steam-runtime"
   ];
 }
-

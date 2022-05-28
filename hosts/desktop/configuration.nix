@@ -141,16 +141,14 @@ in
       home = "/home/doyougnu";
     };
 
-  # anyone in wheel can use the nix daemon via allowed users
-  nix.allowedUsers = ["@wheel"];
-  # Cachix trusted users
-  nix.trustedUsers = [ "root" "doyougnu" ];
-
+  # use flakes and trusted for cachix
   nix = {
      package = pkgs.nixUnstable;
-     # extraOptions = ''
-     #   experimental-features = nix-command flakes;
-     # '';
+     extraOptions = ''
+       experimental-features = nix-command flakes
+     '';
+     allowedUsers = ["@wheel"];
+     trustedUsers = [ "root" "doyougnu" ];
   };
 
   # device auto mounting
