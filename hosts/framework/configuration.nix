@@ -21,6 +21,9 @@
   boot.loader.timeout = 4;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.cleanTmpDir = true;
+  boot.kernel.sysctl = {
+    "dev.i915.perf_stream_paranoid" = 0;
+  };
   services.logind.lidSwitch = "suspend-then-hibernate";
   services.logind.extraConfig = "IdleActionSec=300min";
 
@@ -34,8 +37,24 @@
   hardware.pulseaudio.support32Bit = true;
 
   # enable acceleration for 32-bit
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport32Bit = true;
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+    extraPackages = with pkgs; [
+      libva
+      vaapiIntel
+      vaapiVdpau
+      libvdpau-va-gl
+      intel-media-driver
+    ];
+    extraPackages32 = with pkgs.pkgsi686Linux; [
+      libva
+      vaapiIntel
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
+  };
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.powersave = true;
   networking.hostName = "7thChamber"; # Define your hostname.
