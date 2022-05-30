@@ -8,6 +8,7 @@
     nixpkgs-stable.url = "nixpkgs/nixos-21.11";
     emacs-overlay.url  = github:nix-community/emacs-overlay;
     nixos-hardware.url = github:nixos/nixos-hardware/master;
+    git-idris2.url     = github:idris-lang/Idris2?rev=5e9a90bd97d3940054dcf2fcaffccff7c72ef5ae;
     nur.url            = github:nix-community/nur;
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -16,7 +17,15 @@
 
   };
 
-  outputs = inputs@{emacs-overlay, home-manager, nur, nixos-hardware, nixpkgs, nixpkgs-stable, ...}:
+  outputs = inputs@{emacs-overlay
+                   , home-manager
+                   , nur
+                   , nixos-hardware
+                   , nixpkgs
+                   , nixpkgs-stable
+                   , git-idris2
+                   , ...
+                   }:
     let
       system = "x86_64-linux";
       user   = "doyougnu";
@@ -24,8 +33,11 @@
       overlay-stable = final: prev: {
         stable = nixpkgs-stable.legacyPackages.${prev.system};
       };
+      idris2-overlay = final: prev: {
+        idris2 = git-idris2.packages.${system}.idris2;
+      };
       homeManagerConfFor = config: { ... }: {
-        nixpkgs.overlays = [ emacs-overlay.overlay nur.overlay overlay-stable ];
+        nixpkgs.overlays = [ emacs-overlay.overlay nur.overlay overlay-stable idris2-overlay ];
         imports = [ config ];
       };
       
