@@ -12,6 +12,7 @@
   (map! (:map idris-mode-map
                 :localleader
                 :nv "," #'idris-load-file
+                :nv "a" #'idris-add-clause
                 :nv "'" #'idris-pop-to-repl
                 (:prefix ("b" . "build")
                   :nv "b" #'idris-ipkg-build
