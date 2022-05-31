@@ -3,11 +3,30 @@
 (after! idris-mode
 
   (setq idris-interpreter-path "idris2")
+  (when (featurep! +lsp)
+    (add-hook 'idris-mode-hook #'lsp!))
+  (set-repl-handler! 'idris-mode 'idris-pop-to-repl)
+  (set-lookup-handlers! 'idris-mode
+    :documentation #'idris-docs-at-point)
 
   (map! (:map idris-mode-map
                 :localleader
                 :nv "," #'idris-load-file
-                :nv "'" #'idris-pop-to-repl)
+                :nv "'" #'idris-pop-to-repl
+                (:prefix ("b" . "build")
+                  :nv "b" #'idris-ipkg-build
+                  :nv "c" #'idris-ipkg-clean
+                  :nv "i" #'idris-ipkg-install
+                  :nv "," #'idris-ipkg-insert-field)
+                (:prefix ("d" . "docs")
+                  :nv "t"   #'idris-docs-at-point
+                  :nv "s"   #'idris-type-search
+                  :nv "a"   #'idris-apropos)
+                (:prefix ("m" . "Active terms")
+                  :nv "i"   #'idris-show-term-implicits
+                  :nv "I"   #'idris-hide-term-implicits
+                  :nv "n"   #'idris-normalize-term
+                  :nv "c"   #'idris-show-core-term))
         (:map idris-ipkg-mode-map
                 :localleader
                 :nv "b" #'idris-ipkg-build
