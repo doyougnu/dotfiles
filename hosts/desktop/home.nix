@@ -266,6 +266,8 @@ in {
     xdg-dbus-proxy
     xdg-desktop-portal
     w3m              # text browser for emacs-w3m
+    sqlite
+    wordnet
     zip
   ] ++
   [ R
