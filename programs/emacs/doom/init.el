@@ -200,7 +200,7 @@
        +pinentry
 
        :+lang
-       ;; bqn
+       bqn
        idris2
        +elisp
        +haskell
