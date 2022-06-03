@@ -1,6 +1,6 @@
 ;;; +lang/+idris/config.el -*- lexical-binding: t; -*-
 
-(after! idris-mode
+(after! idris2-mode
 
   (setq idris-interpreter-path "idris2")
 
