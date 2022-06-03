@@ -38,6 +38,9 @@
 ;; faster which-keys
 (setq which-key-idle-delay 0.15)
 
+;; better docs from dash
+(setq dash-docs-common-docsets '("Haskell" "Emacs Lisp" "Common Lisp"))
+
 ;; setup EasyPG for gpg
 (setq epg-pinentry-mode 'loopback)
 
