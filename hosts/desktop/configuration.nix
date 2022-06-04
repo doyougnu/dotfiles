@@ -29,7 +29,6 @@ in
   hardware.pulseaudio.zeroconf.discovery.enable = true;
 
   networking.networkmanager.enable = true;
-  #networking.networkmanager.wifi.powersave = true;
   networking.hostName = "7thChamber"; # Define your hostname.
   networking.extraHosts =
     ''
@@ -193,7 +192,6 @@ in
 
   ## default is no desktop manager and xmonad
   services.xserver.displayManager.defaultSession = "none+xmonad";
-  # services.xserver.desktopManager.xfce.enable    = true;
 
   # Drivers 32bit support
   hardware.opengl.driSupport32Bit = true;

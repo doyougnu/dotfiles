@@ -11,12 +11,12 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" "iwlwifi" ];
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_5_17;
   boot.extraModulePackages = [ ];
-  boot.extraModprobeConfig = ''
-    options iwlwifi bt_coex_active=0 power_save=Y
-    options iwldvm force_cam=N
-  '';
+  # boot.extraModprobeConfig = ''
+  #   options iwlwifi bt_coex_active=0 power_save=Y
+  #   options iwldvm force_cam=N
+  # '';
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/a82812ea-100f-4615-945a-56cb9423b7ef";
