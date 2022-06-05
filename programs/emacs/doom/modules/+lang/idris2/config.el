@@ -4,11 +4,13 @@
 (use-package! idris2-mode
   :defer t
   :config
+
   (when (featurep! +lsp)
     (add-hook 'idris2-mode-hook #'lsp!))
   (advice-add #'evil-motion-range :around #'~/evil-motion-range--wrapper)
 
   (set-repl-handler! 'idris2-mode 'idris2-pop-to-repl)
+
   (set-lookup-handlers! 'idris2-mode
     :documentation #'idris2-docs-at-point)
 
@@ -25,15 +27,15 @@
          :nv "p" #'idris2-load-backward-line
          :nv "c" #'idris2-case-dwim
          :nv "SPC" #'idris2-newline-and-indent
-         (:prefix ("e"   "errors")
+         (:prefix ("e" . "errors")
           :nv "n" #'idris2-next-error
           :nv "p" #'idris2-previous-error)
-         (:prefix ("b"   "build")
+         (:prefix ("b" .  "build")
           :nv "b" #'idris2-ipkg-build
           :nv "c" #'idris2-ipkg-clean
           :nv "p" #'idris2-open-package-file
           :nv "i" #'idris2-ipkgs-install)
-         (:prefix ("d"   "docs")
+         (:prefix ("d" . "docs")
           :nv "d"   #'idris2-docs-at-point
           :nv "t"   #'idris2-type-search
           :nv "a"   #'idris2-apropos))
@@ -57,18 +59,18 @@
          :nv "I"   #'idris2-hide-term-implicits
          :nv "n"   #'idris2-normalize-term
          :nv "c"   #'idris2-show-core-term
-         (:prefix ("d"   "docs")
+         (:prefix ("d" . "docs")
           :nv "d"   #'idris2-docs-at-point
           :nv "t"   #'idris2-type-search
           :nv "a"   #'idris2-apropos))
         (:map idris2-hole-list-mode-map
+         :nvi "q"  #'idris2-hole-list-quit
          :localleader
-         :nv ","  #'idris2-compiler-notes-default-action-or-show-details
-         :nvi "q"  #'idris2-hole-list-quit)
-        (:map idris2-hole-list-mode-map
+         :nv ","  #'idris2-compiler-notes-default-action-or-show-details)
+        (:map idris2-info-mode-map
+         :nvi "q"  #'idris2-info-quit
          :localleader
-         :nv ","  #'prop-menu-show-menu
-         :nvi "q"  #'idris2-info-quit)
+         :nv ","  #'prop-menu-show-menu)
         (:map idris2-repl-mode-map
          :i  "C-n" #'idris2-repl-forward-history
          :i  "C-p" #'idris2-repl-backward-history
