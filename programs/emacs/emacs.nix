@@ -34,6 +34,7 @@ in
     # magit          # ; Integrate git <C-x g>
     # zerodark-theme # ; Nicolas' theme
   ]) ++ (with epkgs.melpaPackages; [
+    pdf-tools
 
 
     # undo-tree      # ; <C-x u> to show the undo tree
