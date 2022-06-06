@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: document_reference
+# key: dr
+# uuid: document_reference
+# --
+:doc:\`${1:doc reference}\` $0
