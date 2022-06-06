@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: section
+# key: sec
+# uuid: section
+# --
+${1:section name}
+${1:$(make-string (string-width yas-text) ?\=)}

@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: literal_block
+# key: bl
+# uuid: literal_block
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
+# --
+
+::
+
+   ${1:literal block here}
+
+$0

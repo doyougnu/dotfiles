@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: code_block
+# key: bc
+# uuid: code_block
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
+# --
+
+.. code-block:: ${1:bash}
+
+   ${2:code block here}
+
+$0

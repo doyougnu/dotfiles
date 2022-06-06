@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: subsubheader
+# key: sssec
+# uuid: subsubheader
+# --
+${1:sub sub section name}
+${1:$(make-string (string-width yas-text) ?\^)}

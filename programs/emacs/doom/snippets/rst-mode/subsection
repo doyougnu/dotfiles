@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: subsection
+# key: ssec
+# uuid: subsection
+# --
+${1:sub section header}
+${1:$(make-string (string-width yas-text) ?\-)}
