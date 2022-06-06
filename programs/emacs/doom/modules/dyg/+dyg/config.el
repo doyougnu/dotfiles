@@ -103,6 +103,17 @@
        :nv "C-;" #'fill-paragraph))
 
 (map!
+ :after wordnut
+ :map wordnut-mode-map
+ :nv "q" #'quit-window
+ :localleader
+ :nv "p" #'wordnut-history-backword
+ :nv "n" #'wordnut-history-forward
+ :nv "h" #'describe-mode
+ :nv "o" #'wordnut-show-overview
+ :nv "l" #'wordnut-history-lookup)
+
+(map!
  :after with-editor
  :map with-editor-mode-map
  :localleader
