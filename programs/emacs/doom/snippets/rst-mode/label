@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: label
+# key: lab
+# uuid: label
+# --
+.. _${1:my label}:
+
+$0

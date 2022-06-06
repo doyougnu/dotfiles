@@ -3,4 +3,4 @@
 # key: r
 # uuid: reference
 # --
-\`${1:reference}\`_ $0
+:ref:\`${1:reference}\` $0
