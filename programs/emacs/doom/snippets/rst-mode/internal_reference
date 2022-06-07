@@ -3,4 +3,4 @@
 # key: ir
 # uuid: internal_reference
 # --
-_\`${1:internal reference}\` $0
+.. _${1:internal reference}: $0
