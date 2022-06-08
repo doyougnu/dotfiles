@@ -67,8 +67,7 @@
         :desc "Set variable"             "s" #'set-variable
         :desc "Revert buffer"            "r" #'revert-buffer
         :desc "Highlight at point"       "h" #'highlight-symbol-at-point
-        :desc "Remove Highlight"         "H" #'unhighlight-regexp
-        )
+        :desc "Remove Highlight"         "H" #'unhighlight-regexp)
 
        (:prefix ("i" . "IRC")
         :desc "Init" "i" #'=irc)
@@ -88,7 +87,8 @@
       (:when (featurep! :tools lsp)
        :desc "lsp-imenu" "cI" #'lsp-ui-imenu)
 
-      :desc "Org-capture" "SPC" #'org-capture)
+      :desc "Org-capture" "SPC" #'org-capture
+      :desc "Ranger"      "."   #'ranger)
 
 (map! (:map company-active-map
       "C-l" #'company-complete-selection
