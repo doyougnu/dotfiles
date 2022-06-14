@@ -237,6 +237,7 @@ in {
     google-chrome
     guile
     gephi
+    gollum
     libevent
     lispPackages.arrows
     lispPackages.closer-mop
@@ -247,6 +248,7 @@ in {
     moreutils
     myEmacs
     multimarkdown
+    nodejs
     polybar         # for xmonad
     pinentry
     pianobar
