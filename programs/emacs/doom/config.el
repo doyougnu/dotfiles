@@ -21,7 +21,7 @@
 (setq font-family "Source Code Pro")
 
 (after! core
-  (if (equal (x-display-pixel-width) 2256)
+  (if (equal (getenv "EMACS_HOST") "framework")
     (setq doom-font (font-spec :family font-family :size 16)
           doom-big-font (font-spec :family font-family :size 24))
     (setq doom-font (font-spec :family font-family :size 11)

@@ -130,6 +130,7 @@ in
   environment.variables.VISUAL       = "emacs";
   environment.variables.EDITOR       = "emacs";
   environment.variables.XCURSOR_SIZE = "18";
+  environment.variables.EMACS_HOST   = "desktop"; # TODO move to home manager
 
   users.groups.voltron.gid = 7777;
   users.extraUsers.doyougnu = { # don't forget to set a password with passwd

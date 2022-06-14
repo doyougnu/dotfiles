@@ -186,6 +186,7 @@
   environment.variables.WINIT_HIDPI_FACTOR    = "1";
   environment.variables.GPG_TTY               = "$(tty)";
   environment.variables.VDPAU_DRIVER          = "va_gl";
+  environment.variables.EMACS_HOST            = "framework"; # TODO move to home manager
 
   # enable blueman service for bluetooth
   hardware.bluetooth.enable = true;
