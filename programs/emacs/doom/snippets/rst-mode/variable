@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: variable
+# key: v
+# uuid: variable
+# --
+.. |${1:name}| replace:: ${2:content} $0

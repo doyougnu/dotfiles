@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: term
+# key: t
+# uuid: term
+# --
+:term:\`${1:glossary term}\` $0

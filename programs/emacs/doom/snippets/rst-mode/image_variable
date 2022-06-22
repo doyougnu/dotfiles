@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: image_variable
+# key: iv
+# uuid: image_variable
+# --
+.. |${1:name}| image:: ${2:content} $0
