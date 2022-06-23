@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: note
+# key: n
+# uuid: note
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
+# --
+.. note::
+   ${1:content} $0
