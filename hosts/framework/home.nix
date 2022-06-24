@@ -248,7 +248,7 @@ in {
     moreutils
     myEmacs
     multimarkdown
-    nodejs
+    nodejs-18_x
     polybar         # for xmonad
     pinentry
     pianobar
