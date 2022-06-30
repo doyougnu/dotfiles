@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: cite_parenthetical
+# key: cp
+# uuid: cite_parenthetical
+# --
+:cite:p:\`${1:refs}\` $0

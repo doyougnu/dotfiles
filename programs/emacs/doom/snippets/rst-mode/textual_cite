@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: cite_textual
+# key: ct
+# uuid: cite_textual
+# --
+:cite:t:\`${1:refs}\` $0
