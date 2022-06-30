@@ -3,4 +3,4 @@
 # key: it
 # uuid: italics
 # --
-*${1:italicized}* $0
+/${1:italicized}/ $0
