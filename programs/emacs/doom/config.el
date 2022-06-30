@@ -22,7 +22,7 @@
 
 (after! core
   (if (equal (getenv "EMACS_HOST") "framework")
-    (setq doom-font (font-spec :family font-family :size 16)
+    (setq doom-font (font-spec :family font-family :size 18)
           doom-big-font (font-spec :family font-family :size 24))
     (setq doom-font (font-spec :family font-family :size 11)
           doom-big-font (font-spec :family font-family :size 13))))
