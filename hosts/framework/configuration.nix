@@ -231,9 +231,10 @@
       defaultSession = "none+xmonad";
       lightdm.enable = true;
       autoLogin.user   = "doyougnu";
-      sessionCommands = '' ${pkgs.xorg.xmodmap}/bin/xmodmap ~/.Xmodmap
+      sessionCommands = ''
+         ${pkgs.xorg.xmodmap}/bin/xmodmap ~/dotfiles/programs/xmodmap
          ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
-                        '';
+         '';
     };
   };
   environment.variables.XMONAD_CONFIG_DIR = "/home/doyougnu/.xmonad";

@@ -498,27 +498,27 @@ key_bindings:
   - { key: PageDown,                chars: "\x1b[6~"                     }
   - { key: Tab,      mods: Shift,   chars: "\x1b[Z"                      }
   - { key: Back,                    chars: "\x7f"                        }
-  - { key: Back,     mods: Alt,     chars: "\x1b\x7f"                    }
+  # - { key: Back,     mods: Alt,     chars: "\x1b\x7f"                    }
   - { key: Insert,                  chars: "\x1b[2~"                     }
   - { key: Delete,                  chars: "\x1b[3~"                     }
   - { key: Left,     mods: Shift,   chars: "\x1b[1;2D"                   }
   - { key: Left,     mods: Control, chars: "\x1b[1;5D"                   }
-  - { key: Left,     mods: Alt,     chars: "\x1b[1;3D"                   }
+  # - { key: Left,     mods: Alt,     chars: "\x1b[1;3D"                   }
   - { key: Left,                    chars: "\x1b[D",   mode: ~AppCursor  }
   - { key: Left,                    chars: "\x1bOD",   mode: AppCursor   }
   - { key: Right,    mods: Shift,   chars: "\x1b[1;2C"                   }
   - { key: Right,    mods: Control, chars: "\x1b[1;5C"                   }
-  - { key: Right,    mods: Alt,     chars: "\x1b[1;3C"                   }
+  # - { key: Right,    mods: Alt,     chars: "\x1b[1;3C"                   }
   - { key: Right,                   chars: "\x1b[C",   mode: ~AppCursor  }
   - { key: Right,                   chars: "\x1bOC",   mode: AppCursor   }
   - { key: Up,       mods: Shift,   chars: "\x1b[1;2A"                   }
   - { key: Up,       mods: Control, chars: "\x1b[1;5A"                   }
-  - { key: Up,       mods: Alt,     chars: "\x1b[1;3A"                   }
+  # - { key: Up,       mods: Alt,     chars: "\x1b[1;3A"                   }
   - { key: Up,                      chars: "\x1b[A",   mode: ~AppCursor  }
   - { key: Up,                      chars: "\x1bOA",   mode: AppCursor   }
   - { key: Down,     mods: Shift,   chars: "\x1b[1;2B"                   }
   - { key: Down,     mods: Control, chars: "\x1b[1;5B"                   }
-  - { key: Down,     mods: Alt,     chars: "\x1b[1;3B"                   }
+  # - { key: Down,     mods: Alt,     chars: "\x1b[1;3B"                   }
   - { key: Down,                    chars: "\x1b[B",   mode: ~AppCursor  }
   - { key: Down,                    chars: "\x1bOB",   mode: AppCursor   }
   - { key: F1,                      chars: "\x1bOP"                      }
@@ -557,18 +557,18 @@ key_bindings:
   - { key: F10,      mods: Control, chars: "\x1b[21;5~"                  }
   - { key: F11,      mods: Control, chars: "\x1b[23;5~"                  }
   - { key: F12,      mods: Control, chars: "\x1b[24;5~"                  }
-  - { key: F1,       mods: Alt,     chars: "\x1b[1;6P"                   }
-  - { key: F2,       mods: Alt,     chars: "\x1b[1;6Q"                   }
-  - { key: F3,       mods: Alt,     chars: "\x1b[1;6R"                   }
-  - { key: F4,       mods: Alt,     chars: "\x1b[1;6S"                   }
-  - { key: F5,       mods: Alt,     chars: "\x1b[15;6~"                  }
-  - { key: F6,       mods: Alt,     chars: "\x1b[17;6~"                  }
-  - { key: F7,       mods: Alt,     chars: "\x1b[18;6~"                  }
-  - { key: F8,       mods: Alt,     chars: "\x1b[19;6~"                  }
-  - { key: F9,       mods: Alt,     chars: "\x1b[20;6~"                  }
-  - { key: F10,      mods: Alt,     chars: "\x1b[21;6~"                  }
-  - { key: F11,      mods: Alt,     chars: "\x1b[23;6~"                  }
-  - { key: F12,      mods: Alt,     chars: "\x1b[24;6~"                  }
+  # - { key: F1,       mods: Alt,     chars: "\x1b[1;6P"                   }
+  # - { key: F2,       mods: Alt,     chars: "\x1b[1;6Q"                   }
+  # - { key: F3,       mods: Alt,     chars: "\x1b[1;6R"                   }
+  # - { key: F4,       mods: Alt,     chars: "\x1b[1;6S"                   }
+  # - { key: F5,       mods: Alt,     chars: "\x1b[15;6~"                  }
+  # - { key: F6,       mods: Alt,     chars: "\x1b[17;6~"                  }
+  # - { key: F7,       mods: Alt,     chars: "\x1b[18;6~"                  }
+  # - { key: F8,       mods: Alt,     chars: "\x1b[19;6~"                  }
+  # - { key: F9,       mods: Alt,     chars: "\x1b[20;6~"                  }
+  # - { key: F10,      mods: Alt,     chars: "\x1b[21;6~"                  }
+  # - { key: F11,      mods: Alt,     chars: "\x1b[23;6~"                  }
+  # - { key: F12,      mods: Alt,     chars: "\x1b[24;6~"                  }
   - { key: F1,       mods: Super,   chars: "\x1b[1;3P"                   }
   - { key: F2,       mods: Super,   chars: "\x1b[1;3Q"                   }
   - { key: F3,       mods: Super,   chars: "\x1b[1;3R"                   }

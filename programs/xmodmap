@@ -1,0 +1,6 @@
+clear lock
+clear control
+add control = Caps_Lock Control_L Control_R
+keycode 66 = Control_L Caps_Lock NoSymbol NoSymbol
+keycode 108 = Return Alt_R NoSymbol NoSymbol
+pointer = 1 2 3 5 4 6 7 8 9 10 11 12

@@ -184,7 +184,7 @@ in
         user = "doyougnu";
         };
       sessionCommands = ''
-       ${pkgs.xorg.xmodmap}/bin/xmodmap ~/.Xmodmap
+       ${pkgs.xorg.xmodmap}/bin/xmodmap ~/dotfiles/programs/xmodmap
        ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
        '';
     };
