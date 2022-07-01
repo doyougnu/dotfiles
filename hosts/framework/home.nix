@@ -33,6 +33,19 @@ in {
     };
   };
 
+  # kitty config
+  programs.kitty = {
+    enable = true;
+    settings = {
+      font_size = "14.0";
+      extraConfig = ''
+        map ctrl+d copy_to_clipboard
+        map ctrl+f paste_from_clipboard
+      '';
+    };
+
+  };
+
   services.gpg-agent = {
     enable         = true;
     maxCacheTtl    = 7200;
