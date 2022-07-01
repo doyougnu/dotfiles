@@ -180,7 +180,7 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
   --
 
   -- Start a terminal.  Terminal to start is specified by myTerminal variable.
-  [ ((modMask .|. shiftMask, xK_Return),
+  [ ((modMask, xK_semicolon),
      spawn $ XMonad.terminal conf)
 
   -- spawn an eshell

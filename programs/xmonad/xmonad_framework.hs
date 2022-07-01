@@ -227,14 +227,14 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   --
 
   -- Start a terminal.  Terminal to start is specified by myTerminal variable.
-  [ ((modMask .|. shiftMask, xK_Return),
+  [ ((modMask, xK_semicolon),
      spawn $ XMonad.terminal conf)
-
+    --
   , ((modMask .|. controlMask, xK_Return),
-     safeSpawn "emacsclient" ["-c", "-e", "(eshell)"])
+     safeSpawn "emacsclient" ["-c", "-e", "(eshell)"]) --
 
   -- Lock the screen using command specified by myScreensaver.
-  , ((modMask .|. controlMask, xK_l),
+  , ((modMask .|. controlMask, xK_l), --
      spawn mySuspend)
 
   -- Spawn the launcher using command specified by myLauncher.
