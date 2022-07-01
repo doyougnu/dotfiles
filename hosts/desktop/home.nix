@@ -114,8 +114,6 @@ in {
   services.emacs.package = myEmacs;
 
   # write config files
-  # alacritty
-  xdg.configFile."alacritty/alacritty.yml".source = ../../programs/alacritty/desktop.yml;
   # polybar
   xdg.configFile."polybar/config.ini".source    = ../../programs/polybar/config_desktop;
   xdg.configFile."polybar/launch.sh".source = ../../programs/polybar/launch.sh;
@@ -240,6 +238,7 @@ in {
     idris2
     libevent
     killall         # for polybar launch script
+    kitty
     moreutils
     myEmacs
     multimarkdown

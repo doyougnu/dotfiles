@@ -111,9 +111,9 @@
   environment.systemPackages = with pkgs; [
     wget vim binutils man-pages coreutils gnumake iw sshfs
     stdenv pkgconfig curl xorg.xmodmap htop aspellDicts.en
-    aspell pciutils wirelesstools pavucontrol unzip alacritty
+    aspell pciutils wirelesstools pavucontrol unzip
     openssl gnutls git libnotify emacs alsaLib xmonad-log
-    dmenu
+    dmenu kitty
   ];
 
   # List services that you want to enable:

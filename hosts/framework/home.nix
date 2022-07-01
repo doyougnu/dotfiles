@@ -116,8 +116,6 @@ in {
   services.emacs.package = myEmacs;
 
   # manually write config files
-  # alacritty
-  xdg.configFile."alacritty/alacritty.yml".source = ../../programs/alacritty/framework.yml;
   # polybar
   xdg.configFile."polybar/config".source    = ../../programs/polybar/config.ini;
   xdg.configFile."polybar/launch.sh".source = ../../programs/polybar/launch.sh;
@@ -244,6 +242,7 @@ in {
     lispPackages.quicklisp
     idris2
     # libnotify
+    kitty
     killall         # for polybar launch script
     moreutils
     myEmacs

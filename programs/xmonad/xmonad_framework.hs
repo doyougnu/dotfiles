@@ -43,7 +43,7 @@ import XMonad.Prompt.Theme
 -- certain contrib modules.
 --
 -- myTerminal = "/run/current-system/sw/bin/konsole"
-myTerminal = "alacritty"
+myTerminal = "kitty"
 
 -- Suspend the system
 mySuspend = "systemctl suspend"

@@ -63,7 +63,7 @@ in
     wget vim binutils man-pages coreutils gcc gnumake iw sshfs stdenv pkgconfig
     zlib curl feh xorg.xmodmap htop neofetch aspellDicts.en aspell pciutils
     unzip cachix libao xmonad-log pavucontrol cacert openssl libnotify emacs
-    alacritty dzen2 dmenu
+    dzen2 dmenu kitty
 
     ];
 
