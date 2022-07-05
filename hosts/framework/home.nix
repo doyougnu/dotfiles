@@ -277,6 +277,7 @@ in {
     spotify
     steam
     tdesktop
+    texlive.combined.scheme-basic
     xclip
     xorg.xwininfo    # for emacs everywhere
     xdotool          # for emacs everywhere
