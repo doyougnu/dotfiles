@@ -43,6 +43,7 @@ in {
         map ctrl+d copy_to_clipboard
         map ctrl+f paste_from_clipboard
       '';
+      theme  = "Deuters' Delight";
     };
 
   };
