@@ -36,6 +36,7 @@ in {
   # kitty config
   programs.kitty = {
     enable = true;
+    package = pkgs.unstable.kitty;
     settings = {
       font_size = "14.0";
       extraConfig = ''

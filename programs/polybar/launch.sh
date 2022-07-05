@@ -7,6 +7,6 @@ killall -q polybar --config=~/.config/polybar/config
 while pgrep -u $UID -x polybar >/dev/null; do sleep 3; done
 
 # Launch bar1 and bar2
-polybar top
+polybar top --config=/home/doyougnu/.config/polybar/config.ini
 
 echo "Bars launched..."

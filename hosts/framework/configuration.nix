@@ -119,6 +119,7 @@
   # List services that you want to enable:
   services.syncthing = {
     enable    = true;
+    package   = pkgs.unstable.syncthing;
     user      = "doyougnu";
     dataDir   = "/home/doyougnu/sync";
     configDir = "/home/doyougnu/.config/syncthing";

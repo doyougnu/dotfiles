@@ -4,8 +4,8 @@
   description = "NixOS configuration and home-manager configurations";
   inputs = {
     # nixpkgs.url        = github:nixos/nixpkgs/nixos-unstable;
-    nixpkgs.url          = "nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "nixpkgs/nixos-21.11";
+    nixpkgs.url          = "nixpkgs/nixos-21.11";
+    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     emacs-overlay.url  = github:nix-community/emacs-overlay;
     nixos-hardware.url = github:nixos/nixos-hardware/master;
     git-idris2.url     = github:idris-lang/Idris2?rev=5e9a90bd97d3940054dcf2fcaffccff7c72ef5ae;
@@ -22,7 +22,7 @@
                    , nur
                    , nixos-hardware
                    , nixpkgs
-                   , nixpkgs-stable
+                   , nixpkgs-unstable
                    , git-idris2
                    , ...
                    }:
@@ -30,14 +30,14 @@
       system = "x86_64-linux";
       user   = "doyougnu";
       home   = "/home/doyougnu";
-      overlay-stable = final: prev: {
-        stable = nixpkgs-stable.legacyPackages.${prev.system};
+      overlay-unstable = final: prev: {
+        unstable = nixpkgs-unstable.legacyPackages.${prev.system};
       };
       idris2-overlay = final: prev: {
         idris2 = git-idris2.packages.${system}.idris2;
       };
       homeManagerConfFor = config: { ... }: {
-        nixpkgs.overlays = [ emacs-overlay.overlay nur.overlay overlay-stable idris2-overlay ];
+        nixpkgs.overlays = [ emacs-overlay.overlay nur.overlay overlay-unstable idris2-overlay ];
         imports = [ config ];
       };
       
@@ -62,7 +62,7 @@
         inherit system;
         modules = [
           nixos-hardware.nixosModules.framework
-          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-stable ]; })
+          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./hosts/framework/configuration.nix
 
           home-manager.nixosModules.home-manager {
@@ -75,7 +75,7 @@
       nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
-          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-stable ]; })
+          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./hosts/desktop/configuration.nix
 
           home-manager.nixosModules.home-manager {

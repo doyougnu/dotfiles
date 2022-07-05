@@ -46,7 +46,8 @@ in {
   # kitty config
   programs.kitty = {
     enable = true;
-    theme  = "Deuters' Delight";
+    package = pkgs.unstable.kitty;
+    # theme  = "Deuters' Delight";
     settings = {
       font_size = "9.0";
       extraConfig = ''
