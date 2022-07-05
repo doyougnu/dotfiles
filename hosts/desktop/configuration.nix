@@ -201,11 +201,11 @@ in
 
   # nice compton settings
   services.compton = {
-  enable          = true;
-  fade            = true;
-  inactiveOpacity = 0.80;
-  shadow          = false;
-  fadeDelta       = 1;
+    enable          = true;
+    fade            = true;
+    inactiveOpacity = 0.80;
+    shadow          = false;
+    fadeDelta       = 1;
   };
 
   # This value determines the NixOS release with which your system is to be

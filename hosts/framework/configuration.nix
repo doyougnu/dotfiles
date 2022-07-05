@@ -241,11 +241,15 @@
   environment.variables.XMONAD_CONFIG_DIR = "/home/doyougnu/.xmonad";
   environment.variables.XMONAD_CACHE_DIR  = "/home/doyougnu/.xmonad";
   environment.variables.XMONAD_DATA_DIR   = "/home/doyougnu/.xmonad";
-  # more hdpi fixes
-  # environment.variables.GDK_SCALE = "2";
-  # environment.variables.QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-  # environment.variables.GDK_DPI_SCALE = "2";
 
+  # nice compton settings
+  services.compton = {
+  enable          = true;
+  fade            = true;
+  inactiveOpacity = 0.80;
+  shadow          = false;
+  fadeDelta       = 1;
+  };
 
   programs.light.enable = true;
 
