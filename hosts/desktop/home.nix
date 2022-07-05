@@ -46,8 +46,9 @@ in {
   # kitty config
   programs.kitty = {
     enable = true;
+    theme  = "Deuters' Delight";
     settings = {
-      font_size = "14.0";
+      font_size = "9.0";
       extraConfig = ''
         map ctrl+d copy_to_clipboard
         map ctrl+f paste_from_clipboard
@@ -250,7 +251,6 @@ in {
     idris2
     libevent
     killall         # for polybar launch script
-    kitty
     moreutils
     myEmacs
     multimarkdown
