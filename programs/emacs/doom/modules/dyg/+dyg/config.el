@@ -95,6 +95,8 @@
       "C-;" #'fill-paragraph)
       (:map minibuffer-local-map
        "C-l" #'minibuffer-complete-and-exit)
+      (:map counsel-find-file-map
+       "C-h" #'counsel-up-directory)
       (:map vertico-map
        "C-l" #'vertico-insert)
       (:map evil-markdown-mode-map
