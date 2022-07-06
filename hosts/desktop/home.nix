@@ -52,7 +52,7 @@ in {
     extraConfig = ''
       copy_on_select yes
     '';
-    theme = "Chalk";
+    theme = "Sea Shells";
     settings = {
       font_size = "9.0";
     };

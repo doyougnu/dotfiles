@@ -3,4 +3,4 @@
 # key: dr
 # uuid: document_reference
 # --
-:doc:\`${1:doc reference}\` $0
+:doc:\`${1:doc reference} <${2:path}>\` $0
