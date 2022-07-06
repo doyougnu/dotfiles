@@ -48,6 +48,14 @@
   ;; request a note everytime we clock out on clocked in item
   (setf org-log-note-clock-out           t)
 
+  ;; always use listings for org latex export of code
+  (setf org-latex-listings               'minted
+        org-latex-packages-alist '(("" "minted"))
+        org-latex-pdf-process
+        '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
+
   ;; don't fontify the refile created bookmarks
   (setf bookmark-fontify                 nil)
 

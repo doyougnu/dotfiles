@@ -43,7 +43,7 @@ in {
     extraConfig = ''
       copy_on_select yes
     '';
-    theme = "Chalk";
+    theme = "Rippedcasts";
     settings = {
       font_size = "14.0";
     };
