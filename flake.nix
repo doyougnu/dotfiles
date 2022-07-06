@@ -4,14 +4,14 @@
   description = "NixOS configuration and home-manager configurations";
   inputs = {
     # nixpkgs.url        = github:nixos/nixpkgs/nixos-unstable;
-    nixpkgs.url          = "nixpkgs/nixos-21.11";
+    nixpkgs.url          = "nixpkgs/nixos-22.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     emacs-overlay.url  = github:nix-community/emacs-overlay;
     nixos-hardware.url = github:nixos/nixos-hardware/master;
     git-idris2.url     = github:idris-lang/Idris2?rev=5e9a90bd97d3940054dcf2fcaffccff7c72ef5ae;
     nur.url            = github:nix-community/nur;
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-22.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

@@ -36,15 +36,17 @@ in {
   # kitty config
   programs.kitty = {
     enable = true;
+      keybindings = {
+        "ctrl+d" = "copy_to_clipboard";
+        "ctrl+f" = "paste_from_clipboard";
+      };
+    extraConfig = ''
+      copy_on_select yes
+    '';
+    theme = "Chalk";
     settings = {
       font_size = "14.0";
-      extraConfig = ''
-        map ctrl+d copy_to_clipboard
-        map ctrl+f paste_from_clipboard
-      '';
-      theme  = "Deuters' Delight";
     };
-
   };
 
   services.gpg-agent = {
@@ -256,12 +258,12 @@ in {
     lispPackages.quicklisp
     idris2
     # libnotify
-    kitty
     killall         # for polybar launch script
     moreutils
     myEmacs
     multimarkdown
     nodejs-18_x
+    pdfpc           # pdf presentaitons from the shell
     polybar         # for xmonad
     pinentry
     pianobar
@@ -277,7 +279,7 @@ in {
     spotify
     steam
     tdesktop
-    texlive.combined.scheme-basic
+    texlive.combined.scheme-full
     xclip
     xorg.xwininfo    # for emacs everywhere
     xdotool          # for emacs everywhere

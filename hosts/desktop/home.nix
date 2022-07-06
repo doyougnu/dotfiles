@@ -42,18 +42,19 @@ in {
     '';
   };
 
-
   # kitty config
   programs.kitty = {
     enable = true;
-    package = pkgs.unstable.kitty;
+      keybindings = {
+        "ctrl+d" = "copy_to_clipboard";
+        "ctrl+f" = "paste_from_clipboard";
+      };
+    extraConfig = ''
+      copy_on_select yes
+    '';
+    theme = "Chalk";
     settings = {
       font_size = "9.0";
-      extraConfig = ''
-        map ctrl+d copy_to_clipboard
-        map ctrl+f paste_from_clipboard
-      '';
-      theme  = "Deuters' Delight";
     };
   };
 
@@ -256,6 +257,7 @@ in {
     myEmacs
     multimarkdown
     nodejs-18_x
+    pdfpc           # pdf presentaitons from the shell
     polybar
     pinentry
     pianobar
