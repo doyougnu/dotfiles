@@ -51,10 +51,15 @@
   ;; always use listings for org latex export of code
   (setf org-latex-listings               'minted
         org-latex-packages-alist '(("" "minted"))
+        org-latex-minted-options '(("breaklines" "true")
+                                   ("breakanywhere" "true")
+                                   ("fontsize" "\\tiny"))
         org-latex-pdf-process
         '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
           "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
+  ;; set latex to always use -shell-escape
+  (setf LaTeX-command "latex -shell-escape")
 
   ;; don't fontify the refile created bookmarks
   (setf bookmark-fontify                 nil)
