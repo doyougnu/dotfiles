@@ -133,7 +133,7 @@ in {
 
   # manually write config files
   # polybar
-  xdg.configFile."polybar/config".source    = ../../programs/polybar/config.ini;
+  xdg.configFile."polybar/config.ini".source    = ../../programs/polybar/config.ini;
   xdg.configFile."polybar/launch.sh".source = ../../programs/polybar/launch.sh;
   # xmonad
   home.file.".xmonad/xmonad.hs".source = ../../programs/xmonad/xmonad_framework.hs;
@@ -267,6 +267,8 @@ in {
     polybar         # for xmonad
     pinentry
     pianobar
+    python310
+    python310Packages.pygments
     qutebrowser
     ranger
     ripgrep
