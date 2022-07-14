@@ -48,8 +48,6 @@ in
   ]) ++ [
     pkgs.notmuch   # From main packages set
     pkgs.cmake
-    pkgs.python310
-    pkgs.python310Packages.pygments
     pkgs.global
     pkgs.ctags
     pkgs.sqlite
