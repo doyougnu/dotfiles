@@ -261,6 +261,7 @@ in {
     polybar
     pinentry
     pianobar
+    python310Packages.pygments
     qutebrowser
     ranger
     ripgrep

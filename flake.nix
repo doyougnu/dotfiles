@@ -6,6 +6,7 @@
     # nixpkgs.url        = github:nixos/nixpkgs/nixos-unstable;
     nixpkgs.url          = "nixpkgs/nixos-22.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
+    nixpkgs-local.url    = "/home/doyougnu/programming/nix/nixpkgs";
     emacs-overlay.url  = github:nix-community/emacs-overlay;
     nixos-hardware.url = github:nixos/nixos-hardware/master;
     git-idris2.url     = github:idris-lang/Idris2?rev=5e9a90bd97d3940054dcf2fcaffccff7c72ef5ae;
@@ -23,6 +24,7 @@
                    , nixos-hardware
                    , nixpkgs
                    , nixpkgs-unstable
+                   , nixpkgs-local
                    , git-idris2
                    , ...
                    }:
@@ -30,12 +32,19 @@
       system = "x86_64-linux";
       user   = "doyougnu";
       home   = "/home/doyougnu";
+
       overlay-unstable = final: prev: {
         unstable = nixpkgs-unstable.legacyPackages.${prev.system};
       };
+
+      overlay-local = final: prev: {
+        local = nixpkgs-local.legacyPackages.${prev.system};
+      };
+
       idris2-overlay = final: prev: {
         idris2 = git-idris2.packages.${system}.idris2;
       };
+
       homeManagerConfFor = config: { ... }: {
         nixpkgs.overlays = [ emacs-overlay.overlay nur.overlay overlay-unstable idris2-overlay ];
         imports = [ config ];

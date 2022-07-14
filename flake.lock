@@ -137,6 +137,21 @@
         "type": "indirect"
       }
     },
+    "nixpkgs-local": {
+      "locked": {
+        "lastModified": 1657810928,
+        "narHash": "sha256-qDIXUnjgcVGdrJH8Fj9glvZ5eS0tLWAVBITZD3ia+L4=",
+        "ref": "refs/heads/master",
+        "rev": "858ecafef06797cabc21a2239d9aeb5c20b69710",
+        "revCount": 391689,
+        "type": "git",
+        "url": "file:///home/doyougnu/programming/nix/nixpkgs"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/doyougnu/programming/nix/nixpkgs"
+      }
+    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1656753965,
@@ -204,6 +219,7 @@
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_3",
+        "nixpkgs-local": "nixpkgs-local",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur"
       }
