@@ -1,6 +1,6 @@
 ;; -*- no-byte-compile: t; -*-
 ;; -*- lexical-binding: t; -*-
-;;; +lang/idris2/package.el
+;;; +lang/idris2/packages.el
 
 (package! idris2-mode
   :recipe (:host github
