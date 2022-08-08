@@ -18,16 +18,16 @@
 
   };
 
-  outputs = inputs@{emacs-overlay
-                   , home-manager
-                   , nur
-                   , nixos-hardware
-                   , nixpkgs
-                   , nixpkgs-unstable
-                   , nixpkgs-local
-                   , git-idris2
-                   , ...
-                   }:
+  outputs = { emacs-overlay
+            , home-manager
+            , nur
+            , nixos-hardware
+            , nixpkgs
+            , nixpkgs-unstable
+            , nixpkgs-local
+            , git-idris2
+            , ...
+            }@attrs :
     let
       system = "x86_64-linux";
       user   = "doyougnu";
@@ -46,7 +46,7 @@
       };
 
       homeManagerConfFor = config: { ... }: {
-        nixpkgs.overlays = [ emacs-overlay.overlay nur.overlay overlay-unstable idris2-overlay ];
+        nixpkgs.overlays = [ emacs-overlay.overlay nur.overlay overlay-unstable overlay-local idris2-overlay ];
         imports = [ config ];
       };
       
@@ -69,9 +69,10 @@
     {
       nixosConfigurations.framework = nixpkgs.lib.nixosSystem {
         inherit system;
+        specialArgs = attrs;
         modules = [
           nixos-hardware.nixosModules.framework
-          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
+          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable overlay-local idris2-overlay ]; })
           ./hosts/framework/configuration.nix
 
           home-manager.nixosModules.home-manager {
@@ -83,8 +84,9 @@
 
       nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
         inherit system;
+        specialArgs = attrs;
         modules = [
-          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
+          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable overlay-local ]; })
           ./hosts/desktop/configuration.nix
 
           home-manager.nixosModules.home-manager {
