@@ -229,9 +229,11 @@
   (map!
    (:map org-mode-map
     :localleader
+
     (:prefix ("s" . "tree/subtree")
      "i" #'org-insert-subheading)
 
+    "," #'org-insert-structure-template
     ;; (:prefix ("x" . "text")
     ;;  "c" #'dyg/org-insert-code
     ;;  "s" #'dyg/org-insert-strikethrough
