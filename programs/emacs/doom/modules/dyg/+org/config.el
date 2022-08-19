@@ -78,13 +78,15 @@
                                                    (add-hook 'evil-insert-state-exit-hook #'(lambda ()
                                                                                             (setq-local org-hide-emphasis-markers t)))))
 
+  (add-hook! 'org-mode-hook #'auto-fill-mode)
   ;; use firefox
   ;; (setf browse-url-browser-function 'browse-url-firefox)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;; Org Agenda Config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; orgmode organization stuff
-  (setq-default org-default-todo-file "~/sync/org/refile.org")
+  (setq-default org-default-todo-file "~/sync/org/refile.org"
+                org-default-issue-file "~/sync/org/job/projects/js-backend.org")
 
   (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
                             (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "MEETING")))
@@ -183,8 +185,8 @@
            "* TODO %?\n - Todo made on %U \\\\ \n" :clock-resume t :empty-lines 1)
           ("o" "oneoff" entry (file org-default-todo-file)
            "* NEXT %?\n - OneOff made on %U \\\\ \n" :clock-resume t :empty-lines 1)
-          ("r" "respond" entry (file org-default-todo-file)
-           "* NEXT Respond to %^{Prompt}%:from on %:subject\nSCHEDULED: %t\n%U\n" :clock-resume t :immediate-finish t :empty-lines 1)
+          ("j" "jira ticket" entry (file org-default-issue-file)
+           "* TODO LT-%^{Prompt}%\n - Issue made on %U \\\\ \n" :clock-resume t :immediate-finish t :empty-lines 1)
           ("n" "note" item (function +default/org-notes-headlines)
            "Note taken on %U \\\\ \n%?"
            :clock-resume t :empty-lines 1)
@@ -233,7 +235,8 @@
     (:prefix ("s" . "tree/subtree")
      "i" #'org-insert-subheading)
 
-    "," #'org-insert-structure-template
+    "." #'org-insert-structure-template
+    "," #'org-ctrl-c-ctrl-c
     ;; (:prefix ("x" . "text")
     ;;  "c" #'dyg/org-insert-code
     ;;  "s" #'dyg/org-insert-strikethrough
