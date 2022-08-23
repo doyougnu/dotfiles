@@ -185,7 +185,7 @@
            "* TODO %?\n - Todo made on %U \\\\ \n" :clock-resume t :empty-lines 1)
           ("o" "oneoff" entry (file org-default-todo-file)
            "* NEXT %?\n - OneOff made on %U \\\\ \n" :clock-resume t :empty-lines 1)
-          ("j" "jira ticket" entry (file org-default-issue-file)
+          ("j" "jira ticket" entry (file+headline org-default-issue-file "NEXT JS Backend")
            "* TODO LT-%^{Prompt}%\n - Issue made on %U \\\\ \n" :clock-resume t :immediate-finish t :empty-lines 1)
           ("n" "note" item (function +default/org-notes-headlines)
            "Note taken on %U \\\\ \n%?"
@@ -253,8 +253,9 @@
     )
 
    (:map org-capture-mode-map
+    :after org
     :localleader
-    "," #'org-capture-finalize
+    "c" #'org-capture-finalize
     "k" #'org-capture-kill
     "r" #'org-capture-refile)
 
