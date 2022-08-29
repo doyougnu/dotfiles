@@ -1,4 +1,7 @@
 (after! rst
+
+  (add-hook! 'rst-mode-hook #'auto-fill-mode)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;; Custom key binds ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (map!
    (:map rst-mode-map
