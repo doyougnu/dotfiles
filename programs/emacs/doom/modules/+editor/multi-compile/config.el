@@ -12,7 +12,7 @@
         (append multi-compile-alist
                 '(
                   ;; GHC target
-                  ((string/starts-with "programming/ghc" buffer-file-name)
+                  ((string/starts-with "ghc" buffer-file-name)
                    ;; matched actions
                    . (("Hadrian/Ghci"   "nix-shell --pure --run './hadrian/ghci'"
                         (projectile-root-bottom-up buffer-file-name))
