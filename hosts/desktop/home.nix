@@ -267,7 +267,8 @@ in {
     ranger
     ripgrep
     rsync
-    sbcl
+    lispPackages.quicklisp
+    # sbcl
     sdcv             # for polybar
     shutter
     signal-desktop

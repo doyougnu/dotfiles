@@ -6,4 +6,5 @@
   :init
   (add-to-list 'sly-contribs 'sly-asdf 'append)
   (setq doom-localleader-key ","
-        doom-localleader-alt-key "C-."))
+       doom-localleader-alt-key "C-."
+       inferior-lisp-program "nix develop -c sbcl"))
