@@ -253,11 +253,6 @@ in {
     gephi
     gollum
     libevent
-    lispPackages.arrows
-    lispPackages.closer-mop
-    lispPackages.quicklisp
-    lispPackages.alexandria
-    lispPackages.cl-dot
     idris2
     # libnotify
     killall         # for polybar launch script
