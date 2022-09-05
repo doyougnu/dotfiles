@@ -46,6 +46,7 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 
+(setq tab-always-indent 'complete)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;

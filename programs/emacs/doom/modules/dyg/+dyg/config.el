@@ -100,9 +100,10 @@
       (:map vertico-map
        "C-l" #'vertico-insert)
       (:map evil-markdown-mode-map
-       :nv "C-;" #'fill-paragraph)
-      (:map global-map
        :nv "C-;" #'fill-paragraph))
+
+(map! :map global-map
+       :nv "C-;" #'fill-paragraph)
 
 (map!
  :after wordnut
