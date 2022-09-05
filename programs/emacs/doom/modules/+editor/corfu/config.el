@@ -22,10 +22,11 @@
   ;; Recommended: Enable Corfu globally.
   ;; This is recommended since Dabbrev can be used globally (M-/).
   ;; See also `corfu-excluded-modes'.
+  :defer t
+  :hook ((common-lisp-mode . corfu-mode))
   :custom
   (setq corfu-auto t)
   (advice-add #'corfu-insert :after #'corfu-send-shell)
-
 
   :init
   (global-corfu-mode))
