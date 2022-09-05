@@ -94,11 +94,8 @@
       "C-l" #'company-complete-selection
       "C-;" #'fill-paragraph)
       (:map minibuffer-local-map
-       "C-l" #'minibuffer-complete-and-exit)
-      (:map counsel-find-file-map
-       "C-h" #'counsel-up-directory)
-      (:map vertico-map
-       "C-l" #'vertico-insert)
+       "C-l" #'vertico-directory-enter
+       "C-h" #'vertico-directory-up)
       (:map evil-markdown-mode-map
        :nv "C-;" #'fill-paragraph))
 

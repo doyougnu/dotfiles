@@ -24,6 +24,7 @@
   ;; See also `corfu-excluded-modes'.
   :custom
   (setq corfu-auto t)
+  (advice-add #'corfu-insert :after #'corfu-send-shell)
 
 
   :init
