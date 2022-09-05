@@ -270,7 +270,6 @@ in {
     ranger
     ripgrep
     rsync
-    sbcl
     sdcv             # for polybar
     shutter
     signal-desktop
