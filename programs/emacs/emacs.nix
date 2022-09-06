@@ -53,4 +53,6 @@ in
     pkgs.sqlite
     pkgs.sqlint
     pkgs.multimarkdown
+    pkgs.shellcheck
+    pkgs.nixfmt
   ] ++ haskell-env)

@@ -5,7 +5,7 @@
   (symex-initialize)
   (setq browse-url-browser-function 'w3m-browse-url)
   (map! :map evil-motion-state-map
-        :desc "Symex-interface" "\\" #'symex-mode-interface)
+        :desc "Symex start!" "\\" #'symex-mode-interface)
 
   :custom
   (symex-common-lisp-backend 'sly)
