@@ -12,15 +12,14 @@
 ;;; License: GPLv3
 
 ;; convieniences, we have to unbind C-k in lispy for our global key
-(map! (:after lispy
-       (:map lispy-mode-map "C-k" nil)
-       (:map evil-normal-state-map
-        (:prefix-map ("C-k" . "easy-insert")
+(map! (:map (lispy-mode-map global-mode-map) "C-k" nil)
+      (:map evil-normal-state-map
+       (:prefix-map ("C-k" . "easy-insert")
         "i" #'dyg/char-insert
         "a" #'dyg/char-insert-after
         "w" #'dyg/word-insert
         "j" #'dyg/newline-below
-        "k" #'dyg/newline-above))))
+        "k" #'dyg/newline-above)))
 
 (setq doom-scratch-initial-major-mode 'org-mode)
 
