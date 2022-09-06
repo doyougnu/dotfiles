@@ -7,6 +7,8 @@
   (map! :map evil-motion-state-map
         :desc "Symex start!" "\\" #'symex-mode-interface)
 
+  (add-hook! 'evil-normal-state-entry-hook #'symex-mode-interface)
+
   :custom
   (symex-common-lisp-backend 'sly)
   (symex-modal-backend 'evil))
