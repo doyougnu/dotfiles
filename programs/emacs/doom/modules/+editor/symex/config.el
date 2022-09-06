@@ -1,6 +1,7 @@
 ;;; +editor/symex/config.el -*- lexical-binding: t; -*-
 
 (use-package! symex
+  :defer t
   :config
   (symex-initialize)
   (setq browse-url-browser-function 'w3m-browse-url)

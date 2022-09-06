@@ -75,7 +75,7 @@
        "j" #'org-agenda)
 
       (:prefix-map ("r" . "kill-ring")
-       :desc "Kill-ring" "y" #'counsel-yank-pop)
+       :desc "Kill-ring" "y" #'consult-yank-pop)
 
       (:prefix-map ("S" . "spelling")
        :desc "Correct-word-at-point" "s" #'ispell-word
