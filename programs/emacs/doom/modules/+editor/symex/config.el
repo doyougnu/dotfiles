@@ -14,7 +14,9 @@
   ;; are added to 'normal and 'visual mode
   (map! :map symex-mode-map
         :desc "Symex start!" :nv "\\" #'symex-mode-interface
-        :desc "Symex stop!"  :nvi  "C-\\" #'evil-normallike-state)
+        :desc "Symex stop!"  :nvi  "C-\\" #'evil-normallike-state
+        :nv "C-." #'symex-shift-forward
+        :nv "C-," #'symex-shift-backward)
   (map! :map evil-motion-state-map
         :desc "Symex start!" "\\" #'symex-mode-interface)
   (map! :map evil-insert-state-map
