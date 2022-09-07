@@ -1,6 +1,6 @@
 ;;; +editor/corfu/config.el -*- lexical-binding: t; -*-
 
-(use-package corfu
+(use-package! corfu
   ;; Optional customizations
   ;; :custom
   ;; (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
@@ -23,10 +23,17 @@
   ;; This is recommended since Dabbrev can be used globally (M-/).
   ;; See also `corfu-excluded-modes'.
   :defer t
-  :hook ((common-lisp-mode . corfu-mode))
-  :custom
+  :hook ((common-lisp-mode . corfu-mode)
+         (shell-mode       . corfu-mode)
+         (eshell-mode      . corfu-mode)
+         (prog-mode        . corfu-mode))
+  :config
   (setq corfu-auto t)
   (advice-add #'corfu-insert :after #'corfu-send-shell)
+  (map! :map eshell-mode-map
+        "C-l" nil)
+  (map! :map corfu-map
+        :i "C-l" #'corfu-insert)
 
   :init
   (global-corfu-mode))
