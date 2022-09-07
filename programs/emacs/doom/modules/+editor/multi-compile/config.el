@@ -20,6 +20,8 @@
                        (projectile-root-bottom-up buffer-file-name))
                       ("Perf Build"     "nix-shell --pure --run 'hadrian/build -j12 --flavour=perf'"
                        (projectile-root-bottom-up buffer-file-name))
+                      ("JS Clean"     "nix-shell --pure --run 'hadrian/build clean --build-root=_js-backend'"
+                       (projectile-root-bottom-up buffer-file-name))
                       ("JS Configure"     "nix-shell --pure --run 'emconfigure ./configure --target=js-unknown-ghcjs'"
                        (projectile-root-bottom-up buffer-file-name))
                       ("JS Build"     "nix-shell --run 'hadrian/build -j12 --flavour=quick-js+omit_pragmas --build-root=_js-backend --bignum=native --docs=none \"stage1.*.ghc.hs.opts += -ddump-stg-cg -ddump-js -ddump-to-file\"'"
