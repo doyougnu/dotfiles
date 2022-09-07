@@ -12,15 +12,26 @@
         "C-\\" nil)
   ;; Now add \ to start, and C-\ to return to normal evil state. Both of these
   ;; are added to 'normal and 'visual mode
-  (map! :map symex-mode-map
+  (map! (:map symex-mode-map
         :desc "Symex start!" :nv "\\" #'symex-mode-interface
-        :desc "Symex stop!"  :nvi  "C-\\" #'evil-normallike-state
-        :nv "C-." #'symex-shift-forward
-        :nv "C-," #'symex-shift-backward)
+        :desc "Symex stop!"  :nvi  "C-\\" #'evil-normallike-state)
+        (:map symex-editing-mode-map
+         :nvom "gj" #'symex-emit-backward
+         :nvom "gk" #'symex-emit-forward
+         :nvom "gl" #'symex-capture-forward
+         :nvom "gh" #'symex-capture-backward))
+
+  ;; Have to do this one manually
+  (evil-define-key 'symex symex-editing-mode-map
+    "gj" #'symex-emit-backward
+    "gk" #'symex-emit-forward
+    "gl" #'symex-capture-forward
+    "gh" #'symex-capture-backward)
+
   (map! :map evil-motion-state-map
         :desc "Symex start!" "\\" #'symex-mode-interface)
   (map! :map evil-insert-state-map
-        :desc "Symex start!" "C-f" #'symex-mode-interface)
+        :desc "Symex start!" "C-\\" #'symex-mode-interface)
 
   ;; This hook returns us to symex upon returning to normal mode. Yes this means
   ;; your normal mode becomes symex
