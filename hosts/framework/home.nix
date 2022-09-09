@@ -237,6 +237,7 @@ in {
 
   home.packages = with pkgs; [
     alsa-utils
+    autorandr
     cbqn
     chez
     cowsay
@@ -247,9 +248,9 @@ in {
     firefox
     fasd
     feh
-    gerbil
     google-chrome
     guile
+    gauche
     gephi
     gollum
     libevent
@@ -278,6 +279,7 @@ in {
     steam
     tdesktop
     texlive.combined.scheme-full
+    vlc
     xclip
     xorg.xwininfo    # for emacs everywhere
     xdotool          # for emacs everywhere
@@ -286,6 +288,7 @@ in {
     w3m              # text broser for emacs-w3m
     sqlite
     wordnet
+    yt-dlp           # youtube-dl
     zip
   ] ++
   [ R

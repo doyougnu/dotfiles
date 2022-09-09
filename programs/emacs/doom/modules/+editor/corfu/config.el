@@ -33,7 +33,13 @@
   (map! :map eshell-mode-map
         "C-l" nil)
   (map! :map corfu-map
-        :i "C-l" #'corfu-insert)
+        :i "C-l" #'corfu-insert
+        :in "TAB"   nil
+        :in "RET"   nil
+        "TAB"   nil
+        "RET"   nil
+        :in "<tab>" nil
+        "<tab>" nil)
 
   :init
   (global-corfu-mode))
