@@ -9,9 +9,9 @@
 
   :config
   (map! :map (sly-mode-map sly--completion-transient-mode-map sly--completion-display-map)
-        :nvi "C-k" #'sly-prev-completion
-        :nvi "C-j" #'sly-next-completion
-        :nvi "C-l" #'sly-choose-completion)
+        :i "C-k" #'sly-prev-completion
+        :i "C-j" #'sly-next-completion
+        :i "C-l" #'sly-choose-completion)
 
   (add-hook! 'sly-mode-hook #'auto-fill-mode)
 

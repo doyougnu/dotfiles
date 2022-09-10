@@ -36,6 +36,7 @@
         :i "C-l" #'corfu-insert
         :in "TAB"   nil
         :in "RET"   nil
+        :invm "C-g" #'corfu-quit
         "TAB"   nil
         "RET"   nil
         :in "<tab>" nil
