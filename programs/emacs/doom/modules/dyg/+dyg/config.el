@@ -69,7 +69,7 @@
         :desc "Remove Highlight"         "H" #'unhighlight-regexp)
 
        (:prefix ("i" . "IRC")
-        :desc "Init" "i" #'=irc)
+        :desc "Init" "i" #'circe)
 
        "j" #'org-agenda)
 
