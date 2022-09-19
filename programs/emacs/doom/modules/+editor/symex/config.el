@@ -3,7 +3,7 @@
 (use-package! symex
   :defer t
   ;; only load this package once sly has been called
-  :after-call sly
+  :after-call (sly geiser-mode emacs-lisp-mode)
   :config
   (symex-initialize)
   (setq browse-url-browser-function 'w3m-browse-url)
