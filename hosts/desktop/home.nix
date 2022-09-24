@@ -128,6 +128,82 @@ in {
   services.emacs.enable = true;
   services.emacs.package = myEmacs;
 
+  # email
+  programs.mbsync.enable = true;        ## sync
+  programs.msmtp.enable  = true;        ## sending
+  programs.mu = {
+    enable = true;
+  };
+
+  accounts.email = {
+    ## blog email
+    accounts.blog = {
+
+      address = "jeff@doyougnu.xyz";
+      imap.host = "mail.gandi.net";
+      mbsync = {
+        enable = true;
+        create = "maildir";
+      };
+      msmtp.enable = true;
+      mu.enable    = true;
+      primary      = true;
+      realName     = "Jeffrey M. Young";
+      passwordCommand = "gpg2 -q --for-your-eyes-only --no-tty -d ~/.authinfo.gpg | awk '/machine mail.gandi.net login jeff@doyougnu.xyz/ {print $5}'";
+      smtp = {
+        host = "mail.gandi.net";
+      };
+      userName = "jeff@doyougnu.xyz";
+    };
+
+    ## work email
+    accounts.iohk = {
+      address = "jeffrey.young@iohk.io";
+      imap.host = "imap.gmail.com";
+      gpg = {
+        key = "57403751AE1F59BBC10771F5AF59A1E46422D9C9";
+        signByDefault = true;
+      };
+      mbsync = {
+        enable = true;
+        create = "maildir";
+      };
+      msmtp.enable = true;
+      mu.enable    = true;
+      realName     = "Jeffrey M. Young";
+      passwordCommand = "gpg2 -q --for-your-eyes-only --no-tty -d ~/.authinfo.gpg | awk '/machine imap.gmail.com login jeffrey.young@iohk.io/ {print $5}'";
+      smtp = {
+        host = "imap.gmail.com";
+      };
+      userName = "jeffrey.young@iohk.io";
+    };
+
+    ## dumpster email
+    accounts.gmail = {
+      address = "jmy6342@gmail.com";
+      imap.host = "imap.gmail.com";
+      mbsync = {
+        enable = true;
+        create = "maildir";
+      };
+      msmtp.enable = true;
+      mu.enable    = true;
+      realName     = "Jeffrey M. Young";
+      passwordCommand = "gpg2 -q --for-your-eyes-only --no-tty -d ~/.authinfo.gpg | awk '/machine imap.gmail.com login jmy6342@gmail.com/ {print $5}'";
+      smtp = {
+        host = "imap.gmail.com";
+      };
+      userName = "jmy6342@gmail.com";
+    };
+  };
+
+  services.mbsync = {
+    enable = true;
+    frequency = "*:0/15";
+    preExec = "${pkgs.isync}/bin/mbsync -Ha";
+    postExec = "${pkgs.mu}/bin/mu index -m ~/Maildir";
+  };
+
   # write config files
   # polybar
   xdg.configFile."polybar/config.ini".source    = ../../programs/polybar/config_desktop;
