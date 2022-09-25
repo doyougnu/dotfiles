@@ -213,7 +213,7 @@ in {
   # doom emacs
   home.file.".doom.d/".source = ../../programs/emacs/doom;
   # this would be nice but it keeps erroring out
-  home.file.".doom.d/".onChange= "./home/doyougnu/.emacs.d/bin/doom sync";
+  home.file.".doom.d/".onChange= "/home/doyougnu/.emacs.d/bin/doom sync";
   # symlink auth on new hm generation activation
   home.activation = {
       symlinkAuth = lib.hm.dag.entryAfter ["writeBoundary"] ''
