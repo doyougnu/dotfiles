@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
     myEmacs = import ../../programs/emacs/emacs.nix { pkgs = pkgs; config = config; unstable = pkgs; };
@@ -213,7 +213,13 @@ in {
   # doom emacs
   home.file.".doom.d/".source = ../../programs/emacs/doom;
   # this would be nice but it keeps erroring out
-  # home.file.".doom.d/".onChange= "./home/doyougnu/.emacs.d/bin/doom sync";
+  home.file.".doom.d/".onChange= "./home/doyougnu/.emacs.d/bin/doom sync";
+  # symlink auth on new hm generation activation
+  home.activation = {
+      symlinkAuth = lib.hm.dag.entryAfter ["writeBoundary"] ''
+                    ln -sf /home/doyougnu/sync/keys/auth/.authinfo.gpg /home/doyougnu/.authinfo.gpg
+                    '';
+  };
 
   programs.fish = {
     enable = true;
