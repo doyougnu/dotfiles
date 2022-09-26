@@ -173,7 +173,7 @@ in {
       realName     = "Jeffrey M. Young";
       passwordCommand = "gpg2 -q --for-your-eyes-only --no-tty -d ~/.authinfo.gpg | awk '/machine imap.gmail.com login jeffrey.young@iohk.io/ {print $5}'";
       smtp = {
-        host = "imap.gmail.com";
+        host = "smtp.gmail.com";
       };
       userName = "jeffrey.young@iohk.io";
     };
@@ -191,7 +191,7 @@ in {
       realName     = "Jeffrey M. Young";
       passwordCommand = "gpg2 -q --for-your-eyes-only --no-tty -d ~/.authinfo.gpg | awk '/machine imap.gmail.com login jmy6342@gmail.com/ {print $5}'";
       smtp = {
-        host = "imap.gmail.com";
+        host = "smtp.gmail.com";
       };
       userName = "jmy6342@gmail.com";
     };
