@@ -5,6 +5,10 @@ let
     haskell-env = with pkgs.haskell.packages.${config.ghc.version}; [
     ];
 
+    # for mbsync service
+    gpg = "/etc/profiles/per-user/doyougnu/bin/gpg2";
+    awk = "/run/current-system/sw/bin/awk";
+
 in {
 
   imports = [ ../../programs/non-free.nix
@@ -149,7 +153,7 @@ in {
       mu.enable    = true;
       primary      = true;
       realName     = "Jeffrey M. Young";
-      passwordCommand = "gpg2 -q --for-your-eyes-only --no-tty -d ~/.authinfo.gpg | awk '/machine mail.gandi.net login jeff@doyougnu.xyz/ {print $5}'";
+      passwordCommand = "${gpg} -q --for-your-eyes-only --no-tty -d /home/doyougnu/.authinfo.gpg | ${awk} '/machine mail.gandi.net login jeff@doyougnu.xyz/ {print $5}'";
       smtp = {
         host = "mail.gandi.net";
       };
@@ -167,11 +171,17 @@ in {
       mbsync = {
         enable = true;
         create = "maildir";
+        patterns = ["*" "![Gmail]*" "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"];
+        extraConfig = {
+          channel = {
+            Sync = "All";
+          };
+        };
       };
       msmtp.enable = true;
       mu.enable    = true;
       realName     = "Jeffrey M. Young";
-      passwordCommand = "gpg2 -q --for-your-eyes-only --no-tty -d ~/.authinfo.gpg | awk '/machine imap.gmail.com login jeffrey.young@iohk.io/ {print $5}'";
+      passwordCommand = "${gpg} -q --for-your-eyes-only --no-tty -d /home/doyougnu/.authinfo.gpg | ${awk} '/machine smtp.gmail.com login jeffrey.young@iohk.io/ {print $5}'";
       smtp = {
         host = "smtp.gmail.com";
       };
@@ -185,11 +195,17 @@ in {
       mbsync = {
         enable = true;
         create = "maildir";
+        patterns = ["*" "![Gmail]*" "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"];
+        extraConfig = {
+          channel = {
+            Sync = "All";
+          };
+        };
       };
       msmtp.enable = true;
       mu.enable    = true;
       realName     = "Jeffrey M. Young";
-      passwordCommand = "gpg2 -q --for-your-eyes-only --no-tty -d ~/.authinfo.gpg | awk '/machine imap.gmail.com login jmy6342@gmail.com/ {print $5}'";
+      passwordCommand = "${gpg} -q --for-your-eyes-only --no-tty -d /home/doyougnu/.authinfo.gpg | ${awk} '/machine smtp.gmail.com login jmy6342@gmail.com/ {print $5}'";
       smtp = {
         host = "smtp.gmail.com";
       };

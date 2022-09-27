@@ -1,8 +1,11 @@
 ;;; dyg/+mu4e/config.el -*- lexical-binding: t; -*-
 
 (after! mu4e
-  (setq smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg")
-        message-send-mail-function 'sendmail-send-it)
+
+  (setq smtpmail-auth-credentials  (expand-file-name "~/.authinfo.gpg")
+        message-send-mail-function 'sendmail-send-it
+        mu4e-compose-context-policy nil)
+
   (setq mu4e-contexts
         `( ,(make-mu4e-context
              :name "Blog"
@@ -46,13 +49,3 @@
                       ( user-full-name          . "Jeffrey M. Young" )
                       ( mu4e-compose-signature  . nil))))))
 
-  ;; set `mu4e-context-policy` and `mu4e-compose-policy` to tweak when mu4e should
-  ;; guess or ask the correct context, e.g.
-
-  ;; start with the first (default) context;
-  ;; default is to ask-if-none (ask when there's no context yet, and none match)
-  ;; (setq mu4e-context-policy 'pick-first)
-
-  ;; compose with the current context is no context matches;
-  ;; default is to ask
-(setq mu4e-compose-context-policy nil)
