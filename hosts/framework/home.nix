@@ -51,7 +51,8 @@ in {
 
   services.gpg-agent = {
     enable         = true;
-    maxCacheTtl    = 7200;
+    defaultCacheTtl = 34560000;
+    maxCacheTtl     = 34560000;
     pinentryFlavor = "tty";
     extraConfig = ''
     allow-emacs-pinentry
@@ -152,7 +153,7 @@ in {
       mu.enable    = true;
       primary      = true;
       realName     = "Jeffrey M. Young";
-      passwordCommand = "${gpg} -q --for-your-eyes-only --no-tty -d /home/doyougnu/.authinfo.gpg | ${awk} '/machine mail.gandi.net login jeff@doyougnu.xyz/ {print $5}'";
+      passwordCommand = "${gpg} -q --for-your-eyes-only --no-tty -d /home/doyougnu/.authinfo.gpg | ${awk} '/machine mail.gandi.net login jeff@doyougnu.xyz password/ {print $6}'";
       smtp = {
         host = "mail.gandi.net";
       };
@@ -180,7 +181,7 @@ in {
       msmtp.enable = true;
       mu.enable    = true;
       realName     = "Jeffrey M. Young";
-      passwordCommand = "${gpg} -q --for-your-eyes-only --no-tty -d /home/doyougnu/.authinfo.gpg | ${awk} '/machine smtp.gmail.com login jeffrey.young@iohk.io/ {print $5}'";
+      passwordCommand = "${gpg} -q --for-your-eyes-only --no-tty -d /home/doyougnu/.authinfo.gpg | ${awk} '/machine smtp.gmail.com login jeffrey.young@iohk.io password/ {print $6}'";
       smtp = {
         host = "smtp.gmail.com";
       };
@@ -204,7 +205,7 @@ in {
       msmtp.enable = true;
       mu.enable    = true;
       realName     = "Jeffrey M. Young";
-      passwordCommand = "${gpg} -q --for-your-eyes-only --no-tty -d /home/doyougnu/.authinfo.gpg | ${awk} '/machine smtp.gmail.com login jmy6342@gmail.com/ {print $5}'";
+      passwordCommand = "${gpg} -q --for-your-eyes-only --no-tty -d /home/doyougnu/.authinfo.gpg | ${awk} '/machine smtp.gmail.com login jmy6342@gmail.com password/ {print $6}'";
       smtp = {
         host = "smtp.gmail.com";
       };
