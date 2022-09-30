@@ -100,6 +100,12 @@
       (:when (modulep! :tools lsp)
        :desc "lsp-imenu" "cI" #'lsp-ui-imenu)
 
+      (:prefix-map ("m" . "smerge")
+       :desc "Smerge-next-in-file" "n" #'smerge-next
+       :desc "Smerge-next"         "N" #'smerge-vc-next-conflict
+       :desc "Smerge-prev"         "p" #'smerge-prev
+       :desc "Smerge-keep-current" "m" #'smerge-keep-current)
+
       :desc "Org-capture" "SPC" #'org-capture
       :desc "Ranger"      "."   #'ranger)
 
