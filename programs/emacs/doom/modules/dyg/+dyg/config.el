@@ -26,8 +26,11 @@
 ;; find the nearest nix file
 (defun projectile-nix-root-dir (dir)
   "Retrieve the root DIR based on nix files"
-  (let ((default-directory dir))
-    (file-name-directory (nix-current-sandbox))))
+  (let ((default-directory dir)
+        (current-path      (nix-current-sandbox)))
+    (if current-path
+        (file-name-directory current-path)
+        nil)))
 
 ;; set projectile to recently used and enable caching
 (setq projectile-enable-caching t
