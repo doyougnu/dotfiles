@@ -5,6 +5,10 @@ let
     haskell-env = with pkgs.haskell.packages.${config.ghc.version}; [
     ];
 
+    # for mbsync service
+    gpg = "/etc/profiles/per-user/doyougnu/bin/gpg2";
+    awk = "/run/current-system/sw/bin/awk";
+
 in {
 
   imports = [ ../../programs/non-free.nix
@@ -53,7 +57,7 @@ in {
     enable         = true;
     defaultCacheTtl = 34560000;
     maxCacheTtl     = 34560000;
-    pinentryFlavor = "tty";
+    # pinentryFlavor = "tty";
     extraConfig = ''
     allow-emacs-pinentry
     allow-loopback-pinentry
