@@ -1,11 +1,12 @@
 ;;; +lang/+haskell/config.el -*- lexical-binding: t; -*-
 
-(after! haskell
-  (setq haskell-process-suggest-restart  nil
-        haskell-process-log              t
-        haskell-interactive-popup-errors nil)
+(after! projectile
+(setq haskell-process-suggest-restart  nil
+      haskell-process-log              t
+      haskell-interactive-popup-errors nil
+      haskell-process-wrapper-function #'(lambda (argv) (message "HEEEEEELLLLOOO" argv)))
 
-  (when (featurep! :lang haskell +lsp)
+  (when (modulep! :lang haskell +lsp)
       (setq lsp-file-watch-threshold 10000
             lsp-haskell-plugin-import-lens-code-lens-on    nil
             lsp-haskell-plugin-import-lens-code-actions-on nil)
@@ -31,6 +32,7 @@
       (after! lsp-ui
         (setq lsp-ui-doc-position      'top)))
 
+
   (map! :localleader
         :map haskell-mode-map
         :nv "," #'haskell-process-load-file
@@ -50,6 +52,6 @@
         :i  "C-k" #'haskell-interactive-mode-history-previous
         :localleader
         :nv "," #'haskell-interactive-switch-back
-        :nv "c" #'haskell-interactive-mode-clear))
+        :nv "c" #'haskell-interactive-mode-clear)
 
-(set-repl-handler! 'haskell-mode #'+haskell/haskell-interactive-bring)
+(set-repl-handler! 'haskell-mode #'+haskell/haskell-interactive-bring))

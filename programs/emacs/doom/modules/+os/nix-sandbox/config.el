@@ -12,8 +12,7 @@
           (lambda (c)
             (nix-executable-find (nix-current-sandbox) c)))
 
-    (when (featurep! :lang haskell +lsp)
-      (setq default-nix-wrapper
+    (setq default-nix-wrapper
           (lambda (args)
             (append
              (append (list "nix-shell" "--command")
@@ -26,7 +25,7 @@
 
           ;; lsp variables
           lsp-haskell-server-wrapper-function default-nix-wrapper
-          lsp-haskell-server-args '()))
+          lsp-haskell-server-args '())
 
     (map! :leader
           :desc "Open nix-eshell" "on" #'nix-eshell)))

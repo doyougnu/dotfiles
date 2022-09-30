@@ -365,6 +365,7 @@ in {
     qutebrowser
     ranger
     ripgrep
+    rnix-lsp
     rsync
     lispPackages.quicklisp
     # sbcl

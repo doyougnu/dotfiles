@@ -4,6 +4,6 @@
   :defer t
   :commands (w3m)
   :config
-  (when (featurep! :editor evil +everywhere)
+  (when (modulep! :editor evil +everywhere)
     (evil-collection-w3m-setup))
   (setq browse-url-browser-function 'w3m-browse-url))

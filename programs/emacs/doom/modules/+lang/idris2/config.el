@@ -5,7 +5,7 @@
   :defer t
   :config
 
-  (when (featurep! +lsp)
+  (when (modulep! +lsp)
     (add-hook 'idris2-mode-hook #'lsp!))
   (advice-add #'evil-motion-range :around #'~/evil-motion-range--wrapper)
 

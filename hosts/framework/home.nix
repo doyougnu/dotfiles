@@ -369,6 +369,7 @@ in {
     ranger
     ripgrep
     rsync
+    rnix-lsp         # for nix lsp in emacs
     sdcv             # for polybar
     shutter
     signal-desktop

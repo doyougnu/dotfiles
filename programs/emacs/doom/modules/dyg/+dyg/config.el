@@ -23,10 +23,21 @@
 
 (setq doom-scratch-initial-major-mode 'org-mode)
 
+;; find the nearest nix file
+(defun projectile-nix-root-dir (dir)
+  "Retrieve the root DIR based on nix files"
+  (let ((default-directory dir))
+    (file-name-directory (nix-current-sandbox))))
+
 ;; set projectile to recently used and enable caching
 (setq projectile-enable-caching t
       projectile-sort-order      'recently-active
-      projectile-indexing-method 'hybrid)
+      projectile-indexing-method 'hybrid
+      projectile-project-root-functions '(projectile-nix-root-dir
+                                          projectile-root-bottom-up
+                                          projectile-root-local
+                                          projectile-root-top-down
+                                          projectile-root-top-down-recurring))
 
 ;; always prefer newer .el files
 (setq load-prefer-newer t)
@@ -83,7 +94,7 @@
       (:prefix-map ("s" . "search")
        :desc "Search project for point" "p" #'+default/search-project-for-symbol-at-point)
 
-      (:when (featurep! :tools lsp)
+      (:when (modulep! :tools lsp)
        :desc "lsp-imenu" "cI" #'lsp-ui-imenu)
 
       :desc "Org-capture" "SPC" #'org-capture
