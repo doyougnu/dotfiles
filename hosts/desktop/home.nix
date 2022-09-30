@@ -136,9 +136,6 @@ in {
   # email
   programs.mbsync.enable = true;        ## sync
   programs.msmtp.enable  = true;        ## sending
-  programs.mu = {
-    enable = true;
-  };
 
   accounts.email = {
     ## blog email
@@ -151,7 +148,6 @@ in {
         create = "maildir";
       };
       msmtp.enable = true;
-      mu.enable    = true;
       primary      = true;
       realName     = "Jeffrey M. Young";
       passwordCommand = "${gpg} -q --for-your-eyes-only --no-tty -d /home/doyougnu/.authinfo.gpg | ${awk} '/machine mail.gandi.net login jeff@doyougnu.xyz password/ {print $6}'";
@@ -180,7 +176,6 @@ in {
         };
       };
       msmtp.enable = true;
-      mu.enable    = true;
       realName     = "Jeffrey M. Young";
       passwordCommand = "${gpg} -q --for-your-eyes-only --no-tty -d /home/doyougnu/.authinfo.gpg | ${awk} '/machine smtp.gmail.com login jeffrey.young@iohk.io password/ {print $6}'";
       smtp = {
@@ -204,7 +199,6 @@ in {
         };
       };
       msmtp.enable = true;
-      mu.enable    = true;
       realName     = "Jeffrey M. Young";
       passwordCommand = "${gpg} -q --for-your-eyes-only --no-tty -d /home/doyougnu/.authinfo.gpg | ${awk} '/machine smtp.gmail.com login jmy6342@gmail.com password/ {print $6}'";
       smtp = {
@@ -354,6 +348,7 @@ in {
     killall         # for polybar launch script
     moreutils
     myEmacs
+    unstable.mu     # for email
     multimarkdown
     nodejs-18_x
     pdfpc           # pdf presentaitons from the shell
