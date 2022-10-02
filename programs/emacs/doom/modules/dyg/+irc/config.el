@@ -7,7 +7,9 @@
   '(:tls                t
     :reduce-lurker-spam t
     :port               6697
-    :nick               "doyougnu"
-    :sasl-password      (funcall #'dyg/nickserv-password)
+    :nickserv-nick      "doyougnu"
+    :nickserv-password  dyg/nickserv-password
+    :sasl-username      "doyougnu"
+    :sasl-password      dyg/nickserv-password
     :channels           ("#emacs" "#haskell" "#ghc" "#commonlisp" "#lispcafe"
                          "#lobsters" "#minikanren" "#nixos" "#ghcjs")))
