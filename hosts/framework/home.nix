@@ -333,6 +333,7 @@ in {
   home.packages = with pkgs; [
     alsa-utils
     autorandr
+    cabal-install
     cbqn
     chez
     cowsay

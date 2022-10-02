@@ -3,8 +3,7 @@
 (after! projectile
 (setq haskell-process-suggest-restart  nil
       haskell-process-log              t
-      haskell-interactive-popup-errors nil
-      haskell-process-wrapper-function #'(lambda (argv) (message "HEEEEEELLLLOOO" argv)))
+      haskell-interactive-popup-errors nil)
 
   (when (modulep! :lang haskell +lsp)
       (setq lsp-file-watch-threshold 10000
