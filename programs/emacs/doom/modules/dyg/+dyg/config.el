@@ -104,7 +104,9 @@
        :desc "smerge-next-in-file" "n" #'smerge-next
        :desc "smerge-next"         "N" #'smerge-vc-next-conflict
        :desc "smerge-prev"         "p" #'smerge-prev
-       :desc "smerge-keep-current" "m" #'smerge-keep-current)
+       :desc "smerge-keep-current" "m" #'smerge-keep-current
+       :desc "smerge-keep-upper"   "u" #'smerge-keep-upper
+       :desc "smerge-keep-lower"   "l" #'smerge-keep-lower)
 
       :desc "Org-capture" "SPC" #'org-capture
       :desc "Ranger"      "."   #'ranger)
