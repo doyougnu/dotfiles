@@ -9,4 +9,5 @@
     :port               6697
     :nick               "doyougnu"
     :sasl-password      (funcall #'dyg/nickserv-password)
-    :channels           ("#emacs" "#haskell" "#ghc")))
+    :channels           ("#emacs" "#haskell" "#ghc" "#commonlisp" "#lispcafe"
+                         "#lobsters" "#minikanren" "#nixos" "#ghcjs")))
