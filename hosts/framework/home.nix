@@ -218,7 +218,7 @@ in {
     enable = true;
     frequency = "*:0/15";
     preExec = "${pkgs.isync}/bin/mbsync -Ha";
-    postExec = "${pkgs.mu}/bin/mu index -m ~/Maildir";
+    postExec = "${pkgs.unstable.mu}/bin/mu index -m ~/Maildir";
   };
 
   # manually write config files
