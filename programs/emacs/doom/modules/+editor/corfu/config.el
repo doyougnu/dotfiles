@@ -50,5 +50,8 @@
                    #'completion--in-region)
                  args)))
 
+  ;; always exit corfu if we escape from insert mode
+  (add-hook! evil-insert-state-exit-hook #'corfu-quit)
+
   :init
   (global-corfu-mode))
