@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: variable
+# key: vr
+# uuid: variable
+# --
+|${1:variable}| $0

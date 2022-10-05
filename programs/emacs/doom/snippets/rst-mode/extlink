@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: extlink
+# key: :e
+# uuid: extlink
+# --
+:${1:ext}:\`${2:ref} <${3:section}>\` $0
