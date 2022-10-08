@@ -176,8 +176,16 @@ in
          haskellPackages.xmonad-spotify
       ];
     };
+
     layout = "us";
     videoDrivers = [ "nvidia" ];
+
+    extraLayouts.dyg-layout = {
+      description = "My custom layout";
+      languages   = [ "eng" ];
+      symbolsFile = ../../programs/symbols/dyg-layout;
+    };
+
     displayManager = {
       lightdm.enable = true;
       autoLogin = {
@@ -185,7 +193,6 @@ in
         user = "doyougnu";
         };
       sessionCommands = ''
-       ${pkgs.xorg.xmodmap}/bin/xmodmap ~/dotfiles/programs/xmodmap
        ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
        '';
     };

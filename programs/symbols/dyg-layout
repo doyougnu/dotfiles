@@ -1,0 +1,8 @@
+xkb_symbols "dyg-layout"
+{
+  include "us(basic)"            // includes the base US keys
+
+  key.type = "ONE_LEVEL";
+  key <RALT> { [ Return ] };
+  key <CAPS>  { [ Control_L ] };
+};

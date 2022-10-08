@@ -93,7 +93,6 @@
 
   # Set your time zone.
   time.timeZone = "America/New_York";
-  # time.timeZone = "CET";
 
   # allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -219,6 +218,12 @@
     dpi    = 120;
     libinput.enable = true;
 
+    extraLayouts.dyg-layout = {
+      description = "My custom layout";
+      languages   = [ "eng" ];
+      symbolsFile = ../../programs/symbols/dyg-layout;
+    };
+
      windowManager.xmonad = {
        enable = true;
        enableContribAndExtras = true;
@@ -233,7 +238,6 @@
       lightdm.enable = true;
       autoLogin.user   = "doyougnu";
       sessionCommands = ''
-         ${pkgs.xorg.xmodmap}/bin/xmodmap ~/dotfiles/programs/xmodmap
          ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
          '';
     };
