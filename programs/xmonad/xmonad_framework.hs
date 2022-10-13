@@ -483,7 +483,6 @@ lookupPrompt = inputPrompt greenXPConfig "λ" ?+ lookupInDict
 -- ON NIXOS, do this to recompile: nix-shell -p 'xmonad-with-packages.override { packages = p: with p; [ xmonad-extras xmonad-contrib xmonad dbus xmonad-spotify]; }'
 main = do
   polybar <- spawnPipe "$HOME/.config/polybar/launch.sh"
-  xmproc <- spawnPipe "xmodmap $HOME/.xmodmap"
   dbus <- D.connectSession
   D.requestName dbus (D.busName_ "org.xmonad.Log")
     [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
