@@ -308,7 +308,7 @@ in {
        bind -M insert \cj history-token-search-forward
        bind -M visual \ck up-or-search
        bind -M visual \cj down-or-search
-       bind -M insert fd "if commandline -P; commandline -f cancel; else; set fish_bind_mode default; commandline -f backward-char force-repaint; end"
+       bind -M insert eu "if commandline -P; commandline -f cancel; else; set fish_bind_mode default; commandline -f backward-char force-repaint; end"
        bind -M insert \cp up-or-search
        bind -M insert \cn down-or-search
        bind -M visual \cp up-or-search
