@@ -338,7 +338,6 @@ in {
     chez
     cowsay
     cachix
-    discord
     evince
     entr
     firefox
@@ -370,7 +369,6 @@ in {
     rsync
     rnix-lsp         # for nix lsp in emacs
     sdcv             # for polybar
-    shutter
     signal-desktop
     slack
     spotify
@@ -401,6 +399,8 @@ in {
       numactl
       valgrind
       thunderbird
+      flameshot
+      discord
   ]);
 
   # This value determines the Home Manager release that your

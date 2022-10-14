@@ -338,7 +338,6 @@ in {
     discord
     entr
     evince
-    firefox
     fasd
     gerbil
     google-chrome
@@ -348,7 +347,6 @@ in {
     killall         # for polybar launch script
     moreutils
     myEmacs
-    unstable.mu     # for email
     multimarkdown
     nodejs-18_x
     pdfpc           # pdf presentaitons from the shell
@@ -365,14 +363,12 @@ in {
     lispPackages.quicklisp
     # sbcl
     sdcv             # for polybar
-    shutter
     signal-desktop
     spotify
     spotify-unwrapped
     slack
     steam
     texlive.combined.scheme-full
-    tdesktop
     xclip
     xorg.xwininfo    # for emacs everywhere
     xdotool          # for emacs everywhere
@@ -384,18 +380,21 @@ in {
     zip
   ] ++
   [ R
-    # rEnv
-    # pyEnv
+    haskellPackages.hasktags
+    haskellPackages.hlint
   ]
     ++
     haskell-env
     ++
-  (with pkgs;
+  (with unstable;
     [ gmp
       numactl
+      flameshot
       tdesktop
       valgrind
       thunderbird
+      firefox
+      mu     # for email
   ]);
 
   # This value determines the Home Manager release that your
