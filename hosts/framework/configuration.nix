@@ -72,10 +72,6 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-  console = {
-    font = "Lat2-Terminus16";
-    keyMap = "us";
-  };
 
   programs.fish = {
     enable = true;
@@ -218,10 +214,10 @@
     dpi    = 120;
     libinput.enable = true;
 
-    extraLayouts.dyg-layout = {
+    extraLayouts.dyg-dvorak = {
       description = "My custom layout";
       languages   = [ "eng" ];
-      symbolsFile = ../../programs/symbols/dyg-layout;
+      symbolsFile = ../../programs/symbols/dyg-dvorak;
     };
 
      windowManager.xmonad = {

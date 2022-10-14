@@ -2,9 +2,16 @@
     allowUnfree = true;
     allowBroken = true;
     doCheck     = false;
-    ghc.version = "ghc922";
+    ghcVersion  = "ghc924";
     packageOverrides = super: let self = super.pkgs; in
     {
+
+        haskell-env = self.haskell.packages.${ghcVersion}.ghcWithHoogle
+            (haskellPackages: with haskellPackages; [
+                arrows async mtl transformers base containers criterion gauge tasty tasty-bench
+                tasty-golden unagi-chan basement cassava shelly cabal unordered-containers sbv
+                hasktags hlint
+            ]);
 
         rEnv = super.rWrapper.override {
             packages = with self.rPackages; [

@@ -227,30 +227,30 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   --
 
   -- Start a terminal.  Terminal to start is specified by myTerminal variable.
-  [ ((modMask, xK_semicolon),
+  [ ((modMask, xK_t),
      spawn $ XMonad.terminal conf)
     --
   , ((modMask .|. controlMask, xK_Return),
      safeSpawn "emacsclient" ["-c", "-e", "(eshell)"]) --
 
   -- Lock the screen using command specified by myScreensaver.
-  , ((modMask .|. controlMask, xK_l), --
+  , ((modMask .|. controlMask, xK_n), --
      spawn mySuspend)
 
   -- Spawn the launcher using command specified by myLauncher.
   -- Use this to launch programs without a key binding.
-  , ((modMask, xK_p),
+  , ((modMask, xK_l),
      spawn myLauncher)
 
   -- On Mod f open the browser
-  , ((modMask, xK_d),
+  , ((modMask, xK_e),
      spawn myBrowser)
 
-  , ((modMask, xK_g),
+  , ((modMask, xK_i),
      safeSpawn "google-chrome-stable" mempty)
 
   -- On Mod f open the browser
-  , ((modMask, xK_s),
+  , ((modMask, xK_u),
      spawn myIDE)
 
   -- On Mod f open the browser
@@ -267,12 +267,11 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- change themes with mod + ctrl + t
   , ((modMask .|. controlMask, xK_t), themePrompt def)
 
-
   -- lookup stuff in a dictionary easily and pipe to notification
-  , ((modMask, xK_o),
+  , ((modMask, xK_r),
      lookupPrompt)
 
-  , ((modMask .|. shiftMask, xK_o)
+  , ((modMask .|. shiftMask, xK_r)
     , safeSpawn "dunstctl" ["close"])
 
 
@@ -297,32 +296,32 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      spawn "light -A 5")
 
   -- -- Mute volume.
-  , ((modMask .|. controlMask, xK_m),
+  , ((modMask .|. controlMask, xK_w),
      spawn "amixer -q set Master toggle")
 
   -- -- Decrease volume.
-  , ((modMask .|. controlMask, xK_j),
+  , ((modMask .|. controlMask, xK_h),
      spawn "amixer -q set Master 5%-")
 
   -- -- Increase volume.
-  , ((modMask .|. controlMask, xK_k),
+  , ((modMask .|. controlMask, xK_t),
      spawn "amixer -q set Master 5%+")
 
   -- Pause any spotify music
-  , ((modMask .|. controlMask, xK_n), audioPlayPause)
+  , ((modMask .|. controlMask, xK_b), audioPlayPause)
 
   -- Previous
-  , ((modMask .|. controlMask, xK_comma), audioPrev)
+  , ((modMask .|. controlMask, xK_w), audioPrev)
 
   -- Next
-  , ((modMask .|. controlMask, xK_period), audioNext)
+  , ((modMask .|. controlMask, xK_v), audioNext)
 
   -- Decrease brightness.
-  , ((modMask .|. controlMask, xK_i),
+  , ((modMask .|. controlMask, xK_c),
      spawn "light -U 2")
 
   -- -- Increase volume.
-  , ((modMask .|. controlMask, xK_o),
+  , ((modMask .|. controlMask, xK_r),
      spawn "light -A 2")
 
   --------------------------------------------------------------------
@@ -330,7 +329,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   --
 
   -- Close focused window.
-  , ((modMask, xK_c), kill)
+  , ((modMask, xK_j), kill)
 
   -- Cycle through the available layout algorithms.
   , ((modMask, xK_space),
@@ -349,11 +348,11 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      windows W.focusDown)
 
   -- Move focus to the next window.
-  , ((modMask, xK_j),
+  , ((modMask, xK_h),
      windows W.focusDown)
 
   -- Move focus to the previous window.
-  , ((modMask, xK_k),
+  , ((modMask, xK_t),
      windows W.focusUp  )
 
   -- Move focus to the master window.
@@ -365,19 +364,19 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      windows W.swapMaster)
 
   -- Swap the focused window with the next window.
-  , ((modMask .|. shiftMask, xK_j),
+  , ((modMask .|. shiftMask, xK_h),
      windows W.swapDown  )
 
   -- Swap the focused window with the previous window.
-  , ((modMask .|. shiftMask, xK_k),
+  , ((modMask .|. shiftMask, xK_t),
      windows W.swapUp    )
 
   -- Shrink the master area.
-  , ((modMask, xK_h),
+  , ((modMask, xK_d),
      sendMessage Shrink)
 
   -- Expand the master area.
-  , ((modMask, xK_l),
+  , ((modMask, xK_n),
      sendMessage Expand)
 
   -- Push window back into tiling.
@@ -396,11 +395,11 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- TODO: update this binding with avoidStruts, ((modMask, xK_b),
 
   -- Quit xmonad.
-  , ((modMask .|. shiftMask, xK_q),
+  , ((modMask .|. shiftMask, xK_apostrophe),
      io (exitWith ExitSuccess))
 
   -- Restart xmonad.
-  , ((modMask, xK_q),
+  , ((modMask, xK_apostrophe),
      restart "xmonad" True)
   ]
   ++
@@ -483,7 +482,6 @@ lookupPrompt = inputPrompt greenXPConfig "λ" ?+ lookupInDict
 -- ON NIXOS, do this to recompile: nix-shell -p 'xmonad-with-packages.override { packages = p: with p; [ xmonad-extras xmonad-contrib xmonad dbus xmonad-spotify]; }'
 main = do
   polybar <- spawnPipe "$HOME/.config/polybar/launch.sh"
-  xmproc <- spawnPipe "xmodmap $HOME/.xmodmap"
   dbus <- D.connectSession
   D.requestName dbus (D.busName_ "org.xmonad.Log")
     [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]

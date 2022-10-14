@@ -345,6 +345,7 @@ in {
     idris2
     libevent
     killall         # for polybar launch script
+    ktouch          # learn dvorak!
     moreutils
     myEmacs
     multimarkdown

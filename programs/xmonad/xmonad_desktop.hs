@@ -437,7 +437,6 @@ lookupPrompt = inputPrompt greenXPConfig "λ" ?+ lookupInDict
 
 main = do
   xmproc <- spawnPipe "$HOME/.config/polybar/launch.sh"
-  xmproc <- spawnPipe "xmodmap $HOME/.Xmodmap"
   dbus <- D.connectSession
   D.requestName dbus (D.busName_ "org.xmonad.Log")
     [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
