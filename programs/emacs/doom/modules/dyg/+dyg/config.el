@@ -66,6 +66,11 @@
   (setq org-ref-default-bibliography
         (directory-files-recursively projectile-project-root "\\.bib$")))
 
+;; set avy keys
+(after! avy
+  ;; home row priorities: 8 6 4 5 - - 1 2 3 7
+  (setq '(?a ?o ?e ?u ?h ?t ?n ?s)))
+
 ;; keybindings
 (map! :leader
       (:prefix-map ("j" . "doyougnu")

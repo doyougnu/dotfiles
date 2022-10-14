@@ -227,7 +227,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   --
 
   -- Start a terminal.  Terminal to start is specified by myTerminal variable.
-  [ ((modMask, xK_t),
+  [ ((modMask, xK_period),
      spawn $ XMonad.terminal conf)
     --
   , ((modMask .|. controlMask, xK_Return),
@@ -250,15 +250,15 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      safeSpawn "google-chrome-stable" mempty)
 
   -- On Mod f open the browser
-  , ((modMask, xK_u),
+  , ((modMask, xK_o),
      spawn myIDE)
 
   -- On Mod f open the browser
-  , ((modMask .|. shiftMask, xK_s),
+  , ((modMask .|. shiftMask, xK_o),
      spawn myIDESameBuf)
 
   -- On Mod d open the file bro
-  , ((modMask, xK_f),
+  , ((modMask, xK_u),
      spawn myFS)
 
   , ((modMask, xK_a),
@@ -308,13 +308,13 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      spawn "amixer -q set Master 5%+")
 
   -- Pause any spotify music
-  , ((modMask .|. controlMask, xK_b), audioPlayPause)
+  , ((modMask .|. controlMask, xK_v), audioPlayPause)
 
   -- Previous
   , ((modMask .|. controlMask, xK_w), audioPrev)
 
   -- Next
-  , ((modMask .|. controlMask, xK_v), audioNext)
+  , ((modMask .|. controlMask, xK_z), audioNext)
 
   -- Decrease brightness.
   , ((modMask .|. controlMask, xK_c),
@@ -380,16 +380,16 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      sendMessage Expand)
 
   -- Push window back into tiling.
-  , ((modMask, xK_t),
+  , ((modMask, xK_y),
      withFocused $ windows . W.sink)
 
   -- Increment the number of windows in the master area.
-  , ((modMask, xK_comma),
-     sendMessage (IncMasterN 1))
+  -- , ((modMask, xK_comma),
+  --    sendMessage (IncMasterN 1))
 
-  -- Decrement the number of windows in the master area.
-  , ((modMask, xK_period),
-     sendMessage (IncMasterN (-1)))
+  -- -- Decrement the number of windows in the master area.
+  -- , ((modMask, xK_period),
+  --    sendMessage (IncMasterN (-1)))
 
   -- Toggle the status bar gap.
   -- TODO: update this binding with avoidStruts, ((modMask, xK_b),
@@ -409,13 +409,13 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   [((m .|. modMask, k), windows $ f i)
       | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
       , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
-  ++
+  -- ++
 
   -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
   -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
-  [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
-      | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
-      , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+  -- [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
+  --     | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
+  --     , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 
 ------------------------------------------------------------------------

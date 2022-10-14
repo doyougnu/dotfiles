@@ -5,8 +5,9 @@ xkb_symbols "dyg-dvorak"
   key.type = "ONE_LEVEL";
   key <RALT>  { [ Return    ] };
   key <CAPS>  { [ Control_R ] };
-  key <RTRN>  { [ BackSpace ] };
   key <TAB>   { [ Escape    ] };
-  key <BKSP>  { [ Tab       ] };
-  key <RCTL>  { [ Caps_Lock ] };
+  key <RTSH>  { [ Caps_Lock ] };
+  key <RCTL>  { [ Tab       ] };
+  // key <RTRN>  { [ BackSpace ] };
+  // key <BKSP>  { [ Tab       ] };
 };
