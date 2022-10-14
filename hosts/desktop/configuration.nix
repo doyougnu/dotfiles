@@ -180,10 +180,10 @@ in
     layout = "us";
     videoDrivers = [ "nvidia" ];
 
-    extraLayouts.dyg-layout = {
+    extraLayouts.dyg-dvorak = {
       description = "My custom layout";
       languages   = [ "eng" ];
-      symbolsFile = ../../programs/symbols/dyg-layout;
+      symbolsFile = ../../programs/symbols/dyg-dvorak;
     };
 
     displayManager = {

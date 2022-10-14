@@ -7,5 +7,6 @@ xkb_symbols "dyg-dvorak"
   key <CAPS>  { [ Control_R ] };
   key <RTRN>  { [ BackSpace ] };
   key <TAB>   { [ Escape    ] };
-  key <BKSP>  { [ Caps_Lock ] };
+  key <BKSP>  { [ Tab       ] };
+  key <RCTL>  { [ Caps_Lock ] };
 };
