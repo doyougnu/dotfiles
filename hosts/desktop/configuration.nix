@@ -177,7 +177,8 @@ in
       ];
     };
 
-    layout = "us";
+    layout = "dyg-dvorak,";
+    xkbVariant = "dvorak";
     videoDrivers = [ "nvidia" ];
 
     extraLayouts.dyg-dvorak = {

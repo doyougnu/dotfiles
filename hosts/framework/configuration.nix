@@ -210,7 +210,7 @@
 
     # Enable the X11 windowing system.
     enable = true;
-    layout = "us";
+    layout = "dyg-dvorak";
     dpi    = 120;
     libinput.enable = true;
 

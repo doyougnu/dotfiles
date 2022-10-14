@@ -180,7 +180,7 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
   --
 
   -- Start a terminal.  Terminal to start is specified by myTerminal variable.
-  [ ((modMask, xK_semicolon),
+  [ ((modMask, xK_period),
      spawn $ XMonad.terminal conf)
 
   -- spawn an eshell
@@ -188,32 +188,32 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
      safeSpawn "emacsclient" ["-c", "-e", "(eshell)"])
 
   -- Lock the screen using command specified by myScreensaver.
-  , ((modMask .|. controlMask, xK_l),
+  , ((modMask .|. controlMask, xK_n),
      spawn mySuspend)
 
   -- Spawn the launcher using command specified by myLauncher.
   -- Use this to launch programs without a key binding.
-  , ((modMask, xK_p),
+  , ((modMask, xK_l),
      spawn myLauncher)
 
   -- On Mod d open the browser
-  , ((modMask, xK_d),
+  , ((modMask, xK_e),
      spawn myBrowser)
 
   -- On Mod g open the browser
-  , ((modMask, xK_g),
+  , ((modMask, xK_i),
      spawn "google-chrome-stable")
 
   -- On Mod s open emacs
-  , ((modMask, xK_s),
+  , ((modMask, xK_o),
      spawn myIDE)
 
   -- On Mod f open the browser
-  , ((modMask .|. controlMask, xK_e),
+  , ((modMask .|. controlMask, xK_o),
      spawn myEmail)
 
   -- On Mod d open the file bro
-  , ((modMask, xK_f),
+  , ((modMask, xK_u),
      spawn myFS)
 
   , ((modMask, xK_a),
@@ -223,10 +223,10 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
   , ((modMask .|. controlMask, xK_t), themePrompt def)
 
   -- lookup stuff in a dictionary easily and pipe to notification
-  , ((modMask, xK_o), lookupPrompt)
+  -- , ((modMask, xK_r), lookupPrompt)
 
   -- close last notification
-  , ((modMask .|. shiftMask, xK_o),
+  , ((modMask .|. shiftMask, xK_r),
     safeSpawn "dunstctl" ["close"])
 
   -- run emacs everywhere
@@ -254,32 +254,32 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
      spawn "amixer -q set Master 5%+")
   --
   -- -- Mute volume.
-  , ((modMask .|. controlMask, xK_m),
+  , ((modMask .|. controlMask, xK_w),
      spawn "amixer -q set Master toggle")
 
   -- -- Decrease volume.
-  , ((modMask .|. controlMask, xK_j),
+  , ((modMask .|. controlMask, xK_h),
      spawn "amixer -q set Master 10%-")
 
   -- -- Increase volume.
-  , ((modMask .|. controlMask, xK_k),
+  , ((modMask .|. controlMask, xK_t),
      spawn "amixer -q set Master 10%+")
 
 
-  , ((modMask .|. controlMask, xK_n), audioPlayPause)
+  , ((modMask .|. controlMask, xK_v), audioPlayPause)
 
   -- spotify previous
-  , ((modMask .|. controlMask, xK_comma), audioPrev)
+  , ((modMask .|. controlMask, xK_w), audioPrev)
 
   -- spotify next
-  , ((modMask .|. controlMask, xK_period), audioNext)
+  , ((modMask .|. controlMask, xK_z), audioNext)
 
   --------------------------------------------------------------------
   -- "Standard" xmonad key bindings
   --
 
   -- Close focused window.
-  , ((modMask, xK_c),
+  , ((modMask, xK_j),
      kill)
 
   -- Cycle through the available layout algorithms.
@@ -299,12 +299,12 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
      windows W.focusDown)
 
   -- Move focus to the next window.
-  , ((modMask, xK_j),
+  , ((modMask, xK_h),
      windows W.focusDown)
 
   -- Move focus to the previous window.
-  , ((modMask, xK_k),
-     windows W.focusUp  )
+  , ((modMask, xK_t),
+     windows W.focusUp)
 
   -- Move focus to the master window.
   , ((modMask, xK_m),
@@ -315,42 +315,42 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
      windows W.swapMaster)
 
   -- Swap the focused window with the next window.
-  , ((modMask .|. shiftMask, xK_j),
+  , ((modMask .|. shiftMask, xK_h),
      windows W.swapDown  )
 
   -- Swap the focused window with the previous window.
-  , ((modMask .|. shiftMask, xK_k),
+  , ((modMask .|. shiftMask, xK_t),
      windows W.swapUp    )
 
   -- Shrink the master area.
-  , ((modMask, xK_h),
+  , ((modMask, xK_d),
      sendMessage Shrink)
 
   -- Expand the master area.
-  , ((modMask, xK_l),
+  , ((modMask, xK_n),
      sendMessage Expand)
 
   -- Push window back into tiling.
-  , ((modMask, xK_t),
+  , ((modMask, xK_y),
      withFocused $ windows . W.sink)
 
   -- Increment the number of windows in the master area.
-  , ((modMask, xK_comma),
-     sendMessage (IncMasterN 1))
+  -- , ((modMask, xK_comma),
+  --    sendMessage (IncMasterN 1))
 
   -- Decrement the number of windows in the master area.
-  , ((modMask, xK_period),
-     sendMessage (IncMasterN (-1)))
+  -- , ((modMask, xK_period),
+  --    sendMessage (IncMasterN (-1)))
 
   -- Toggle the status bar gap.
   -- TODO: update this binding with avoidStruts, ((modMask, xK_b),
 
   -- Quit xmonad.
-  , ((modMask .|. shiftMask, xK_q),
+  , ((modMask .|. shiftMask, xK_apostrophe),
      io exitSuccess)
 
   -- Restart xmonad.
-  , ((modMask, xK_q),
+  , ((modMask, xK_apostrophe),
      restart "xmonad" True)
   ]
   ++
@@ -360,13 +360,6 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
   [((m .|. modMask, k), windows $ f i)
       | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
       , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
-  ++
-
-  -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
-  -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
-  [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
-      | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
-      , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 
 ------------------------------------------------------------------------
