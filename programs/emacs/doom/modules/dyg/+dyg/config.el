@@ -75,7 +75,9 @@
   (setq avy-keys '(?a ?o ?e ?u ?h ?t ?n ?s)))
 
 (map! :map evil-motion-state-map
-      "t" #'evil-avy-goto-char-timer)
+      "t" #'evil-avy-goto-char-timer
+      "C-w" #'evil-jump-forward
+      "C-j" #'evil-jump-backward)
 
 ;; keybindings
 (map! :leader
