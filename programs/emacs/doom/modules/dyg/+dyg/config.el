@@ -74,8 +74,8 @@
   ;; home row priorities: 8 6 4 5 - - 1 2 3 7
   (setq avy-keys '(?a ?o ?e ?u ?h ?t ?n ?s)))
 
-(map! :map evil-motion-state-map
-      "t" #'evil-avy-goto-char-timer
+(map! :map evil-normal-state-map
+      "s" #'evil-avy-goto-char-timer
       "C-w" #'evil-jump-forward
       "C-j" #'evil-jump-backward)
 
@@ -120,6 +120,10 @@
        :desc "smerge-keep-current" "m" #'smerge-keep-current
        :desc "smerge-keep-upper"   "u" #'smerge-keep-upper
        :desc "smerge-keep-lower"   "l" #'smerge-keep-lower)
+
+      :desc "find file"               "oo" #'find-file
+      :desc "find file other project" "oO" #'projectile-find-file
+      :desc "org agenda"              "oa" #'org-agenda
 
       :desc "Org-capture" "SPC" #'org-capture
       :desc "Ranger"      "."   #'ranger)
