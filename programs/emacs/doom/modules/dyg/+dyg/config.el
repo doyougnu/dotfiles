@@ -12,9 +12,9 @@
 ;;; License: GPLv3
 
 ;; convieniences, we have to unbind C-k in lispy for our global key
-(map! (:map (lispy-mode-map global-mode-map) "C-k" nil)
+(map! (:map (lispy-mode-map global-mode-map) "C-t" nil)
       (:map evil-normal-state-map
-       (:prefix-map ("C-k" . "easy-insert")
+       (:prefix-map ("C-t" . "easy-insert")
         "i" #'dyg/char-insert
         "a" #'dyg/char-insert-after
         "w" #'dyg/word-insert
@@ -73,7 +73,7 @@
 
 ;; keybindings
 (map! :leader
-      (:prefix-map ("j" . "doyougnu")
+      (:prefix-map ("h" . "doyougnu")
        (:prefix ("d" . "deft")
         :desc "Deft"      "d" #'deft
         :desc "find-file" "f" #'deft-find-file
@@ -117,16 +117,16 @@
       :desc "Ranger"      "."   #'ranger)
 
 (map! (:map company-active-map
-      "C-l" #'company-complete-selection
-      "C-;" #'fill-paragraph)
+      "C-s" #'company-complete-selection
+      "C--" #'fill-paragraph)
       (:map minibuffer-local-map
-       "C-l" #'vertico-directory-enter
-       "C-h" #'vertico-directory-up)
+       "C-s" #'vertico-directory-enter
+       "C-d" #'vertico-directory-up)
       (:map evil-markdown-mode-map
-       :nv "C-;" #'fill-paragraph))
+       :nv "C--" #'fill-paragraph))
 
 (map! :map global-map
-       :nv "C-;" #'fill-paragraph)
+       :nv "C--" #'fill-paragraph)
 
 (map!
  :after wordnut

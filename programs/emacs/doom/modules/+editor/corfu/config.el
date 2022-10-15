@@ -31,9 +31,9 @@
   (setq corfu-auto t)
   (advice-add #'corfu-insert :after #'corfu-send-shell)
   (map! :map eshell-mode-map
-        "C-l" nil)
+        "C-s" nil)
   (map! :map corfu-map
-        :i "C-l" #'corfu-insert
+        :i "C-s" #'corfu-insert
         :in "TAB"   nil
         :in "RET"   nil
         :invm "C-g" #'corfu-quit
