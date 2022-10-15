@@ -211,6 +211,7 @@
        corfu
        symex
        multi-compile
+       avy
 
        :+tools
        w3m

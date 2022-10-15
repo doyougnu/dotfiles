@@ -54,6 +54,9 @@
 ;; better docs from dash
 (setq dash-docs-common-docsets '("Haskell" "Emacs Lisp" "Common Lisp"))
 
+;; set evil to not move the cursor when exiting insert mode
+(setq evil-move-cursor-back nil)
+
 ;; setup EasyPG for gpg
 (setq epg-pinentry-mode 'loopback)
 
@@ -69,11 +72,14 @@
 ;; set avy keys
 (after! avy
   ;; home row priorities: 8 6 4 5 - - 1 2 3 7
-  (setq '(?a ?o ?e ?u ?h ?t ?n ?s)))
+  (setq avy-keys '(?a ?o ?e ?u ?h ?t ?n ?s)))
+
+(map! :map evil-motion-state-map
+      "t" #'evil-avy-goto-char-timer)
 
 ;; keybindings
 (map! :leader
-      (:prefix-map ("h" . "doyougnu")
+      (:prefix-map ("d" . "doyougnu")
        (:prefix ("d" . "deft")
         :desc "Deft"      "d" #'deft
         :desc "find-file" "f" #'deft-find-file
@@ -90,7 +96,7 @@
        (:prefix ("i" . "IRC")
         :desc "Init" "i" #'circe)
 
-       "j" #'org-agenda)
+       "h" #'org-agenda)
 
       (:prefix-map ("r" . "kill-ring")
        :desc "Kill-ring" "y" #'consult-yank-pop)
