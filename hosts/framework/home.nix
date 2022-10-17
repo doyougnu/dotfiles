@@ -349,7 +349,7 @@ in {
     idris2
     # libnotify
     killall         # for polybar launch script
-    ktouch          # learn dvorak!
+    klovaro          # learn dvorak!
     moreutils
     myEmacs
     unstable.mu              # for email
