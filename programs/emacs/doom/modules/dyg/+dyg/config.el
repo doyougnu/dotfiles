@@ -76,8 +76,14 @@
 
 (map! :map evil-normal-state-map
       "s" #'evil-avy-goto-char-timer
-      "C-w" #'evil-jump-forward
-      "C-j" #'evil-jump-backward)
+      "C-e" #'evil-jump-forward
+      "C-o" #'evil-jump-backward)
+
+;; Yas
+(after! yasnippet
+  (setq yas-global-mode t)
+  (map! :map yas-minor-mode-map
+        "C-s" #'yas-expand))
 
 ;; keybindings
 (map! :leader
