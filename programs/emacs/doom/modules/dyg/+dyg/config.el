@@ -127,8 +127,8 @@
        :desc "smerge-keep-upper"   "u" #'smerge-keep-upper
        :desc "smerge-keep-lower"   "l" #'smerge-keep-lower)
 
-      :desc "find file"               "oo" #'find-file
-      :desc "find file other project" "oO" #'projectile-find-file
+      :desc "find file"               "oo" #'projectile-find-file
+      :desc "find file other project" "oO" #'doom/find-file-in-other-project
       :desc "org agenda"              "oa" #'org-agenda
 
       :desc "Org-capture" "SPC" #'org-capture
