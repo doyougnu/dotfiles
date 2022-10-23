@@ -19,3 +19,30 @@
     (select-window
      (cdr (ring-ref avy-ring 0))))
   t)
+
+;;;###autoload
+(defun avy-action-delete (pt)
+  (unwind-protect
+      (save-excursion
+        (goto-char pt)
+        (let* ((coords (bounds-of-thing-at-point 'word))
+               (beg    (car coords))
+               (end    (cdr coords)))
+          (evil-delete beg end)))
+    (select-window
+     (cdr (ring-ref avy-ring 0))))
+  t)
+
+;;;###autoload
+(defun avy-action-change (pt)
+  (unwind-protect
+      (save-excursion
+        (goto-char pt)
+        (let* ((coords (bounds-of-thing-at-point 'word))
+               (beg    (car coords))
+               (end    (cdr coords)))
+          (evil-delete beg end)
+          (insert (read-from-minibuffer "Replacement: "))))
+    (select-window
+     (cdr (ring-ref avy-ring 0))))
+  t)
