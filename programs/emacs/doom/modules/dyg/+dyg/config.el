@@ -13,7 +13,7 @@
 
 ;; convieniences, we have to unbind C-k in lispy for our global key
 (map! (:map (lispy-mode-map global-mode-map) "C-t" nil)
-      (:map evil-normal-state-map
+      (:map (evil-normal-state-map lispy-mode-map)
        (:prefix-map ("C-t" . "easy-insert")
         "i" #'dyg/char-insert
         "a" #'dyg/char-insert-after
