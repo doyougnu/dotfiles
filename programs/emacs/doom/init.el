@@ -217,4 +217,5 @@
        w3m
 
        :+os
-       nix-sandbox)
+       ;; nix-sandbox
+       )

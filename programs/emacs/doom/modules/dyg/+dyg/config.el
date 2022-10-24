@@ -24,20 +24,19 @@
 (setq doom-scratch-initial-major-mode 'org-mode)
 
 ;; find the nearest nix file
-(defun projectile-nix-root-dir (dir)
-  "Retrieve the root DIR based on nix files"
-  (let ((default-directory dir)
-        (current-path      (nix-current-sandbox)))
-    (if current-path
-        (file-name-directory current-path)
-        nil)))
+;; (defun projectile-nix-root-dir (dir)
+;;   "Retrieve the root DIR based on nix files"
+;;   (let ((default-directory dir)
+;;         (current-path      (nix-current-sandbox)))
+;;     (if current-path
+;;         (file-name-directory current-path)
+;;         nil)))
 
 ;; set projectile to recently used and enable caching
 (setq projectile-enable-caching t
       projectile-sort-order      'recently-active
       projectile-indexing-method 'hybrid
-      projectile-project-root-functions '(projectile-nix-root-dir
-                                          projectile-root-bottom-up
+      projectile-project-root-functions '(projectile-root-bottom-up
                                           projectile-root-local
                                           projectile-root-top-down
                                           projectile-root-top-down-recurring))
