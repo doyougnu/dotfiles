@@ -46,3 +46,13 @@
     (select-window
      (cdr (ring-ref avy-ring 0))))
   t)
+
+;;;###autoload
+(defun avy-action-insert (pt)
+  (unwind-protect
+      (save-excursion
+        (goto-char pt)
+        (insert (read-from-minibuffer "Insert: ")))
+    (select-window
+     (cdr (ring-ref avy-ring 0))))
+  t)

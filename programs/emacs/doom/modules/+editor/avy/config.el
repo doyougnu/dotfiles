@@ -4,4 +4,6 @@
   (setf (alist-get ?h avy-dispatch-alist) 'avy-action-helpful
         (alist-get ?. avy-dispatch-alist) 'avy-action-embark
         (alist-get ?c avy-dispatch-alist) 'avy-action-change
+        (alist-get ?i avy-dispatch-alist) 'avy-action-insert
+        (alist-get ?I avy-dispatch-alist) 'avy-action-ispell
         (alist-get ?x avy-dispatch-alist) 'avy-action-delete))
