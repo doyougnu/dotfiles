@@ -25,7 +25,8 @@ in {
     signing.signByDefault = true;
     signing.key = "57403751AE1F59BBC10771F5AF59A1E46422D9C9";
     ignores = [ "TAGS" "GPATH" "GRTAGS" "GTAGS" ".dir-locals.el" "dist-newstyle"
-                "*.elc" "*.swp" ".projectile" ".ignored" "*/config.sub"
+                "*.elc" "*.swp" ".projectile" ".ignored" "*/config.sub" ".envrc"
+                "config.sub"
               ];
   };
 
