@@ -17,5 +17,5 @@
 
   (setq doom-localleader-key ","
         doom-localleader-alt-key "C-."
-        inferior-lisp-program "nix develop -c sbcl"
+        ;; inferior-lisp-program "nix develop -c sbcl"
         common-lisp-hyperspec-root (expand-file-name "~/programming/cl/HyperSpec/")))
