@@ -134,6 +134,7 @@
       :desc "find file other project" "oO" #'doom/find-file-in-other-project
       :desc "projectile: find file"   "oF" #'projectile-find-file
       :desc "select-frame-by-name"    "of" #'select-frame-by-name
+      :desc "ace-window"              "ww" #'ace-window
 
       :desc "Org-capture" "SPC" #'org-capture
       :desc "Ranger"      "."   #'ranger)
