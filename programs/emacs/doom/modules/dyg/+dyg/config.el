@@ -131,8 +131,8 @@
        :desc "smerge-keep-lower"   "l" #'smerge-keep-lower)
 
       :desc "find file"               "oo" #'find-file
-      :desc "find file other project" "oO" #'doom/find-file-in-other-project
-      :desc "projectile: find file"   "oF" #'projectile-find-file
+      :desc "projectile: find file"   "oO" #'projectile-find-file
+      :desc "find file other project" "oF" #'doom/find-file-in-other-project
       :desc "select-frame-by-name"    "of" #'select-frame-by-name
       :desc "ace-window"              "ww" #'ace-window
 
