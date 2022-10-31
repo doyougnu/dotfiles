@@ -31,7 +31,7 @@
 (setq doom-private-dir "~/dotfiles/programs/emacs/doom")
 
 ;; set evil escape to be spacemacs-esque
-(setq-default evil-escape-key-sequence "fd")
+(setq-default evil-escape-key-sequence "ue")
 
 (setq evil-snipe-override-evil-repeat-keys nil)
 (setq doom-localleader-key     ",")
