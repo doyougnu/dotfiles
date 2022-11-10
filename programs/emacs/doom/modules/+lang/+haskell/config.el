@@ -23,10 +23,10 @@
 
       (projectile-register-project-type 'ghc '("ghc.mk" "compiler" "nofib" "rules" "rts" "utils" "testsuite")
                                         :project-file "compiler/ghc.cabal.in"
-                                        :compile      "nix-shell --pure --run \'hadrian/build -j12 --flavour=perf\'"
+                                        :compile      "hadrian/build -j12 --flavour=perf"
                                         :src-dir      "compiler"
-                                        :configure    "nix-shell --pure --run \'hadrian/build clean && ./boot && ./configure\'"
-                                        :run          "nix-shell --pure --run \'hadrian/ghci\'")
+                                        :configure    "hadrian/build clean && ./boot && ./configure"
+                                        :run          "hadrian/ghci")
 
       (after! lsp-ui
         (setq lsp-ui-doc-position      'top)))
@@ -44,11 +44,11 @@
 
   (map! :after haskell-interactive-mode
         :map haskell-interactive-mode-map
-        :nv "k"   #'haskell-interactive-mode-prompt-previous
-        :nv "j"   #'haskell-interactive-mode-prompt-next
+        :nv "t"   #'haskell-interactive-mode-prompt-previous
+        :nv "h"   #'haskell-interactive-mode-prompt-next
         :nv "RET" #'haskell-interactive-mode-return
-        :i  "C-j" #'haskell-interactive-mode-history-next
-        :i  "C-k" #'haskell-interactive-mode-history-previous
+        :i  "C-t" #'haskell-interactive-mode-history-next
+        :i  "C-h" #'haskell-interactive-mode-history-previous
         :localleader
         :nv "," #'haskell-interactive-switch-back
         :nv "c" #'haskell-interactive-mode-clear)
