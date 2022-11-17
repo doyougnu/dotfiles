@@ -205,8 +205,8 @@ in
   services.xserver.displayManager.defaultSession = "none+xmonad";
 
   # Drivers 32bit support
+  hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
-
 
   # nice compton settings
   services.compton = {
