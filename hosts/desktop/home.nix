@@ -342,6 +342,7 @@ in {
     entr
     evince
     fasd
+    feh
     gerbil
     google-chrome
     guile
