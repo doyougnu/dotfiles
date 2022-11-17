@@ -356,7 +356,6 @@ in {
     pdfpc           # pdf presentaitons from the shell
     polybar
     pinentry
-    pianobar
     python310
     python310Packages.pygments
     qutebrowser
@@ -395,6 +394,7 @@ in {
       numactl
       flameshot
       tdesktop
+      pianobar
       valgrind
       thunderbird
       firefox

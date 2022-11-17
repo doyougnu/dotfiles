@@ -177,6 +177,7 @@
   [remap projectile-compile-project] #'projectile-compile-project)
 
 ;; tinkering with vertico + consult
+(setq vertico-grid-mode 1)
 (advice-add #'completing-read-multiple
             :override #'consult-completing-read-multiple)
 

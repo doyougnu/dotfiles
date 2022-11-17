@@ -60,7 +60,7 @@ in
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
 
-    wget vim binutils man-pages coreutils gcc gnumake iw sshfs stdenv pkgconfig
+    wget vim binutils man-pages coreutils gnumake iw sshfs stdenv pkgconfig
     zlib curl feh xorg.xmodmap htop neofetch aspellDicts.en aspell pciutils
     unzip cachix libao xmonad-log pavucontrol cacert openssl libnotify emacs
     dzen2 dmenu kitty
