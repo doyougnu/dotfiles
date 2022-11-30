@@ -40,8 +40,8 @@ in {
   programs.kitty = {
     enable = true;
       keybindings = {
-        "ctrl+d" = "copy_to_clipboard";
-        "ctrl+f" = "paste_from_clipboard";
+        "ctrl+e" = "copy_to_clipboard";
+        "ctrl+u" = "paste_from_clipboard";
       };
     extraConfig = ''
       copy_on_select yes
