@@ -149,8 +149,10 @@ in
      extraOptions = ''
        experimental-features = nix-command flakes
      '';
-     allowedUsers = ["@wheel"];
-     trustedUsers = [ "root" "doyougnu" ];
+     settings = {
+       trusted-users = [ "root" "doyougnu" ];
+       allowed-users =  ["@wheel"];
+     };
   };
 
   # device auto mounting

@@ -83,8 +83,10 @@
      extraOptions = ''
        experimental-features = nix-command flakes
      '';
-     allowedUsers = ["@wheel"];
-     trustedUsers = [ "root" "doyougnu" ];
+     settings = {
+       trusted-users = [ "root" "doyougnu" ];
+       allowed-users =  ["@wheel"];
+     };
   };
 
   # Set your time zone.
