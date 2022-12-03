@@ -59,6 +59,9 @@
 ;; setup EasyPG for gpg
 (setq epg-pinentry-mode 'loopback)
 
+;; you so pretty
+(setq global-prettify-symbols-mode 1)
+
 ;; deft setup
 (setq deft-directory "/home/doyougnu/sync/deft")
 (setq deft-use-filename-as-title t)
