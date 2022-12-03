@@ -2,3 +2,4 @@
 ;;; dyg/+org/packages.el
 
 (package! ox-gfm)
+(package! org-mru-clock)

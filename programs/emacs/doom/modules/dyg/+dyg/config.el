@@ -60,7 +60,7 @@
 (setq epg-pinentry-mode 'loopback)
 
 ;; you so pretty
-(setq global-prettify-symbols-mode 1)
+(setq global-prettify-symbols-mode t)
 
 ;; deft setup
 (setq deft-directory "/home/doyougnu/sync/deft")
@@ -127,6 +127,9 @@
        :desc "Correct-word-at-point" "s" #'ispell-word
        :desc "Correct buffer"        "b" #'ispell-buffer)
 
+      (:prefix-map ("t" . "toggle")
+       :desc "debug-on-error" "d" #'toggle-debug-on-error)
+
       (:prefix-map ("s" . "search")
        :desc "Search project for point" "p" #'+default/search-project-for-symbol-at-point)
 
@@ -143,6 +146,20 @@
 
       :desc "Org-capture" "SPC" #'org-capture
       :desc "Ranger"      "."   #'ranger)
+
+;; clocking we add keybinds here so they aren't hidden until consult and embark load
+(map! :leader
+      (:prefix-map ("n" . "notes")
+                   (:prefix-map ("c" . "clock")
+                    :desc "clock-in" "i" #'org-mru-clock-in
+                    :desc "clock-out" "o" #'org-clock-out
+                    :desc "goto-clock" "g" #'org-clock-goto
+                    :desc "recent-clock" "r" #'org-mru-clock-select-recent-task)))
+
+(add-hook 'minibuffer-setup-hook #'org-mru-clock-embark-minibuffer-hook)
+(setq org-mru-clock-how-many 15
+      org-mru-clock-keep-formatting t
+      org-mru-clock-predicate #'org-entry-is-todo-p)
 
 (map! (:map company-active-map
       "C-s" #'company-complete-selection

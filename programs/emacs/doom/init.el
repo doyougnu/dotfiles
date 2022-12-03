@@ -44,7 +44,7 @@
        ophints                ; highlight the region an operation acts on
        (popup +defaults)      ; tame sudden yet inevitable temporary windows
        ;;tabs              ; a tab bar for Emacs
-       treemacs         ; a project drawer, like neotree but cooler
+       ;; treemacs         ; a project drawer, like neotree but cooler
        unicode          ; extended unicode support for various languages
        vc-gutter        ; vcs diff in the fringe
        vi-tilde-fringe  ; fringe tildes to mark beyond EOB
@@ -70,7 +70,7 @@
        (dired +ranger)             ; making dired pretty [functional]
        electric          ; smarter, keyword-based electric-indent
        (ibuffer +icons)  ; interactive buffer management
-       (undo +tree)      ; persistent, smarter undo for your inevitable mistakes
+       undo              ; persistent, smarter undo for your inevitable mistakes
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
@@ -212,6 +212,7 @@
        symex
        multi-compile
        avy
+       org-mru-clock
 
        :+tools
        w3m

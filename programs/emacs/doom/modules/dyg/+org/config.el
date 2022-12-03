@@ -9,7 +9,6 @@
 ;;
 ;;; License: GPLv3
 
-
 (after! org
 
   ;; export github flavored markdown
@@ -74,11 +73,15 @@
   ;; pretty mode for symbols
   (add-hook! 'org-mode-hook #'+org-pretty-mode #'(lambda ()
                                                    (add-hook 'evil-insert-state-entry-hook #'(lambda ()
-                                                                                             (setq-local org-hide-emphasis-markers nil)))
+                                                                                               (setq-local org-hide-emphasis-markers nil)))
                                                    (add-hook 'evil-insert-state-exit-hook #'(lambda ()
-                                                                                            (setq-local org-hide-emphasis-markers t)))))
+                                                                                              (setq-local org-hide-emphasis-markers t)))))
 
   (add-hook! 'org-mode-hook #'auto-fill-mode)
+
+  (setq org-clock-persist 'history)
+  (org-clock-persistence-insinuate)
+
   ;; use firefox
   ;; (setf browse-url-browser-function 'browse-url-firefox)
 
@@ -186,7 +189,7 @@
           ("o" "oneoff" entry (file org-default-todo-file)
            "* NEXT %?\n - OneOff made on %U \\\\ \n" :clock-resume t :empty-lines 1)
           ("j" "jira ticket" entry (file+headline org-default-issue-file "NEXT JS Backend")
-           "* TODO LT-%^{Prompt}%\n - Issue made on %U \\\\ \n" :clock-resume t :immediate-finish t :empty-lines 1)
+           "* TODO LT-%^{Prompt}\n - Issue made on %U \\\\ \n" :clock-resume t :immediate-finish t :empty-lines 1)
           ("n" "note" item (function +default/org-notes-headlines)
            "Note taken on %U \\\\ \n%?"
            :clock-resume t :empty-lines 1)
@@ -233,7 +236,7 @@
     :localleader
 
     (:prefix ("s" . "tree/subtree")
-     "i" #'org-insert-subheading)
+             "i" #'org-insert-subheading)
 
     "." #'org-insert-structure-template
     "," #'org-ctrl-c-ctrl-c
