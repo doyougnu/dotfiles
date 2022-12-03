@@ -21,7 +21,9 @@
           "a" #'edebug-all-forms
           "m" #'edebug-set-initial-mode
           "b" #'edebug-set-breakpoint
-          "B" #'edebug-set-conditional-breakpoint)
+          "B" #'edebug-set-conditional-breakpoint
+          "t" #'trace-function
+          "T" #'untrace-function)
 
  (:prefix ("h" . "Help")
   "h" #'helpful-at-point)
