@@ -23,7 +23,8 @@
           "b" #'edebug-set-breakpoint
           "B" #'edebug-set-conditional-breakpoint
           "t" #'trace-function
-          "T" #'untrace-function)
+          "T" #'untrace-function
+          "X" #'edebug-remove-instrumentation)
 
  (:prefix ("h" . "Help")
   "h" #'helpful-at-point)
