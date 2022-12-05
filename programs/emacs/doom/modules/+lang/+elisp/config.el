@@ -17,7 +17,7 @@
  (:prefix ("d" . "debug")
           "i" #'+emacs-lisp/edebug-instrument-defun-on
           "I" #'+emacs-lisp/edebug-instrument-defun-off
-          "A" #'edebug-all-defuns
+          "A" #'edebug-all-defs
           "a" #'edebug-all-forms
           "m" #'edebug-set-initial-mode
           "b" #'edebug-set-breakpoint
