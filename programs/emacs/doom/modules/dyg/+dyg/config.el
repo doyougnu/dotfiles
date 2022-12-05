@@ -147,7 +147,6 @@
       :desc "Org-capture" "SPC" #'org-capture
       :desc "Ranger"      "."   #'ranger)
 
-;; clocking we add keybinds here so they aren't hidden until consult and embark load
 (map! :leader
       (:prefix-map ("n" . "notes")
                    (:prefix-map ("c" . "clock")
@@ -156,18 +155,13 @@
                     :desc "goto-clock" "g" #'org-clock-goto
                     :desc "recent-clock" "r" #'org-mru-clock-select-recent-task)))
 
-(add-hook 'minibuffer-setup-hook #'org-mru-clock-embark-minibuffer-hook)
-(setq org-mru-clock-how-many 15
-      org-mru-clock-keep-formatting t
-      org-mru-clock-predicate #'org-entry-is-todo-p)
-
 (map! (:map company-active-map
-      "C-s" #'company-complete-selection
-      "C--" #'fill-paragraph)
+            "C-s" #'company-complete-selection
+            "C--" #'fill-paragraph)
       (:map minibuffer-local-map
-       "C-s" #'vertico-directory-enter
-       "C-d" #'vertico-directory-up
-       "C-e" #'embark-act)
+            "C-s" #'vertico-directory-enter
+            "C-d" #'vertico-directory-up
+            "C-e" #'embark-act)
       (:map evil-markdown-mode-map
        :nv "C--" #'fill-paragraph))
 
