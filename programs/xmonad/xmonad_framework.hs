@@ -18,6 +18,7 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.Spiral
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
+import XMonad.Layout.BinarySpacePartition
 import XMonad.Util.Run(spawnPipe,runProcessWithInput,safeSpawn,unsafeSpawn)
 import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Util.Themes
@@ -140,12 +141,12 @@ myManageHook = manageDocks <+> composeAll (concat $
 --     noBorders (fullscreenFull Full)
 
 myLayout = avoidStruts $
+    emptyBSP |||
     tabbed shrinkText (theme robertTheme) |||
-    ThreeColMid 1 (3/100) (1/2) |||
+    spiral (6/7) |||
     Tall 1 (3/100) (1/2) |||
     Mirror (Tall 1 (3/100) (1/2)) |||
     Full |||
-    spiral (6/7) |||
     noBorders (fullscreenFull Full)
 
 
