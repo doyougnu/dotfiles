@@ -6,4 +6,5 @@
   :config
   (when (modulep! :editor evil +everywhere)
     (evil-collection-w3m-setup))
-  (setq browse-url-browser-function 'w3m-browse-url))
+  ;; (setq browse-url-browser-function 'w3m-browse-url)
+  )
