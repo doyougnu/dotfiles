@@ -168,6 +168,10 @@
 (map! :map global-map
        :nv "C--" #'fill-paragraph)
 
+(map! :map minibuffer-local-map
+      "C-o" #'previous-history-element
+      "C-u" #'next-history-element)
+
 (map! :map eshell-mode-map
       :ni "C-n" #'eshell-next-matching-input-from-input
       :ni "C-p" #'eshell-previous-matching-input-from-input)
