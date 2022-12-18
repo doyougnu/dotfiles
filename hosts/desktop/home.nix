@@ -343,6 +343,7 @@ in {
     evince
     fasd
     feh
+    gcc            # for org-roam
     gerbil
     google-chrome
     guile

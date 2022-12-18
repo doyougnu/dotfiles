@@ -343,6 +343,7 @@ in {
     firefox
     fasd
     feh
+    gcc   # for org-roam
     google-chrome
     guile
     gauche
