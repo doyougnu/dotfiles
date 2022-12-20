@@ -248,26 +248,27 @@ in {
       e  = "emacsclient -cn";
 
       gs = "git status";
+      gp = "git push";
+      gsu = "git submodule update --recursive";
+
+      rgf = "rg --files";
 
       nsr = "nix-shell --pure --run";
       nr  = "nix-shell  --run";
       nsc = "nix-shell --pure --command";
       ns  = "nix-shell";
       nsp = "nix-shell -p";
-      hms = "home-manager switch";
 
-      nivu = "nix-shell -p niv --run 'niv update'";
-
-      hbR   = "nix-shell --pure --run 'hadrian/build clean && ./boot && ./configure && hadrian/build -j12 --flavour=perf'";
-      hbc   = "nix-shell --pure --run 'hadrian/build clean && hadrian/build -j12 --flavour=perf'";
-      hb    = "nix-shell --pure --run 'hadrian/build -j12 --flavour=perf'";
+      hbR   = "hadrian/build clean && ./boot && ./configure && hadrian/build -j12 --flavour=perf";
+      hbc   = "hadrian/build clean && hadrian/build -j12 --flavour=perf";
+      hb    = "hadrian/build -j12 --flavour=perf";
       hbq   = "hb --flavour=quick";
       hbqs  = "hbq --skip='//*.mk' --skip='stage1:lib:rts'";
       hbqf  = "hbqs --freeze1";
       hbv   = "hb --flavour=validate --build-root=_validate";
       hbvs  = "hbv --skip='//*.mk' --skip='stage1:lib:rts'";
       hbvf  = "hbvs --freeze1";
-      hbt   = "nix-shell --pure --run 'mkdir -p _ticky; [ -e _ticky/hadrian.settings ] || echo -e \"stage1.*.ghc.hs.opts += -ticky -ddump-simpl -ddump-stg-final -ddump-to-file \\nstage1.ghc-bin.ghc.link.o pts += -ticky -ddump-simpl -ddump-stg-final -ddump-to-file\" > _ticky/hadrian.settings; hadrian/build -j12 --flavour=perf --build-root=_ticky'";
+      hbt   = "mkdir -p _ticky; [ -e _ticky/hadrian.settings ] || echo -e \"stage1.*.ghc.hs.opts += -ticky -ddump-simpl -ddump-stg-final -ddump-to-file \\nstage1.ghc-bin.ghc.link.o pts += -ticky -ddump-simpl -ddump-stg-final -ddump-to-file\" > _ticky/hadrian.settings; hadrian/build -j12 --flavour=perf --build-root=_ticky";
       hbts = "hbt --skip='//*.mk' --skip='stage1:lib:rts'";
       hbtf = "hbts --freeze1";
     };
