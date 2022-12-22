@@ -2,7 +2,6 @@
 
 * root :elfeed:
 ** Programming :programming:
-*** https://news.ycombinator.com/rss :hacker:
 *** https://www.reddit.com/r/emacs.rss :emacs:
 *** https://scottlocklin.wordpress.com/feed/ :locklin:
 *** https://randomascii.wordpress.com/?feed=rss :random-ascii:
@@ -15,8 +14,6 @@
 ** News :news:
 *** Top news :tops:
 **** https://feeds.arstechnica.com/arstechnica/index.xml :ars:
-**** https://www.theverge.com/rss/index.xml :theverge:
-**** http://rss.slashdot.org/Slashdot/slashdotMain :slashdot:
 ** Science :science:
 ***  https://3quarksdaily.com/feed :3qd:
 *** https://acoup.blog/feed :acoup:

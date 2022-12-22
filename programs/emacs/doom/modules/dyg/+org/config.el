@@ -208,7 +208,7 @@
   (setq org-outline-path-complete-in-steps nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;; Org Archiving Config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (setq-default org-archive-default-directory "~/sync/org/.archive")
+  (setq-default org-archive-default-directory "~/sync/org/.archive/")
   (setq org-archive-location (concat
                               org-archive-default-directory
                               "%s_archive::* Archived Tasks"))
