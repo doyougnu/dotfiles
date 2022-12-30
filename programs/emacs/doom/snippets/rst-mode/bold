@@ -3,4 +3,4 @@
 # key: bo
 # uuid: bold
 # --
-*${1:bolded}* $0
+**${1:bolded}** $0
