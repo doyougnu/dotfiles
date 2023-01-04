@@ -156,7 +156,11 @@
                     :desc "clock-in" "i" #'org-mru-clock-in
                     :desc "clock-out" "o" #'org-clock-out
                     :desc "goto-clock" "g" #'org-clock-goto
-                    :desc "recent-clock" "r" #'org-mru-clock-select-recent-task)))
+                    :desc "recent-clock" "r" #'org-mru-clock-select-recent-task)
+
+                   :desc "Find node"  "ro" #'org-roam-node-find
+                   :desc "Add Tag"    "rt" #'org-roam-tag-add
+                   :desc "Remove Tag" "rT" #'org-roam-tag-remove))
 
 (map! (:map company-active-map
             "C-s" #'company-complete-selection

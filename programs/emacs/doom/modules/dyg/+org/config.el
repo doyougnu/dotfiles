@@ -266,7 +266,6 @@
    :after flyspell
    :map org-mode-map
    :ni "C-;" #'fill-paragraph)
-
   )
 
 (map! :after evil-org
