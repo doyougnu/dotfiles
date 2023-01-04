@@ -99,9 +99,7 @@
 
 
   ;; org roam config
-  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   (setq org-roam-directory (file-truename "~/sync/roam"))
-
 
 
   (setq org-tag-alist '(("research"     . ?r)
