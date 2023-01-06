@@ -311,6 +311,15 @@
       ))
 
 ;;;###autoload
+(defun dyg/org-open-default-roam-file ()
+  "Open the default org notes file"
+  (interactive)
+  (if (file-exists-p org-roam-inbox)
+      (find-file-other-window org-roam-inbox)
+    (message "Org Default notes file not found. Set it with 'org-default-todo-file")
+      ))
+
+;;;###autoload
 (defun dyg/skip-non-archivable-tasks ()
   "Skip trees that are not available for archiving"
   (save-restriction

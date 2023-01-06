@@ -158,6 +158,8 @@
                     :desc "goto-clock" "g" #'org-clock-goto
                     :desc "recent-clock" "r" #'org-mru-clock-select-recent-task)
 
+                   :desc "open refile"      "SPC"   #'dyg/org-open-default-todo-file
+                   :desc "open roam refile" "r SPC" #'dyg/org-open-default-roam-file
                    :desc "Find node"  "ro" #'org-roam-node-find
                    :desc "Add Tag"    "rt" #'org-roam-tag-add
                    :desc "Remove Tag" "rT" #'org-roam-tag-remove))

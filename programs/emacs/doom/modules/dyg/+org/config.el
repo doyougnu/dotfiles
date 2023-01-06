@@ -83,8 +83,47 @@
   (org-clock-persistence-insinuate)
 
   ;; use firefox
-  ;; (setf browse-url-browser-function 'browse-url-firefox)
+  (setf browse-url-browser-function 'browse-url-firefox)
 
+;;;;;;;;;;;;;;;;;;;;;;;;; Org Roam Config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; org roam config
+  (setq org-roam-directory (file-truename "~/sync/roam")
+        org-roam-inbox     (concat org-roam-directory "/" "refile.org"))
+
+  (setq org-roam-capture-templates
+        '(("m" "main" plain "%?"
+           :if-new (file+head "main/${slug}.org"
+                              "#+title: ${title}\n")
+           :immediate-finish t
+           :unnarrowed t)
+          ("r" "reference" plain "%?"
+           :if-new
+           (file+head "reference/${title}.org" "#+title: ${title}\n")
+           :immediate-finish t
+           :unnarrowed t)
+          ("a" "article" plain "%?"
+           :if-new
+           (file+head "articles/${title}.org" "#+title: ${title}\n#+filetags: :article:\n")
+           :immediate-finish t
+           :unnarrowed t)))
+
+  (cl-defmethod org-roam-node-type ((node org-roam-node))
+    "Return the TYPE of NODE."
+    (condition-case nil
+        (file-name-nondirectory
+         (directory-file-name
+          (file-name-directory
+           (file-relative-name (org-roam-node-file node) org-roam-directory))))
+      (error "")))
+
+  (after! org-roam
+    (setq org-roam-node-display-template
+          (concat "${type:15} ${title:*} " (propertize "${tags:10}" 'face 'org-tag))))
+
+  (defun roam|tag-new-node-as-draft ()
+    (org-roam-tag-add '("draft")))
+
+  (add-hook! 'org-roam-capture-new-node-hook #'roam|tag-new-node-as-draft)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;; Org Agenda Config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; orgmode organization stuff
@@ -96,10 +135,6 @@
 
 
   (setq org-agenda-files (directory-files-recursively "~/sync/org/" "\\.org$"))
-
-
-  ;; org roam config
-  (setq org-roam-directory (file-truename "~/sync/roam"))
 
 
   (setq org-tag-alist '(("research"     . ?r)
@@ -198,6 +233,8 @@
            "* %? :IDEA:\n - Idea taken on %U \\\\ \n" :clock-resume t :empty-lines 1)
           ("m" "meeting" entry (file org-default-todo-file)
            "* MEETING with %? :MEETING:\n%U" :clock-resume t :empty-lines 1)
+          ("s" "Slipbox" entry  (file org-roam-inbox)
+           "* %?\n")
           ))
 
 
