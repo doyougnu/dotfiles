@@ -20,7 +20,7 @@ $ ./result/bin/emacs
 
 
 let
-  myEmacs = pkgs.emacsNativeComp;
+  myEmacs = pkgs.emacsUnstable;
 
   emacsWithPackages = (pkgs.emacsPackagesFor myEmacs).emacsWithPackages;
 
