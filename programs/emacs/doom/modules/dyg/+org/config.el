@@ -96,14 +96,14 @@
                               "#+title: ${title}\n")
            :immediate-finish t
            :unnarrowed t)
-          ("r" "reference" plain "%?"
+          ("l" "literature" plain "%?"
            :if-new
-           (file+head "reference/${title}.org" "#+title: ${title}\n")
+           (file+head "literature/${title}.org" "#+title: ${title}\n")
            :immediate-finish t
            :unnarrowed t)
-          ("a" "article" plain "%?"
+          ("c" "concepts" plain "%?"
            :if-new
-           (file+head "articles/${title}.org" "#+title: ${title}\n#+filetags: :article:\n")
+           (file+head "concepts/${title}.org" "#+title: ${title}\n#+filetags: :article:\n")
            :immediate-finish t
            :unnarrowed t)))
 
