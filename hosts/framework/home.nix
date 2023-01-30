@@ -46,7 +46,7 @@ in {
     extraConfig = ''
       copy_on_select yes
     '';
-    theme = "Rippedcasts";
+    theme = "Novel";
     settings = {
       font_size = "14.0";
     };
@@ -294,6 +294,16 @@ in {
                    };
                }
                {
+                 name = "pure";
+                 src = pkgs.fetchFromGitHub
+                   {
+                     owner  = "pure-fish";
+                     repo   = "pure";
+                     rev    = "1aca7e7a45768af2f5196daa6d37dd2a1d2bb75a";
+                     sha256 = "02cf0pd50mj2gh43mlg6s99xfsgrd8zgbqck6mfhlsf1hybvkk04";
+                   };
+               }
+               {
                  name = "done";
                  src = pkgs.fetchFromGitHub
                    {
@@ -320,12 +330,18 @@ in {
        bind -M insert -k nul 'accept-autosuggestion execute'
        bind -M visual p  fish_clipboard_paste
      end
-      '';
+
+     # set pure features
+     set --universal pure_show_system_time true
+     set --universal pure_show_jobs        true
+     set --universal pure_show_prefix_root_prompt         true
+     set --universal pure_reverse_prompt_symbol_in_vimode true
+     '';
 
   };
 
   ## manually load the plugins
-  xdg.configFile."fish/conf.d/plugin-neolambda.fish".text = pkgs.lib.mkAfter ''
+  xdg.configFile."fish/conf.d/plugin-pure.fish".text = pkgs.lib.mkAfter ''
   for f in $plugin_dir/*.fish
     source $f
   end

@@ -271,7 +271,7 @@
   system.stateVersion = "19.03"; # Did you read the comment?
 
   # docker
-  virtualisation.docker.enable = false;
+  virtualisation.docker.enable = true;
 
   # postgres
   # services.mysql.enable  = true;

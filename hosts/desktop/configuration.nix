@@ -228,7 +228,7 @@ in
 
 
   # docker
-  virtualisation.docker.enable = false;
+  virtualisation.docker.enable = true;
 
   # databases
   services.mysql.enable  = false;
