@@ -224,7 +224,6 @@ in {
   home.file.".xmonad/xmonad.hs".source = ../../programs/xmonad/xmonad_desktop.hs;
   # doom emacs
   home.file.".doom.d/".source = ../../programs/emacs/doom;
-  # this would be nice but it keeps erroring out
   home.file.".doom.d/".onChange= "/home/doyougnu/.emacs.d/bin/doom sync";
   # symlink auth on new hm generation activation
   home.activation = {
@@ -286,6 +285,16 @@ in {
                    };
                }
                {
+                 name = "pure";
+                 src = pkgs.fetchFromGitHub
+                   {
+                     owner  = "pure-fish";
+                     repo   = "pure";
+                     rev    = "1aca7e7a45768af2f5196daa6d37dd2a1d2bb75a";
+                     sha256 = "02cf0pd50mj2gh43mlg6s99xfsgrd8zgbqck6mfhlsf1hybvkk04";
+                   };
+               }
+               {
                  name = "done";
                  src = pkgs.fetchFromGitHub
                    {
@@ -297,16 +306,6 @@ in {
                }];
 
     shellInit = ''
-     ## setup gpg for fish
-     ## set -gx GPG_TTY (tty)
-
-     # Add the following to your shell init to set up gpg-agent automatically for every shell
-     # if test -f ~/.gnupg/.gpg-agent-info && not pgrep gpg-agent
-     #     source ~/.gnupg/.gpg-agent-info
-     #     export GPG_AGENT_INFO
-     # else
-     #     eval (gpg-agent --daemon)
-     # end
 
      function fish_user_key_bindings
        fish_vi_key_bindings
@@ -323,12 +322,19 @@ in {
        bind -M insert -k nul 'accept-autosuggestion execute'
        bind -M visual p  fish_clipboard_paste
      end
+
+
+     # set pure features
+     set --universal pure_show_system_time true
+     set --universal pure_show_jobs        true
+     set --universal pure_show_prefix_root_prompt         true
+     set --universal pure_reverse_prompt_symbol_in_vimode true
       '';
 
   };
 
   ## manually load the plugins
-  xdg.configFile."fish/conf.d/plugin-neolambda.fish".text = pkgs.lib.mkAfter ''
+  xdg.configFile."fish/conf.d/plugin-pure.fish".text = pkgs.lib.mkAfter ''
   for f in $plugin_dir/*.fish
     source $f
   end

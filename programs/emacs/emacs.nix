@@ -20,6 +20,7 @@ $ ./result/bin/emacs
 
 
 let
+  # myEmacs = pkgs.emacsUnstable;
   myEmacs = pkgs.emacsUnstable;
 
   emacsWithPackages = (pkgs.emacsPackagesFor myEmacs).emacsWithPackages;
@@ -34,7 +35,7 @@ in
     # magit          # ; Integrate git <C-x g>
     # zerodark-theme # ; Nicolas' theme
   ]) ++ (with epkgs.melpaPackages; [
-    pdf-tools
+    # pdf-tools
 
 
     # undo-tree      # ; <C-x u> to show the undo tree
