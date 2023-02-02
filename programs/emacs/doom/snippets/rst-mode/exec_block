@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: exec_block
+# key: ex
+# uuid: exec_block
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
+# --
+
+.. exec:: ${1:file}
+   :context: ${2:true}
+   :process: ${3:haskell}
+   :project_dir: ${4:code/lethargy/}
+   :with: ${5:cabal}
+   :args: ${6:bench}
+
+   ${7:code block here}
+
+$0
