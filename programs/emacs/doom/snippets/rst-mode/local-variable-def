@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: local-var-def
+# key: local
+# uuid: local-var-def
+# --
+
+.. |${1:local-variable-reference}| replace:: ${2:definition} $0

@@ -1,0 +1,7 @@
+
+# -*- mode: snippet -*-
+# name: local-var-ref
+# key: lv
+# uuid: local-var-ref
+# --
+|${1:local-variable-reference}| $0
