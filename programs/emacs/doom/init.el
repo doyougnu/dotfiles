@@ -200,6 +200,7 @@
        +flycheck
        +pinentry
        +mu4e
+       +dnd                  ; roll for initiative
 
        :+lang
        bqn
