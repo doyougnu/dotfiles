@@ -142,7 +142,7 @@
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
        latex          ; writing papers in Emacs has never been so fun
-       ;;lean              ; for folks with too much to prove
+       lean              ; for folks with too much to prove
        ;;ledger            ; be audit you can be
        ;;lua               ; one-based indices? one-based indices
        markdown         ; writing docs for people to ignore
@@ -162,7 +162,7 @@
        ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
-       (scheme +guile +gauche +chez)   ; a fully conniving family of lisps
+       (scheme +guile +gauche +chez +racket)   ; a fully conniving family of lisps
        sh     ; she sells {ba,z,fi}sh shells on the C xor
        ;;sml
        ;;solidity          ; do you need a blockchain? No.
