@@ -21,7 +21,10 @@ $ ./result/bin/emacs
 
 let
   # myEmacs = pkgs.emacsUnstable;
-  myEmacs = pkgs.emacsUnstable;
+  myEmacs = pkgs.emacs.override {
+    withGTK3 = true;
+    withGTK2 = false;
+  };
 
   emacsWithPackages = (pkgs.emacsPackagesFor myEmacs).emacsWithPackages;
 
@@ -56,4 +59,5 @@ in
     pkgs.multimarkdown
     pkgs.shellcheck
     pkgs.nixfmt
+    pkgs.gtk3
   ] ++ haskell-env)

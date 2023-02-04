@@ -2,8 +2,8 @@
 
 
 (after! projectile
-  (projectile-register-project-type 'dnd '("campaign.org" "players.org")
-                                    :project-file "campaign.org"
+  (projectile-register-project-type 'dnd '("campaign.org" "players.org" ".projectile")
+                                    :project-file ".projectile"
                                     :compile      ""
                                     :src-dir      ""
                                     :configure    ""
