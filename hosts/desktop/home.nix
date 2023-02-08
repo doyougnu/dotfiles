@@ -313,7 +313,7 @@ in {
        # bind -M insert \cH history-token-search-forward
        # bind -M normal T up-or-search
        # bind -M normal H down-or-search
-       bind -M insert ue "if commandline -P; commandline -f cancel; else; set fish_bind_mode default; commandline -f backward-char force-repaint; end"
+       bind -M insert tn "if commandline -P; commandline -f cancel; else; set fish_bind_mode default; commandline -f backward-char force-repaint; end"
        bind -M insert \cT up-or-search
        bind -M insert \cH down-or-search
        bind -M visual \cT up-or-search
