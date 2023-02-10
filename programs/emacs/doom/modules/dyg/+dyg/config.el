@@ -98,6 +98,7 @@
   (map! :leader
         :desc "find file"               "oo" #'find-file
         :desc "find file other project" "oF" #'doom/find-file-in-other-project
+        :desc "find file other window"  "ow" #'projectile-find-file-other-window
         :desc "projectile: find file"   "oO" #'projectile-find-file
         :desc "select-frame-by-name"    "of" #'select-frame-by-name
         :desc "ace-window"              "ww" #'ace-window))
