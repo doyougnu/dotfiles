@@ -106,11 +106,9 @@
   # $ nix-env -qaP | grep wget
   # ghc needed for xmonad, get some error with alibsound2 without it
   environment.systemPackages = with pkgs; [
-    wget vim binutils man-pages coreutils gnumake iw sshfs
-    stdenv pkgconfig curl xorg.xmodmap htop aspellDicts.en
-    aspell pciutils wirelesstools pavucontrol unzip
-    openssl gnutls git libnotify emacs alsaLib xmonad-log
-    dmenu kitty
+    wget vim binutils man-pages coreutils gnumake iw sshfs stdenv pkgconfig curl
+    htop aspellDicts.en aspell pciutils wirelesstools pavucontrol unzip openssl
+    gnutls git libnotify emacs alsaLib xmonad-log dmenu kitty
   ];
 
   # List services that you want to enable:
