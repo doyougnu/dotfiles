@@ -350,7 +350,6 @@ in {
     alsa-utils
     autorandr
     cabal-install
-    cbqn
     chez
     cowsay
     cachix
@@ -361,7 +360,6 @@ in {
     feh
     gcc   # for org-roam
     google-chrome
-    guile
     gauche
     gephi
     gollum
@@ -369,7 +367,7 @@ in {
     idris2
     # libnotify
     killall         # for polybar launch script
-    klavaro          # learn dvorak!
+    libreoffice
     moreutils
     myEmacs
     unstable.mu              # for email
@@ -397,12 +395,9 @@ in {
     xclip
     xorg.xwininfo    # for emacs everywhere
     xdotool          # for emacs everywhere
-    xdg-dbus-proxy
-    xdg-desktop-portal
     w3m              # text broser for emacs-w3m
     sqlite
     wordnet
-    yt-dlp           # youtube-dl
     zip
   ] ++
   [ R
