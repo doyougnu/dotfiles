@@ -204,6 +204,7 @@
 
        :+lang
        bqn
+       klister
        idris2
        +elisp
        +haskell
