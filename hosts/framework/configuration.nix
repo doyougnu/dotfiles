@@ -166,6 +166,9 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
+  # fingerprint sensor
+  services.fprintd.enable = true;
+
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPortRanges = [ { from = 32768; to = 60999; } ];
   networking.firewall.allowedTCPPorts = [ 8384 22000];
