@@ -14,7 +14,8 @@
 
 
   # use the latest linux kernel
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # 6.12 seems unstable on framework
+  boot.kernelPackages = pkgs.linuxPackages_6_1;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
