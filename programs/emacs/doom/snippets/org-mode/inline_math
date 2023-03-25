@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: inline_math
+# key: im
+# uuid: im
+# --
+$${1:math}$ $0
