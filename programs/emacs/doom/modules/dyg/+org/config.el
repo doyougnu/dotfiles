@@ -270,7 +270,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;; Org Babel        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; template special for sicp
-  (add-to-list 'org-structure-template-alist '("si" . "src scheme :session sicp :lexical t :results replace"))
+  (add-to-list 'org-structure-template-alist '("si" . "src scheme"))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;; Custom key binds ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
