@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: equation
+# key: e
+# uuid: equation
+# --
+\begin{equation}
+  ${1:math here}
+\end{equation}
+
+$0
