@@ -277,12 +277,13 @@
   (map!
    (:map org-mode-map
     :localleader
+    "." #'org-insert-structure-template
+    "," #'org-ctrl-c-ctrl-c
+    "L" #'org-latex-preview
 
     (:prefix ("s" . "tree/subtree")
              "i" #'org-insert-subheading)
 
-    "." #'org-insert-structure-template
-    "," #'org-ctrl-c-ctrl-c
     ;; (:prefix ("x" . "text")
     ;;  "c" #'dyg/org-insert-code
     ;;  "s" #'dyg/org-insert-strikethrough
