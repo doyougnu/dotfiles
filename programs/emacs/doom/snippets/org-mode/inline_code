@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: inline_code
+# key: c
+# uuid: inline_code
+# --
+=${1:your code here sir}= $0
