@@ -65,6 +65,9 @@
 ;; you so pretty
 (setq global-prettify-symbols-mode t)
 
+;; set geiser default
+(setq geiser-default-implementation 'chez)
+
 ;; deft setup
 (setq deft-directory "/home/doyougnu/sync/deft")
 (setq deft-use-filename-as-title t)

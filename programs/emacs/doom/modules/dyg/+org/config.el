@@ -268,6 +268,11 @@
 
           ("orgblog" :components ("org-notes" "org-static"))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;; Org Babel        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; template special for sicp
+  (add-to-list 'org-structure-template-alist '("si" . "src scheme :session sicp :lexical t :results replace"))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;; Custom key binds ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (map!
    (:map org-mode-map
