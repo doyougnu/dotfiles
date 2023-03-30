@@ -284,20 +284,12 @@
     (:prefix ("s" . "tree/subtree")
              "i" #'org-insert-subheading)
 
-    ;; (:prefix ("x" . "text")
-    ;;  "c" #'dyg/org-insert-code
-    ;;  "s" #'dyg/org-insert-strikethrough
-    ;;  "i" #'dyg/org-insert-italics
-    ;;  "u" #'dyg/org-insert-underline
-    ;;  "b" #'dyg/org-insert-bold)
-
-    ;; (:prefix ("i" . "insert")
-    ;;  "i" #'org-insert-item
-    ;;  "b" #'org-insert-structure-template
-    ;;  "c" #'dyg/org-insert-comment
-    ;;  "l" #'org-insert-link
-    ;;  "n" #'org-add-note)
-    )
+    (:prefix ("-" . "babel")
+             "-" #'org-babel-execute-subtree
+             "n" #'org-babel-next-src-block
+             "p" #'org-babel-previous-src-block
+             "s" #'org-babel-pop-to-session
+             "S" #'org-babel-switch-to-session-with-code))
 
    (:map org-capture-mode-map
     :after org
