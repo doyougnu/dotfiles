@@ -286,6 +286,7 @@
 
     (:prefix ("-" . "babel")
              "-" #'org-babel-execute-subtree
+             "b" #'org-babel-execute-buffer
              "n" #'org-babel-next-src-block
              "p" #'org-babel-previous-src-block
              "s" #'org-babel-pop-to-session
