@@ -8,7 +8,8 @@
   (when (modulep! :lang haskell +lsp)
       (setq lsp-file-watch-threshold 10000
             lsp-haskell-plugin-import-lens-code-lens-on    nil
-            lsp-haskell-plugin-import-lens-code-actions-on nil)
+            lsp-haskell-plugin-import-lens-code-actions-on nil
+            lsp-haskell-plugin-ghcide-type-lenses-global-on nil)
 
       (after! lsp-mode
         (setq lsp-file-watch-ignored-directories
