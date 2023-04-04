@@ -280,6 +280,7 @@
     "." #'org-insert-structure-template
     "," #'org-ctrl-c-ctrl-c
     "L" #'org-latex-preview
+    "SPC" #'org-add-note
 
     (:prefix ("s" . "tree/subtree")
              "i" #'org-insert-subheading)
