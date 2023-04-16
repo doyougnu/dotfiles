@@ -68,7 +68,8 @@
 
   ;; never split headlines
   (setf org-M-RET-may-split-line           nil)
-  (setf org-insert-heading-respect-content t)
+  (setf org-insert-heading-respect-content t
+        org-id-link-to-org-use-id          'create-if-interactive)
 
   ;; pretty mode for symbols
   (add-hook! 'org-mode-hook #'+org-pretty-mode #'(lambda ()
