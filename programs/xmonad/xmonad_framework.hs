@@ -250,6 +250,10 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_i),
      safeSpawn "google-chrome-stable" mempty)
 
+  -- run emacs everywhere
+  , ((modMask .|. controlMask, xK_e),
+    safeSpawn "emacsclient" ["--eval", "(emacs-everywhere)"])
+
   -- On Mod f open the browser
   , ((modMask, xK_o),
      spawn myIDE)

@@ -230,9 +230,10 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
   , ((modMask .|. shiftMask, xK_r),
     safeSpawn "dunstctl" ["close"])
 
+
   -- run emacs everywhere
-  -- , ((modMask, xK_i),
-  --   safeSpawn "emacsclient" ["--eval", "(emacs-everywhere)"])
+  , ((modMask .|. controlMask, xK_e),
+    safeSpawn "emacsclient" ["--eval", "(emacs-everywhere)"])
 
   -- Take a selective screenshot using the command specified by mySelectScreenshot.
   -- , ((modMask .|. shiftMask, xK_p),

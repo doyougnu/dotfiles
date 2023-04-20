@@ -97,6 +97,10 @@
         "C-n" #'yas-next-field-or-maybe-expand
         "C-p" #'yas-prev-field))
 
+(after! evil-everywhere
+  (map! :map overriding-terminal-local-map
+        "DEL" #'backward-kill-word))
+
 (after! evil
   (map! :leader
         :desc "find file"               "oo" #'find-file
@@ -104,7 +108,8 @@
         :desc "find file other project" "oF" #'doom/find-file-in-other-project
         :desc "find file other window"  "ow" #'projectile-find-file-other-window
         :desc "projectile: find file"   "oO" #'projectile-find-file
-        :desc "ace-window"              "ww" #'ace-window))
+        :desc "ace-window"              "ww" #'ace-window)
+  (map! :i "DEL" #'backward-kill-word))
 
 ;; keybindings
 (map! :leader
