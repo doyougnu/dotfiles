@@ -97,9 +97,13 @@
         "C-n" #'yas-next-field-or-maybe-expand
         "C-p" #'yas-prev-field))
 
-(after! evil-everywhere
-  (map! :map overriding-terminal-local-map
-        "DEL" #'backward-kill-word))
+;; workaround emacs-everwhere DEL bug:
+;; https://github.com/tecosaur/emacs-everywhere/issues/49
+(setq emacs-everywhere-mode-initial-map nil)
+
+(after! emacs-everywhere
+  (map! :map emacs-everywhere-mode-map
+        :nv ",," #'emacs-everywhere-finish-or-ctrl-c-ctrl-c))
 
 (after! evil
   (map! :leader
