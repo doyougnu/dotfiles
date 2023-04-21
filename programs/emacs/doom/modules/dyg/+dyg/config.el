@@ -182,7 +182,7 @@
             "C--" #'fill-paragraph)
       (:map minibuffer-local-map
             "C-s" #'vertico-directory-enter
-            "C-d" #'vertico-directory-up
+            "C-t" #'vertico-directory-up
             "C-e" #'embark-act)
       (:map evil-markdown-mode-map
        :nv "C--" #'fill-paragraph))
