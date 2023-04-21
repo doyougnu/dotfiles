@@ -251,7 +251,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      safeSpawn "google-chrome-stable" mempty)
 
   -- run emacs everywhere
-  , ((modMask .|. controlMask, xK_e),
+  , ((modMask, xK_a),
     safeSpawn "emacsclient" ["--eval", "(emacs-everywhere)"])
 
   -- On Mod f open the browser
@@ -265,9 +265,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- On Mod d open the file bro
   , ((modMask, xK_u),
      spawn myFS)
-
-  , ((modMask, xK_a),
-     spawn myMusic)
 
   -- change themes with mod + ctrl + t
   , ((modMask .|. controlMask, xK_t), themePrompt def)

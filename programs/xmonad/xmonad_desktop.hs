@@ -217,9 +217,6 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
   , ((modMask, xK_u),
      spawn myFS)
 
-  , ((modMask, xK_a),
-     spawn myMusic)
-
   -- change themes with mod + ctrl + t
   , ((modMask .|. controlMask, xK_t), themePrompt def)
 
@@ -230,9 +227,8 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
   , ((modMask .|. shiftMask, xK_r),
     safeSpawn "dunstctl" ["close"])
 
-
   -- run emacs everywhere
-  , ((modMask .|. controlMask, xK_e),
+  , ((modMask, xK_a),
     safeSpawn "emacsclient" ["--eval", "(emacs-everywhere)"])
 
   -- Take a selective screenshot using the command specified by mySelectScreenshot.
