@@ -3,4 +3,4 @@
 # key: v
 # uuid: variable
 # --
-.. |${1:name}| replace:: ${2:content} $0
+|${1:name}| $0

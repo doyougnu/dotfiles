@@ -113,6 +113,10 @@
         :desc "find file other window"  "ow" #'projectile-find-file-other-window
         :desc "projectile: find file"   "oO" #'projectile-find-file
         :desc "ace-window"              "ww" #'ace-window)
+  (map! :map evil-motion-state-map
+        "l" #'evil-forward-word-begin
+        "h" #'evil-backward-word-begin)
+
   (map! :i "DEL" #'backward-kill-word))
 
 ;; keybindings
