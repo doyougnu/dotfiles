@@ -115,9 +115,12 @@
         :desc "ace-window"              "ww" #'ace-window)
   (map! :map evil-motion-state-map
         "l" #'evil-forward-word-begin
-        "h" #'evil-backward-word-begin)
+        "h" #'evil-backward-word-begin
+        "L" #'evil-forward-char
+        "H" #'evil-backward-char)
 
-  (map! :i "DEL" #'backward-kill-word))
+  (map! :i "C-DEL" #'delete-char
+        :i "DEL"   #'backward-kill-word))
 
 ;; keybindings
 (map! :leader
