@@ -119,8 +119,8 @@
         "h" #'evil-backward-word-begin
         "L" #'evil-forward-char
         "H" #'evil-backward-char
-        "j" #'evilem-motion-next-line
-        "k" #'evilem-motion-previous-line))
+        "j" #'evil-forward-paragraph
+        "k" #'evil-backward-paragraph))
 
 ;; keybindings
 (map! :leader
