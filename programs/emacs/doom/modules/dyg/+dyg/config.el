@@ -83,8 +83,8 @@
   (setq avy-keys '(?a ?o ?e ?u ?h ?t ?n ?s)))
 
 (map! :map evil-normal-state-map
-      "s" #'evil-avy-goto-char-in-line
-      "S" #'evil-avy-goto-char-timer
+      "s" #'evilem-motion-find-char
+      "S" #'evilem-motion-find-char-backward
       "C-e" #'evil-jump-forward
       "C-o" #'evil-jump-backward)
 
