@@ -14,21 +14,22 @@
                   ;; GHC target
                   ((string/starts-with "ghc" buffer-file-name)
                    ;; matched actions
-                   . (("Hadrian/Ghci"   "nix-shell --pure --run './hadrian/ghci'"
+                   . (("Hadrian/Ghci"   "./hadrian/ghci"
                         (projectile-root-bottom-up buffer-file-name))
-                      ("Clean and Boot" "nix-shell --pure --run 'hadrian/build clean && ./configure && ./boot'"
+                      ("Clean and Boot" "hadrian/build clean && ./configure && ./boot"
                        (projectile-root-bottom-up buffer-file-name))
-                      ("Perf Build"     "nix-shell --pure --run 'hadrian/build -j12 --flavour=perf'"
+                      ("Perf Build"     "hadrian/build -j12 --flavour=perf"
                        (projectile-root-bottom-up buffer-file-name))
-                      ("JS Clean"     "nix-shell --pure --run 'hadrian/build clean --build-root=_js-backend'"
+                      ("JS Clean"     "hadrian/build clean --build-root=_js-backend"
                        (projectile-root-bottom-up buffer-file-name))
-                      ("JS Configure"     "nix-shell --pure --run 'emconfigure ./configure --target=js-unknown-ghcjs'"
+                      ("JS Configure"     "emconfigure ./configure --target=js-unknown-ghcjs"
                        (projectile-root-bottom-up buffer-file-name))
-                      ("JS Build"     "nix-shell --run 'hadrian/build -j12 --flavour=quick-js+omit_pragmas --build-root=_js-backend --bignum=native --docs=none \"stage1.*.ghc.hs.opts += -ddump-stg-cg -ddump-js -ddump-to-file\"'"
+                      ("JS Build"     "hadrian/build -j12 --flavour=quick-js+omit_pragmas --build-root=_js-backend --bignum=native --docs=none \"stage1.*.ghc.hs.opts += -ddump-stg-cg -ddump-js -ddump-to-file\""
                        (projectile-root-bottom-up buffer-file-name))
-                      ("JS Test"     "nix-shell --run 'hadrian/build -j12 --flavour=quick-js+omit_pragmas --build-root=_js-backend --bignum=native --docs=none \"stage1.*.ghc.hs.opts += -ddump-stg-cg -ddump-js -ddump-to-file\" --only=%test'"
-                       (projectile-root-bottom-up buffer-file-name))
+
                       ))
+                  (latex-mode . (("latex build"     . "latexmk -pdf -shell-escape paper.tex")
+                                 ("latex nix-build" . "nix-build")))
                   ))))
 
 ;;; config.el ends here

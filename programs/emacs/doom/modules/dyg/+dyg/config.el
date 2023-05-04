@@ -113,14 +113,14 @@
         :desc "find file other window"  "ow" #'projectile-find-file-other-window
         :desc "projectile: find file"   "oO" #'projectile-find-file
         :desc "ace-window"              "ww" #'ace-window)
+
   (map! :map evil-motion-state-map
         "l" #'evil-forward-word-begin
         "h" #'evil-backward-word-begin
         "L" #'evil-forward-char
-        "H" #'evil-backward-char)
-
-  (map! :i "C-DEL" #'delete-char
-        :i "DEL"   #'backward-kill-word))
+        "H" #'evil-backward-char
+        "j" #'evilem-motion-next-line
+        "k" #'evilem-motion-previous-line))
 
 ;; keybindings
 (map! :leader
@@ -188,6 +188,7 @@
             "C-s" #'company-complete-selection
             "C--" #'fill-paragraph)
       (:map minibuffer-local-map
+            "C-t" #'vertico-directory-up
             "C-s" #'vertico-directory-enter
             "C-t" #'vertico-directory-up
             "C-e" #'embark-act)
@@ -197,9 +198,10 @@
 (map! :map global-map
        :nv "C--" #'fill-paragraph)
 
-(map! :map minibuffer-local-map
-      "C-o" #'previous-history-element
-      "C-u" #'next-history-element)
+;; unsure if i want to keep this because I can just use C-n and C-p
+;; (map! :map minibuffer-local-map
+;;       "C-o" #'previous-history-element
+;;       "C-u" #'next-history-element)
 
 (map! :map eshell-mode-map
       :ni "C-n" #'eshell-next-matching-input-from-input
