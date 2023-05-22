@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: lstinline
+# key: l
+# uuid: lstinline
+# --
+\lstinline!${1:code}! $0

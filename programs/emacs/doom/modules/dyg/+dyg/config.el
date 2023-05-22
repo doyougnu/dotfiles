@@ -82,11 +82,11 @@
   ;; home row priorities: 8 6 4 5 - - 1 2 3 7
   (setq avy-keys '(?a ?o ?e ?u ?h ?t ?n ?s)))
 
-(map! :map evil-normal-state-map
-      "s" #'evilem-motion-find-char
-      "S" #'evilem-motion-find-char-backward
-      "C-e" #'evil-jump-forward
-      "C-o" #'evil-jump-backward)
+(map! ;;:map evil-normal-state-map
+      :nv "t" #'evilem-motion-find-char
+      :nv "T" #'evilem-motion-find-char-backward
+      :n "C-e" #'evil-jump-forward
+      :n "C-o" #'evil-jump-backward)
 
 ;; Yas
 (after! yasnippet
@@ -106,6 +106,10 @@
         :nv ",," #'emacs-everywhere-finish-or-ctrl-c-ctrl-c))
 
 (after! evil
+
+  (evil-add-command-properties #'evilem-motion-find-char :jump t)
+  (evil-add-command-properties #'evilem-motion-find-char-backward :jump t)
+
   (map! :leader
         :desc "find file"               "oo" #'find-file
         :desc "find recent file"        "ot" #'consult-recent-file
@@ -119,8 +123,8 @@
         "h" #'evil-backward-word-begin
         "L" #'evil-forward-char
         "H" #'evil-backward-char
-        "j" #'evil-forward-paragraph
-        "k" #'evil-backward-paragraph))
+        "j" #'evilem-motion-next-line
+        "k" #'evilem-motion-previous-line))
 
 ;; keybindings
 (map! :leader
