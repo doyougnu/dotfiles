@@ -122,7 +122,10 @@ in
         path    = "/home/doyougnu/sync/keys";
         devices = [ "voltron" ];
       };
-
+      "roam" = {
+        id      = "oezuf-gad5a";
+        path    = "/home/doyougnu/sync/roam";
+        devices = [ "voltron" ];
     };
     overrideFolders = true;
     overrideDevices = true;
