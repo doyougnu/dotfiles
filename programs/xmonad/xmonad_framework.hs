@@ -228,7 +228,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   --
 
   -- Start a terminal.  Terminal to start is specified by myTerminal variable.
-  [ ((modMask, xK_period),
+  [ ((modMask, xK_u),
      spawn $ XMonad.terminal conf)
     --
   , ((modMask .|. controlMask, xK_Return),
@@ -263,8 +263,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      spawn myIDESameBuf)
 
   -- On Mod d open the file bro
-  , ((modMask, xK_u),
-     spawn myFS)
+  -- , ((modMask, xK_u),
+  --    spawn myFS)
 
   -- change themes with mod + ctrl + t
   , ((modMask .|. controlMask, xK_t), themePrompt def)

@@ -27,8 +27,6 @@ import qualified DBus            as D
 import qualified DBus.Client     as D
 import XMonad.Actions.SpawnOn
 import qualified Codec.Binary.UTF8.String as UTF8
--- import XMonad.Config.Kde
--- import XMonad.Config.Mate
 import XMonad.Prompt
 import XMonad.Prompt.Input
 import XMonad.Prompt.Shell
@@ -180,8 +178,8 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
   -- Custom key bindings
   --
 
-  -- Start a terminal.  Terminal to start is specified by myTerminal variable.
-  [ ((modMask, xK_period),
+  -- Start a terminal.
+  [ ((modMask, xK_u),
      spawn $ XMonad.terminal conf)
 
   -- spawn an eshell
@@ -214,8 +212,8 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
      spawn myEmail)
 
   -- On Mod d open the file bro
-  , ((modMask, xK_u),
-     spawn myFS)
+  -- , ((modMask, xK_u),
+  --    spawn myFS)
 
   -- change themes with mod + ctrl + t
   , ((modMask .|. controlMask, xK_t), themePrompt def)
@@ -359,6 +357,12 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
       | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
       , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
 
+  ++
+  -- mod-{w,e,r} %! Switch to physical/Xinerama screens 1, 2, or 3
+  -- mod-shift-{w,e,r} %! Move client to screen 1, 2, or 3
+  [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
+      | (key, sc) <- zip [xK_comma, xK_period, xK_p] [0..]
+      , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 ------------------------------------------------------------------------
 -- Mouse bindings
