@@ -50,7 +50,7 @@
        ;; vi-tilde-fringe  ; fringe tildes to mark beyond EOB
        window-select     ; visually switch windows
        workspaces       ; tab emulation, persistence & separate workspaces
-       ;; zen               ; distraction-free coding or writing
+       zen               ; distraction-free coding or writing
 
        :editor
        (evil +everywhere)             ; come to the dark side, we have cookies
@@ -71,7 +71,7 @@
        electric          ; smarter, keyword-based electric-indent
        (ibuffer +icons)  ; interactive buffer management
        undo              ; persistent, smarter undo for your inevitable mistakes
-       ;; vc                ; version-control and Emacs, sitting in a tree
+       vc                ; version-control and Emacs, sitting in a tree
 
        :term
        eshell         ; the elisp shell that works everywhere

@@ -129,47 +129,48 @@
     devices = {
       "voltron" = { id = "QXVXZ3O-M3WUXGW-HVQOIJM-XHIL2QG-AIG5AJW-PYNZF6W-4T7YCUW-N7HFHQC"; };
     };
+
     folders = {
       "org" = {
         id      = "a5she-s5zwp";
         path    = "/home/doyougnu/sync/org";
-        devices = [ "voltron" ];
+        devices = [ "voltron" "7thChamber-framework" "7thChamber-desktop" ];
       };
       "Books" = {
         id      = "hq3xr-sqxfw";
         path    = "/home/doyougnu/sync/Books";
-        devices = [ "voltron" ];
+        devices = [ "voltron" "7thChamber-framework" "7thChamber-desktop" ];
       };
       "dnd" = {
         id      = "ntwfo-bgvsq";
         path    = "/home/doyougnu/sync/dnd";
-        devices = [ "voltron" ];
+        devices = [ "voltron" "7thChamber-framework" "7thChamber-desktop" ];
       };
       "other" = {
         id      = "vshib-2mbq2";
         path    = "/home/doyougnu/sync/other";
-        devices = [ "voltron" ];
+        devices = [ "voltron" "7thChamber-framework" "7thChamber-desktop" ];
       };
       "deft" = {
         id      = "wzppz-wf5vh";
         path    = "/home/doyougnu/sync/deft";
-        devices = [ "voltron" ];
+        devices = [ "voltron" "7thChamber-framework" "7thChamber-desktop" ];
       };
       "wallpapers" = {
         id      = "ydge2-qncvp";
         path    = "/home/doyougnu/sync/wallpapers";
-        devices = [ "voltron" ];
+        devices = [ "voltron" "7thChamber-framework" "7thChamber-desktop" ];
       };
       "keys" = {
         id      = "yglju-g4hng";
         path    = "/home/doyougnu/sync/keys";
-        devices = [ "voltron" ];
+        devices = [ "voltron" "7thChamber-framework" "7thChamber-desktop" ];
       };
       "roam" = {
         id      = "oezuf-gad5a";
         path    = "/home/doyougnu/sync/roam";
-        devices = [ "voltron" ];
-    };
+        devices = [ "voltron" "7thChamber-framework" "7thChamber-desktop" ];
+      };
     };
     overrideFolders = true;
     overrideDevices = true;

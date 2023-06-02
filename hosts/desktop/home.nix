@@ -58,7 +58,7 @@ in {
     extraConfig = ''
       copy_on_select yes
     '';
-    theme = "Sea Shells";
+    # theme = "Sea Shells";
     settings = {
       font_size = "9.0";
     };

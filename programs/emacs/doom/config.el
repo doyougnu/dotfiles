@@ -42,7 +42,8 @@
 ;; `load-theme' function. This is the default:
 ;; (setq doom-theme 'doom-ir-black)
 ;; (setq doom-theme 'doom-solarized-dark-high-contrast)
-(setq doom-theme 'doom-gruvbox-light)
+;; (setq doom-theme 'doom-gruvbox-light)
+(setq doom-theme 'wombat)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
