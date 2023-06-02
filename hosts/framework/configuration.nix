@@ -128,6 +128,8 @@
     configDir = "/home/doyougnu/.config/syncthing";
     devices = {
       "voltron" = { id = "QXVXZ3O-M3WUXGW-HVQOIJM-XHIL2QG-AIG5AJW-PYNZF6W-4T7YCUW-N7HFHQC"; };
+      "7thChamber-framework" = { id = "QFU3KKN-B6Q5UM5-DL7A5YF-GCBP7OJ-FUARMRP-IXVRNQE-J3DXJSI-N3B4CQR"; };
+      "7thChamber-desktop"   = { id = "I3UKPJJ-TU3N6OF-4F2REJ5-5QGMHDW-SIKIIDL-ZZU3CVC-BRQJOME-C5Z73AG"; };
     };
 
     folders = {
@@ -297,14 +299,14 @@
   fonts.fonts = with pkgs;
    [
     source-code-pro
-    siji
+    # siji
     nerdfonts
     font-awesome_5
-    font-awesome_4
+    # font-awesome_4
     material-icons
     emacs-all-the-icons-fonts
     numix-icon-theme-circle
-    symbola
+    # symbola
    ];
 
   ## mopidy config
