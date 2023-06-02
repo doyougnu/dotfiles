@@ -68,7 +68,6 @@ in {
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
-    nix-direnv.enableFlakes = true;
   };
 
   # Home Manager needs a bit of information about you and the
