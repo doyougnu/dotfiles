@@ -63,12 +63,10 @@
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.powersave = true;
   networking.hostName = "7thChamber"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.extraHosts =
     ''
     192.168.0.152 pihole.local
-    192.168.0.102 hypervisor.local
-    192.168.0.104 elminster.local
+    192.168.0.185 relay.local
     '';
 
   # Select internationalisation properties.

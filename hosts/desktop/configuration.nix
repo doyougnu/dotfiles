@@ -33,7 +33,7 @@ in
   networking.extraHosts =
     ''
     192.168.0.152 pihole.local
-    192.168.0.103 hypervisor.local
+    192.168.0.185 relay.local
     '';
 
   # Select internationalisation properties.
