@@ -21,7 +21,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.timeout = 4;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.cleanTmpDir = true;
+  boot.tmp.cleanOnBoot = true;
   boot.kernel.sysctl = {
     "dev.i915.perf_stream_paranoid" = 0;
   };
