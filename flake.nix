@@ -49,7 +49,15 @@
         nixpkgs.overlays = [ emacs-overlay.overlay nur.overlay overlay-unstable overlay-local idris2-overlay ];
         imports = [ config ];
       };
-      
+
+      node0-system = home-manager.lib.homeManagerConfiguration {
+        configuration = homeManagerConfFor ./hosts/node0/home.nix;
+        inherit system;
+        homeDirectory = "/home/node0";
+        username      = "node0";
+        stateVersion = "21.11";
+      };
+
       framework-system = home-manager.lib.homeManagerConfiguration {
         configuration = homeManagerConfFor ./hosts/framework/home.nix;
         inherit system;
@@ -67,6 +75,21 @@
       };
     in 
     {
+      nixosConfigurations.node0 = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = attrs;
+        modules = [
+          nixos-hardware.nixosModules.framework
+          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable overlay-local idris2-overlay ]; })
+          ./hosts/node0/configuration.nix
+
+          home-manager.nixosModules.home-manager {
+            home-manager.useUserPackages = true;
+            home-manager.users.doyougnu = homeManagerConfFor ./hosts/node0/home.nix;
+          }
+        ];
+      };
+
       nixosConfigurations.framework = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = attrs;
@@ -98,6 +121,7 @@
 
       framework = framework-system.activationPackage;
       desktop   = desktop-system.activationPackage;
+      node0     = node0-system.activationPackage;
     };
 }
 

@@ -166,6 +166,11 @@ in
          "https://cache.iog.io"
        ];
      };
+    gc = {
+      automatic = true;
+      dates     = "weekly";
+      options   = "--delete-older-than 14d";
+    };
   };
 
   # device auto mounting

@@ -1,15 +1,6 @@
 { config, pkgs, lib, ... }:
 
-let
-    myEmacs = import ../../programs/emacs/emacs.nix { pkgs = pkgs; config = config; unstable = pkgs; };
-    haskell-env = with pkgs.haskell.packages.${config.ghc.version}; [
-    ];
-
-    # for mbsync service
-    gpg = "/etc/profiles/per-user/doyougnu/bin/gpg2";
-    awk = "/run/current-system/sw/bin/awk";
-
-in {
+{
 
   imports = [ ../../programs/non-free.nix
             ];
@@ -71,160 +62,9 @@ in {
 
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
-  home.username = "doyougnu";
-  home.homeDirectory = "/home/doyougnu";
+  home.username = "node0";
+  home.homeDirectory = "/home/node0";
 
-
-  services.dunst = {
-    enable = true;
-    settings = {
-        urgency_low = {
-          frame_color = "#268bd2";
-          foreground = "#002b36";
-          background = "#fdf6e3";
-          #timeout = 1;
-        };
-
-        urgency_normal = {
-          # frame_color = "#b58900";
-          background = "#202632";
-          foreground = "#ffffff";
-          #timeout = 1;
-        };
-
-        urgency_critical = {
-          # frame_color = "#dc322f";
-          background = "#ffffff";
-          foreground = "#db0101";
-          #timeout = 1;
-        };
-
-        global = {
-          font = "Iosevka 10";
-          width = 500;
-          height = 900;
-          transparency = 20;
-          frame_color = "#4287f5";
-          corner_radius = 15;
-          # center text
-          alignment = "center";
-          # full markup parsing
-          markup = "full";
-          format = ''
-          %a
-          <b>%s</b>
-          %b
-          %p'';
-
-          monitor = "1";
-          origin = "bottom-center";
-          offset = "1x1";
-
-          separator_color = "auto";
-          # Width of frame around window
-          frame_width = 1;
-          # Color of frame around window
-        };
-
-    };
-  };
-
-  # emacs
-  services.emacs.enable = true;
-  services.emacs.package = myEmacs;
-
-  # email
-  programs.mbsync.enable = true;        ## sync
-  programs.msmtp.enable  = true;        ## sending
-
-  accounts.email = {
-    ## blog email
-    accounts.blog = {
-
-      address = "jeff@doyougnu.xyz";
-      imap.host = "mail.gandi.net";
-      mbsync = {
-        enable = true;
-        create = "maildir";
-      };
-      msmtp.enable = true;
-      primary      = true;
-      realName     = "Jeffrey M. Young";
-      passwordCommand = "${gpg} -q --for-your-eyes-only --no-tty -d /home/doyougnu/.authinfo.gpg | ${awk} '/machine mail.gandi.net login jeff@doyougnu.xyz password/ {print $6}'";
-      smtp = {
-        host = "mail.gandi.net";
-      };
-      userName = "jeff@doyougnu.xyz";
-    };
-
-    ## work email
-    accounts.iohk = {
-      address = "jeffrey.young@iohk.io";
-      imap.host = "imap.gmail.com";
-      gpg = {
-        key = "57403751AE1F59BBC10771F5AF59A1E46422D9C9";
-        signByDefault = true;
-      };
-      mbsync = {
-        enable = true;
-        create = "maildir";
-        patterns = ["*" "![Gmail]*" "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"];
-        extraConfig = {
-          channel = {
-            Sync = "All";
-          };
-        };
-      };
-      msmtp.enable = true;
-      realName     = "Jeffrey M. Young";
-      passwordCommand = "${gpg} -q --for-your-eyes-only --no-tty -d /home/doyougnu/.authinfo.gpg | ${awk} '/machine smtp.gmail.com login jeffrey.young@iohk.io password/ {print $6}'";
-      smtp = {
-        host = "smtp.gmail.com";
-      };
-      userName = "jeffrey.young@iohk.io";
-    };
-
-    ## dumpster email
-    accounts.gmail = {
-      address = "jmy6342@gmail.com";
-      imap.host = "imap.gmail.com";
-      mbsync = {
-        enable = true;
-        create = "maildir";
-        patterns = ["*" "![Gmail]*" "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"];
-        extraConfig = {
-          channel = {
-            Sync = "All";
-          };
-        };
-      };
-      msmtp.enable = true;
-      realName     = "Jeffrey M. Young";
-      passwordCommand = "${gpg} -q --for-your-eyes-only --no-tty -d /home/doyougnu/.authinfo.gpg | ${awk} '/machine smtp.gmail.com login jmy6342@gmail.com password/ {print $6}'";
-      smtp = {
-        host = "smtp.gmail.com";
-      };
-      userName = "jmy6342@gmail.com";
-    };
-  };
-
-  services.mbsync = {
-    enable = true;
-    frequency = "*:0/15";
-    preExec = "${pkgs.isync}/bin/mbsync -Ha";
-    postExec = "${pkgs.unstable.mu}/bin/mu index -m ~/Maildir";
-  };
-
-  # write config files
-  # polybar
-  xdg.configFile."polybar/config.ini".source    = ../../programs/polybar/config_desktop;
-  xdg.configFile."polybar/launch.sh".source = ../../programs/polybar/launch.sh;
-  # xmonad
-  home.file.".xmonad/xmonad.hs".source = ../../programs/xmonad/xmonad_desktop.hs;
-  # doom emacs
-  home.file.".doom.d/".source = ../../programs/emacs/doom;
-  home.file.".doom.d/".onChange= "/home/doyougnu/.emacs.d/bin/doom sync";
-  # symlink auth on new hm generation activation
   home.activation = {
       symlinkAuth = lib.hm.dag.entryAfter ["writeBoundary"] ''
                     ln -sf /home/doyougnu/sync/keys/auth/.authinfo.gpg /home/doyougnu/.authinfo.gpg
@@ -341,64 +181,19 @@ in {
 
   home.packages = with pkgs; [
     alsa-utils
-    chez
-    discord
-    entr
-    evince
-    fasd
-    feh
-    gcc            # for org-roam
-    google-chrome
-    libevent
+    guile
     killall         # for polybar launch script
     moreutils
-    myEmacs
-    multimarkdown
-    nodejs-18_x
-    pdfpc           # pdf presentaitons from the shell
-    polybar
     pinentry
     python310
     python310Packages.pygments
-    qutebrowser
-    ranger
     ripgrep
-    rnix-lsp
     rsync
-    lispPackages.quicklisp
-    # sbcl
-    sdcv             # for polybar
-    signal-desktop
-    spotify
-    spotify-unwrapped
-    slack
-    steam
-    xclip
-    xorg.xwininfo    # for emacs everywhere
-    xdotool          # for emacs everywhere
-    xdg-dbus-proxy
-    xdg-desktop-portal
-    w3m              # text browser for emacs-w3m
-    sqlite
-    wordnet
     zip
   ] ++
-  [ R
-    haskellPackages.hasktags
-    haskellPackages.hlint
-  ]
-    ++
-    haskell-env
-    ++
   (with unstable;
     [ gmp
       numactl
-      flameshot
-      tdesktop
-      pianobar
-      valgrind
-      firefox
-      mu     # for email
   ]);
 
   # This value determines the Home Manager release that your
