@@ -79,7 +79,7 @@
         inherit system;
         specialArgs = attrs;
         modules = [
-          nixos-hardware.nixosModules.framework
+          nixos-hardware.nixosModules.raspberry-pi-4
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./hosts/node0/configuration.nix
 
