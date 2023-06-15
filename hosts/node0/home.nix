@@ -205,6 +205,7 @@
     python310Packages.pygments
     ripgrep
     rsync
+    unison
     zip
   ] ++
   (with unstable;

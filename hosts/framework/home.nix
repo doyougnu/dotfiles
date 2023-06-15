@@ -391,6 +391,7 @@ in {
     steam
     tdesktop
     texlive.combined.scheme-full
+    unison
     vlc
     xclip
     xorg.xwininfo    # for emacs everywhere

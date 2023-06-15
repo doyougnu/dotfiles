@@ -390,6 +390,7 @@ in {
     spotify-unwrapped
     slack
     steam
+    unison
     xclip
     xorg.xwininfo    # for emacs everywhere
     xdotool          # for emacs everywhere
