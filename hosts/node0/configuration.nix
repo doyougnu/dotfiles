@@ -17,6 +17,7 @@
 
   networking.hostName = "relay"; # Define your hostname.
   networking.networkmanager.enable = false;  # Easiest to use and most distros use this by default.
+  networking.wireless.enable = false;
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -95,8 +96,8 @@
   };
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 8384 22000];
+  networking.firewall.allowedUDPPorts = [ 22000 21027];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
