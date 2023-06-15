@@ -11,6 +11,7 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "usbhid" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
+  boot.blacklistedKernelModules = [ "brcmfmac" "brcmutil" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
