@@ -63,7 +63,23 @@ in {
     '';
   };
 
-  services.lorri.enable = true;
+  services.unison = {
+    enable = true;
+    pairs = {
+      "sync" = {
+        roots = [ "/home/doyougnu/sync" "ssh://node0@relay.local//home/node0/sync"
+                ];
+        commandOptions = { auto = "true";
+                           batch = "true";
+                           repeat = "watch";
+                           copyonconflict = "true";
+                           ui = "text";
+                           prefer = "newer";
+                         };
+      };
+    };
+  };
+
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
@@ -414,7 +430,6 @@ in {
     [ gmp
       numactl
       valgrind
-      thunderbird
       flameshot
       discord
   ]);
