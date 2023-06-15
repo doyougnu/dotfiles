@@ -6,7 +6,7 @@
     # nixpkgs.url        = github:nixos/nixpkgs/nixos-unstable;
     nixpkgs.url          = "nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
-    nixpkgs-local.url    = "/home/doyougnu/programming/nix/nixpkgs";
+    # nixpkgs-local.url    = "/home/doyougnu/programming/nix/nixpkgs";
     emacs-overlay.url  = github:nix-community/emacs-overlay;
     nixos-hardware.url = github:nixos/nixos-hardware/master;
     git-idris2.url     = github:idris-lang/Idris2?rev=5e9a90bd97d3940054dcf2fcaffccff7c72ef5ae;
@@ -24,7 +24,7 @@
             , nixos-hardware
             , nixpkgs
             , nixpkgs-unstable
-            , nixpkgs-local
+            # , nixpkgs-local
             , git-idris2
             , ...
             }@attrs :
@@ -37,16 +37,16 @@
         unstable = nixpkgs-unstable.legacyPackages.${prev.system};
       };
 
-      overlay-local = final: prev: {
-        local = nixpkgs-local.legacyPackages.${prev.system};
-      };
+      # overlay-local = final: prev: {
+      #   local = nixpkgs-local.legacyPackages.${prev.system};
+      # };
 
       idris2-overlay = final: prev: {
         idris2 = git-idris2.packages.${system}.idris2;
       };
 
       homeManagerConfFor = config: { ... }: {
-        nixpkgs.overlays = [ emacs-overlay.overlay nur.overlay overlay-unstable overlay-local idris2-overlay ];
+        nixpkgs.overlays = [ emacs-overlay.overlay nur.overlay overlay-unstable idris2-overlay ];
         imports = [ config ];
       };
 
@@ -80,7 +80,7 @@
         specialArgs = attrs;
         modules = [
           nixos-hardware.nixosModules.framework
-          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable overlay-local idris2-overlay ]; })
+          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable idris2-overlay ]; })
           ./hosts/node0/configuration.nix
 
           home-manager.nixosModules.home-manager {
@@ -95,7 +95,7 @@
         specialArgs = attrs;
         modules = [
           nixos-hardware.nixosModules.framework
-          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable overlay-local idris2-overlay ]; })
+          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable idris2-overlay ]; })
           ./hosts/framework/configuration.nix
 
           home-manager.nixosModules.home-manager {
@@ -109,7 +109,7 @@
         inherit system;
         specialArgs = attrs;
         modules = [
-          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable overlay-local ]; })
+          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./hosts/desktop/configuration.nix
 
           home-manager.nixosModules.home-manager {

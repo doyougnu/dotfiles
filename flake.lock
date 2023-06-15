@@ -143,21 +143,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-local": {
-      "locked": {
-        "lastModified": 1658854996,
-        "narHash": "sha256-HA0/AwxVzBepudMhW81pRtjUpIVizvO00Ajv65n9rrU=",
-        "ref": "refs/heads/bump_llvm_git",
-        "rev": "b3d7f203d07632146e1ef44b8c21136714c17545",
-        "revCount": 394008,
-        "type": "git",
-        "url": "file:///home/doyougnu/programming/nix/nixpkgs"
-      },
-      "original": {
-        "type": "git",
-        "url": "file:///home/doyougnu/programming/nix/nixpkgs"
-      }
-    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1685468986,
@@ -241,7 +226,6 @@
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_3",
-        "nixpkgs-local": "nixpkgs-local",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur"
       }
