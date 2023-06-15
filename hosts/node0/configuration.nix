@@ -74,6 +74,11 @@
   # auto login
   services.getty.autologinUser = "node0";
 
+  # disable wireless iface
+  system.userActivationScripts.disableBuiltinWifiAdapter = ''
+    sudo ${pkgs.nettools}/bin/ifconfig wlan0 down
+  '';
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
    environment.systemPackages = with pkgs; [
