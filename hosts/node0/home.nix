@@ -65,9 +65,9 @@
   home.homeDirectory = "/home/node0";
 
   home.activation = {
-      symlinkAuth = lib.hm.dag.entryAfter ["writeBoundary"] ''
-                    ln -sf /home/doyougnu/sync/keys/auth/.authinfo.gpg /home/doyougnu/.authinfo.gpg
-                    '';
+      # symlinkAuth = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      #               ln -sf /home/doyougnu/sync/keys/auth/.authinfo.gpg /home/doyougnu/.authinfo.gpg
+      #               '';
   };
 
   programs.fish = {
