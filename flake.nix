@@ -80,12 +80,12 @@
         specialArgs = attrs;
         modules = [
           nixos-hardware.nixosModules.framework
-          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable idris2-overlay ]; })
+          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./hosts/node0/configuration.nix
 
           home-manager.nixosModules.home-manager {
             home-manager.useUserPackages = true;
-            home-manager.users.doyougnu = homeManagerConfFor ./hosts/node0/home.nix;
+            home-manager.users.node0 = homeManagerConfFor ./hosts/node0/home.nix;
           }
         ];
       };
