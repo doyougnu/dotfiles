@@ -16,7 +16,7 @@
   boot.loader.generic-extlinux-compatible.enable = true;
 
   networking.hostName = "relay"; # Define your hostname.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = false;  # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "America/New_York";

@@ -48,6 +48,23 @@ in {
     '';
   };
 
+  services.unison = {
+    enable = true;
+    pairs = {
+      "sync" = {
+        roots = [ "/home/doyougnu/sync" "ssh://node0@relay.local/home/node0/sync"
+                ];
+        commandOptions = { auto = "true";
+                           batch = "true";
+                           repeat = "watch";
+                           copyonconflict = "true";
+                           ui = "text";
+                           prefer = "newer";
+                         };
+      };
+    };
+  };
+
   # kitty config
   programs.kitty = {
     enable = true;
