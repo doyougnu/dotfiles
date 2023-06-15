@@ -52,7 +52,7 @@ in {
     enable = true;
     pairs = {
       "sync" = {
-        roots = [ "/home/doyougnu/sync" "ssh://node0@relay.local/home/node0/sync"
+        roots = [ "/home/doyougnu/sync" "ssh://node0@relay.local/sync"
                 ];
         commandOptions = { auto = "true";
                            batch = "true";
