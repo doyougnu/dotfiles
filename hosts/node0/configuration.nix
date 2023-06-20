@@ -65,7 +65,8 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.node0 = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "audio" "pulse" ]; 
+    isSystemUser = true;
+    extraGroups = [ "wheel" "networkmanager" "audio" "pulse" "znc-admin"];
     packages = with pkgs; [
       emacs vim man-pages git
     ];
@@ -73,6 +74,56 @@
 
   # auto login
   services.getty.autologinUser = "node0";
+
+  # cyrusauth module talks to saslauthd, default auth mechanism is PAM
+  services.saslauthd.enable = true;
+  # znc service config has some hardening options that otherwise block
+  # interaction with saslauthd's unix socket
+  systemd.services.znc.serviceConfig.RestrictAddressFamilies = [ "AF_UNIX" ];
+
+  # IRC bouncer
+  services.znc = {
+    enable = true;
+    mutable = false;
+    useLegacyConfig = false;
+    openFirewall = true;
+
+    config = {
+      LoadModule = [ "adminlog" "cyrusauth" "saslauthd" ];
+      Listener.l =  {
+        Port = 48884;
+        AllowIRC = true;
+        AllowWeb = true;
+        SSL = false;
+      };
+      User.node0 = {
+        Admin = true;
+      };
+    };
+  };
+
+  environment.etc = {
+    # need to add a PAM service config, cyrusauth identifies itself as "znc"
+    # very standard config, copied from others in /etc/pam.d
+    # just checks that you have a valid account/password
+    "pam.d/znc" = {
+      source = pkgs.writeText "znc.pam" ''
+      # Account management.
+      account required pam_unix.so
+
+      # Authentication management.
+      auth sufficient pam_unix.so likeauth try_first_pass
+      auth required pam_deny.so
+
+      # Password management.
+      password sufficient pam_unix.so nullok sha512
+
+      # Session management.
+      session required pam_env.so conffile=/etc/pam/environment readenv=0
+      session required pam_unix.so
+    '';
+    };
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
