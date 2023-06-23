@@ -64,7 +64,6 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.node0 = {
-    isNormalUser = true;
     isSystemUser = true;
     extraGroups = [ "wheel" "networkmanager" "audio" "pulse" "znc-admin"];
     packages = with pkgs; [
