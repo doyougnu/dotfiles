@@ -70,6 +70,7 @@
     packages = with pkgs; [
       emacs vim man-pages git
     ];
+    passwordFile = "~/sync/keys/.node0PasswordFile";
   };
 
   # auto login
