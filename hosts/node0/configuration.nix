@@ -64,8 +64,8 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.node0 = {
-    isSystemUser = true;
-    extraGroups = [ "wheel" "networkmanager" "audio" "pulse" "znc-admin"];
+    isNormalUser = true;
+    extraGroups = [ "wheel" "networkmanager" "audio" "pulse" ];
     packages = with pkgs; [
       emacs vim man-pages git
     ];
@@ -89,7 +89,7 @@
     openFirewall = true;
 
     config = {
-      LoadModule = [ "adminlog" "cyrusauth" "saslauthd" ];
+      LoadModule = [ "adminlog" "cyrusauth saslauthd" ];
       Listener.l =  {
         Port = 48884;
         AllowIRC = true;
@@ -98,6 +98,7 @@
       };
       User.node0 = {
         Admin = true;
+        Pass  = "md5#::#::#";
       };
     };
   };
