@@ -3,7 +3,7 @@
 
 (setq auth-sources '("~/.authinfo.gpg"))
 
-(set-irc-server! "irc.libera.chat"
+(set-irc-server! "relay.local:48884"
   '(:tls                t
     :reduce-lurker-spam t
     :port               6697

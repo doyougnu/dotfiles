@@ -99,6 +99,19 @@
       User.node0 = {
         Admin = true;
         Pass  = "md5#::#::#";
+        Network.libera = {
+          Nick = "doyougnu";
+          LoadModule = [ "nickserv" ];
+          JoinDelay = 2; # dont join without authenticating
+          Chan = { "#ghc"        = {};
+                   "#emacs"      = {};
+                   "#ghcjs"      = {};
+                   "#lispcafe"   = {};
+                   "#haskell"    = {};
+                   "#commonlisp" = {};
+                   "#lobsters"   = {};
+                 };
+        };
       };
     };
   };
