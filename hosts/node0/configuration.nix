@@ -90,8 +90,7 @@
 
     config = {
       LoadModule = [ "adminlog" "cyrusauth saslauthd" ];
-      Listener.l =  {
-        Port = 48884;
+      confOptions =  {
         AllowIRC = true;
         AllowWeb = true;
         SSL = false;
