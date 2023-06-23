@@ -90,11 +90,6 @@
 
     config = {
       LoadModule = [ "adminlog" "cyrusauth saslauthd" ];
-      confOptions =  {
-        AllowIRC = true;
-        AllowWeb = true;
-        SSL = false;
-      };
       User.node0 = {
         Admin = true;
         Pass  = "md5#::#::#";
@@ -102,7 +97,7 @@
           Nick = "doyougnu";
           LoadModule = [ "nickserv" ];
           JoinDelay = 2; # dont join without authenticating
-          Server = "irc.libera.chat";
+          Server = "irc.libera.chat +6697";
           Chan = { "#ghc"        = {};
                    "#emacs"      = {};
                    "#ghcjs"      = {};
