@@ -103,6 +103,7 @@
           Nick = "doyougnu";
           LoadModule = [ "nickserv" ];
           JoinDelay = 2; # dont join without authenticating
+          Server = "irc.libera.chat";
           Chan = { "#ghc"        = {};
                    "#emacs"      = {};
                    "#ghcjs"      = {};
