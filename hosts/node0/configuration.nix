@@ -73,6 +73,10 @@
     ];
   };
 
+  users.groups.node0 = { name = "node0";
+                         members = ["node0"];
+                         gid     = 1729;
+                       };
   # auto login
   services.getty.autologinUser = "node0";
 
