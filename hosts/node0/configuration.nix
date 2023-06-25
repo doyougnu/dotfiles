@@ -101,7 +101,7 @@ in
       LoadModule = [ "adminlog" "certauth" ];
       # SSLCertFile  = "/home/node0/sync/keys/auth/nick.cer";
       # SSLKeyFile   =  "/home/node0/sync/keys/auth/nick.key";
-      User.node0 = {
+      User.doyougnu = {
         Admin = true;
         Pass.password = {
           Method = keys.znc.method;
