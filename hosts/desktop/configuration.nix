@@ -177,6 +177,9 @@ in
   # device auto mounting
   services.devmon.enable = true;
 
+  # enable sasl
+  services.saslauthd.enable = true;
+
   # logind to never sleep
   powerManagement.enable = false;
   # systemd.targets.sleep.enable = false;

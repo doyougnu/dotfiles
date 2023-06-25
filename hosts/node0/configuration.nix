@@ -90,7 +90,7 @@
 
     config = {
       LoadModule = [ "adminlog" "cyrusauth saslauthd" "webadmin" ];
-      User.node0 = {
+      User.doyougnu = {
         Admin = true;
         Pass  = "md5#::#::#";
         Network.libera = {

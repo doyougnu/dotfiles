@@ -259,6 +259,9 @@
   environment.variables.XMONAD_CACHE_DIR  = "/home/doyougnu/.xmonad";
   environment.variables.XMONAD_DATA_DIR   = "/home/doyougnu/.xmonad";
 
+  # enable sasl
+  services.saslauthd.enable = true;
+
   # nice compton settings
   services.compton = {
   enable          = true;

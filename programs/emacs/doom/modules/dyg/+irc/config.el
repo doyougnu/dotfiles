@@ -4,9 +4,10 @@
 (setq auth-sources '("~/.authinfo.gpg"))
 
 (set-irc-server! "relay.local"
-  '(:tls                t
+  '(:use-tls            t
+    :tls-keylist        (("~/sync/keys/auth/node0.pem"))
     :reduce-lurker-spam t
-    :port               6697
+    :port               5000
     :nickserv-nick      "doyougnu"
     :nickserv-password  dyg/nickserv-password
     :sasl-username      "doyougnu"
