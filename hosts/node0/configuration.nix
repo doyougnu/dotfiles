@@ -88,8 +88,8 @@
     useLegacyConfig    = false;
     openFirewall       = true;
     confOptions.useSSL = true;
-    extraConf = ''SSLCertFile  = /home/node0/sync/keys/auth/nick.pem
-                '';
+    extraConfig = ''SSLCertFile  = /home/node0/sync/keys/auth/nick.pem
+                  '';
 
     config = {
       LoadModule = [ "adminlog" "certauth" ];
