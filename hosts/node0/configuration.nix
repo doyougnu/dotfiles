@@ -94,7 +94,7 @@
     openFirewall       = true;
     confOptions.useSSL = true;
     user = "node0";
-    group = "znc";
+    group = "node0";
 
     config = {
       LoadModule = [ "adminlog" "certauth" ];
