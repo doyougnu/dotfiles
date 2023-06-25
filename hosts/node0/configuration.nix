@@ -64,7 +64,7 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.node0 = {
-    isSystemUser = true;
+    isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "audio" "pulse" "znc" ];
     group = "node0";
     home  = "/home/node0";
