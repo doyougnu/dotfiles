@@ -85,9 +85,12 @@
   services.znc = {
     enable = true;
     mutable = false;
-    useLegacyConfig = false;
-    openFirewall = true;
-    SSLCertFile  = "/home/node0/sync/keys/auth/nick.pem";
+    useLegacyConfig    = false;
+    openFirewall       = true;
+    confOptions.useSSL = true;
+    confOptions.extraZncConf = ''
+                             SSLCertFile  = "/home/node0/sync/keys/auth/nick.pem";
+                             '';
 
     config = {
       LoadModule = [ "adminlog" "certauth" ];
@@ -98,7 +101,6 @@
           LoadModule = [ "nickserv" ];
           JoinDelay = 2; # dont join without authenticating
           Server = "irc.libera.chat +6697";
-          useSSL = true;
           Chan = { "#ghc"        = {};
                    "#emacs"      = {};
                    "#ghcjs"      = {};
