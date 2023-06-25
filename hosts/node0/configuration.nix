@@ -88,6 +88,7 @@
     useLegacyConfig    = false;
     openFirewall       = true;
     confOptions.useSSL = true;
+    user = "node0";
 
     config = {
       LoadModule = [ "adminlog" "certauth" ];
