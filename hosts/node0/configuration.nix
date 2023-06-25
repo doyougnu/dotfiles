@@ -101,7 +101,7 @@ in
       LoadModule = [ "adminlog" "certauth" ];
       # SSLCertFile  = "/home/node0/sync/keys/auth/nick.cer";
       # SSLKeyFile   =  "/home/node0/sync/keys/auth/nick.key";
-      User.doyougnu = {
+      User.node0 = {
         Admin = true;
         Network.libera = {
           Nick = "doyougnu";
