@@ -66,13 +66,12 @@
   users.users.node0 = {
     isSystemUser = true;
     extraGroups = [ "wheel" "networkmanager" "audio" "pulse" "znc" ];
+    group = "node0";
     packages = with pkgs; [
       emacs vim man-pages git
     ];
   };
 
-  # add a znc group
-  users.groups."znc" = {};
   # auto login
   services.getty.autologinUser = "node0";
 
