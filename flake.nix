@@ -7,7 +7,6 @@
     nixpkgs.url          = "nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     # nixpkgs-local.url    = "/home/doyougnu/programming/nix/nixpkgs";
-    keys.url           = "$HOME/sync/auth/keys/keys.nix";
     emacs-overlay.url  = github:nix-community/emacs-overlay;
     nixos-hardware.url = github:nixos/nixos-hardware/master;
     git-idris2.url     = github:idris-lang/Idris2?rev=5e9a90bd97d3940054dcf2fcaffccff7c72ef5ae;
@@ -26,7 +25,6 @@
             , nixpkgs
             , nixpkgs-unstable
             # , nixpkgs-local
-            , keys
             , git-idris2
             , ...
             }@attrs :
