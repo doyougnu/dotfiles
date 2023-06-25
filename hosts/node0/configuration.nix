@@ -3,12 +3,12 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
-
+let keys = import  /home/node0/sync/auth/keys/keys.nix;
+in
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      /home/node0/sync/auth/keys/keys.nix
     ];
 
   # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
@@ -106,9 +106,9 @@
         Network.libera = {
           Nick = "doyougnu";
           Pass.password = {
-            Method = znc.method;
-            Hash   = znc.hash;
-            Salt   = znc.salt;
+            Method = keys.znc.method;
+            Hash   = keys.znc.hash;
+            Salt   = keys.znc.salt;
           };
           LoadModule = [ "nickserv" ];
           JoinDelay = 2; # dont join without authenticating
