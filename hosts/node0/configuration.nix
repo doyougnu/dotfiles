@@ -3,7 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
-let keys = import "/home/node0/sync/auth/keys/keys.nix";
+let keys = import "/home/node0/sync/keys/auth/keys.nix";
 in
 {
   imports =
