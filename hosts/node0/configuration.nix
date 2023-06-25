@@ -88,12 +88,12 @@
     useLegacyConfig    = false;
     openFirewall       = true;
     confOptions.useSSL = true;
-    confOptions.extraZncConf =
-      ''SSLCertFile  = /home/node0/sync/keys/auth/nick.pem
-      '';
 
     config = {
       LoadModule = [ "adminlog" "certauth" ];
+      confOptions.extraZncConf =
+        ''SSLCertFile  = /home/node0/sync/keys/auth/nick.pem
+        '';
       User.doyougnu = {
         Admin = true;
         Network.libera = {
