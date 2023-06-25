@@ -25,7 +25,6 @@
             , nixpkgs
             , nixpkgs-unstable
             # , nixpkgs-local
-            , keys
             , git-idris2
             , ...
             }@attrs :
