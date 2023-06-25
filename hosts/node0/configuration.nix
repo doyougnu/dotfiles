@@ -67,6 +67,7 @@
     isSystemUser = true;
     extraGroups = [ "wheel" "networkmanager" "audio" "pulse" "znc" ];
     group = "node0";
+    home  = "/home/node0";
     packages = with pkgs; [
       emacs vim man-pages git
     ];
