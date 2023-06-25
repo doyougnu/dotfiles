@@ -93,8 +93,8 @@
 
     config = {
       LoadModule = [ "adminlog" "certauth" ];
-      SSLCertFile  = "/home/node0/sync/keys/auth/nick.pem";
-      SSLKeyFile   =  "/home/node0/sync/keys/auth/nick.pem";
+      SSLCertFile  = "/home/node0/sync/keys/auth/nick.cer";
+      SSLKeyFile   =  "/home/node0/sync/keys/auth/nick.key";
       User.doyougnu = {
         Admin = true;
         Network.libera = {
