@@ -79,7 +79,7 @@
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "node0";
-  home.homeDirectory = "/home/node0";
+  home.homeDirectory = lib.mkDefault "/home/node0";
 
   home.activation = {
       # symlinkAuth = lib.hm.dag.entryAfter ["writeBoundary"] ''
