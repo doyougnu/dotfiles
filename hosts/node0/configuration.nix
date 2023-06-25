@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      /home/node0/sync/auth/keys/keys.nix
     ];
 
   # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
@@ -77,9 +78,6 @@
                          members = ["node0"];
                          gid     = 1729;
                        };
-  users.groups.znc = { name = "znc";
-                       members = ["node0"];
-                     };
 
   # auto login
   services.getty.autologinUser = "node0";
@@ -107,6 +105,11 @@
         Admin = true;
         Network.libera = {
           Nick = "doyougnu";
+          Pass.password = {
+            Method = znc.method;
+            Hash   = znc.hash;
+            Salt   = znc.salt;
+          };
           LoadModule = [ "nickserv" ];
           JoinDelay = 2; # dont join without authenticating
           Server = "irc.libera.chat +6697";
