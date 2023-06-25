@@ -98,7 +98,7 @@
           LoadModule = [ "nickserv" ];
           JoinDelay = 2; # dont join without authenticating
           Server = "irc.libera.chat +6697";
-          SSL    = true;
+          useSSL = true;
           Chan = { "#ghc"        = {};
                    "#emacs"      = {};
                    "#ghcjs"      = {};
