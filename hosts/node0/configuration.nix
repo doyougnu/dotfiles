@@ -87,17 +87,18 @@
     mutable = false;
     useLegacyConfig = false;
     openFirewall = true;
+    SSLCertFile  = "/home/node0/sync/keys/auth/nick.pem";
 
     config = {
       LoadModule = [ "adminlog" "certauth" ];
       User.doyougnu = {
         Admin = true;
-        Pass  = "md5#::#::#";
         Network.libera = {
           Nick = "doyougnu";
           LoadModule = [ "nickserv" ];
           JoinDelay = 2; # dont join without authenticating
           Server = "irc.libera.chat +6697";
+          SSL    = true;
           Chan = { "#ghc"        = {};
                    "#emacs"      = {};
                    "#ghcjs"      = {};
@@ -108,29 +109,6 @@
                  };
         };
       };
-    };
-  };
-
-  environment.etc = {
-    # need to add a PAM service config, cyrusauth identifies itself as "znc"
-    # very standard config, copied from others in /etc/pam.d
-    # just checks that you have a valid account/password
-    "pam.d/znc" = {
-      source = pkgs.writeText "znc.pam" ''
-      # Account management.
-      account required pam_unix.so
-
-      # Authentication management.
-      auth sufficient pam_unix.so likeauth try_first_pass
-      auth required pam_deny.so
-
-      # Password management.
-      password sufficient pam_unix.so nullok sha512
-
-      # Session management.
-      session required pam_env.so conffile=/etc/pam/environment readenv=0
-      session required pam_unix.so
-    '';
     };
   };
 

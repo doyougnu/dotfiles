@@ -5,7 +5,7 @@
 
 (set-irc-server! "relay.local"
   '(:use-tls            t
-    :tls-keylist        (("~/sync/keys/auth/node0.pem"))
+    :tls-keylist        (("~/sync/keys/auth/nick.pem"))
     :reduce-lurker-spam t
     :port               5000
     :nickserv-nick      "doyougnu"
