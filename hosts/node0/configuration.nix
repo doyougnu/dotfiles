@@ -89,7 +89,7 @@
     openFirewall = true;
 
     config = {
-      LoadModule = [ "adminlog" "cyrusauth saslauthd" "webadmin" ];
+      LoadModule = [ "adminlog" "certauth" ];
       User.doyougnu = {
         Admin = true;
         Pass  = "md5#::#::#";
