@@ -3,6 +3,8 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
+let keys = import "/home/node0/sync/auth/keys/keys.nix";
+in
 {
   imports =
     [ # Include the results of the hardware scan.
