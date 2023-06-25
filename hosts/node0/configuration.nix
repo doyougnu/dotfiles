@@ -77,6 +77,7 @@
                          members = ["node0"];
                          gid     = 1729;
                        };
+  users.groups.znc = {};
   # auto login
   services.getty.autologinUser = "node0";
 
@@ -94,7 +95,6 @@
     openFirewall       = true;
     confOptions.useSSL = true;
     user = "node0";
-    group = "node0";
 
     config = {
       LoadModule = [ "adminlog" "certauth" ];
