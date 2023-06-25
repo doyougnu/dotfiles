@@ -65,7 +65,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.node0 = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "audio" "pulse" ];
+    extraGroups = [ "wheel" "networkmanager" "audio" "pulse" "znc" ];
     packages = with pkgs; [
       emacs vim man-pages git
     ];
