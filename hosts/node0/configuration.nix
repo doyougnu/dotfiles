@@ -91,9 +91,8 @@
 
     config = {
       LoadModule = [ "adminlog" "certauth" ];
-      confOptions.extraZncConf =
-        ''SSLCertFile  = /home/node0/sync/keys/auth/nick.pem
-        '';
+      SSLCertFile  = "/home/node0/sync/keys/auth/nick.pem";
+      SSLKeyFile   =  "/home/node0/sync/keys/auth/nick.pem";
       User.doyougnu = {
         Admin = true;
         Network.libera = {
