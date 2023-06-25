@@ -103,13 +103,13 @@ in
       # SSLKeyFile   =  "/home/node0/sync/keys/auth/nick.key";
       User.node0 = {
         Admin = true;
+        Pass.password = {
+          Method = keys.znc.method;
+          Hash   = keys.znc.hash;
+          Salt   = keys.znc.salt;
+        };
         Network.libera = {
           Nick = "doyougnu";
-          Pass.password = {
-            Method = keys.znc.method;
-            Hash   = keys.znc.hash;
-            Salt   = keys.znc.salt;
-          };
           LoadModule = [ "nickserv" ];
           JoinDelay = 2; # dont join without authenticating
           Server = "irc.libera.chat +6697";
