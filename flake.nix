@@ -7,6 +7,7 @@
     nixpkgs.url          = "nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     # nixpkgs-local.url    = "/home/doyougnu/programming/nix/nixpkgs";
+    keys.url           = "../sync/auth/keys/keys.nix";
     emacs-overlay.url  = github:nix-community/emacs-overlay;
     nixos-hardware.url = github:nixos/nixos-hardware/master;
     git-idris2.url     = github:idris-lang/Idris2?rev=5e9a90bd97d3940054dcf2fcaffccff7c72ef5ae;
@@ -25,6 +26,7 @@
             , nixpkgs
             , nixpkgs-unstable
             # , nixpkgs-local
+            , keys
             , git-idris2
             , ...
             }@attrs :
@@ -40,10 +42,6 @@
       # overlay-local = final: prev: {
       #   local = nixpkgs-local.legacyPackages.${prev.system};
       # };
-
-      key-overlay = home_dir: final: prev: {
-        keys = import "${home_dir}/sync/auth/keys/keys.nix";
-      };
 
       idris2-overlay = final: prev: {
         idris2 = git-idris2.packages.${system}.idris2;
@@ -84,7 +82,7 @@
         specialArgs = attrs;
         modules = [
           nixos-hardware.nixosModules.raspberry-pi-4
-          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable (key-overlay "/home/node0")]; })
+          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./hosts/node0/configuration.nix
 
           home-manager.nixosModules.home-manager {
