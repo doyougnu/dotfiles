@@ -14,3 +14,7 @@
 ;;;###autoload
 (defun dyg/nickserv-password (server)
   (dyg/fetch-password :user "doyougnu" :host "irc.libera.chat"))
+
+;;;###autoload
+(defun dyg/znc-password (server)
+  (dyg/fetch-password :user "doyougnu" :host "relay.local"))

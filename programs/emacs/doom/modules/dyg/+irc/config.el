@@ -2,14 +2,15 @@
 
 
 (setq auth-sources '("~/.authinfo.gpg"))
+(setq circe-color-nicks-everywhere t)
 
 (set-irc-server! "relay.local"
-  '(:use-tls            t
-    :tls-keylist        (("~/sync/keys/auth/nick.pem"))
+  '(:use-tls            f
     :reduce-lurker-spam t
     :port               5000
-    :nickserv-nick      "doyougnu"
-    :nickserv-password  dyg/nickserv-password
+    :user               "doyougnu"
+    :pass               dyg/znc-password
+    :sasl-external      t
     :sasl-username      "doyougnu"
     :sasl-password      dyg/nickserv-password
     :channels           ("#emacs" "#haskell" "#ghc" "#commonlisp" "#lispcafe"
