@@ -116,7 +116,7 @@
 
           home-manager.nixosModules.home-manager {
             home-manager.useUserPackages = false;
-            home-manager.useGlobalPkgs   = true;
+            home-manager.useGlobalPkgs   = false;
             home-manager.users.doyougnu = homeManagerConfFor ./hosts/desktop/home.nix;
           }
         ];

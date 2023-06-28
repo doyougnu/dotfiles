@@ -80,7 +80,7 @@ in
   environment.variables.EMACS_HOST   = "desktop"; # TODO move to home manager
 
   users.groups.voltron.gid = 7777;
-  users.extraUsers.doyougnu = { # don't forget to set a password with passwd
+  users.users.doyougnu = { # don't forget to set a password with passwd
       isNormalUser = true;
       extraGroups = ["networkmanager" "voltron" "wheel" "audio" "pulse" "docker" ];
       uid = 1729;

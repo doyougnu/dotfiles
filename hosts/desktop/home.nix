@@ -16,6 +16,10 @@ in {
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+  # nixpkgs.config = {
+  #   allowUnFree = true;
+  #   enableParallelBuildingByDefault = true;
+  # };
 
   # git setup
   programs.git = {
