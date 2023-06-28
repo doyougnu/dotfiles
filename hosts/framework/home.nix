@@ -395,8 +395,6 @@ in {
     pianobar
     python310
     python310Packages.pygments
-    qutebrowser
-    ranger
     ripgrep
     rsync
     rnix-lsp         # for nix lsp in emacs
@@ -406,7 +404,6 @@ in {
     spotify
     steam
     tdesktop
-    texlive.combined.scheme-full
     unison
     vlc
     xclip

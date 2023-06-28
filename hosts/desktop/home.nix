@@ -377,8 +377,6 @@ in {
     pinentry
     python310
     python310Packages.pygments
-    qutebrowser
-    ranger
     ripgrep
     rnix-lsp
     rsync
