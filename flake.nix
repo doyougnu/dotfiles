@@ -85,6 +85,7 @@
 
           home-manager.nixosModules.home-manager {
             home-manager.useUserPackages = true;
+            home-manager.useGlobalPkgs   = true;
             home-manager.users.node0 = homeManagerConfFor ./hosts/node0/home.nix;
           }
         ];
@@ -100,6 +101,7 @@
 
           home-manager.nixosModules.home-manager {
             home-manager.useUserPackages = true;
+            home-manager.useGlobalPkgs   = true;
             home-manager.users.doyougnu = homeManagerConfFor ./hosts/framework/home.nix;
           }
         ];
@@ -113,7 +115,8 @@
           ./hosts/desktop/configuration.nix
 
           home-manager.nixosModules.home-manager {
-            home-manager.useUserPackages = true;
+            home-manager.useUserPackages = false;
+            home-manager.useGlobalPkgs   = true;
             home-manager.users.doyougnu = homeManagerConfFor ./hosts/desktop/home.nix;
           }
         ];

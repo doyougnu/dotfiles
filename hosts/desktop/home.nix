@@ -2,8 +2,8 @@
 
 let
     myEmacs = import ../../programs/emacs/emacs.nix { pkgs = pkgs; config = config; unstable = pkgs; };
-    haskell-env = with pkgs.haskell.packages.${config.ghc.version}; [
-    ];
+    # haskell-env = with pkgs.haskell.packages.${config.ghc.version}; [
+    # ];
 
     # for mbsync service
     gpg = "/etc/profiles/per-user/doyougnu/bin/gpg2";
@@ -400,11 +400,9 @@ in {
     zip
   ] ++
   [ R
-    haskellPackages.hasktags
-    haskellPackages.hlint
   ]
-    ++
-    haskell-env
+    # ++
+    # haskell-env
     ++
   (with unstable;
     [ gmp
