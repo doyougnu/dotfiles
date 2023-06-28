@@ -118,65 +118,6 @@
     xclip xdotool
   ];
 
-  # List services that you want to enable:
-  services.syncthing = {
-    enable    = true;
-    package   = pkgs.unstable.syncthing;
-    user      = "doyougnu";
-    dataDir   = "/home/doyougnu/sync";
-    configDir = "/home/doyougnu/.config/syncthing";
-    devices = {
-      "voltron" = { id = "QXVXZ3O-M3WUXGW-HVQOIJM-XHIL2QG-AIG5AJW-PYNZF6W-4T7YCUW-N7HFHQC"; };
-      "7thChamber-framework" = { id = "QFU3KKN-B6Q5UM5-DL7A5YF-GCBP7OJ-FUARMRP-IXVRNQE-J3DXJSI-N3B4CQR"; };
-      "7thChamber-desktop"   = { id = "I3UKPJJ-TU3N6OF-4F2REJ5-5QGMHDW-SIKIIDL-ZZU3CVC-BRQJOME-C5Z73AG"; };
-    };
-
-    folders = {
-      "org" = {
-        id      = "a5she-s5zwp";
-        path    = "/home/doyougnu/sync/org";
-        devices = [ "voltron" "7thChamber-framework" "7thChamber-desktop" ];
-      };
-      "Books" = {
-        id      = "hq3xr-sqxfw";
-        path    = "/home/doyougnu/sync/Books";
-        devices = [ "voltron" "7thChamber-framework" "7thChamber-desktop" ];
-      };
-      "dnd" = {
-        id      = "ntwfo-bgvsq";
-        path    = "/home/doyougnu/sync/dnd";
-        devices = [ "voltron" "7thChamber-framework" "7thChamber-desktop" ];
-      };
-      "other" = {
-        id      = "vshib-2mbq2";
-        path    = "/home/doyougnu/sync/other";
-        devices = [ "voltron" "7thChamber-framework" "7thChamber-desktop" ];
-      };
-      "deft" = {
-        id      = "wzppz-wf5vh";
-        path    = "/home/doyougnu/sync/deft";
-        devices = [ "voltron" "7thChamber-framework" "7thChamber-desktop" ];
-      };
-      "wallpapers" = {
-        id      = "ydge2-qncvp";
-        path    = "/home/doyougnu/sync/wallpapers";
-        devices = [ "voltron" "7thChamber-framework" "7thChamber-desktop" ];
-      };
-      "keys" = {
-        id      = "yglju-g4hng";
-        path    = "/home/doyougnu/sync/keys";
-        devices = [ "voltron" "7thChamber-framework" "7thChamber-desktop" ];
-      };
-      "roam" = {
-        id      = "oezuf-gad5a";
-        path    = "/home/doyougnu/sync/roam";
-        devices = [ "voltron" "7thChamber-framework" "7thChamber-desktop" ];
-      };
-    };
-    overrideFolders = true;
-    overrideDevices = true;
-  };
-
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
