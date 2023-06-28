@@ -99,8 +99,6 @@ in
 
     config = {
       LoadModule = [ "adminlog" "certauth" ];
-      # SSLCertFile  = "/home/node0/sync/keys/auth/nick.cer";
-      # SSLKeyFile   =  "/home/node0/sync/keys/auth/nick.key";
       User.doyougnu = {
         Admin = true;
         Pass.password = {
