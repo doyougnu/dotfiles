@@ -124,6 +124,19 @@ in
     };
   };
 
+  # a systemd unit for hledger
+  systemd.services.hledger = {
+    enable = true;
+    description = "Start the hledger-web server";
+    unitConfig = {
+      Type = "simple";
+    };
+    serviceConfig = {
+      ExecStart = "${pkgs.hledger-web}/bin/hledger-web";
+    };
+    wantedBy = [ "multi-user.target" ];
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
    environment.systemPackages = with pkgs; [
