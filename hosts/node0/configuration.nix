@@ -132,7 +132,7 @@ in
       Type = "simple";
     };
     serviceConfig = {
-      ExecStart = "${pkgs.hledger-web}/bin/hledger-web -F /home/node0/.hledger.journal";
+      ExecStart = "${pkgs.hledger-web}/bin/hledger-web --serve -f /home/node0/.hledger.journal";
     };
     wantedBy = [ "multi-user.target" ];
   };
@@ -159,7 +159,7 @@ in
   };
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 8384 22000];
+  networking.firewall.allowedTCPPorts = [ 5000 8384 22000]; #open default ports for hledger, syncthing
   networking.firewall.allowedUDPPorts = [ 22000 21027];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
