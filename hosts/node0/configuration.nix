@@ -132,7 +132,7 @@ in
       Type = "simple";
     };
     serviceConfig = {
-      ExecStart = "${pkgs.hledger-web}/bin/hledger-web";
+      ExecStart = "${pkgs.hledger-web}/bin/hledger-web -F /home/node0/.hledger.journal";
     };
     wantedBy = [ "multi-user.target" ];
   };
