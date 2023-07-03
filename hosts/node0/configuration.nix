@@ -84,6 +84,7 @@ in
 
   # cyrusauth module talks to saslauthd, default auth mechanism is PAM
   services.saslauthd.enable = true;
+
   # znc service config has some hardening options that otherwise block
   # interaction with saslauthd's unix socket
   systemd.services.znc.serviceConfig.RestrictAddressFamilies = [ "AF_UNIX" ];
@@ -98,7 +99,7 @@ in
     group = "users";
 
     config = {
-      LoadModule = [ "adminlog" "certauth" ];
+      LoadModule = [ "adminlog" "certauth" "cyrusauth" ];
       User.doyougnu = {
         Admin = true;
         Pass.password = {
