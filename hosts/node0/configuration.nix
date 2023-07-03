@@ -99,7 +99,7 @@ in
     group = "users";
 
     config = {
-      LoadModule = [ "adminlog" "certauth" "cyrusauth" ];
+      LoadModule = [ "adminlog" "certauth" "cyrusauth saslauthd" ];
       User.doyougnu = {
         Admin = true;
         Pass.password = {
