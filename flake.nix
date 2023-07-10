@@ -100,8 +100,8 @@
           ./hosts/framework/configuration.nix
 
           home-manager.nixosModules.home-manager {
-            home-manager.useUserPackages = true;
-            home-manager.useGlobalPkgs   = true;
+            home-manager.useUserPackages = false;
+            home-manager.useGlobalPkgs   = false;
             home-manager.users.doyougnu = homeManagerConfFor ./hosts/framework/home.nix;
           }
         ];

@@ -155,9 +155,9 @@
 
   environment.variables.GTAGSLABEL="ctags";
 
-  users.extraUsers.doyougnu = { # don't forget to set a password with passwd
+  users.users.doyougnu = { # don't forget to set a password with passwd
       isNormalUser = true;
-      extraGroups = ["syncthing" "networkmanager" "wheel" "audio" "pulse" "docker" "video"];
+      extraGroups = [ "networkmanager" "wheel" "audio" "pulse" "docker" "video"];
       uid = 1729;
       shell = pkgs.fish;
       home = "/home/doyougnu";
@@ -246,9 +246,9 @@
     nerdfonts
     font-awesome_5
     # font-awesome_4
-    material-icons
+    # material-icons
     emacs-all-the-icons-fonts
-    numix-icon-theme-circle
+    # numix-icon-theme-circle
     # symbola
    ];
 

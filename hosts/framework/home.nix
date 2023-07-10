@@ -377,13 +377,11 @@ in {
     gcc   # for org-roam
     google-chrome
     gauche
-    gephi
-    gollum
+    # gollum
     libevent
     idris2
     # libnotify
     killall         # for polybar launch script
-    libreoffice
     moreutils
     myEmacs
     unstable.mu              # for email
@@ -404,7 +402,6 @@ in {
     spotify
     steam
     tdesktop
-    unison
     vlc
     xclip
     xorg.xwininfo    # for emacs everywhere
@@ -418,11 +415,11 @@ in {
     # rEnv
     # pyEnv
   ] ++
-  (with pkgs;
-  [ haskellPackages.hasktags
-    haskellPackages.hlint
-  ])
-    ++
+  # (with pkgs;
+  # [ haskellPackages.hasktags
+  #   haskellPackages.hlint
+  # ])
+    # ++
   (with pkgs;
     [ gmp
       numactl
