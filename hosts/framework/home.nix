@@ -380,7 +380,7 @@ in {
     # gollum
     libevent
     idris2
-    # libnotify
+    libnotify
     killall         # for polybar launch script
     moreutils
     myEmacs
