@@ -28,7 +28,8 @@
                        (projectile-root-bottom-up buffer-file-name))
 
                       ))
-                  (latex-mode . (("latex build"     . "latexmk -pdf -shell-escape paper.tex")
+                  (latex-mode . (("latex build buffer" . "latexmk -pdf -shell-escape %file-name")
+                                 ("latex build paper"  . "latexmk -pdf -shell-escape paper.tex")
                                  ("latex nix-build" . "nix-build")))
                   ))))
 

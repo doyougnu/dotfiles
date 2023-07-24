@@ -242,9 +242,10 @@ in {
   xdg.configFile."polybar/launch.sh".source = ../../programs/polybar/launch.sh;
   # xmonad
   home.file.".xmonad/xmonad.hs".source = ../../programs/xmonad/xmonad_desktop.hs;
+  home.file.".xmonad/xmonad.hs".onChange = "xmonad --recompile";
   # doom emacs
   home.file.".doom.d/".source = ../../programs/emacs/doom;
-  home.file.".doom.d/".onChange= "/home/doyougnu/.emacs.d/bin/doom sync";
+  home.file.".doom.d/".onChange = "/home/doyougnu/.emacs.d/bin/doom sync";
   # symlink auth on new hm generation activation
   home.activation = {
       symlinkAuth = lib.hm.dag.entryAfter ["writeBoundary"] ''
@@ -377,6 +378,7 @@ in {
     multimarkdown
     nodejs-18_x
     pdfpc           # pdf presentaitons from the shell
+    texlive.combined.scheme-full # need full for org-beamer, should setup the right derivation
     polybar
     pinentry
     python310

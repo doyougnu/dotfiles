@@ -244,3 +244,5 @@
                                (counsel-rg     . 3)
                                (counsel-search . 3)
                                (t              . 3))))
+
+(setq browse-url-browser-function 'firefox)

@@ -208,6 +208,7 @@
        idris2
        +elisp
        +haskell
+       +latex
 
        :+editor
        corfu
@@ -217,6 +218,6 @@
        org-mru-clock
 
        :+tools
-       w3m
+       ;; w3m
 
        )
