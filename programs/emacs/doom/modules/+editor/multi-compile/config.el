@@ -30,6 +30,7 @@
                       ))
                   (latex-mode . (("latex build buffer" . "latexmk -pdf -shell-escape %file-name")
                                  ("latex build paper"  . "latexmk -pdf -shell-escape paper.tex")
+                                 ("latex clean"        . "latexmk -c")
                                  ("latex nix-build" . "nix-build")))
                   ))))
 

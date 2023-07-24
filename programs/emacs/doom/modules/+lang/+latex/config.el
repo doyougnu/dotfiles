@@ -4,6 +4,7 @@
 
   ;;;;;;;;;;;;;;;;;;;;;;;;; Custom key binds ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (map!
-   (:map latex-mode-map
+   (:map (latex-mode-map LaTeX-mode-map)
     :localleader
-    "e" #'LaTeX-close-environment)))
+    "e" #'LaTeX-environment
+    "E" #'LaTeX-close-environment)))
