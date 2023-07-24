@@ -394,6 +394,7 @@ in {
     spotify-unwrapped
     slack
     steam
+    texlab           # lsp for latex
     unison
     xclip
     xorg.xwininfo    # for emacs everywhere
