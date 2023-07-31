@@ -249,7 +249,7 @@
     # material-icons
     emacs-all-the-icons-fonts
     # numix-icon-theme-circle
-    # symbola
+    symbola
    ];
 
   ## mopidy config

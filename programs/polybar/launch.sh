@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # Terminate already running bar instances
-killall -q polybar --config=~/.config/polybar/config
+killall -q polybar
 
 # Wait until the processes have been shut down
 while pgrep -u $UID -x polybar >/dev/null; do sleep 3; done

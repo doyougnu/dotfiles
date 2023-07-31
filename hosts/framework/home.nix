@@ -379,6 +379,7 @@ in {
     gauche
     # gollum
     libevent
+    libpulseaudio  # for polybar config
     idris2
     libnotify
     killall         # for polybar launch script
