@@ -238,8 +238,8 @@ in {
 
   # write config files
   # polybar
-  xdg.configFile."polybar/config.ini".source    = ../../programs/polybar/config_desktop;
-  xdg.configFile."polybar/launch.sh".source = ../../programs/polybar/launch.sh;
+  xdg.configFile."polybar/config-desktop.ini".source    = ../../programs/polybar/config-desktop.ini;
+  xdg.configFile."polybar/launch-desktop.sh".source = ../../programs/polybar/launch-desktop.sh;
   # xmonad
   home.file.".xmonad/xmonad.hs".source = ../../programs/xmonad/xmonad_desktop.hs;
   home.file.".xmonad/xmonad.hs".onChange = "xmonad --recompile";
@@ -401,6 +401,7 @@ in {
     xdotool          # for emacs everywhere
     xdg-dbus-proxy
     xdg-desktop-portal
+    xmonad-log
     w3m              # text browser for emacs-w3m
     sqlite
     wordnet

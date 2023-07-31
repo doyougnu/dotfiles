@@ -16,6 +16,7 @@ in
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
   ## Enable pulseaudio and bluetooth
   sound.enable = true;
@@ -66,7 +67,7 @@ in
     stdenv pkgconfig curl xorg.xmodmap htop aspellDicts.en
     aspell pciutils wirelesstools pavucontrol unzip
     openssl gnutls git libnotify emacs alsaLib xmonad-log
-    dmenu xorg.xprop xorg.xwininfo xclip xdotool autorandr
+    dmenu xorg.xprop xorg.xwininfo xclip xdotool
 
     ];
 
@@ -139,6 +140,11 @@ in
       ];
     };
 
+    # values taken from nvidia-settings
+    screenSection = ''
+      # Removed Option "metamodes" "DVI-D-0: 1920x1080_120 +0+0, HDMI-0: nvidia-auto-select +1920+0"
+    '';
+
     layout = "dyg-dvorak,";
     xkbVariant = "dvorak";
     videoDrivers = [ "nvidia" ];
@@ -158,12 +164,17 @@ in
       sessionCommands = ''
        ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
        '';
+      setupCommands = ''
+       ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-0 --primary --mode 1920x1080 --rate 60 --pos 0x0 --rotate left --output DVI-D-0 --mode 1920x1080 --rate 120 --right-of HDMI-0
+       '';
     };
 
   };
 
   ## default is no desktop manager and xmonad
   services.xserver.displayManager.defaultSession = "none+xmonad";
+  ## fallback to xterm if something should happen
+  services.xserver.desktopManager.xterm.enable = true;
 
   # Drivers 32bit support
   hardware.opengl.enable = true;
