@@ -118,13 +118,17 @@
         :desc "projectile: find file"   "oO" #'projectile-find-file
         :desc "ace-window"              "ww" #'ace-window)
 
-  (map! :map evil-motion-state-map
+  (map! :map (evil-normal-state-map evil-visual-state-map)
         "l" #'evil-forward-word-begin
         "h" #'evil-backward-word-begin
         "L" #'evil-forward-char
         "H" #'evil-backward-char
-        "j" #'evilem-motion-next-line
-        "k" #'evilem-motion-previous-line))
+        "j" #'evil-forward-paragraph
+        "k" #'evil-backward-paragraph
+        "J" #'evil-next-line
+        "K" #'evil-previous-line
+        "C-j" #'evil-join
+        "C-k" #'electric-newline-and-maybe-indent))
 
 ;; keybindings
 (map! :leader
