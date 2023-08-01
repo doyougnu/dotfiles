@@ -6,7 +6,7 @@
   :after-call (sly geiser-mode emacs-lisp-mode)
   :config
   (symex-initialize)
-  (setq browse-url-browser-function 'w3m-browse-url)
+  ;; (setq browse-url-browser-function 'w3m-browse-url)
   ;; have to unbind set input-mode
   (map! :map global-map
         "C-\\" nil)
