@@ -127,6 +127,8 @@
         "k" #'evil-backward-paragraph
         "J" #'evil-next-line
         "K" #'evil-previous-line
+        "gj" #'evilem-motion-next-line
+        "gk" #'evilem-motion-previous-line
         "C-j" #'evil-join
         "C-k" #'electric-newline-and-maybe-indent))
 
