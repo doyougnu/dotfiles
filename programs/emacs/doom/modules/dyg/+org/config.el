@@ -281,6 +281,7 @@
     "." #'org-insert-structure-template
     "," #'org-ctrl-c-ctrl-c
     "L" #'org-latex-preview
+    "S" #'org-save-all-org-buffers
     "SPC" #'org-add-note
 
     (:prefix ("s" . "tree/subtree")
