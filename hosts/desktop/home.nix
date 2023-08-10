@@ -378,7 +378,6 @@ in {
     multimarkdown
     nodejs-18_x
     pdfpc           # pdf presentaitons from the shell
-    texlive.combined.scheme-full # need full for org-beamer, should setup the right derivation
     polybar
     pinentry
     python310
@@ -394,7 +393,6 @@ in {
     spotify-unwrapped
     slack
     steam
-    texlab           # lsp for latex
     unison
     xclip
     xorg.xwininfo    # for emacs everywhere

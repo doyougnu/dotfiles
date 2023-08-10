@@ -403,7 +403,6 @@ in {
     spotify
     steam
     tdesktop
-    texlab           # lsp for latex
     vlc
     xclip
     xorg.xwininfo    # for emacs everywhere
