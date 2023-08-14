@@ -8,8 +8,6 @@
 
   (add-hook! LaTeX-mode-hook 'prettify-symbols-mode)
   (add-hook! latex-mode-hook 'prettify-symbols-mode)
-  (add-hook! LaTeX-mode-hook #'turn-on-auto-fill)
-  (add-hook! latex-mode-hook #'turn-on-auto-fill)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;; Custom key binds ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (map!

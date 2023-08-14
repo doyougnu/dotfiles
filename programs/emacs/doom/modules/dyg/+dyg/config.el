@@ -45,7 +45,7 @@
 (setq load-prefer-newer t)
 
 ;; use the text browser
-(setq +lookup-open-url-fn #'eww)
+;; (setq +lookup-open-url-fn #'eww)
 
 ;; faster which-keys
 (setq which-key-idle-delay 0.15)
