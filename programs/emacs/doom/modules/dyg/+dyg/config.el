@@ -194,6 +194,12 @@
                    :desc "Add Tag"    "rt" #'org-roam-tag-add
                    :desc "Remove Tag" "rT" #'org-roam-tag-remove))
 
+(map! :map company-active-map
+      :after company
+      "C-s" #'company-complete-selection
+      "C-t" #'company-filter-candidates
+      "C--" #'fill-paragraph)
+
 (map! (:map company-active-map
             "C-s" #'company-complete-selection
             "C--" #'fill-paragraph)
@@ -212,6 +218,7 @@
 ;; (map! :map minibuffer-local-map
 ;;       "C-o" #'previous-history-element
 ;;       "C-u" #'next-history-element)
+
 
 (map! :map eshell-mode-map
       :ni "C-n" #'eshell-next-matching-input-from-input
