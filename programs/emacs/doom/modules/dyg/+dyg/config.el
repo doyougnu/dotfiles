@@ -90,12 +90,7 @@
 
 ;; Yas
 (after! yasnippet
-  (setq yas-global-mode t)
-  ;; (map! :map yas-minor-mode-map
-  ;;       "C-s" #'yas-expand)
-  (map! :map yas-keymap
-        "C-n" #'yas-next-field-or-maybe-expand
-        "C-p" #'yas-prev-field))
+  (setq yas-global-mode t))
 
 ;; workaround emacs-everwhere DEL bug:
 ;; https://github.com/tecosaur/emacs-everywhere/issues/49
