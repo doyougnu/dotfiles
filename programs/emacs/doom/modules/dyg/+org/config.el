@@ -88,43 +88,45 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;; Org Roam Config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; org roam config
-  (setq org-roam-directory (file-truename "~/sync/roam")
-        org-roam-inbox     (concat org-roam-directory "/" "refile.org"))
-
-  (setq org-roam-capture-templates
-        '(("m" "main" plain "%?"
-           :if-new (file+head "main/${slug}.org"
-                              "#+title: ${title}\n")
-           :immediate-finish t
-           :unnarrowed t)
-          ("l" "literature" plain "%?"
-           :if-new
-           (file+head "literature/${title}.org" "#+title: ${title}\n")
-           :immediate-finish t
-           :unnarrowed t)
-          ("c" "concepts" plain "%?"
-           :if-new
-           (file+head "concepts/${title}.org" "#+title: ${title}\n#+filetags: :article:\n")
-           :immediate-finish t
-           :unnarrowed t)))
-
-  (cl-defmethod org-roam-node-type ((node org-roam-node))
-    "Return the TYPE of NODE."
-    (condition-case nil
-        (file-name-nondirectory
-         (directory-file-name
-          (file-name-directory
-           (file-relative-name (org-roam-node-file node) org-roam-directory))))
-      (error "")))
 
   (after! org-roam
+
+    (setq org-roam-directory (file-truename "~/sync/roam")
+          org-roam-inbox     (concat org-roam-directory "/" "refile.org"))
+
+    (setq org-roam-capture-templates
+          '(("m" "main" plain "%?"
+             :if-new (file+head "main/${slug}.org"
+                                "#+title: ${title}\n")
+             :immediate-finish t
+             :unnarrowed t)
+            ("l" "literature" plain "%?"
+             :if-new
+             (file+head "literature/${title}.org" "#+title: ${title}\n")
+             :immediate-finish t
+             :unnarrowed t)
+            ("c" "concepts" plain "%?"
+             :if-new
+             (file+head "concepts/${title}.org" "#+title: ${title}\n#+filetags: :article:\n")
+             :immediate-finish t
+             :unnarrowed t)))
+
+    (cl-defmethod org-roam-node-type ((node org-roam-node))
+      "Return the TYPE of NODE."
+      (condition-case nil
+          (file-name-nondirectory
+           (directory-file-name
+            (file-name-directory
+             (file-relative-name (org-roam-node-file node) org-roam-directory))))
+        (error "")))
+
     (setq org-roam-node-display-template
-          (concat "${type:15} ${title:*} " (propertize "${tags:10}" 'face 'org-tag))))
+          (concat "${type:15} ${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
 
-  (defun roam|tag-new-node-as-draft ()
-    (org-roam-tag-add '("draft")))
+    (defun roam|tag-new-node-as-draft ()
+      (org-roam-tag-add '("draft")))
 
-  (add-hook! 'org-roam-capture-new-node-hook #'roam|tag-new-node-as-draft)
+    (add-hook! 'org-roam-capture-new-node-hook #'roam|tag-new-node-as-draft))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;; Org Agenda Config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; orgmode organization stuff

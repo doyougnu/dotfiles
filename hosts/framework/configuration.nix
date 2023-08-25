@@ -88,9 +88,11 @@
        allowed-users =  ["@wheel"];
        trusted-public-keys = [
          "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+         "ghc-nix.cachix.org-1:wI8l3tirheIpjRnr2OZh6YXXNdK2fVQeOI4SVz/X8nA="
        ];
        substituters = [
          "https://cache.iog.io"
+         "https://ghc-nix.cachix.org"
        ];
      };
   };

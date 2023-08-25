@@ -364,6 +364,7 @@ in {
   home.packages = with pkgs; [
     alsa-utils
     chez
+    cachix
     discord
     entr
     evince
