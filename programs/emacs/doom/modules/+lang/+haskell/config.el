@@ -54,4 +54,7 @@
         :nv "," #'haskell-interactive-switch-back
         :nv "c" #'haskell-interactive-mode-clear)
 
-(set-repl-handler! 'haskell-mode #'+haskell/haskell-interactive-bring))
+(set-repl-handler! 'haskell-mode #'+haskell/haskell-interactive-bring)
+(add-hook! 'haskell-mode-hook #'haskell-unicode-input-method-enable)
+(setq haskell-font-lock-symbols t)
+)
