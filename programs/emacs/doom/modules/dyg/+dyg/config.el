@@ -118,10 +118,8 @@
         "h" #'evil-backward-word-begin
         "L" #'evil-forward-char
         "H" #'evil-backward-char
-        "j" #'evil-forward-paragraph
-        "k" #'evil-backward-paragraph
-        "J" #'evil-next-line
-        "K" #'evil-previous-line
+        "J" #'evil-forward-paragraph
+        "K" #'evil-backward-paragraph
         "gj" #'evilem-motion-next-line
         "gk" #'evilem-motion-previous-line
         "C-j" #'evil-join
