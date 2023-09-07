@@ -6,8 +6,8 @@
         TeX-parse-self t
         TeX-debug-bad-boxes t)
 
-  (add-hook! LaTeX-mode-hook 'prettify-symbols-mode)
-  (add-hook! latex-mode-hook 'prettify-symbols-mode)
+  (add-hook! 'LaTeX-mode-hook 'prettify-symbols-mode)
+  (add-hook! 'latex-mode-hook 'prettify-symbols-mode)
   (advice-add 'LaTeX-environment :before (lambda (&optional arg)
                                            (ignore arg)
                                            (evil-insert-newline-below)))

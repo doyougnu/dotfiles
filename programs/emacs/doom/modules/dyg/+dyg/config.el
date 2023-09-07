@@ -207,10 +207,12 @@
 (map! :map global-map
        :nv "C--" #'fill-paragraph)
 
-;; unsure if i want to keep this because I can just use C-n and C-p
-;; (map! :map minibuffer-local-map
-;;       "C-o" #'previous-history-element
-;;       "C-u" #'next-history-element)
+;; unsure if i want to keep this because I can just use C-n and C-p I'm more
+;; sure now this is useful for swiper which uses C-n and C-p to move candidates,
+;; so having these makes sense as a backup
+(map! :map minibuffer-local-map
+      "C-o" #'previous-history-element
+      "C-u" #'next-history-element)
 
 
 (map! :map eshell-mode-map
