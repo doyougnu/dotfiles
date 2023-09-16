@@ -157,7 +157,7 @@
        :desc "debug-on-error" "d" #'toggle-debug-on-error)
 
       (:prefix-map ("s" . "search")
-       :desc "Search project for point" "p" #'+default/search-project-for-symbol-at-point)
+       :desc "Search project for point" "p" #'+vertico/project-search-from-cwd)
 
       (:when (modulep! :tools lsp)
        :desc "lsp-imenu" "cI" #'lsp-ui-imenu)
