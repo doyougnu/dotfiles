@@ -40,6 +40,7 @@
   (setq org-edit-src-content-indentation 2)
   (setq org-use-fast-todo-selection      t)
   (setq org-refile-use-outline-path      t)
+  (setq org-blank-before-new-entry '((heading . t) (plain-list-item . t)))
 
   ;; don't set bookmarks on a capture
   (setf org-capture-bookmark             nil)
