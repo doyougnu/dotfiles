@@ -43,7 +43,7 @@
 ;; (setq doom-theme 'doom-ir-black)
 ;; (setq doom-theme 'doom-solarized-dark-high-contrast)
 ;; (setq doom-theme 'doom-gruvbox-light)
-(setq doom-theme 'wombat)
+(setq doom-theme 'doom-outrun-electric)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
