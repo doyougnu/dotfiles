@@ -46,7 +46,7 @@ in {
     extraConfig = ''
       copy_on_select yes
     '';
-    theme = "Novel";
+    theme = "Chalk";
     settings = {
       font_size = "14.0";
     };
@@ -238,8 +238,8 @@ in {
 
   # manually write config files
   # polybar
-  xdg.configFile."polybar/config.ini".source    = ../../programs/polybar/config.ini;
-  xdg.configFile."polybar/launch.sh".source = ../../programs/polybar/launch.sh;
+  xdg.configFile."polybar/config.ini".source = ../../programs/polybar/config.ini;
+  xdg.configFile."polybar/launch.sh".source  = ../../programs/polybar/launch.sh;
   # xmonad
   home.file.".xmonad/xmonad.hs".source = ../../programs/xmonad/xmonad_framework.hs;
   # doom emacs
