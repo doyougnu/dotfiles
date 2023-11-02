@@ -409,11 +409,8 @@ in {
     wordnet
     zip
   ] ++
-  [ R
+  [ R-with-packages
   ]
-    # ++
-    # haskell-env
-    ++
   (with unstable;
     [ gmp
       numactl

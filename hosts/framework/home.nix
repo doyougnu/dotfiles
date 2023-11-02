@@ -416,15 +416,8 @@ in {
     wordnet
     zip
   ] ++
-  [ R
-    # rEnv
-    # pyEnv
+  [ R-with-packages
   ] ++
-  # (with pkgs;
-  # [ haskellPackages.hasktags
-  #   haskellPackages.hlint
-  # ])
-    # ++
   (with pkgs;
     [ gmp
       numactl

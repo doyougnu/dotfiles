@@ -28,7 +28,7 @@
           doom-big-font (font-spec :family font-family :size 11))))
 
 ;; set private config to dotfiles not nix-store copy
-(setq doom-private-dir "~/dotfiles/programs/emacs/doom")
+(setq doom-user-dir "~/dotfiles/programs/emacs/doom")
 
 ;; set evil escape to be spacemacs-esque
 (setq-default evil-escape-key-sequence "tn")
@@ -43,13 +43,17 @@
 ;; (setq doom-theme 'doom-ir-black)
 ;; (setq doom-theme 'doom-solarized-dark-high-contrast)
 ;; (setq doom-theme 'doom-gruvbox-light)
-(setq doom-theme 'doom-outrun-electric)
+;; (setq doom-theme 'doom-outrun-electric)
+
+(if (equal (getenv "EMACS_HOST") "framework")
+    (setq doom-theme 'doom-gruvbox-light)
+    (setq doom-theme 'doom-outrun-electric))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 
-(setq tab-always-indent 'complete)
+(setq tab-always-indent t)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
