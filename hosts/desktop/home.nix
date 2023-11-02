@@ -4,6 +4,9 @@ let
     myEmacs = import ../../programs/emacs/emacs.nix { pkgs = pkgs; config = config; unstable = pkgs; };
     # haskell-env = with pkgs.haskell.packages.${config.ghc.version}; [
     # ];
+    R-with-packages = pkgs.rWrapper.override { packages = with pkgs.rPackages; [
+      tidyverse cowplot
+    ]; };
 
     # for mbsync service
     gpg = "/etc/profiles/per-user/doyougnu/bin/gpg2";

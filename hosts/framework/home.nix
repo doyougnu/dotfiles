@@ -3,6 +3,10 @@
 let 
     myEmacs = import ../../programs/emacs/emacs.nix { pkgs = pkgs; config = config; unstable = pkgs; };
 
+    R-with-packages = pkgs.rWrapper.override { packages = with pkgs.rPackages; [
+      tidyverse cowplot
+    ]; };
+
     # for mbsync service
     gpg = "/etc/profiles/per-user/doyougnu/bin/gpg2";
     awk = "/run/current-system/sw/bin/awk";
