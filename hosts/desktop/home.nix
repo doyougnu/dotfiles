@@ -410,7 +410,7 @@ in {
     zip
   ] ++
   [ R-with-packages
-  ]
+  ] ++
   (with unstable;
     [ gmp
       numactl
