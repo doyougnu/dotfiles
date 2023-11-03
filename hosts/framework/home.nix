@@ -382,6 +382,7 @@ in {
     google-chrome
     gauche
     # gollum
+    haskellPackages.hasktags
     libevent
     libpulseaudio  # for polybar config
     idris2

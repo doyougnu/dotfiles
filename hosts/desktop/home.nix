@@ -375,6 +375,7 @@ in {
     feh
     gcc            # for org-roam
     google-chrome
+    haskellPackages.hasktags
     libevent
     killall         # for polybar launch script
     moreutils
