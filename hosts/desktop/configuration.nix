@@ -147,15 +147,16 @@ in
       # Removed Option "metamodes" "DVI-D-0: 1920x1080_120 +0+0, HDMI-0: nvidia-auto-select +1920+0"
     '';
 
-    layout = "dyg-dvorak,";
-    xkbVariant = "dvorak";
     videoDrivers = [ "nvidia" ];
 
-    extraLayouts.dyg-dvorak = {
-      description = "My custom layout";
-      languages   = [ "eng" ];
-      symbolsFile = ../../programs/symbols/dyg-dvorak;
-    };
+    # set this in the keyboard instead
+    # layout = "dyg-dvorak,";
+    # xkbVariant = "dvorak";
+    # extraLayouts.dyg-dvorak = {
+    #   description = "My custom layout";
+    #   languages   = [ "eng" ];
+    #   symbolsFile = ../../programs/symbols/dyg-dvorak;
+    # };
 
     displayManager = {
       lightdm.enable = true;
