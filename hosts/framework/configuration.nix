@@ -66,8 +66,7 @@
   networking.extraHosts =
     ''
     192.168.0.152 pihole.local
-    192.168.0.185 relay.local
-    192.168.0.184 relay.local
+    192.168.1.185 relay.local
     '';
 
   # Select internationalisation properties.
