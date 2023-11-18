@@ -387,6 +387,7 @@ in {
     pinentry
     python310
     python310Packages.pygments
+    ranger
     ripgrep
     rnix-lsp
     rsync

@@ -399,6 +399,7 @@ in {
     pianobar
     python310
     python310Packages.pygments
+    ranger
     ripgrep
     rsync
     rnix-lsp         # for nix lsp in emacs
