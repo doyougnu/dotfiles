@@ -33,7 +33,7 @@ in
   networking.hostName = "7thChamber"; # Define your hostname.
   networking.extraHosts =
     ''
-    192.168.0.152 pihole.local
+    192.168.1.249 pihole.local
     192.168.1.185 relay.local
     '';
 
