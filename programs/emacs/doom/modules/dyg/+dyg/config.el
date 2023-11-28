@@ -254,3 +254,7 @@
                                (t              . 3))))
 
 (setq browse-url-browser-function 'firefox)
+
+;;;;;;;;;;;;;;;;;;;;;;;;; Comint config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; process color escape sequences
+(add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
