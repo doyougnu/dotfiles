@@ -6,6 +6,7 @@
   (set-repl-handler! 'forth-mode 'forth-mode-switch-to-output-buffer)
   (set-lookup-handlers! 'forth-mode
     :documentation #'forth-spec-lookup-2012)
+  (setq forth-executable "gforth")
   (map! :after forth-mode
         :map forth-mode-map
         :localleader
