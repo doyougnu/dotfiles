@@ -381,6 +381,7 @@ in {
     gcc   # for org-roam
     google-chrome
     gauche
+    gforth # aoc2023
     # gollum
     haskellPackages.hasktags
     libevent

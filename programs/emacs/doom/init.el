@@ -204,9 +204,10 @@
        +dnd                  ; roll for initiative
 
        :+lang
-       bqn
+       ;; bqn
+       ;; idris2
        klister
-       idris2
+       forth
        +elisp
        +haskell
        +latex
