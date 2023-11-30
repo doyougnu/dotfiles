@@ -296,6 +296,7 @@
              "-" #'org-babel-execute-subtree
              "b" #'org-babel-execute-buffer
              "n" #'org-babel-next-src-block
+             "e" #'org-babel-execute-src-block
              "p" #'org-babel-previous-src-block
              "s" #'org-babel-pop-to-session
              "S" #'org-babel-switch-to-session-with-code))
