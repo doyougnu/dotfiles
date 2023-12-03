@@ -25,9 +25,10 @@
                       ("JS Configure"     "emconfigure ./configure --target=js-unknown-ghcjs"
                        (projectile-root-bottom-up buffer-file-name))
                       ("JS Build"     "hadrian/build -j12 --flavour=quick-js+omit_pragmas --build-root=_js-backend --bignum=native --docs=none \"stage1.*.ghc.hs.opts += -ddump-stg-cg -ddump-js -ddump-to-file\""
-                       (projectile-root-bottom-up buffer-file-name))
+                       (projectile-root-bottom-up buffer-file-name))))
 
-                      ))
+                  (forth-mode . (("forth compile"      . "gforth %file-name")))
+
                   (latex-mode . (("latex build buffer" . "latexmk -pdf -shell-escape %file-name")
                                  ("latex build paper"  . "latexmk -pdf -shell-escape paper.tex")
                                  ("latex clean"        . "latexmk -c")
