@@ -75,7 +75,7 @@ in {
                 ];
         commandOptions = { auto = "true";
                            batch = "true";
-                           repeat = "watch";
+                           repeat = "watch+3600"; # on change and every hour
                            copyonconflict = "true";
                            ui = "text";
                            prefer = "newer";
