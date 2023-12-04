@@ -3,22 +3,25 @@
 (use-package! forth-mode
   :defer t
   :config
-  (set-repl-handler! 'forth-mode 'forth-mode-switch-to-output-buffer)
-  (set-lookup-handlers! 'forth-mode
-    :documentation #'forth-spec-lookup-2012)
-  (setq forth-executable "gforth")
+  (autoload 'forth-mode "gforth.el")
+  (setq auto-mode-alist (cons '("\\.fs\\'" . forth-mode)
+                              auto-mode-alist))
+  (autoload 'forth-block-mode "gforth.el")
+  (setq auto-mode-alist (cons '("\\.fb\\'" . forth-block-mode)
+                              auto-mode-alist))
+
+  (set-repl-handler! 'forth-mode 'forth-switch-to-interactive)
+
   (map! :after forth-mode
         :map forth-mode-map
         :localleader
         "," #'run-forth
-        "." #'forth-eval-last-expression-display-output
+        "." #'forth-send-paragraph-and-go
         "u" #'forth-eval-last-expression
         "'" #'forth-load-file
-        "r" #'forth-eval-region
-        "s" #'forth-see
-        "S" #'forth-switch-to-output-buffer
-        "e" #'forth-eval-defun
-        "R" #'forth-restart
-        "H" #'forth-spec-lookup-1994
-        "h" #'forth-spec-lookup-2012
+        "r" #'forth-send-region
+        "t" #'forth-find-tag
+        "b" #'forth-send-buffer-and-go
+        "en" #'forth-next-error
+        "s" #'forth-split
         ))

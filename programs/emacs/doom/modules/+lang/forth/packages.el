@@ -2,5 +2,6 @@
 ;;; +lang/forth/packages.el
 
 (package! forth-mode
-  :recipe (:host github :repo "larsbrinkhoff/forth-mode")
-  :pin "aaacce775b910afe06a02a56ecfceb3288c84b64")
+  :recipe (:host github
+           :repo "forthy42/gforth"
+           :files ("gforth.el")))

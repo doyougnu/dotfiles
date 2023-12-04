@@ -276,8 +276,7 @@
   ;; template special for sicp
   (add-to-list 'org-structure-template-alist '("si" . "src scheme"))
 
-  (add-hook! org-babel-after-execute-hook 'org-redisplay-inline-images)
-  (add-hook! org-babel-after-execute-hook 'dyg/babel-ansi)
+  (add-hook! 'org-babel-after-execute-hook #'org-redisplay-inline-images #'dyg/babel-ansi)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;; Custom key binds ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (map!
