@@ -308,15 +308,17 @@ in {
                      sha256 = "0id4av6a93h1iczsiqj19r30zjm967ckxxsaa66d830fch65fs4l";
                    };
                }
-               {
-                 name = "pure";
-                 src = pkgs.fetchFromGitHub
-                   {
-                     owner  = "pure-fish";
-                     repo   = "pure";
-                     rev    = "1aca7e7a45768af2f5196daa6d37dd2a1d2bb75a";
-                     sha256 = "02cf0pd50mj2gh43mlg6s99xfsgrd8zgbqck6mfhlsf1hybvkk04";
-                   };
+               { # great prompt
+                 name = "hydro";
+                 src  = pkgs.fishPlugins.hydro.src;
+               }
+               { # colorize command output
+                 name = "puffer-fish";
+                 src  = pkgs.fishPlugins.puffer.src;
+               }
+               { # don't log failed commands
+                 name = "sponge";
+                 src  = pkgs.fishPlugins.sponge.src;
                }
                {
                  name = "done";
@@ -349,10 +351,14 @@ in {
 
 
      # set pure features
-     set --universal pure_show_system_time true
-     set --universal pure_show_jobs        true
-     set --universal pure_show_prefix_root_prompt         true
-     set --universal pure_reverse_prompt_symbol_in_vimode true
+     # set --universal pure_show_system_time true
+     # set --universal pure_show_jobs        true
+     # set --universal pure_show_prefix_root_prompt         true
+     # set --universal pure_reverse_prompt_symbol_in_vimode true
+
+     # set hydro features
+     set --universal hydro_color_pwd $fish_color_cwd
+     set --universal hydro_color_git $fish_color_comment
       '';
 
   };
