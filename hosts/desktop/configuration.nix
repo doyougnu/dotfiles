@@ -159,6 +159,10 @@ in
 
     displayManager = {
       lightdm.enable = true;
+      lightdm.greeters.slick.enable = true;
+      lightdm.greeters.slick.extraConfig = ''
+      # background=<path>
+      '';
       autoLogin = {
         enable = false;
         user = "doyougnu";
