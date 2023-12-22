@@ -207,7 +207,7 @@
        ;; bqn
        ;; idris2
        klister
-       forth
+       ;; forth
        +elisp
        +haskell
        +latex
