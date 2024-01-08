@@ -3,4 +3,4 @@
 # key: link
 # uuid: hyperlink
 # --
-\`${1:description} <${}>\`_ $0
+\`${1:description} <${}>\`__ $0
