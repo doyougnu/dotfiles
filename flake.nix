@@ -95,7 +95,7 @@
         inherit system;
         specialArgs = attrs;
         modules = [
-          nixos-hardware.nixosModules.framework
+          nixos-hardware.nixosModules.framework-11th-gen-intel
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable idris2-overlay ]; })
           ./hosts/framework/configuration.nix
 
