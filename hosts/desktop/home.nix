@@ -299,13 +299,14 @@ in {
                    };
                }
                {
-                 name = "neolambda";
+                 # the default theme
+                 name = "theme-harleen";
                  src = pkgs.fetchFromGitHub
                    {
-                     owner  = "ipatch";
-                     repo   = "theme-neolambda";
-                     rev    = "9b79e74624de9bbd3405e9feded51b77777b8be7";
-                     sha256 = "0id4av6a93h1iczsiqj19r30zjm967ckxxsaa66d830fch65fs4l";
+                     owner  = "aneveux";
+                     repo   = "theme-harleen";
+                     rev    = "caf53d792038e78faa7b6b6b98669abc171c5e64";
+                     sha256 = "1450qrkdmqxk686c7vpimcydwj9z9a7w7sripfpjzkq6np5s6w8c";
                    };
                }
                { # great prompt
@@ -359,6 +360,8 @@ in {
      # set hydro features
      set --universal hydro_color_pwd $fish_color_cwd
      set --universal hydro_color_git $fish_color_comment
+
+     fish_config theme choose Lava
       '';
 
   };

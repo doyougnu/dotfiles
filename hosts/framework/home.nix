@@ -361,6 +361,8 @@ in {
      # set hydro features
      set --universal hydro_color_pwd $fish_color_cwd
      set --universal hydro_color_git $fish_color_comment
+
+     fish_config theme choose Lava
      '';
 
   };

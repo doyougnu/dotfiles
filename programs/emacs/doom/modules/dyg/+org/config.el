@@ -18,6 +18,7 @@
   ;; this is the stuff that would normally be wrapped in a :variables. I like
   ;; keeping it grouped
 
+  (setq org-pomodoro-play-sounds       nil)
   (setq org-directory                  "~/sync/org")
   (setq evil-org-special-o/O           '(table-row item))
   (setq org-want-todo-bindings         t)
