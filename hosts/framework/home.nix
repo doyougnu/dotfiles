@@ -73,13 +73,13 @@ in {
       "sync" = {
         roots = [ "/home/doyougnu/sync" "ssh://node0@relay.local//home/node0/sync"
                 ];
-        commandOptions = { auto = "true";
-                           batch = "true";
-                           repeat = "watch+3600"; # on change and every hour
-                           copyonconflict = "true";
-                           ui = "text";
-                           prefer = "newer";
-                         };
+        # commandOptions = { auto = "true";
+        #                    batch = "true";
+        #                    repeat = "watch+3600"; # on change and every hour
+        #                    copyonconflict = "true";
+        #                    ui = "text";
+        #                    prefer = "newer";
+        #                  };
       };
     };
   };
@@ -361,6 +361,7 @@ in {
      # set hydro features
      set --universal hydro_color_pwd $fish_color_cwd
      set --universal hydro_color_git $fish_color_comment
+
 
      fish_config theme choose Lava
      '';
