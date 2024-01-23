@@ -13,6 +13,7 @@
 
   ;; export github flavored markdown
   (require 'ox-gfm)
+  (require 'org-pomodoro)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;; Org General Config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; this is the stuff that would normally be wrapped in a :variables. I like
@@ -47,10 +48,16 @@
   (setf org-capture-bookmark             nil)
 
   ;; request a note everytime we clock out on clocked in item
-  (setf org-log-note-clock-out           t)
+  (setf org-log-note-clock-out           nil)
+
+  ;; pomodoro
+  (setf org-pomodoro-format
+        (concat (format "%d|Pomodoro-"
+                        (or org-pomodoro-count 0))
+                "%s"))
 
   ;; always use listings for org latex export of code
-  (setf org-latex-listings               'minted
+  (setf org-latex-src-block-backend               'minted
         org-latex-packages-alist '(("" "minted"))
         org-latex-minted-options '(("breaklines" "true")
                                    ("breakanywhere" "true")
