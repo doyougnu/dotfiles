@@ -61,13 +61,13 @@ in {
       "sync" = {
         roots = [ "/home/doyougnu/sync" "ssh://node0@relay.local//home/node0/sync"
                 ];
-        # commandOptions = { auto = "true";
-        #                    batch = "true";
-        #                    repeat = "watch+3600"; # on change and every hour
-        #                    copyonconflict = "true";
-        #                    ui = "text";
-        #                    prefer = "newer";
-        #                  };
+        commandOptions = { auto = "true";
+                           batch = "true";
+                           repeat = "watch+300"; # on change and every five minutes
+                           copyonconflict = "true";
+                           ui = "text";
+                           prefer = "newer";
+                         };
       };
     };
   };
