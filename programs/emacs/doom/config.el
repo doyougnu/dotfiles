@@ -55,6 +55,13 @@
 
 (setq tab-always-indent t)
 
+;; set GC limit to 512 Mebibytes
+(setq gc-cons-threshold 536870912)
+;; garbage collect when not in focus
+(add-function :after
+                  after-focus-change-function
+                  (lambda () (unless (frame-focus-state) (garbage-collect))))
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
