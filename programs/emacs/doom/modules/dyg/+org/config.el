@@ -20,6 +20,7 @@
   ;; keeping it grouped
 
   (setq org-pomodoro-play-sounds       nil)
+  (setq org-pomodoro-long-break-frequency 3)
   (setq org-directory                  "~/sync/org")
   (setq evil-org-special-o/O           '(table-row item))
   (setq org-want-todo-bindings         t)
