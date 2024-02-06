@@ -90,7 +90,14 @@
 
 ;; Yas
 (after! yasnippet
-  (setq yas-global-mode t))
+  (setq yas-global-mode t)
+  ;; disable the C-s default binding
+  (map! :map (isearch-mode-map global-map)
+        "C-s" nil)
+  (map! :map yas-minor-mode-map
+        "C-s" #'yas-expand)
+  (map! :map yas-keymap
+        "C-s" #'yas-next-field-or-maybe-expand))
 
 ;; workaround emacs-everwhere DEL bug:
 ;; https://github.com/tecosaur/emacs-everywhere/issues/49
