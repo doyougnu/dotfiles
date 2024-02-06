@@ -421,8 +421,8 @@ in {
     tdesktop
     vlc
     xclip
-    xorg.xwininfo    # for emacs everywhere
-    xdotool          # for emacs everywhere
+    # xorg.xwininfo    # for emacs everywhere
+    # xdotool          # for emacs everywhere
     w3m              # text broser for emacs-w3m
     sqlite
     wordnet

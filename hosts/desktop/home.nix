@@ -411,8 +411,8 @@ in {
     steam
     unison
     xclip
-    xorg.xwininfo    # for emacs everywhere
-    xdotool          # for emacs everywhere
+    # xorg.xwininfo    # for emacs everywhere
+    # xdotool          # for emacs everywhere
     xdg-dbus-proxy
     xdg-desktop-portal
     xmonad-log
