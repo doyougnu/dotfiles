@@ -391,7 +391,6 @@ in {
     moreutils
     myEmacs
     multimarkdown
-    nodejs-18_x
     pdfpc           # pdf presentaitons from the shell
     polybar
     pinentry
