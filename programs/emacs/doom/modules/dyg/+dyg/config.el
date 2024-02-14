@@ -88,6 +88,30 @@
       :n "C-e" #'evil-jump-forward
       :n "C-o" #'evil-jump-backward)
 
+;; custom highlighting for todo keywords
+(after! hl-todo
+  (setq hl-todo-keyword-faces
+        '(("HOLD"   . "#d0bf8f")
+          ("DYG"    . "#d0bf8f")
+          ("TODO"   . "#cc9393")
+          ("NEXT"   . "#dca3a3")
+          ("THEM"   . "#dc8cc3")
+          ("PROG"   . "#7cb8bb")
+          ("OKAY"   . "#7cb8bb")
+          ("DONT"   . "#5f7f5f")
+          ("FAIL"   . "#8c5353")
+          ("DONE"   . "#afd8af")
+          ("NOTE"   . "#d0bf8f")
+          ("MAYBE"  . "#d0bf8f")
+          ("HACK"   . "#d0bf8f")
+          ("TEMP"   . "#d0bf8f")
+          ("FIXME"  . "#cc9393")
+          ("XXXX*"  . "#cc9393"))))
+
+(map! :leader
+      (:prefix-map ("i" . "insert")
+                   :desc "Todo" "t" #'hl-todo-insert))
+
 ;; Yas
 (after! yasnippet
   (setq yas-global-mode t)
