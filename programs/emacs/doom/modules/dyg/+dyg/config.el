@@ -56,8 +56,7 @@
 ;; set evil to not move the cursor when exiting insert mode
 (setq evil-move-cursor-back nil)
 
-(add-hook! 'better-jumper-post-jump-hook :append #'recenter-top-bottom)
-(add-hook! 'better-jumper-pre-jump-hook  :append #'recenter-top-bottom)
+(add-hook! 'better-jumper-post-jump-hook :prepend #'recenter-top-bottom)
 
 ;; setup EasyPG for gpg
 (setq epg-pinentry-mode 'loopback)
@@ -82,11 +81,6 @@
   ;; home row priorities: 8 6 4 5 - - 1 2 3 7
   (setq avy-keys '(?a ?o ?e ?u ?h ?t ?n ?s)))
 
-(map! ;;:map evil-normal-state-map
-      :nv "t" #'evilem-motion-find-char
-      :nv "T" #'evilem-motion-find-char-backward
-      :n "C-e" #'evil-jump-forward
-      :n "C-o" #'evil-jump-backward)
 
 ;; custom highlighting for todo keywords
 (after! hl-todo
@@ -133,9 +127,6 @@
 
 (after! evil
 
-  (evil-add-command-properties #'evilem-motion-find-char :jump t)
-  (evil-add-command-properties #'evilem-motion-find-char-backward :jump t)
-
   (map! :leader
         :desc "find file"               "oo" #'find-file
         :desc "find recent file"        "ot" #'consult-recent-file
@@ -151,9 +142,13 @@
         "H" #'evil-backward-char
         "J" #'evil-forward-paragraph
         "K" #'evil-backward-paragraph
-        "gj" #'evilem-motion-next-line
-        "gk" #'evilem-motion-previous-line
+        "t" #'evil-avy-goto-char-2-below
+        "T" #'evil-avy-goto-char-2-above
+        "gj" #'evil-avy-goto-line-below
+        "gk" #'evil-avy-goto-line-above
         "C-j" #'evil-join
+        "C-o" #'better-jumper-jump-backward
+        "C-e" #'better-jumper-jump-forward
         "C-k" #'electric-newline-and-maybe-indent))
 
 ;; keybindings
