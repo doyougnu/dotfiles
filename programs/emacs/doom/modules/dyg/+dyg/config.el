@@ -56,8 +56,8 @@
 ;; set evil to not move the cursor when exiting insert mode
 (setq evil-move-cursor-back nil)
 
-(add-hook! 'better-jumper-post-jump-hook #'recenter-top-bottom)
-(add-hook! 'better-jumper-pre-jump-hook  #'recenter-top-bottom)
+(add-hook! 'better-jumper-post-jump-hook :append #'recenter-top-bottom)
+(add-hook! 'better-jumper-pre-jump-hook  :append #'recenter-top-bottom)
 
 ;; setup EasyPG for gpg
 (setq epg-pinentry-mode 'loopback)
@@ -158,6 +158,7 @@
 
 ;; keybindings
 (map! :leader
+      "z" #'zone
       (:prefix-map ("d" . "doyougnu")
        (:prefix ("d" . "deft")
         :desc "Deft"      "d" #'deft
