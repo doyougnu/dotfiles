@@ -81,7 +81,6 @@
   ;; home row priorities: 8 6 4 5 - - 1 2 3 7
   (setq avy-keys '(?a ?o ?e ?u ?h ?t ?n ?s)))
 
-
 ;; custom highlighting for todo keywords
 (after! hl-todo
   (setq hl-todo-keyword-faces
@@ -117,6 +116,14 @@
   (map! :map yas-keymap
         "C-i" #'yas-next-field-or-maybe-expand))
 
+;; multi cursors
+
+(after! evil-multiedit
+  (map!
+   :map evil-multiedit-mode-map
+   :nv "N" #'evil-multiedit-match-and-next
+   :nv "M" #'evil-multiedit-match-and-prev))
+
 ;; workaround emacs-everwhere DEL bug:
 ;; https://github.com/tecosaur/emacs-everywhere/issues/49
 (setq emacs-everywhere-mode-initial-map nil)
@@ -146,6 +153,9 @@
         "T" #'evil-avy-goto-char-2-above
         "gj" #'evil-avy-goto-line-below
         "gk" #'evil-avy-goto-line-above
+        "gmj" #'evil-multiedit-match-and-next
+        "gmk" #'evil-multiedit-match-and-prev
+        "gmr" #'evil-multiedit-match-all
         "C-j" #'evil-join
         "C-o" #'better-jumper-jump-backward
         "C-e" #'better-jumper-jump-forward
