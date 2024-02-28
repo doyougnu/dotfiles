@@ -56,7 +56,11 @@
 ;; set evil to not move the cursor when exiting insert mode
 (setq evil-move-cursor-back nil)
 
-(add-hook! 'better-jumper-post-jump-hook :prepend #'recenter-top-bottom)
+;; recentering hooks and advice
+(add-hook! 'better-jumper-pre-jump-hook :append #'recenter)
+(add-hook! 'better-jumper-post-jump-hook :append #'recenter)
+(advice-add 'evil-avy-goto-line-above :after #'dyg/evil-avy-line-recenter)
+(advice-add 'evil-avy-goto-line-below :after #'dyg/evil-avy-line-recenter)
 
 ;; setup EasyPG for gpg
 (setq epg-pinentry-mode 'loopback)
