@@ -89,6 +89,7 @@
                                                                                               (setq-local org-hide-emphasis-markers t)))))
 
   (add-hook! 'org-mode-hook #'auto-fill-mode)
+  (add-hook! 'before-save-hook :append #'dyg/org-fix-blank-lines)
 
   (setq org-clock-persist 'history)
   (org-clock-persistence-insinuate)
