@@ -160,6 +160,7 @@
         "gmj" #'evil-multiedit-match-and-next
         "gmk" #'evil-multiedit-match-and-prev
         "gmr" #'evil-multiedit-match-all
+        "gmm" #'evil-multiedit-match-symbol-and-next
         "C-j" #'evil-join
         "C-o" #'better-jumper-jump-backward
         "C-e" #'better-jumper-jump-forward

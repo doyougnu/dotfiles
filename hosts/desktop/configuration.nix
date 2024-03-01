@@ -190,7 +190,7 @@ in
   services.compton = {
     enable          = true;
     fade            = true;
-    inactiveOpacity = 0.80;
+    inactiveOpacity = 0.90;
     shadow          = false;
     fadeDelta       = 1;
   };
