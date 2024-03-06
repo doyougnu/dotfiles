@@ -400,6 +400,7 @@ in {
     killall         # for polybar launch script
     moreutils
     myEmacs
+    nodejs
     unstable.mu              # for email
     multimarkdown
     pdfpc           # pdf presentaitons from the shell
@@ -435,6 +436,7 @@ in {
       valgrind
       flameshot
       discord
+      linuxPackages.perf
   ]);
 
   # This value determines the Home Manager release that your

@@ -391,6 +391,7 @@ in {
     moreutils
     myEmacs
     multimarkdown
+    nodejs
     pdfpc           # pdf presentaitons from the shell
     polybar
     pinentry
@@ -429,6 +430,7 @@ in {
       tdesktop
       pianobar
       valgrind
+      linuxPackages.perf
       firefox
       mu     # for email
   ]);
