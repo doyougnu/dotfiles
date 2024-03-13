@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }:
 
 let 
-    myEmacs = import ../../programs/emacs/emacs.nix { pkgs = pkgs; config = config; unstable = pkgs; };
+    # myEmacs = import ../../programs/emacs/emacs.nix { pkgs = pkgs; config = config; unstable = pkgs; };
 
     R-with-packages = pkgs.rWrapper.override { packages = with pkgs.rPackages; [
       tidyverse cowplot
@@ -153,7 +153,11 @@ in {
 
   # emacs
   services.emacs.enable = true;
-  services.emacs.package = myEmacs;
+  services.emacs.package =
+    pkgs.emacs29.override { withGTK3 = true;
+                            withGTK2 = false;
+                          };
+
 
   # email
   programs.mbsync.enable = true;        ## sync
@@ -399,7 +403,6 @@ in {
     libnotify
     killall         # for polybar launch script
     moreutils
-    myEmacs
     nodejs
     unstable.mu              # for email
     multimarkdown
