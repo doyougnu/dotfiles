@@ -48,7 +48,10 @@
 ;; (setq +lookup-open-url-fn #'eww)
 
 ;; faster which-keys
-(setq which-key-idle-delay 0.15)
+(setq which-key-idle-delay 0.1)
+
+;; show whitespace
+(setq-default show-trailing-whitespace 'trailing)
 
 ;; better docs from dash
 (setq dash-docs-common-docsets '("Haskell" "Emacs Lisp" "Common Lisp"))
