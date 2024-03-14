@@ -1,7 +1,8 @@
 { pkgs, config, lib, ... }:
 
-let 
+let
     # myEmacs = import ../../programs/emacs/emacs.nix { pkgs = pkgs; config = config; unstable = pkgs; };
+    myEmacs = pkgs.emacs29-pgtk.override {withGTK3 = true; };
 
     R-with-packages = pkgs.rWrapper.override { packages = with pkgs.rPackages; [
       tidyverse cowplot
@@ -152,12 +153,24 @@ in {
   };
 
   # emacs
-  services.emacs.enable = true;
-  services.emacs.package =
-    pkgs.emacs29.override { withGTK3 = true;
-                            withGTK2 = false;
-                          };
+  services.emacs = {
+    enable = true;
+    package = myEmacs;
+  };
 
+  # systemd.user.services."emacs-daemon" = {
+  #   Unit = {
+  #     Description = "Start emacs as a daemon";
+  #   };
+  #   Install = {
+  #     WantedBy = [ "default.target" ];
+  #   };
+  #   Service = {
+  #     ExecStart = "/home/doyougnu/.emacs.d/bin/doom sync; ${myEmacs} --fg-daemon";
+  #     RemainAfterExit = "yes";
+  #     Type = "oneshot";
+  #   };
+  # };
 
   # email
   programs.mbsync.enable = true;        ## sync
@@ -252,7 +265,7 @@ in {
   home.file.".xmonad/xmonad.hs".source = ../../programs/xmonad/xmonad_framework.hs;
   # doom emacs
   home.file.".doom.d/".source = ../../programs/emacs/doom;
-  home.file.".doom.d/".onChange= "/home/doyougnu/.emacs.d/bin/doom sync";
+  home.file.".doom.d/".onChange = "/home/doyougnu/.emacs.d/bin/doom sync";
   home.activation = {
       symlinkAuth = lib.hm.dag.entryAfter ["writeBoundary"] ''
                     ln -sf /home/doyougnu/sync/keys/auth/.authinfo.gpg /home/doyougnu/.authinfo.gpg
@@ -415,7 +428,7 @@ in {
     ranger
     ripgrep
     rsync
-    rnix-lsp         # for nix lsp in emacs
+    # rnix-lsp         # for nix lsp in emacs
     sdcv             # for polybar
     signal-desktop
     slack

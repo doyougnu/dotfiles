@@ -113,7 +113,7 @@
   # $ nix-env -qaP | grep wget
   # ghc needed for xmonad, get some error with alibsound2 without it
   environment.systemPackages = with pkgs; [
-    wget vim binutils man-pages coreutils gnumake iw sshfs stdenv pkgconfig curl
+    wget vim binutils man-pages coreutils gnumake iw sshfs stdenv pkg-config curl
     htop aspellDicts.en aspell pciutils wirelesstools pavucontrol unzip openssl
     gnutls git libnotify emacs alsaLib xmonad-log dmenu xorg.xprop xorg.xwininfo
     xclip xdotool
@@ -240,7 +240,7 @@
   # services.postgresql.package = pkgs.postgresql_10;
 
   ## some fonts
-  fonts.fonts = with pkgs;
+  fonts.packages = with pkgs;
    [
     source-code-pro
     # siji

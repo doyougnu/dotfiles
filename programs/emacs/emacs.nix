@@ -21,10 +21,7 @@ $ ./result/bin/emacs
 
 let
   # myEmacs = pkgs.emacsUnstable;
-  myEmacs = pkgs.emacs29.override {
-    withGTK3 = true;
-    withGTK2 = false;
-  };
+  myEmacs = pkgs.emacs29-pgtk;
 
   emacsWithPackages = (pkgs.emacsPackagesFor myEmacs).emacsWithPackages;
 

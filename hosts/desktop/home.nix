@@ -401,7 +401,7 @@ in {
     python310Packages.pygments
     ranger
     ripgrep
-    rnix-lsp
+    # rnix-lsp
     rsync
     lispPackages.quicklisp
     # sbcl
