@@ -46,7 +46,7 @@
 ;; (setq doom-theme 'doom-outrun-electric)
 
 (if (equal (getenv "EMACS_HOST") "framework")
-    (setq doom-theme 'doom-gruvbox-light)
+    (setq doom-theme 'misterioso)
     (setq doom-theme 'doom-old-hope))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
