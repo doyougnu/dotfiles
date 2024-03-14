@@ -3,6 +3,7 @@
 let
     # myEmacs = import ../../programs/emacs/emacs.nix { pkgs = pkgs; config = config; unstable = pkgs; };
     # haskell-env = with pkgs.haskell.packages.${config.ghc.version}; [
+    myEmacs = pkgs.emacs29.override {withGTK3 = true; };
     # ];
     R-with-packages = pkgs.rWrapper.override { packages = with pkgs.rPackages; [
       tidyverse cowplot
@@ -155,10 +156,7 @@ in {
 
   # emacs
   services.emacs.enable = true;
-  services.emacs.package =
-    pkgs.emacs29.override { withGTK3 = true;
-                            withGTK2 = false;
-                          };
+  services.emacs.package = myEmacs;
 
   # email
   programs.mbsync.enable = true;        ## sync
@@ -383,6 +381,7 @@ in {
     discord
     entr
     evince
+    myEmacs
     fasd
     feh
     gcc            # for org-roam

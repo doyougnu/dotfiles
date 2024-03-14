@@ -115,7 +115,7 @@
   environment.systemPackages = with pkgs; [
     wget vim binutils man-pages coreutils gnumake iw sshfs stdenv pkg-config curl
     htop aspellDicts.en aspell pciutils wirelesstools pavucontrol unzip openssl
-    gnutls git libnotify emacs alsaLib xmonad-log dmenu xorg.xprop xorg.xwininfo
+    gnutls git libnotify alsaLib xmonad-log dmenu xorg.xprop xorg.xwininfo
     xclip xdotool
   ];
 

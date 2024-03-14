@@ -2,7 +2,7 @@
 
 let
     # myEmacs = import ../../programs/emacs/emacs.nix { pkgs = pkgs; config = config; unstable = pkgs; };
-    myEmacs = pkgs.emacs29-pgtk.override {withGTK3 = true; };
+    myEmacs = pkgs.emacs29.override {withGTK3 = true; };
 
     R-with-packages = pkgs.rWrapper.override { packages = with pkgs.rPackages; [
       tidyverse cowplot
@@ -401,6 +401,7 @@ in {
     cachix
     evince
     entr
+    myEmacs
     firefox
     fasd
     feh

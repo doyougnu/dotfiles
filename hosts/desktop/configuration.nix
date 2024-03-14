@@ -65,7 +65,7 @@ in
     wget vim binutils man-pages coreutils gnumake iw sshfs
     stdenv pkg-config curl xorg.xmodmap htop aspellDicts.en
     aspell pciutils wirelesstools pavucontrol unzip
-    openssl gnutls git libnotify emacs alsaLib xmonad-log
+    openssl gnutls git libnotify alsaLib xmonad-log
     dmenu xorg.xprop xorg.xwininfo xclip xdotool
 
     ];
