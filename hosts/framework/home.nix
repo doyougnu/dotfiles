@@ -356,14 +356,14 @@ in {
      function fish_user_key_bindings
        fish_vi_key_bindings
        # bind -M insert \cT history-token-search-backward
-       # bind -M insert \cH history-token-search-forward
+       # bind -M insert \cN history-token-search-forward
        # bind -M normal T up-or-search
-       # bind -M normal H down-or-search
+       # bind -M normal N down-or-search
        bind -M insert tn "if commandline -P; commandline -f cancel; else; set fish_bind_mode default; commandline -f backward-char force-repaint; end"
        bind -M insert \cT up-or-search
-       bind -M insert \cH down-or-search
+       bind -M insert \cN down-or-search
        bind -M visual \cT up-or-search
-       bind -M visual \cH down-or-search
+       bind -M visual \cN down-or-search
        bind -M insert \cS accept-autosuggestion
        bind -M insert -k nul 'accept-autosuggestion execute'
        bind -M visual p  fish_clipboard_paste
