@@ -242,7 +242,7 @@
             "C-s" #'company-complete-selection
             "C--" #'fill-paragraph)
       (:map minibuffer-local-map
-            "C-t" #'vertico-directory-up
+            "C-t" #'vertico-previous
             "C-s" #'vertico-directory-enter
             "C-e" #'embark-act)
       (:map corfu-mode-map
