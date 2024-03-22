@@ -244,8 +244,11 @@
       (:map minibuffer-local-map
             "C-t" #'vertico-directory-up
             "C-s" #'vertico-directory-enter
-            "C-t" #'vertico-directory-up
             "C-e" #'embark-act)
+      (:map corfu-mode-map
+            "C-s" #'corfu-complete
+            "C-t" #'corfu-previous
+            "C-n" #'corfu-next)
       (:map evil-markdown-mode-map
        :nv "C--" #'fill-paragraph))
 
@@ -262,7 +265,9 @@
 
 (map! :map eshell-mode-map
       :ni "C-n" #'eshell-next-matching-input-from-input
-      :ni "C-p" #'eshell-previous-matching-input-from-input)
+      :ni "C-p" #'eshell-previous-matching-input-from-input
+      :ni "C-n" #'eshell-next-matching-input-from-input
+      :ni "C-t" #'eshell-previous-matching-input-from-input)
 
 (map!
  :after wordnut

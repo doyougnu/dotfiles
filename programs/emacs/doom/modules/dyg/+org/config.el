@@ -56,6 +56,7 @@
         (concat (format "%d|Pomodoro-"
                         (or org-pomodoro-count 0))
                 "%s"))
+  (add-hook! 'org-pomodoro-long-break-finished-hook #'org-add-note)
 
   ;; always use listings for org latex export of code
   (setf org-latex-src-block-backend               'minted
