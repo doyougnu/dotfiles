@@ -204,6 +204,10 @@
       (:prefix-map ("s" . "search")
        :desc "Search project for point" "p" #'+vertico/project-search-from-cwd)
 
+      (:prefix-map ("g" . "+git")
+       :desc "next hunk" "n" #'git-gutter:next-hunk
+       :desc "next hunk" "p" #'git-gutter:previous-hunk)
+
       (:when (modulep! :tools lsp)
        :desc "lsp-imenu" "cI" #'lsp-ui-imenu)
 
