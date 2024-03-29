@@ -432,14 +432,14 @@ lookupPrompt = inputPrompt greenXPConfig "λ" ?+ lookupInDict
 
 main = do
   xmproc <- spawnPipe "$HOME/.config/polybar/launch-desktop.sh"
-  -- dbus <- D.connectSession
-  -- D.requestName dbus (D.busName_ "org.xmonad.Log")
-  --   [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
+  dbus <- D.connectSession
+  D.requestName dbus (D.busName_ "org.xmonad.Log")
+    [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
 
   xmonad $ docks defaults
- --  xmonad $ docks defaults {
- --    logHook = dynamicLogWithPP $ myLogHook dbus
- -- }
+  xmonad $ docks defaults {
+    logHook = dynamicLogWithPP $ myLogHook dbus
+ }
 
 -- Override the PP values as you would otherwise, adding colors etc depending
 -- on  the statusbar used
