@@ -191,27 +191,27 @@
 
        "h" #'org-agenda)
 
-      (:prefix-map ("r" . "kill-ring")
+      (:prefix ("r" . "kill-ring")
        :desc "Kill-ring" "y" #'consult-yank-pop)
 
-      (:prefix-map ("S" . "spelling")
+      (:prefix ("S" . "spelling")
        :desc "Correct-word-at-point" "s" #'ispell-word
        :desc "Correct buffer"        "b" #'ispell-buffer)
 
-      (:prefix-map ("t" . "toggle")
+      (:prefix ("t" . "toggle")
        :desc "debug-on-error" "d" #'toggle-debug-on-error)
 
-      (:prefix-map ("s" . "search")
+      (:prefix ("s" . "search")
        :desc "Search project for point" "p" #'+vertico/project-search-from-cwd)
 
-      (:prefix-map ("g" . "+git")
+      (:prefix ("g" . "+git")
        :desc "next hunk" "n" #'git-gutter:next-hunk
        :desc "next hunk" "p" #'git-gutter:previous-hunk)
 
       (:when (modulep! :tools lsp)
        :desc "lsp-imenu" "cI" #'lsp-ui-imenu)
 
-      (:prefix-map ("m" . "smerge")
+      (:prefix ("m" . "smerge")
        :desc "smerge-next-in-file" "n" #'smerge-next
        :desc "smerge-next"         "N" #'smerge-vc-next-conflict
        :desc "smerge-prev"         "p" #'smerge-prev
