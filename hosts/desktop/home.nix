@@ -311,8 +311,8 @@ in {
                    };
                }
                { # great prompt
-                 name = "hydro";
-                 src  = pkgs.fishPlugins.hydro.src;
+                 name = "tide";
+                 src  = pkgs.fishPlugins.tide.src;
                }
                { # colorize command output
                  name = "puffer-fish";
@@ -359,8 +359,8 @@ in {
      # set --universal pure_reverse_prompt_symbol_in_vimode true
 
      # set hydro features
-     set --universal hydro_color_pwd $fish_color_cwd
-     set --universal hydro_color_git $fish_color_comment
+     # set --universal hydro_color_pwd $fish_color_cwd
+     # set --universal hydro_color_git $fish_color_comment
 
      fish_config theme choose Lava
       '';

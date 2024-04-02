@@ -330,8 +330,8 @@ in {
                    };
                }
                { # great prompt
-                 name = "hydro";
-                 src  = pkgs.fishPlugins.hydro.src;
+                 name = "tide";
+                 src  = pkgs.fishPlugins.tide.src;
                }
                { # colorize command output
                  name = "puffer-fish";
