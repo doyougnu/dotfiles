@@ -235,12 +235,12 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      safeSpawn "emacsclient" ["-c", "-e", "(eshell)"]) --
 
   -- Lock the screen using command specified by myScreensaver.
-  , ((modMask .|. controlMask, xK_n), --
+  , ((modMask .|. controlMask, xK_l), --
      spawn mySuspend)
 
   -- Spawn the launcher using command specified by myLauncher.
   -- Use this to launch programs without a key binding.
-  , ((modMask, xK_l),
+  , ((modMask, xK_g),
      spawn myLauncher)
 
   -- On Mod f open the browser
@@ -302,7 +302,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      spawn "amixer -q set Master toggle")
 
   -- -- Decrease volume.
-  , ((modMask .|. controlMask, xK_h),
+  , ((modMask .|. controlMask, xK_n),
      spawn "amixer -q set Master 5%-")
 
   -- -- Increase volume.
