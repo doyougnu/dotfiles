@@ -219,8 +219,10 @@
        :desc "smerge-keep-upper"   "u" #'smerge-keep-upper
        :desc "smerge-keep-lower"   "l" #'smerge-keep-lower)
 
+      (:after doom
       :desc "Org-capture" "SPC" #'org-capture
-      :desc "Ranger"      "."   #'ranger)
+      :desc "switch buffer other window" "'" #'projectile-switch-to-buffer-other-window
+      :desc "Ranger"      "."   #'ranger))
 
 (map! :leader
       (:prefix-map ("n" . "notes")
