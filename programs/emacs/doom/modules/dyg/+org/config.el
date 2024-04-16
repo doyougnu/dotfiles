@@ -151,6 +151,9 @@
 
   (setq org-agenda-files (directory-files-recursively "~/sync/org/" "\\.org$"))
 
+  ;; set the default view to a week starting on Monday
+  (setq org-agenda-span 3
+        org-agenda-start-day nil)
 
   (setq org-tag-alist '(("research"     . ?r)
                         ("job"          . ?j)
