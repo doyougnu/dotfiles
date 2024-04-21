@@ -9,5 +9,6 @@
     "steam"
     "steam-original"
     "steam-runtime"
+    "symbola"
   ];
 }

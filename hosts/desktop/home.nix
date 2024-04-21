@@ -13,6 +13,17 @@ let
     gpg = "/etc/profiles/per-user/doyougnu/bin/gpg2";
     awk = "/run/current-system/sw/bin/awk";
 
+    my-fonts = with pkgs; [
+      source-code-pro
+      siji
+      nerdfonts             # nerdfonts broken on stable for 21.11
+      font-awesome_5
+      material-icons
+      emacs-all-the-icons-fonts
+      numix-icon-theme-circle
+      symbola
+    ];
+
 in {
 
   imports = [ ../../programs/non-free.nix
@@ -424,6 +435,8 @@ in {
   ] ++
   [ R-with-packages
   ] ++
+    my-fonts
+    ++
   (with unstable;
     [ gmp
       numactl

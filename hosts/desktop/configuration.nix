@@ -210,17 +210,4 @@ in
   services.mysql.enable  = false;
   services.mysql.package = pkgs.mysql;
   services.mysql.group   = "wheel";
-
-  ## some fonts
-  fonts.packages = with pkgs; [
-    source-code-pro
-    siji
-    nerdfonts             # nerdfonts broken on stable for 21.11
-    font-awesome_5
-    font-awesome_4
-    material-icons
-    emacs-all-the-icons-fonts
-    numix-icon-theme-circle
-    symbola
-   ];
 }

@@ -12,6 +12,18 @@ let
     gpg = "/etc/profiles/per-user/doyougnu/bin/gpg2";
     awk = "/run/current-system/sw/bin/awk";
 
+    my-fonts = with pkgs; [
+      source-code-pro
+      # siji
+      nerdfonts
+      font-awesome_5
+      # font-awesome_4
+      # material-icons
+      emacs-all-the-icons-fonts
+      # numix-icon-theme-circle
+      symbola
+    ];
+
 in {
 
   imports = [ ../../programs/non-free.nix
@@ -96,6 +108,8 @@ in {
   home.username = "doyougnu";
   home.homeDirectory = "/home/doyougnu";
 
+
+  fonts.fontconfig.enable = true;
 
   services.dunst = {
     enable = true;
@@ -447,6 +461,8 @@ in {
   ] ++
   [ R-with-packages
   ] ++
+  my-fonts
+    ++
   (with pkgs;
     [ gmp
       numactl

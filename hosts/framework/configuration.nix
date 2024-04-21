@@ -240,18 +240,9 @@
   # services.postgresql.package = pkgs.postgresql_10;
 
   ## some fonts
-  fonts.packages = with pkgs;
-   [
-    source-code-pro
-    # siji
-    nerdfonts
-    font-awesome_5
-    # font-awesome_4
-    # material-icons
-    emacs-all-the-icons-fonts
-    # numix-icon-theme-circle
-    symbola
-   ];
+  # fonts.packages = with pkgs;
+  #  [
+  #  ];
 
   ## mopidy config
   ## services.mopidy = {
