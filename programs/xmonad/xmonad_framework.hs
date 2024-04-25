@@ -222,6 +222,17 @@ myBorderWidth = 2
 --
 myModMask = mod1Mask
 
+myNumRow = [ xK_ampersand
+           , xK_bracketleft
+           , xK_braceleft
+           , xK_braceright
+           , xK_parenleft
+           , xK_equal
+           , xK_asterisk
+           , xK_parenright
+           , xK_plus
+           ]
+
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   ----------------------------------------------------------------------
   -- Custom key bindings
@@ -358,7 +369,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
   -- Move focus to the next window.
   , ((modMask, xK_n),
-     windows W.focusDown)
+     windows W.focusDown) --
 
   -- Move focus to the previous window.
   , ((modMask, xK_t),
@@ -408,7 +419,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      io (exitWith ExitSuccess))
 
   -- Restart xmonad.
-  , ((modMask, xK_apostrophe),
+  , ((modMask, xK_semicolon),
      restart "xmonad" True)
   ]
   ++
@@ -416,8 +427,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- mod-[1..9], Switch to workspace N
   -- mod-shift-[1..9], Move client to workspace N
   [((m .|. modMask, k), windows $ f i)
-      | (i, k) <- zip (XMonad.workspaces conf)
-        [xK_ampersand, xK_bracketleft, xK_braceleft,xK_braceright,xK_parenleft, xK_equal]
+      | (i, k) <- zip (XMonad.workspaces conf) myNumRow
       , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
   -- ++
 
