@@ -1,6 +1,6 @@
 xkb_symbols "dyg-dvorak"
 {
-  include "us(dvorak)"            // includes the base US keys
+  include "us(dvp)"            // includes the base US keys for dvorak-programmer
 
   key.type = "ONE_LEVEL";
   key <RALT>  { [ Return    ] };
