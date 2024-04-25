@@ -173,6 +173,16 @@ myBorderWidth = 1
 --
 myModMask = mod4Mask
 
+myNumRow = [ xK_bracketleft
+           , xK_braceleft
+           , xK_braceright
+           , xK_parenleft
+           , xK_equal
+           , xK_asterisk
+           , xK_parenright
+           , xK_plus
+           ]
+
 myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
   ----------------------------------------------------------------------
   -- Custom key bindings
@@ -346,7 +356,7 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
      io exitSuccess)
 
   -- Restart xmonad.
-  , ((modMask, xK_apostrophe),
+  , ((modMask, xK_semicolon),
      restart "xmonad" True)
   ]
   ++
@@ -354,9 +364,8 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
   -- mod-[1..9], Switch to workspace N
   -- mod-shift-[1..9], Move client to workspace N
   [((m .|. modMask, k), windows $ f i)
-      | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
+      | (i, k) <- zip (XMonad.workspaces conf) myNumRow
       , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
-
   ++
   -- mod-{w,e,r} %! Switch to physical/Xinerama screens 1, 2, or 3
   -- mod-shift-{w,e,r} %! Move client to screen 1, 2, or 3
@@ -436,7 +445,6 @@ main = do
   D.requestName dbus (D.busName_ "org.xmonad.Log")
     [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
 
-  xmonad $ docks defaults
   xmonad $ docks defaults {
     logHook = dynamicLogWithPP $ myLogHook dbus
  }
