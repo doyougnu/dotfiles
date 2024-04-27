@@ -10,7 +10,7 @@
   {
   imports =
     [ ./hardware-configuration.nix
-      ../../programs/kmonad.nix
+      ../../programs/kmonad/kmonad.nix
     ];
 
 
@@ -172,6 +172,7 @@
     # Enable the X11 windowing system.
     enable = true;
     layout = "dyg-dvorak";
+    xkbOptions = "compose:ralt";
     dpi    = 120;
     libinput.enable = true;
 
@@ -208,13 +209,48 @@
      enable = true;
      keyboards = {
        "framework_keyboard" = {
-         device = "/dev/input/by-id/{ your keyboard id that usually ends with -kbd }";
+         device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
          config = ''
-           { content of config.kbd here }
+          (defcfg
+            ;; For Linux
+            input  (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
+            output (uinput-sink "My KMonad output")
+
+            ;; This option tells KMonad to let non-configured keys act normal
+            fallthrough true)
+
+          (defsrc
+            grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+            tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+            caps a    s    d    f    g    h    j    k    l    ;    '    ret
+            lsft z    x    c    v    b    n    m    ,    .    /    rsft
+            lctl lmet lalt           spc            ralt rmet cmp  rctl
+          )
+
+          (defalias
+              home_a (tap-hold-next-release 200 a lmet)
+              home_s (tap-hold-next-release 200 s lalt)
+              home_d (tap-hold-next-release 200 d lctl)
+              home_f (tap-hold-next-release 200 f lsft)
+
+              home_j (tap-hold-next-release 200 j rsft)
+              home_k (tap-hold-next-release 200 k rctl)
+              home_l (tap-hold-next-release 200 l lalt)
+              home_; (tap-hold-next-release 200 ; rmet)
+          )
+
+          (deflayer homerowmods
+            grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+            tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+            caps @home_a   @home_s   @home_d   @home_f   g   h   @home_j   @home_k   @home_l   @home_; ' ret
+            lsft z    x    c    v    b    n    m    ,    .    /    rsft
+            lctl lmet lalt           spc            ret rmet cmp  rctl
+          )
+
          '';
          };
        };
-     package = import ../../programs/kmonad/kmonad.nix;
+     package = pkgs.haskellPackages.kmonad;
   };
 
   # enable sasl

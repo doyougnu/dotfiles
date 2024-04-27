@@ -1,13 +1,17 @@
 xkb_symbols "dyg-dvorak"
 {
-  include "us(dvp)"            // includes the base US keys for dvorak-programmer
+  // include "us(dvp)"            // dvorak programmer
+  include "us(dvorak)"            // includes the base US keys
 
-  key.type = "ONE_LEVEL";
-  key <RALT>  { [ Return    ] };
-  key <CAPS>  { [ Control_R ] };
+  // commenting all these out because I'm implementing these in kmonad now
+  // but I want to keep control over the layout itself in xserver, so we'll
+  // keep this file
+  // key.type = "ONE_LEVEL";
+  // key <RALT>  { [ Return    ] };
+  // key <CAPS>  { [ Control_R ] };
  // key <TAB>   { [ Escape    ] };
-  key <RTSH>  { [ Caps_Lock ] };
-  key <RCTL>  { [ Tab       ] };
+  // key <RTSH>  { [ Caps_Lock ] };
+  // key <RCTL>  { [ Tab       ] };
   // key <RTRN>  { [ BackSpace ] };
   // key <BKSP>  { [ Tab       ] };
 };
