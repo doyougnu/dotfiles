@@ -15,7 +15,6 @@
 
 
   # use the latest linux kernel
-  # 6.12 seems unstable on framework
   # boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
   # Use the systemd-boot EFI boot loader.
