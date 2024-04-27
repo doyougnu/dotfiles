@@ -10,6 +10,7 @@
   {
   imports =
     [ ./hardware-configuration.nix
+      ../../programs/kmonad.nix
     ];
 
 
@@ -158,7 +159,9 @@
 
   users.users.doyougnu = { # don't forget to set a password with passwd
       isNormalUser = true;
-      extraGroups = [ "networkmanager" "wheel" "audio" "pulse" "docker" "video"];
+      extraGroups = [ "networkmanager" "wheel" "audio" "pulse"
+                      "docker" "video" "input" "uinput"
+                    ];
       uid = 1729;
       shell = pkgs.fish;
       home = "/home/doyougnu";
@@ -200,6 +203,20 @@
   environment.variables.XMONAD_CONFIG_DIR = "/home/doyougnu/.xmonad";
   environment.variables.XMONAD_CACHE_DIR  = "/home/doyougnu/.xmonad";
   environment.variables.XMONAD_DATA_DIR   = "/home/doyougnu/.xmonad";
+
+  # kmonad layers and keyboard
+   services.kmonad = {
+     enable = true;
+     keyboards = {
+       "framework_keyboard" = {
+         device = "/dev/input/by-id/{ your keyboard id that usually ends with -kbd }";
+         config = ''
+           { content of config.kbd here }
+         '';
+         };
+       };
+     package = import ../../programs/kmonad/kmonad.nix;
+  };
 
   # enable sasl
   services.saslauthd.enable = true;
