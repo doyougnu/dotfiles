@@ -171,16 +171,16 @@
 
     # Enable the X11 windowing system.
     enable = true;
-    layout = "dyg-dvorak";
+    # layout = "dyg-dvorak";
     xkbOptions = "compose:ralt";
     dpi    = 120;
     libinput.enable = true;
 
-    extraLayouts.dyg-dvorak = {
-      description = "My custom layout";
-      languages   = [ "eng" ];
-      symbolsFile = ../../programs/symbols/dyg-dvorak;
-    };
+    # extraLayouts.dyg-dvorak = {
+    #   description = "My custom layout";
+    #   languages   = [ "eng" ];
+    #   symbolsFile = ../../programs/symbols/dyg-dvorak;
+    # };
 
      windowManager.xmonad = {
        enable = true;
@@ -224,29 +224,51 @@
             tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
             caps a    s    d    f    g    h    j    k    l    ;    '    ret
             lsft z    x    c    v    b    n    m    ,    .    /    rsft
-            lctl lmet lalt           spc            ralt rmet cmp  rctl
+            lctl lmet lalt           spc            ralt rctl
           )
 
           (defalias
-              home_a (tap-hold-next-release 200 a lmet)
-              home_s (tap-hold-next-release 200 s lalt)
-              home_d (tap-hold-next-release 200 d lctl)
-              home_f (tap-hold-next-release 200 f lsft)
+              ;; home row mods base
+              home_a (tap-hold-next-release 170 a lmet)
+              home_o (tap-hold-next-release 170 o lalt)
+              home_e (tap-hold-next-release 170 e lctl)
+              home_u (tap-hold-next-release 170 u lsft)
 
-              home_j (tap-hold-next-release 200 j rsft)
-              home_k (tap-hold-next-release 200 k rctl)
-              home_l (tap-hold-next-release 200 l lalt)
-              home_; (tap-hold-next-release 200 ; rmet)
+              home_h (tap-hold-next-release 170 h rsft)
+              home_t (tap-hold-next-release 170 t rctl)
+              home_n (tap-hold-next-release 170 n lalt)
+              home_s (tap-hold-next-release 170 s rmet)
+
+             ;; symbols
+             syms (layer-toggle sym)
+
+             ;; num
+             nums (layer-toggle num)
           )
 
-          (deflayer homerowmods
-            grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-            tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-            caps @home_a   @home_s   @home_d   @home_f   g   h   @home_j   @home_k   @home_l   @home_; ' ret
-            lsft z    x    c    v    b    n    m    ,    .    /    rsft
-            lctl lmet lalt           spc            ret rmet cmp  rctl
+          (deflayer base
+            grv  1    2    3    4    5    6    7    8    9    0    [    ]    bspc
+            tab  '    ,    .    p    y    f    g    c    r    l    /    =    \
+            @syms @home_a   @home_o   @home_e   @home_u   i   d   @home_h   @home_t   @home_n   @home_s - ret
+            @nums ;    q    j    k    x    b    m    w    v    z    rsft
+            lctl lmet esc    spc            ret rctl
           )
 
+          (deflayer sym
+            XX   XX   XX   XX   XX    XX   XX   XX   XX   XX   XX   XX   XX   bspc
+            tab  '    ,    .    [     t    y    ]   !     =    %    XX   XX   XX
+            caps :   ^    `   \(     g    h   \)   $     @    _    -   ret
+            lsft ;   ~   &    {     b    }   #    XX    XX    XX rsft
+            lctl lmet lalt           spc            ret rctl
+          )
+
+          (deflayer num
+            XX  XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    bspc
+            tab  XX    <    >    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX
+            caps 9    7    5    3    1    0    2    4    6    8    XX ret
+            lsft XX    XX    XX    XX    XX    XX    XX    *    +    /    rsft
+            lctl lmet lalt           spc            ret rctl
+          )
          '';
          };
        };
