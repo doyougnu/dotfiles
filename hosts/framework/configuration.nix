@@ -247,26 +247,26 @@
           )
 
           (deflayer base
-            grv  1    2    3    4    5    6    7    8    9    0    [    ]    bspc
-            tab  '    ,    .    p    y    f    g    c    r    l    /    =    \
-            @syms @home_a   @home_o   @home_e   @home_u   i   d   @home_h   @home_t   @home_n   @home_s - ret
-            @nums ;    q    j    k    x    b    m    w    v    z    rsft
+            XX  XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    bspc
+            tab  '    ,    .    p    y    f    g    c    r    l    XX   XX    XX
+            @syms @home_a   @home_o   @home_e   @home_u   i   d   @home_h   @home_t   @home_n   @home_s @nums ret
+            lshft ;    q    j    k    x    b    m    w    v    z    rsft
             lctl lmet esc    spc            ret rctl
           )
 
           (deflayer sym
             XX   XX   XX   XX   XX    XX   XX   XX   XX   XX   XX   XX   XX   bspc
-            tab  '    ,    .    [     t    y    ]   !     =    %    XX   XX   XX
-            caps :   ^    `   \(     g    h   \)   $     @    _    -   ret
-            lsft ;   ~   &    {     b    }   #    XX    XX    XX rsft
+            tab  "    <    >    ?     [    ]    &    !    /   XX    XX   XX   XX
+            caps XX   ^    `    :    \(   \)    =    $    |    _    -   ret
+            lsft XX  XX    ~    &     {    }    #    %    \    XX rsft
             lctl lmet lalt           spc            ret rctl
           )
 
           (deflayer num
             XX  XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    bspc
-            tab  XX    <    >    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX
-            caps 9    7    5    3    1    0    2    4    6    8    XX ret
-            lsft XX    XX    XX    XX    XX    XX    XX    *    +    /    rsft
+            tab  *    <    >    +   XX    XX    XX    XX    XX    XX    XX    XX    XX
+            caps 0     1    2   3    4    XX    XX    XX    XX    XX    XX ret
+            lsft 5    6   7    8    9    XX    XX    XX    XX       rsft
             lctl lmet lalt           spc            ret rctl
           )
          '';
