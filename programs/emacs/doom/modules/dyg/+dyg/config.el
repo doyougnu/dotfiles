@@ -242,11 +242,11 @@
       :after company
       "C-s" #'company-complete-selection
       "C-t" #'company-filter-candidates
-      "C--" #'fill-paragraph)
+      "C-." #'fill-paragraph)
 
 (map! (:map company-active-map
             "C-s" #'company-complete-selection
-            "C--" #'fill-paragraph)
+            "C-." #'fill-paragraph)
       (:map minibuffer-local-map
             "C-t" #'vertico-previous
             "C-s" #'vertico-directory-enter
@@ -256,10 +256,10 @@
             "C-t" #'corfu-previous
             "C-n" #'corfu-next)
       (:map evil-markdown-mode-map
-       :nv "C--" #'fill-paragraph))
+       :nv "C-." #'fill-paragraph))
 
 (map! :map global-map
-       :nv "C--" #'fill-paragraph)
+       :nv "C-." #'fill-paragraph)
 
 ;; unsure if i want to keep this because I can just use C-n and C-p I'm more
 ;; sure now this is useful for swiper which uses C-n and C-p to move candidates,
