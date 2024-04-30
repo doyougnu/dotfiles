@@ -244,6 +244,9 @@
 
              ;; num
              nums (layer-toggle num)
+
+             ;; special handling for underscore
+             _ (around lshft -)
           )
 
           (deflayer base
@@ -256,16 +259,16 @@
 
           (deflayer sym
             XX   XX   XX   XX   XX    XX   XX   XX   XX   XX   XX   XX   XX   bspc
-            tab  "    <    >    ?     [    ]    &    !    /   XX    XX   XX   XX
-            caps XX   ^    `    :    \(   \)    =    $    |    _    -   ret
-            lsft XX  XX    ~    &     {    }    #    %    \    XX rsft
+            tab  "    <    >    ?     [    ]    &    !    /    XX   XX   XX   XX
+            caps XX   ^    `    :    \(   \)    =    $    |    @_    -   ret
+            lsft XX  XX    ~    @     {    }    #    %    \    XX rsft
             lctl lmet lalt           spc            ret rctl
           )
 
           (deflayer num
             XX  XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    bspc
             tab  *    <    >    +   XX    XX    XX    XX    XX    XX    XX    XX    XX
-            caps 0     1    2   3    4    XX    XX    XX    XX    XX    XX ret
+            caps 0     1    2   3    4    XX    XX    XX    XX    XX    XX  XX ret
             lsft 5    6   7    8    9    XX    XX    XX    XX       rsft
             lctl lmet lalt           spc            ret rctl
           )
