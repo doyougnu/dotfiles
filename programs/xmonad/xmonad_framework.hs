@@ -333,11 +333,11 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      spawn "light -A 2")
 
   -- disable touchpad
-  , ((modMask, xK_b),
+  , ((modMask, xK_x),
      safeSpawn "xinput" ["--disable", "12"])
 
   -- enable touchpad
-  , ((modMask .|. controlMask, xK_b),
+  , ((modMask .|. controlMask, xK_x),
      safeSpawn "xinput" ["--enable", "12"])
   --------------------------------------------------------------------
   -- "Standard" xmonad key bindings
