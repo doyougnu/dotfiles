@@ -222,8 +222,7 @@ myBorderWidth = 2
 --
 myModMask = mod4Mask
 
-myNumRow = [ xK_b
-           , xK_m
+myNumRow = [ xK_m
            , xK_w
            , xK_v
            , xK_z
