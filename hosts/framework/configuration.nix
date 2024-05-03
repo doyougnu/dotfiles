@@ -268,8 +268,8 @@
           (deflayer num
             XX  XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    bspc
             tab  *    <    >    +   XX    XX    XX    XX    XX    XX    XX    XX    XX
-            caps 0     1    2   3    4    XX    XX    XX    XX    XX    XX  XX ret
-            lsft 5    6   7    8    9    XX    XX    XX    XX       rsft
+            caps 0     1    2   3    4    XX    XX    XX    XX    XX    XX ret
+            lsft 5    6   7    8    9     XX    XX    XX    XX    XX       rsft
             lctl lmet lalt           spc            ret rctl
           )
          '';
