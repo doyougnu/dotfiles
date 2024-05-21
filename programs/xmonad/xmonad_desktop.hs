@@ -198,7 +198,7 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
 
   -- Spawn the launcher using command specified by myLauncher.
   -- Use this to launch programs without a key binding.
-  , ((modMask, xK_g),
+  , ((modMask, xK_d),
      spawn myLauncher)
 
   -- On Mod d open the browser
