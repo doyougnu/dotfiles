@@ -229,15 +229,15 @@
 
           (defalias
               ;; home row mods base
-              home_a (tap-hold-next-release 170 a lmet)
-              home_o (tap-hold-next-release 170 o lalt)
-              home_e (tap-hold-next-release 170 e lctl)
-              home_u (tap-hold-next-release 170 u lsft)
+              home_a (tap-hold-next-release 173 a lmet)
+              home_o (tap-hold-next-release 173 o lalt)
+              home_e (tap-hold-next-release 173 e lctl)
+              home_u (tap-hold-next-release 173 u lsft)
 
-              home_h (tap-hold-next-release 170 h rsft)
-              home_t (tap-hold-next-release 170 t rctl)
-              home_n (tap-hold-next-release 170 n lalt)
-              home_s (tap-hold-next-release 170 s rmet)
+              home_h (tap-hold-next-release 173 h rsft)
+              home_t (tap-hold-next-release 173 t rctl)
+              home_n (tap-hold-next-release 173 n lalt)
+              home_s (tap-hold-next-release 173 s rmet)
 
              ;; symbols
              syms (layer-toggle sym)
