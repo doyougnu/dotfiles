@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: todo
+# key: td
+# uuid: todo
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
+# --
+.. todo::
+   ${1:content} $0
