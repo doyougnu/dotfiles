@@ -230,13 +230,21 @@
           (defalias
               ;; home row mods base
               home_a (tap-hold-next-release 160 a lmet)
+
               home_o (tap-hold-next-release 160 o lalt)
               home_e (tap-hold-next-release 160 e lctl)
+
+              home_, (tap-hold-next-release 160 , lalt)
+              home_. (tap-hold-next-release 160 . lctl)
               home_u (tap-hold-next-release 160 u lsft)
 
               home_h (tap-hold-next-release 160 h rsft)
+
               home_t (tap-hold-next-release 160 t rctl)
               home_n (tap-hold-next-release 160 n lalt)
+
+              home_c (tap-hold-next-release 160 c rctl)
+              home_r (tap-hold-next-release 160 r lalt)
               home_s (tap-hold-next-release 160 s rmet)
 
              ;; symbols
@@ -251,8 +259,8 @@
 
           (deflayer base
             XX  XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    bspc
-            tab  '    ,    .    p    y    f    g    c    r    l    XX   XX    XX
-            @syms @home_a   @home_o   @home_e   @home_u   i   d   @home_h   @home_t   @home_n   @home_s @nums ret
+            tab  '    @home_,    @home_.    p    y   f    g    @home_c    @home_r    l    XX   XX    XX
+            @syms @home_a   o    e   @home_u    i    d   @home_h   t   n   @home_s @nums ret
             lshft ;    q    j    k    x    b    m    w    v    z    rsft
             lctl lmet esc    spc            ret rctl
           )
