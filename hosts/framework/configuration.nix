@@ -145,9 +145,15 @@
 
   # enable blueman service for bluetooth
   hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
+  hardware.bluetooth.settings = {
+    General =
+      { Experimental = true;
+        Enable = "Source,Sink,Media,Socket";
+      };
+                                };
 #   hardware.bluetooth.settings = { General = { ControllerMode = "dual";
-#                                               Enable = "Source,Sink,Media,Socket";
 #                                             }; };
 #   hardware.bluetooth.disabledPlugins = [ "avrcp" ];
 

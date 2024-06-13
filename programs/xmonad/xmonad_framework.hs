@@ -154,8 +154,10 @@ myLayout = avoidStruts $
 -- Colors and borders
 -- Currently based on the ir_black theme.
 --
-myNormalBorderColor  = "#7c7c7c"
-myFocusedBorderColor = "#ffb6b0"
+myNormalBorderColor  = "#21242b"
+myFocusedBorderColor = "#51afef"
+-- myNormalBorderColor  = "#7c7c7c"
+-- myFocusedBorderColor = "#ffb6b0"
 
 -- Colors for text and backgrounds of each tab when in "Tabbed" layout.
 -- myTheme = defaultTheme {
@@ -174,7 +176,7 @@ myFocusedBorderColor = "#ffb6b0"
 -- xmobarCurrentWorkspaceColor = "#CEFFAC"
 
 -- Width of the window border in pixels.
-myBorderWidth = 2
+myBorderWidth = 3
 
 ------------------------------------------------------------------------
 -- password stuff

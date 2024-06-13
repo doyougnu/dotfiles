@@ -63,7 +63,7 @@ in {
     extraConfig = ''
       copy_on_select yes
     '';
-    theme = "Chalk";
+    theme = "Tomorrow Night Blue";
     settings = {
       font_size = "14.0";
     };
@@ -303,12 +303,6 @@ in {
 
       rgf = "rg --files";
 
-      nsr = "nix-shell --pure --run";
-      nr  = "nix-shell  --run";
-      nsc = "nix-shell --pure --command";
-      ns  = "nix-shell";
-      nsp = "nix-shell -p";
-
       hbR   = "hadrian/build clean && ./boot && ./configure && hadrian/build -j12 --flavour=perf";
       hbc   = "hadrian/build clean && hadrian/build -j12 --flavour=perf";
       hb    = "hadrian/build -j12 --flavour=perf";
@@ -374,9 +368,9 @@ in {
        # bind -M normal T up-or-search
        # bind -M normal N down-or-search
        bind -M insert tn "if commandline -P; commandline -f cancel; else; set fish_bind_mode default; commandline -f backward-char force-repaint; end"
-       bind -M insert \cT up-or-search
+       bind -M insert \cP up-or-search
        bind -M insert \cN down-or-search
-       bind -M visual \cT up-or-search
+       bind -M visual \cP up-or-search
        bind -M visual \cN down-or-search
        bind -M insert \cS accept-autosuggestion
        bind -M insert -k nul 'accept-autosuggestion execute'
