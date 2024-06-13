@@ -123,8 +123,13 @@
   (map! :map yas-keymap
         "C-i" #'yas-next-field-or-maybe-expand))
 
-;; multi cursors
+;; workspaces
+(after! doom
+  (map! :map doom-leader-workspace-map
+         :desc "Previous workspace"  "h"   #'+workspace/switch-left
+         :desc "Next workspace"      "l"   #'+workspace/switch-right))
 
+;; multi cursors
 (after! evil-multiedit
   (map!
    :map evil-multiedit-mode-map

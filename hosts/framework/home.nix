@@ -367,7 +367,8 @@ in {
        # bind -M insert \cN history-token-search-forward
        # bind -M normal T up-or-search
        # bind -M normal N down-or-search
-       bind -M insert tn "if commandline -P; commandline -f cancel; else; set fish_bind_mode default; commandline -f backward-char force-repaint; end"
+       # dont bind vim escape, just use escape!
+       # bind -M insert tn "if commandline -P; commandline -f cancel; else; set fish_bind_mode default; commandline -f backward-char force-repaint; end"
        bind -M insert \cP up-or-search
        bind -M insert \cN down-or-search
        bind -M visual \cP up-or-search
@@ -389,6 +390,9 @@ in {
 
 
      fish_config theme choose Lava
+     # if status --is-interactive
+     #     ranger
+     # end
      '';
 
   };
