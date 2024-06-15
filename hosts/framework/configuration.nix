@@ -115,8 +115,8 @@
   environment.systemPackages = with pkgs; [
     wget vim binutils man-pages coreutils gnumake iw sshfs stdenv pkg-config curl
     htop aspellDicts.en aspell pciutils wirelesstools pavucontrol unzip openssl
-    gnutls git libnotify alsaLib xmonad-log dmenu xorg.xprop xorg.xwininfo
-    xclip xdotool
+    gnutls git libnotify alsaLib xmonad-log xorg.xprop xorg.xwininfo
+    xclip xdotool fprintd
   ];
 
   # Enable the OpenSSH daemon.
@@ -201,9 +201,9 @@
       defaultSession = "none+xmonad";
       lightdm.enable = true;
       autoLogin.user   = "doyougnu";
-      sessionCommands = ''
-         ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
-         '';
+      # sessionCommands = ''
+      #    ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
+      #    '';
     };
   };
   environment.variables.XMONAD_CONFIG_DIR = "/home/doyougnu/.xmonad";

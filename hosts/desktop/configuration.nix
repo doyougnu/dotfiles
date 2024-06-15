@@ -66,7 +66,7 @@ in
     stdenv pkg-config curl xorg.xmodmap htop aspellDicts.en
     aspell pciutils wirelesstools pavucontrol unzip
     openssl gnutls git libnotify alsaLib xmonad-log
-    dmenu xorg.xprop xorg.xwininfo xclip xdotool
+    xorg.xprop xorg.xwininfo xclip xdotool
 
     ];
 

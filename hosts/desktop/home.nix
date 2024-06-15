@@ -268,6 +268,19 @@ in {
                     '';
   };
 
+
+  programs.rofi = {
+    enable = true;
+    theme = "Arc-Dark";
+    font = "Hasklug Nerd Font 14";
+  };
+
+  home.pointerCursor = {
+    package = pkgs.numix-cursor-theme;
+    name = "Numix-Cursor";
+    x11.enable = true;
+  };
+
   programs.fish = {
     enable = true;
     shellAliases = {
@@ -345,23 +358,24 @@ in {
                }];
 
     shellInit = ''
-
      function fish_user_key_bindings
        fish_vi_key_bindings
        # bind -M insert \cT history-token-search-backward
        # bind -M insert \cN history-token-search-forward
        # bind -M normal T up-or-search
        # bind -M normal N down-or-search
-       bind -M insert tn "if commandline -P; commandline -f cancel; else; set fish_bind_mode default; commandline -f backward-char force-repaint; end"
-       bind -M insert \cT up-or-search
+       # dont bind vim escape, just use escape!
+       # bind -M insert tn "if commandline -P; commandline -f cancel; else; set fish_bind_mode default; commandline -f backward-char force-repaint; end"
+       bind -M insert \cP up-or-search
        bind -M insert \cN down-or-search
-       bind -M visual \cT up-or-search
+       bind -M visual \cP up-or-search
        bind -M visual \cN down-or-search
+       bind -M default \cP up-or-search
+       bind -M default \cN down-or-search
        bind -M insert \cS accept-autosuggestion
        bind -M insert -k nul 'accept-autosuggestion execute'
        bind -M visual p  fish_clipboard_paste
      end
-
 
      # set pure features
      # set --universal pure_show_system_time true
@@ -370,12 +384,15 @@ in {
      # set --universal pure_reverse_prompt_symbol_in_vimode true
 
      # set hydro features
-     # set --universal hydro_color_pwd $fish_color_cwd
-     # set --universal hydro_color_git $fish_color_comment
+     set --universal hydro_color_pwd $fish_color_cwd
+     set --universal hydro_color_git $fish_color_comment
+
 
      fish_config theme choose Lava
-      '';
-
+     # if status --is-interactive
+     #     ranger
+     # end
+     '';
   };
 
   ## manually load the plugins

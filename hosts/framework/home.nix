@@ -286,6 +286,17 @@ in {
                     '';
   };
 
+  programs.rofi = {
+    enable = true;
+    theme = "Arc-Dark";
+    font = "Hasklug Nerd Font 14";
+  };
+
+  home.pointerCursor = {
+    package = pkgs.numix-cursor-theme;
+    name = "Numix-Cursor";
+    x11.enable = true;
+  };
   ## environment variables
   home.sessionVariables = {
     LIBGL_ALWAYS_SOFTWARE = "1";
@@ -373,6 +384,8 @@ in {
        bind -M insert \cN down-or-search
        bind -M visual \cP up-or-search
        bind -M visual \cN down-or-search
+       bind -M default \cP up-or-search
+       bind -M default \cN down-or-search
        bind -M insert \cS accept-autosuggestion
        bind -M insert -k nul 'accept-autosuggestion execute'
        bind -M visual p  fish_clipboard_paste

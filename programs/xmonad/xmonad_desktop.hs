@@ -53,7 +53,7 @@ myScreenshot = "/usr/bin/deepin-screenshot"
 
 -- The command to use as a launcher, to launch commands that don't have
 -- preset keybindings.
-myLauncher = "dmenu_run"
+myLauncher = "rofi -show run"
 
 myMusic = "spotify"
 
