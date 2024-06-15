@@ -116,13 +116,14 @@
     wget vim binutils man-pages coreutils gnumake iw sshfs stdenv pkg-config curl
     htop aspellDicts.en aspell pciutils wirelesstools pavucontrol unzip openssl
     gnutls git libnotify alsaLib xmonad-log xorg.xprop xorg.xwininfo
-    xclip xdotool fprintd
+    xclip xdotool
   ];
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
   # fingerprint sensor
+  security.polkit.enable  = true;
   services.fprintd.enable = true;
 
   # networking.firewall.allowedTCPPorts = [ ... ];
