@@ -323,6 +323,9 @@ in {
       bindkey -v "^p" up-line-or-history
       bindkey -v "^n" down-line-or-history
       bindkey -v "^s" autosuggest-accept
+
+      # Set the autosuggestion highlight style to a lava-like color
+      ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#ff4500'
     '';
     shellAliases = {
       rgf = "rg --files";
