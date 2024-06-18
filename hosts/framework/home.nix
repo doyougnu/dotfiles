@@ -174,20 +174,6 @@ in {
     package = myEmacs;
   };
 
-  # systemd.user.services."emacs-daemon" = {
-  #   Unit = {
-  #     Description = "Start emacs as a daemon";
-  #   };
-  #   Install = {
-  #     WantedBy = [ "default.target" ];
-  #   };
-  #   Service = {
-  #     ExecStart = "/home/doyougnu/.emacs.d/bin/doom sync; ${myEmacs} --fg-daemon";
-  #     RemainAfterExit = "yes";
-  #     Type = "oneshot";
-  #   };
-  # };
-
   # email
   programs.mbsync.enable = true;        ## sync
   programs.msmtp.enable  = true;        ## sending
