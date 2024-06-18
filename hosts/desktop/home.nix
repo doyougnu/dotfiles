@@ -57,13 +57,14 @@ in {
   };
 
   services.gpg-agent = {
-    enable         = true;
+    enable               = true;
+    enableZshIntegration = true;
     defaultCacheTtl = 34560000;
     maxCacheTtl     = 34560000;
-    # pinentryFlavor = "tty";
     extraConfig = ''
     allow-emacs-pinentry
     allow-loopback-pinentry
+    pinentry-program /home/doyougnu/.nix-profile/bin/pinentry
     '';
   };
 
@@ -88,13 +89,13 @@ in {
   programs.kitty = {
     enable = true;
       keybindings = {
-        "ctrl+e" = "copy_to_clipboard";
-        "ctrl+u" = "paste_from_clipboard";
+        "ctrl+c" = "copy_to_clipboard";
+        "ctrl+v" = "paste_from_clipboard";
       };
     extraConfig = ''
       copy_on_select yes
     '';
-    # theme = "Sea Shells";
+    theme = "Tomorrow Night Blue";
     settings = {
       font_size = "9.0";
     };
@@ -166,7 +167,7 @@ in {
   };
 
   # emacs
-  services.emacs.enable = true;
+  services.emacs.enable  = true;
   services.emacs.package = myEmacs;
 
   # email
@@ -267,12 +268,13 @@ in {
                     ln -sf /home/doyougnu/sync/keys/auth/.authinfo.gpg /home/doyougnu/.authinfo.gpg
                     '';
   };
-
+  home.file.".p10k.zsh".source = ../../.p10k.zsh;
 
   programs.rofi = {
     enable = true;
     theme = "Arc-Dark";
     font = "Hasklug Nerd Font 14";
+    extraConfig = { opacity = 80; };
   };
 
   home.pointerCursor = {
@@ -281,126 +283,61 @@ in {
     x11.enable = true;
   };
 
-  programs.fish = {
+  programs.zsh = {
     enable = true;
+    autosuggestion.enable = true;
+    prezto.enable = true;
+    prezto.autosuggestions.color = "fg=yellow";
+    prezto.prompt.theme = "powerlevel10k";
+    prezto.pmodules = [ "git"
+                        "environment"
+                        "terminal"
+                        "history"
+                        "editor"
+                        "directory"
+                        "spectrum"
+                        "utility"
+                        "completion"
+                        "prompt"
+                        "fasd"
+                        "history-substring-search"
+                      ];
+    prezto.editor.keymap = "vi";
+    syntaxHighlighting.enable = true;
+    initExtra = ''
+      source ~/.p10k.zsh
+      alias hg='history | grep'
+
+      function lookup () { sdcv $1 | less }
+      function _lookup () { sdcv $1 }
+
+      function lookup-notify () { notify-send -t 2000 "$(lookup $1)" }
+
+      # Remove any custom keybindings for copy/paste in zsh
+      bindkey -r '^O'
+      bindkey -r '^E'
+      bindkey -r '^V'
+
+      bindkey "^p" history-beginning-search-backward
+      bindkey "^n" history-beginning-search-forward
+      bindkey -v "^p" up-line-or-history
+      bindkey -v "^n" down-line-or-history
+      bindkey -v "^s" autosuggest-accept
+    '';
     shellAliases = {
-      hg = "history | grep";
+      rgf = "rg --files";
       e  = "emacsclient -cn";
 
       gs = "git status";
       gp = "git push";
       gsu = "git submodule update --recursive";
-
-      rgf = "rg --files";
-
-      nsr = "nix-shell --pure --run";
-      nr  = "nix-shell  --run";
-      nsc = "nix-shell --pure --command";
-      ns  = "nix-shell";
-      nsp = "nix-shell -p";
-
-      hbR   = "hadrian/build clean && ./boot && ./configure && hadrian/build -j12 --flavour=perf";
-      hbc   = "hadrian/build clean && hadrian/build -j12 --flavour=perf";
-      hb    = "hadrian/build -j12 --flavour=perf";
-      hbq   = "hb --flavour=quick";
-      hbqs  = "hbq --skip='//*.mk' --skip='stage1:lib:rts'";
-      hbqf  = "hbqs --freeze1";
-      hbv   = "hb --flavour=validate --build-root=_validate";
-      hbvs  = "hbv --skip='//*.mk' --skip='stage1:lib:rts'";
-      hbvf  = "hbvs --freeze1";
-      hbt   = "mkdir -p _ticky; [ -e _ticky/hadrian.settings ] || echo -e \"stage1.*.ghc.hs.opts += -ticky -ddump-simpl -ddump-stg-final -ddump-to-file \\nstage1.ghc-bin.ghc.link.o pts += -ticky -ddump-simpl -ddump-stg-final -ddump-to-file\" > _ticky/hadrian.settings; hadrian/build -j12 --flavour=perf --build-root=_ticky";
-      hbts = "hbt --skip='//*.mk' --skip='stage1:lib:rts'";
-      hbtf = "hbts --freeze1";
+      nix = "noglob nix";
+      nixos-rebuild = "noglob nixos-rebuild";
     };
-
-    plugins = [{
-                 name = "fasd";
-                 src = pkgs.fetchFromGitHub
-                   {
-                     owner  = "oh-my-fish";
-                     repo   = "plugin-fasd";
-                     rev    = "98c4c729780d8bd0a86031db7d51a97d55025cf5";
-                     sha256 = "0m0q0x66b498lxmma9l9qxpzfkms4g7mg26xb6kh2p55vil1547h";
-                   };
-               }
-               {
-                 # the default theme
-                 name = "theme-harleen";
-                 src = pkgs.fetchFromGitHub
-                   {
-                     owner  = "aneveux";
-                     repo   = "theme-harleen";
-                     rev    = "caf53d792038e78faa7b6b6b98669abc171c5e64";
-                     sha256 = "1450qrkdmqxk686c7vpimcydwj9z9a7w7sripfpjzkq6np5s6w8c";
-                   };
-               }
-               { # great prompt
-                 name = "tide";
-                 src  = pkgs.fishPlugins.tide.src;
-               }
-               { # colorize command output
-                 name = "puffer-fish";
-                 src  = pkgs.fishPlugins.puffer.src;
-               }
-               { # don't log failed commands
-                 name = "sponge";
-                 src  = pkgs.fishPlugins.sponge.src;
-               }
-               {
-                 name = "done";
-                 src = pkgs.fetchFromGitHub
-                   {
-                     owner  = "franciscolourenco";
-                     repo   = "done";
-                     rev    = "7fda8f2c3e79835d5c1e6721fa48fe5ed4ba0858";
-                     sha256 = "1snysg52fr1h6n188jhqzny4sfgzcjgpa9r9qvj9smkg7zmplmsy";
-                 };
-               }];
-
-    shellInit = ''
-     function fish_user_key_bindings
-       fish_vi_key_bindings
-       # bind -M insert \cT history-token-search-backward
-       # bind -M insert \cN history-token-search-forward
-       # bind -M normal T up-or-search
-       # bind -M normal N down-or-search
-       # dont bind vim escape, just use escape!
-       # bind -M insert tn "if commandline -P; commandline -f cancel; else; set fish_bind_mode default; commandline -f backward-char force-repaint; end"
-       bind -M insert \cP up-or-search
-       bind -M insert \cN down-or-search
-       bind -M visual \cP up-or-search
-       bind -M visual \cN down-or-search
-       bind -M default \cP up-or-search
-       bind -M default \cN down-or-search
-       bind -M insert \cS accept-autosuggestion
-       bind -M insert -k nul 'accept-autosuggestion execute'
-       bind -M visual p  fish_clipboard_paste
-     end
-
-     # set pure features
-     # set --universal pure_show_system_time true
-     # set --universal pure_show_jobs        true
-     # set --universal pure_show_prefix_root_prompt         true
-     # set --universal pure_reverse_prompt_symbol_in_vimode true
-
-     # set hydro features
-     set --universal hydro_color_pwd $fish_color_cwd
-     set --universal hydro_color_git $fish_color_comment
-
-
-     fish_config theme choose Lava
-     # if status --is-interactive
-     #     ranger
-     # end
-     '';
+    sessionVariables = {
+      GPG_TTY = "$(tty)";
+    };
   };
-
-  ## manually load the plugins
-  xdg.configFile."fish/conf.d/plugin-pure.fish".text = pkgs.lib.mkAfter ''
-  for f in $plugin_dir/*.fish
-    source $f
-  end
-  '';
 
   home.packages = with pkgs; [
     alsa-utils
@@ -430,7 +367,6 @@ in {
     ripgrep
     # rnix-lsp
     rsync
-    lispPackages.quicklisp
     # sbcl
     sdcv             # for polybar
     signal-desktop

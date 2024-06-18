@@ -52,7 +52,7 @@
     extraConfig = ''
       copy_on_select yes
     '';
-    # theme = "Sea Shells";
+    theme = "Tomorrow Night Blue";
     settings = {
       font_size = "9.0";
     };

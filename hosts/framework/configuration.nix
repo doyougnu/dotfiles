@@ -72,13 +72,15 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
-  programs.fish = {
+  programs.zsh = {
     enable = true;
+    autosuggestions.enable = true;
+    syntaxHighlighting.enable = true;
   };
 
   # use flakes and trusted for cachix
   nix = {
-     package = pkgs.nixUnstable;
+     package = pkgs.nixVersions.latest;
      extraOptions = ''
        experimental-features = nix-command flakes
      '';
@@ -143,6 +145,7 @@
   environment.variables.GPG_TTY               = "$(tty)";
   environment.variables.VDPAU_DRIVER          = "va_gl";
   environment.variables.EMACS_HOST            = "framework"; # TODO move to home manager
+  environment.pathsToLink = [ "/share/zsh" ];
 
   # enable blueman service for bluetooth
   hardware.bluetooth.enable = true;
@@ -169,7 +172,7 @@
                       "docker" "video" "input" "uinput"
                     ];
       uid = 1729;
-      shell = pkgs.fish;
+      shell = pkgs.zsh;
       home = "/home/doyougnu";
     };
 

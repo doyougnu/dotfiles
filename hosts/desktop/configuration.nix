@@ -42,15 +42,11 @@ in
   console.font = "Lat2-Terminus16";
   console.keyMap = "us";
 
-  programs.fish.enable = true;
-#   programs.zsh = {
-#     enable = true;
-#     autosuggestions.enable = true;
-#     ohMyZsh.enable = true;
-#     ohMyZsh.plugins = [ "git" "history-substring-search" "z" "colored-man-pages" ];
-#    syntaxHighlighting.enable = true;
-#     promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-#   };
+  programs.zsh = {
+    enable = true;
+    autosuggestions.enable = true;
+    syntaxHighlighting.enable = true;
+  };
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -78,19 +74,22 @@ in
   environment.variables.EDITOR       = "emacs";
   environment.variables.XCURSOR_SIZE = "18";
   environment.variables.EMACS_HOST   = "desktop"; # TODO move to home manager
+  # for zsh autocomplete system packages
+  environment.pathsToLink = [ "/share/zsh" ];
+
 
   users.groups.voltron.gid = 7777;
   users.users.doyougnu = { # don't forget to set a password with passwd
       isNormalUser = true;
       extraGroups = ["networkmanager" "voltron" "wheel" "audio" "pulse" "docker" ];
       uid = 1729;
-      shell = pkgs.fish;
+      shell = pkgs.zsh;
       home = "/home/doyougnu";
     };
 
   # use flakes and trusted for cachix
   nix = {
-     package = pkgs.nixUnstable;
+     package = pkgs.nixVersions.latest;
      extraOptions = ''
        experimental-features = nix-command flakes
      '';
@@ -163,10 +162,6 @@ in
       lightdm.greeters.slick.extraConfig = ''
       # background=<path>
       '';
-      autoLogin = {
-        enable = false;
-        user = "doyougnu";
-        };
       sessionCommands = ''
        ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
        '';
@@ -178,7 +173,7 @@ in
   };
 
   ## default is no desktop manager and xmonad
-  services.xserver.displayManager.defaultSession = "none+xmonad";
+  services.displayManager.defaultSession = "none+xmonad";
   ## fallback to xterm if something should happen
   services.xserver.desktopManager.xterm.enable = true;
 
