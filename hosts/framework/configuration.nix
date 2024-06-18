@@ -177,14 +177,16 @@
     };
 
   # Enable the XServer settings
+  services.libinput.enable = true;
+  services.displayManager.defaultSession = "none+xmonad";
+  services.displayManager.autoLogin.user = "doyougnu";
   services.xserver = {
 
     # Enable the X11 windowing system.
     enable = true;
     # layout = "dyg-dvorak";
-    xkbOptions = "compose:ralt";
+    xkb.options = "compose:ralt";
     dpi    = 120;
-    libinput.enable = true;
 
     # extraLayouts.dyg-dvorak = {
     #   description = "My custom layout";
@@ -202,12 +204,10 @@
        ];
      };
      displayManager = {
-      defaultSession = "none+xmonad";
       lightdm.enable = true;
-      autoLogin.user   = "doyougnu";
-      # sessionCommands = ''
-      #    ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
-      #    '';
+      sessionCommands = ''
+         ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
+         '';
     };
   };
   environment.variables.XMONAD_CONFIG_DIR = "/home/doyougnu/.xmonad";
@@ -293,7 +293,7 @@
          '';
          };
        };
-     package = pkgs.haskellPackages.kmonad;
+     package = pkgs.kmonad;
   };
 
   # enable sasl
