@@ -225,7 +225,7 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
   , ((modMask .|. controlMask, xK_t), themePrompt def)
 
   -- lookup stuff in a dictionary easily and pipe to notification
-  -- , ((modMask, xK_r), lookupPrompt)
+  , ((modMask, xK_r), lookupPrompt)
 
   -- close last notification
   , ((modMask .|. shiftMask, xK_r),

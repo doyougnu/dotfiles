@@ -302,7 +302,7 @@ in {
                         "fasd"
                         "history-substring-search"
                       ];
-    prezto.editor.keymap = "vi";
+    prezto.editor.keymap = "emacs";
     syntaxHighlighting.enable = true;
     initExtra = ''
       source ~/.p10k.zsh
@@ -317,12 +317,17 @@ in {
       bindkey -r '^O'
       bindkey -r '^E'
       bindkey -r '^V'
+      bindkey -r '^D'
 
       bindkey "^p" history-beginning-search-backward
       bindkey "^n" history-beginning-search-forward
       bindkey -v "^p" up-line-or-history
       bindkey -v "^n" down-line-or-history
       bindkey -v "^s" autosuggest-accept
+      bindkey -v "^w" forward-word
+      bindkey "^w" forward-word
+      bindkey -v "^b" backward-word
+      bindkey "^b" backward-word
 
       # Set the autosuggestion highlight style to a lava-like color
       ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#ff4500'
@@ -336,6 +341,16 @@ in {
       gsu = "git submodule update --recursive";
       nix = "noglob nix";
       nixos-rebuild = "noglob nixos-rebuild";
+
+      # fasd aliases
+      a  = "fasd -a";       # any
+      s  = "fasd -si";      # show / search / select
+      d  = "fasd -d";       # directory
+      f  = "fasd -f";       # file
+      sd = "fasd -sid";     # interactive directory selection
+      sf = "fasd -sif";     # interactive file selection
+      z  = "fasd_cd -d";    # cd, same functionality as j in autojump
+      zz = "fasd_cd -d -i"; # cd with interactive selection
     };
     sessionVariables = {
       GPG_TTY = "$(tty)";
