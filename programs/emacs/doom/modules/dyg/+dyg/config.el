@@ -123,6 +123,9 @@
   (map! :map yas-keymap
         "C-i" #'yas-next-field-or-maybe-expand))
 
+;; be explicit about the shell
+(setq shell-file-name (getenv "SHELL"))
+
 ;; workspaces
 (after! doom
   (map! :map doom-leader-workspace-map

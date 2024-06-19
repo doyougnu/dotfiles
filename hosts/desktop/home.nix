@@ -89,8 +89,8 @@ in {
   programs.kitty = {
     enable = true;
       keybindings = {
-        "ctrl+c" = "copy_to_clipboard";
-        "ctrl+v" = "paste_from_clipboard";
+        "alt+c" = "copy_to_clipboard";
+        "alt+v" = "paste_from_clipboard";
       };
     extraConfig = ''
       copy_on_select yes
@@ -321,13 +321,19 @@ in {
 
       bindkey "^p" history-beginning-search-backward
       bindkey "^n" history-beginning-search-forward
-      bindkey -v "^p" up-line-or-history
-      bindkey -v "^n" down-line-or-history
-      bindkey -v "^s" autosuggest-accept
-      bindkey -v "^w" forward-word
+      bindkey -e "^p" up-line-or-history
+      bindkey -e "^n" down-line-or-history
+      bindkey -e "^s" autosuggest-accept
+      bindkey -e "^w" forward-word
       bindkey "^w" forward-word
-      bindkey -v "^b" backward-word
+      bindkey -e "^b" backward-word
       bindkey "^b" backward-word
+      bindkey -e "^d" kill-word
+      bindkey "^d" kill-word
+      bindkey -e "^H" backward-kill-word
+      bindkey "^H" backward-kill-word
+      bindkey "^[k" kill-whole-line
+      bindkey "^[i" expand-or-complete-with-indicator
 
       # Set the autosuggestion highlight style to a lava-like color
       ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#ff4500'
