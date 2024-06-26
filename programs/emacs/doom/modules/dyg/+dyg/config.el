@@ -113,15 +113,13 @@
                    :desc "Todo" "t" #'hl-todo-insert))
 
 ;; Yas
-(after! yasnippet
-  (setq yas-global-mode t)
-  ;; disable the C-s default binding
-  (map! :map (org-mode-map evil-insert-state-map global-map)
-        "C-i" nil)
-  (map! :map yas-minor-mode-map
-        "C-i" #'yas-expand)
-  (map! :map yas-keymap
-        "C-i" #'yas-next-field-or-maybe-expand))
+(setq yas-global-mode t)
+(map! :map (org-mode-map evil-insert-state-map global-map)
+"M-i" #'yas-expand)
+(map! :map yas-minor-mode-map
+"M-i" #'yas-expand)
+(map! :map yas-keymap
+"M-i" #'yas-next-field-or-maybe-expand)
 
 ;; be explicit about the shell
 (setq shell-file-name (getenv "SHELL"))
