@@ -57,8 +57,8 @@ in {
   programs.kitty = {
     enable = true;
       keybindings = {
-        "ctrl+c" = "copy_to_clipboard";
-        "ctrl+v" = "paste_from_clipboard";
+        "alt+c" = "copy_to_clipboard";
+        "alt+v" = "paste_from_clipboard";
       };
     extraConfig = ''
       copy_on_select yes
@@ -365,6 +365,9 @@ in {
       sf = "fasd -sif";     # interactive file selection
       z  = "fasd_cd -d";    # cd, same functionality as j in autojump
       zz = "fasd_cd -d -i"; # cd with interactive selection
+      l  = "ll";
+      c  = "cd";
+
     };
     sessionVariables = {
       GPG_TTY = "$(tty)";
