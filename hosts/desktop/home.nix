@@ -357,6 +357,9 @@ in {
       sf = "fasd -sif";     # interactive file selection
       z  = "fasd_cd -d";    # cd, same functionality as j in autojump
       zz = "fasd_cd -d -i"; # cd with interactive selection
+      l  = "ll";
+      c  = "cd";
+
     };
     sessionVariables = {
       GPG_TTY = "$(tty)";
