@@ -246,19 +246,19 @@
 
 (map! :map company-active-map
       :after company
-      "C-s" #'company-complete-selection
+      "C-a" #'company-complete-selection
       "C-t" #'company-filter-candidates
       "C-." #'fill-paragraph)
 
 (map! (:map company-active-map
-            "C-s" #'company-complete-selection
+            "C-a" #'company-complete-selection
             "C-." #'fill-paragraph)
       (:map minibuffer-local-map
             "C-t" #'vertico-previous
-            "C-s" #'vertico-directory-enter
+            "C-a" #'vertico-directory-enter
             "C-e" #'embark-act)
       (:map corfu-mode-map
-            "C-s" #'corfu-complete
+            "C-a" #'corfu-complete
             "C-t" #'corfu-previous
             "C-n" #'corfu-next)
       (:map evil-markdown-mode-map
