@@ -224,10 +224,10 @@ myBorderWidth = 3
 --
 myModMask = mod4Mask
 
-myNumRow = [ xK_g
-           , xK_c
-           , xK_r
-           , xK_l
+myNumRow = [ xK_m
+           , xK_w
+           , xK_v
+           , xK_z
            ]
 
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
