@@ -246,9 +246,9 @@
 
               home_, (tap-hold-next-release 160 , lalt)
               home_. (tap-hold-next-release 160 . lctl)
-              home_u (tap-hold-next-release 160 u lsft)
+              home_; (tap-hold-next-release 160 u lsft)
 
-              home_h (tap-hold-next-release 160 h rsft)
+              home_z (tap-hold-next-release 160 h rsft)
 
               home_t (tap-hold-next-release 160 t rctl)
               home_n (tap-hold-next-release 160 n lalt)
@@ -270,8 +270,8 @@
           (deflayer base
             XX  XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    bspc
             tab  '    @home_,    @home_.    p    y   f    g    @home_c    @home_r    l    XX   XX    XX
-            @syms @home_a   o    e   @home_u    i    d   @home_h   t   n   @home_s @nums ret
-            lshft ;    q    j    k    x    b    m    w    v    z    rsft
+            @syms @home_a   o    e   u    i    d   h   t   n   @home_s @nums ret
+            lshft @home_;    q    j    k    x    b    m    w    v    @home_z    rsft
             lctl lmet esc    spc            ret rctl
           )
 
