@@ -246,9 +246,9 @@
 
               home_, (tap-hold-next-release 160 , lalt)
               home_. (tap-hold-next-release 160 . lctl)
-              home_; (tap-hold-next-release 160 u lsft)
+              home_; (tap-hold-next-release 160 ; lsft)
 
-              home_z (tap-hold-next-release 160 h rsft)
+              home_z (tap-hold-next-release 160 z rsft)
 
               home_t (tap-hold-next-release 160 t rctl)
               home_n (tap-hold-next-release 160 n lalt)
