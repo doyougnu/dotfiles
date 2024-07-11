@@ -244,6 +244,9 @@
                    :desc "Add Tag"    "rt" #'org-roam-tag-add
                    :desc "Remove Tag" "rT" #'org-roam-tag-remove))
 
+(map! :map evil-insert-state-map
+      :after evil
+      "C-a" nil)
 (map! :map company-active-map
       :after company
       "C-a" #'company-complete-selection
@@ -257,7 +260,8 @@
             "C-t" #'vertico-previous
             "C-a" #'vertico-directory-enter
             "C-e" #'embark-act)
-      (:map corfu-mode-map
+      (:map corfu-map
+       :after corfu
             "C-a" #'corfu-complete
             "C-t" #'corfu-previous
             "C-n" #'corfu-next)
