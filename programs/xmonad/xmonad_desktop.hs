@@ -228,7 +228,7 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
   , ((modMask, xK_r), lookupPrompt)
 
   -- close last notification
-  , ((modMask .|. shiftMask, xK_r),
+  , ((modMask .|. mod1Mask, xK_r),
     safeSpawn "dunstctl" ["close"])
 
   -- run emacs everywhere
@@ -289,7 +289,7 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
      sendMessage NextLayout)
 
   --  Reset the layouts on the current workspace to default.
-  , ((modMask .|. shiftMask, xK_space),
+  , ((modMask .|. mod1Mask, xK_space),
      setLayout $ XMonad.layoutHook conf)
 
   -- Resize viewed windows to the correct size.
@@ -317,11 +317,11 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
      windows W.swapMaster)
 
   -- Swap the focused window with the next window.
-  , ((modMask .|. shiftMask, xK_n),
+  , ((modMask .|. mod1Mask, xK_n),
      windows W.swapDown  )
 
   -- Swap the focused window with the previous window.
-  , ((modMask .|. shiftMask, xK_t),
+  , ((modMask .|. mod1Mask, xK_t),
      windows W.swapUp    )
 
   -- Shrink the master area.
@@ -361,13 +361,13 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
   -- mod-shift-[1..9], Move client to workspace N
   [((m .|. modMask, k), windows $ f i)
       | (i, k) <- zip (XMonad.workspaces conf) myNumRow
-      , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+      , (f, m) <- [(W.greedyView, 0), (W.shift, mod1Mask)]]
   ++
   -- mod-{w,e,r} %! Switch to physical/Xinerama screens 1, 2, or 3
   -- mod-shift-{w,e,r} %! Move client to screen 1, 2, or 3
   [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
       | (key, sc) <- zip [xK_comma, xK_period, xK_p] [0..]
-      , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+      , (f, m) <- [(W.view, 0), (W.shift, mod1Mask)]]
 
 ------------------------------------------------------------------------
 -- Mouse bindings
