@@ -40,7 +40,7 @@
   (whitespace-mode 1)
   (add-to-list 'write-file-functions 'delete-trailing-whitespace))
 
-;;;###autoload 
+;;;###autoload
 (defun dyg/evil-avy-line-recenter (&rest args)
   "Advice function to recenter buffer after evilavy-goto-line-above
 or below."
