@@ -227,6 +227,7 @@
 
       (:after doom
       :desc "Org-capture" "SPC" #'org-capture
+      :desc "Calc"        "`"   #'calc
       :desc "switch buffer other window" "'" #'projectile-switch-to-buffer-other-window
       :desc "Ranger"      "."   #'ranger))
 

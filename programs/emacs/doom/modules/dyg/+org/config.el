@@ -49,7 +49,7 @@
   (setf org-capture-bookmark             nil)
 
   ;; request a note everytime we clock out on clocked in item
-  (setf org-log-note-clock-out           nil)
+  (setf org-log-note-clock-out           t)
 
   ;; pomodoro
   (setf org-pomodoro-format
