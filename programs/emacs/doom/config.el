@@ -44,7 +44,7 @@
 
 (if (equal (getenv "EMACS_HOST") "framework")
     (setq doom-theme 'doom-gruvbox-light)
-    (setq doom-theme 'doom-henna))
+    (setq doom-theme 'doom-bluloco-dark))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
