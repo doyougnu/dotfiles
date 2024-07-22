@@ -46,7 +46,7 @@
   (setq org-blank-before-new-entry '((heading . t) (plain-list-item . t)))
 
   ;; don't set bookmarks on a capture
-  (setf org-capture-bookmark             nil)
+  (setf org-bookmark-names-plist             nil)
 
   ;; request a note everytime we clock out on clocked in item
   (setf org-log-note-clock-out           t)
@@ -57,6 +57,7 @@
                         (or org-pomodoro-count 0))
                 "%s"))
   (add-hook! 'org-pomodoro-long-break-finished-hook #'org-add-note)
+  (add-hook! 'org-after-refile-insert-hook 'dyg/org-copy-refile-to-clipboard)
 
   ;; always use listings for org latex export of code
   (setf org-latex-src-block-backend               'minted

@@ -420,3 +420,22 @@
                                    (looking-at-p "\n"))
                          (insert "\n"))))
                    t nil))
+
+;;;###autoload
+(defun my/org-copy-refile-to-clipboard ()
+  "Copy the most recently refiled entry to the system clipboard."
+  (when (and (boundp 'org-refile-marker)
+             org-refile-marker)
+    (let* ((marker org-refile-marker)
+           (buffer (marker-buffer marker))
+           (pos (marker-position marker))
+           (refiled-entry (with-current-buffer buffer
+                            (save-excursion
+                              (goto-char pos)
+                              (org-back-to-heading t)
+                              (let ((start (point)))
+                                (org-end-of-subtree)
+                                (buffer-substring-no-properties start (point)))))))
+      (kill-new refiled-entry)
+      (message "Refiled entry copied to clipboard: %s" refiled-entry))))
+
