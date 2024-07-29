@@ -32,6 +32,8 @@
 
 (setq haskell-process-suggest-restart  nil
       haskell-process-log              t
+      ;; haskell-mode won't find hoogle because of nix so hardcode this
+      haskell-hoogle-command           "hoogle"
       haskell-interactive-popup-errors nil
       ;; this is necessary because haskell-mode hasn't updated yet. Check if
       ;; this variable is need later
@@ -48,9 +50,11 @@
                                              ("\\.idl\\'" flymake-proc-simple-make-init))
       )
 
-(map! :localleader
+(map! :after haskell-mode
       :map haskell-mode-map
-      :nv "," #'haskell-process-load-file
+      :localleader
+      :nv ","  #'haskell-process-load-file
+      :nv "h" #'haskell-hoogle
 
       (:prefix ("s" . "Repl")
                "s" #'haskell-interactive-bring
