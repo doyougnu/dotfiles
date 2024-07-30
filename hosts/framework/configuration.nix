@@ -239,23 +239,16 @@
 
           (defalias
               ;; home row mods base
-              home_a (tap-hold-next-release 160 a lmet)
 
-              home_o (tap-hold-next-release 160 o lalt)
-              home_e (tap-hold-next-release 160 e lctl)
+              home_; (tap-hold-next-release 160 ; lmet)
+              home_q (tap-hold-next-release 160 q lalt)
+              home_j (tap-hold-next-release 160 j lctl)
+              home_k (tap-hold-next-release 160 k lsft)
 
-              home_, (tap-hold-next-release 160 , lalt)
-              home_. (tap-hold-next-release 160 . lctl)
-              home_; (tap-hold-next-release 160 ; lsft)
-
-              home_z (tap-hold-next-release 160 z rsft)
-
-              home_t (tap-hold-next-release 160 t rctl)
-              home_n (tap-hold-next-release 160 n lalt)
-
-              home_c (tap-hold-next-release 160 c rctl)
-              home_r (tap-hold-next-release 160 r lalt)
-              home_s (tap-hold-next-release 160 s rmet)
+              home_z (tap-hold-next-release 160 z rmet)
+              home_v (tap-hold-next-release 160 v ralt)
+              home_w (tap-hold-next-release 160 w rctl)
+              home_m (tap-hold-next-release 160 m rsft)
 
              ;; symbols
              syms (layer-toggle sym)
@@ -269,9 +262,9 @@
 
           (deflayer base
             XX  XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    bspc
-            tab  '    @home_,    @home_.    p    y   f    g    @home_c    @home_r    l    XX   XX    XX
-            @syms @home_a   o    e   u    i    d   h   t   n   @home_s @nums ret
-            lshft @home_;    q    j    k    x    b    m    w    v    @home_z    rsft
+            tab     '    ,    .    p    y   f    g    c    r    l    XX   XX    XX
+            @syms   a   o    e   u    i    d   h   t   n   s @nums ret
+            lshft @home_;    @home_q    @home_j    @home_k    x    b    @home_m    @home_w    @home_v    @home_z    rsft
             lctl lmet esc    spc            ret rctl
           )
 
