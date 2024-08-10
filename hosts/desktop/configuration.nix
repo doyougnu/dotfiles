@@ -162,7 +162,13 @@ in
       # there
             extraConfig = ''
                 [greeter]
-                show-password-label = false
+                show-password-label = true
+                show-input-cursor = true
+                mod-key = meta
+                shutdown-key = s
+                restart-key = r
+                hibernate-key = h
+                suspend-key = u
                 [greeter-theme]
                 background-image = "/usr/share/sylvain-sarrailh-bridgehdartstation.jpg"
             '';
