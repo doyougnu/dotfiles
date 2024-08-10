@@ -16,7 +16,7 @@ in
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_9;
 
   ## Enable pulseaudio and bluetooth
   sound.enable = true;
@@ -126,6 +126,11 @@ in
   systemd.sleep.extraConfig = "HibernateDelaySec=4h";
   services.logind.extraConfig = "IdleAction=ignore";
 
+  ## default is no desktop manager and xmonad
+  services.displayManager.defaultSession = "none+xmonad";
+  ## fallback to xterm if something should happen
+  services.xserver.desktopManager.xterm.enable = true;
+
   # Enable the XServer settings
   services.xserver.enable = true;
   services.xserver = {
@@ -147,21 +152,21 @@ in
 
     videoDrivers = [ "nvidia" ];
 
-    # set this in the keyboard instead
-    # layout = "dyg-dvorak,";
-    # xkbVariant = "dvorak";
-    # extraLayouts.dyg-dvorak = {
-    #   description = "My custom layout";
-    #   languages   = [ "eng" ];
-    #   symbolsFile = ../../programs/symbols/dyg-dvorak;
-    # };
-
     displayManager = {
       lightdm.enable = true;
-      lightdm.greeters.slick.enable = true;
-      lightdm.greeters.slick.extraConfig = ''
-      # background=<path>
-      '';
+      lightdm.greeters.mini = {
+            enable = true;
+            user = "doyougnu";
+      # this file cannot bu under /home, it needs to be accessible by the
+      # lightdm user so it must be under /usr/share. I've manually copied it
+      # there
+            extraConfig = ''
+                [greeter]
+                show-password-label = false
+                [greeter-theme]
+                background-image = "/usr/share/sylvain-sarrailh-bridgehdartstation.jpg"
+            '';
+        };
       sessionCommands = ''
        ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
        '';
@@ -171,11 +176,6 @@ in
     };
 
   };
-
-  ## default is no desktop manager and xmonad
-  services.displayManager.defaultSession = "none+xmonad";
-  ## fallback to xterm if something should happen
-  services.xserver.desktopManager.xterm.enable = true;
 
   # Drivers 32bit support
   hardware.opengl.enable = true;

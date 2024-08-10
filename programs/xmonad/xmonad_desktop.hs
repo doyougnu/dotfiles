@@ -317,11 +317,11 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
      windows W.swapMaster)
 
   -- Swap the focused window with the next window.
-  , ((modMask .|. mod1Mask, xK_n),
+  , ((modMask .|. shiftMask, xK_n),
      windows W.swapDown  )
 
   -- Swap the focused window with the previous window.
-  , ((modMask .|. mod1Mask, xK_t),
+  , ((modMask .|. shiftMask, xK_t),
      windows W.swapUp    )
 
   -- Shrink the master area.

@@ -401,6 +401,7 @@ in {
     spotify-unwrapped
     slack
     steam
+    xfce.thunar
     unison
     xclip
     # xorg.xwininfo    # for emacs everywhere
