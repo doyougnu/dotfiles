@@ -17,11 +17,10 @@ let
       # siji
       nerdfonts
       font-awesome_5
-      # font-awesome_4
       # material-icons
       emacs-all-the-icons-fonts
       # numix-icon-theme-circle
-      symbola
+      # symbola
     ];
 
 in {
@@ -389,13 +388,9 @@ in {
     feh
     gcc   # for org-roam
     google-chrome
-    gauche
-    gforth # aoc2023
     # gollum
-    haskellPackages.hasktags
     libevent
     libpulseaudio  # for polybar config
-    idris2
     libnotify
     killall         # for polybar launch script
     moreutils
@@ -405,7 +400,6 @@ in {
     pdfpc           # pdf presentaitons from the shell
     polybar         # for xmonad
     pinentry
-    pianobar
     python310
     python310Packages.pygments
     ranger
@@ -413,10 +407,8 @@ in {
     rsync
     # rnix-lsp         # for nix lsp in emacs
     sdcv             # for polybar
-    signal-desktop
     slack
     spotify
-    steam
     tdesktop
     vlc
     xclip
@@ -427,17 +419,13 @@ in {
     wordnet
     zip
   ] ++
-  [ R-with-packages
+  [ # R-with-packages
   ] ++
   my-fonts
     ++
   (with pkgs;
-    [ gmp
-      numactl
-      valgrind
-      flameshot
+    [ flameshot
       discord
-      linuxPackages.perf
   ]);
 
   # This value determines the Home Manager release that your
