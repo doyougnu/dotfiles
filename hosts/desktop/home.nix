@@ -339,7 +339,7 @@ in {
       ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#ff4500'
     '';
     shellAliases = {
-      rgf = "rg --files";
+      rgf = "rg --files | rg";
       e  = "emacsclient -cn";
 
       gs = "git status";
