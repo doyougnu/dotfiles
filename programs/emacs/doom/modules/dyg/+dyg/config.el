@@ -115,11 +115,11 @@
 ;; Yas
 (setq yas-global-mode t)
 (map! :map (org-mode-map evil-insert-state-map global-map)
-"M-i" #'yas-expand)
+"M-o" #'yas-expand)
 (map! :map yas-minor-mode-map
-"M-i" #'yas-expand)
+"M-o" #'yas-expand)
 (map! :map yas-keymap
-"M-i" #'yas-next-field-or-maybe-expand)
+"M-o" #'yas-next-field-or-maybe-expand)
 
 ;; be explicit about the shell
 (setq shell-file-name (getenv "SHELL"))
