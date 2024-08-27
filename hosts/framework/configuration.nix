@@ -246,7 +246,7 @@
               home_k (tap-hold-next-release 160 k lsft)
 
               home_z (tap-hold-next-release 160 z rmet)
-              home_v (tap-hold-next-release 160 v ralt)
+              home_v (tap-hold-next-release 160 v lalt)
               home_w (tap-hold-next-release 160 w rctl)
               home_m (tap-hold-next-release 160 m rsft)
 

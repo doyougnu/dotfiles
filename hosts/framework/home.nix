@@ -330,6 +330,8 @@ in {
 
       bindkey "^t" history-beginning-search-backward
       bindkey "^n" history-beginning-search-forward
+      bindkey "^[t" history-search-backward
+      bindkey "^[n" history-search-forward
       bindkey -e "^t" up-line-or-history
       bindkey -e "^n" down-line-or-history
       bindkey -e "^a" autosuggest-accept

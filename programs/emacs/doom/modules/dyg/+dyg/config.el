@@ -150,7 +150,7 @@
   (map! :leader
         :desc "find file"               "oo" #'find-file
         :desc "find recent file"        "ot" #'consult-recent-file
-        :desc "find file other project" "oF" #'doom/find-file-in-other-project
+        :desc "find file other project" "op" #'doom/find-file-in-other-project
         :desc "find file other window"  "ow" #'projectile-find-file-other-window
         :desc "projectile: find file"   "oO" #'projectile-find-file
         :desc "ace-window"              "ww" #'ace-window)
