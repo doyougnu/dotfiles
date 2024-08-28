@@ -274,8 +274,6 @@ in {
   };
   home.file.".p10k.zsh".source = ../../.p10k.zsh;
 
-  programs.nheko.enable = true;
-
   programs.rofi = {
     enable = true;
     theme = "Arc-Dark";
@@ -386,6 +384,7 @@ in {
     cachix
     evince
     entr
+    element-desktop
     myEmacs
     firefox
     fasd
