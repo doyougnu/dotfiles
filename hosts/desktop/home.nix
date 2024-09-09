@@ -16,12 +16,12 @@ let
     my-fonts = with pkgs; [
       source-code-pro
       siji
-      nerdfonts             # nerdfonts broken on stable for 21.11
+      nerdfonts
       font-awesome_5
       material-icons
       emacs-all-the-icons-fonts
       numix-icon-theme-circle
-      symbola
+      # symbola broken on 2024.04
     ];
 
 in {
@@ -399,9 +399,7 @@ in {
     rsync
     # sbcl
     sdcv             # for polybar
-    signal-desktop
     spotify
-    spotify-unwrapped
     slack
     steam
     xfce.thunar

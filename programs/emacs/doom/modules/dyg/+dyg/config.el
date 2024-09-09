@@ -225,6 +225,13 @@
        :desc "smerge-keep-upper"   "u" #'smerge-keep-upper
        :desc "smerge-keep-lower"   "l" #'smerge-keep-lower)
 
+      (:prefix ("$" . "org-timer")
+       :desc "set timer"         "$"   #'org-timer-set-timer
+       :desc "pause or continue" "SPC" #'org-timer-pause-or-continue
+       :desc "show timer"        "="   #'org-timer-show-remaining-time
+       :desc "stop timer"        "q"   #'org-timer-stop
+       :desc "start timer"       "s"   #'org-timer-start)
+
       (:after doom
       :desc "Org-capture" "SPC" #'org-capture
       :desc "Calc"        "`"   #'calc
