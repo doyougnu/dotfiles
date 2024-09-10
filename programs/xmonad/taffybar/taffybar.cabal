@@ -1,11 +1,11 @@
-name:                taffybar
+name:                dyg-taffybar
 version:             0.1.0.0
 author:              author
 maintainer:          email@email.com
 build-type:          Simple
 cabal-version:       >=1.10
 
-executable my-taffybar
+executable taffybar
   hs-source-dirs:      .
   main-is:             taffybar.hs
   ghc-options:         -threaded -O2 -rtsopts -with-rtsopts=-N

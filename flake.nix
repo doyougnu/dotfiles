@@ -15,7 +15,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     xmonad = {
-      url = "path:./programs/xmonad";
+      url = "path:/home/doyougnu/dotfiles/programs/xmonad";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -40,7 +40,7 @@
       };
 
       overlay-dotfiles = final: prev: {
-        dyg-taffybar = xmonad.packages.${system}.dyg-taffybar; # set to taffybar for now
+        dyg-taffybar = xmonad.packages.${system}.default; # set to taffybar for now
       };
 
       # idris2-overlay = final: prev: {
