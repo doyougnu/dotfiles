@@ -4,6 +4,7 @@ let
     # myEmacs = import ../../programs/emacs/emacs.nix { pkgs = pkgs; config = config; unstable = pkgs; };
     # haskell-env = with pkgs.haskell.packages.${config.ghc.version}; [
     myEmacs = pkgs.emacs29.override {withGTK3 = true; };
+    myTaffybar = pkgs.callPackage ../../programs/taffybar/default.nix {};
     # ];
     R-with-packages = pkgs.rWrapper.override { packages = with pkgs.rPackages; [
       tidyverse cowplot
@@ -254,8 +255,13 @@ in {
 
   # write config files
   # polybar
-  xdg.configFile."polybar/config-desktop.ini".source    = ../../programs/polybar/config-desktop.ini;
-  xdg.configFile."polybar/launch-desktop.sh".source = ../../programs/polybar/launch-desktop.sh;
+  xdg.configFile = {
+    "taffybar" = {
+      source = config.lib.file.mkOutOfStoreSymlink ../../programs/xmonad/taffybar;
+      recursive = true;
+    };
+  };
+
   # xmonad
   home.file.".xmonad/xmonad.hs".source = ../../programs/xmonad/xmonad_desktop.hs;
   home.file.".xmonad/xmonad.hs".onChange = "xmonad --recompile";
@@ -373,6 +379,7 @@ in {
     chez
     cachix
     discord
+    dyg-taffybar   # xmonad will try to spawn
     entr
     evince
     element-desktop

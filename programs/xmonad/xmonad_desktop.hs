@@ -10,6 +10,7 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
+import XMonad.Hooks.EwmhDesktops (ewmh)
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spiral
@@ -31,6 +32,7 @@ import XMonad.Prompt
 import XMonad.Prompt.Input
 import XMonad.Prompt.Shell
 import XMonad.Prompt.Theme
+import System.Taffybar.Support.PagerHints (pagerHints)
 
 
 ------------------------------------------------------------------------
@@ -436,14 +438,18 @@ lookupPrompt = inputPrompt greenXPConfig "λ" ?+ lookupInDict
 -- ON NIXOS, do this to recompile: nix-shell -p 'xmonad-with-packages.override { packages = p: with p; [ xmonad-extras xmonad-contrib xmonad dbus xmonad-spotify ]; }'
 
 main = do
-  xmproc <- spawnPipe "$HOME/.config/polybar/launch-desktop.sh"
+  xmproc <- spawnPipe "taffybar"
   dbus <- D.connectSession
   D.requestName dbus (D.busName_ "org.xmonad.Log")
     [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
 
-  xmonad $ docks defaults {
+  xmonad
+    $ docks
+    $ ewmh
+    $ pagerHints
+    $ defaults {
     logHook = dynamicLogWithPP $ myLogHook dbus
- }
+    }
 
 -- Override the PP values as you would otherwise, adding colors etc depending
 -- on  the statusbar used

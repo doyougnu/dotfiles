@@ -142,6 +142,7 @@ in
       extraPackages = haskellPackages: [
          haskellPackages.dbus
          haskellPackages.xmonad-spotify
+         haskellPackages.taffybar
       ];
     };
 

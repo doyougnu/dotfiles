@@ -14,6 +14,10 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    xmonad = {
+      url = "path:./programs/xmonad";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
   };
 
@@ -23,6 +27,7 @@
             , nixos-hardware
             , nixpkgs
             , nixpkgs-unstable
+            , xmonad
             , ...
             }@attrs :
     let
@@ -34,16 +39,16 @@
         unstable = nixpkgs-unstable.legacyPackages.${prev.system};
       };
 
-      # overlay-local = final: prev: {
-      #   local = nixpkgs-local.legacyPackages.${prev.system};
-      # };
+      overlay-dotfiles = final: prev: {
+        dyg-taffybar = xmonad.packages.${system}.dyg-taffybar; # set to taffybar for now
+      };
 
       # idris2-overlay = final: prev: {
       #   idris2 = git-idris2.packages.${system}.idris2;
       # };
 
       homeManagerConfFor = config: { ... }: {
-        nixpkgs.overlays = [ emacs-overlay.overlay nur.overlay overlay-unstable ];
+        nixpkgs.overlays = [ emacs-overlay.overlay nur.overlay overlay-unstable overlay-dotfiles ];
         imports = [ config ];
       };
 
@@ -70,7 +75,7 @@
         username      = user;
         stateVersion = "21.11";
       };
-    in 
+    in
     {
       nixosConfigurations.node0 = nixpkgs.lib.nixosSystem {
         inherit system;
@@ -108,8 +113,9 @@
         inherit system;
         specialArgs = attrs;
         modules = [
-          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
+          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable overlay-dotfiles ]; })
           ./hosts/desktop/configuration.nix
+
 
           home-manager.nixosModules.home-manager {
             home-manager.useUserPackages = false;
