@@ -137,11 +137,11 @@ myManageHook = manageDocks <+> composeAll (concat $
 --     Full |||
 --     noBorders (fullscreenFull Full)
 
-myLayout = fullscreenFull $ avoidStruts $ noBorders ( tiled ||| Mirror tiled ||| Full )
+myLayout = fullscreenFull $ avoidStruts $ smartBorders ( tiled ||| Mirror tiled ||| Full )
   where
     tiled = Tall nmaster delta ratio
     nmaster = 1
-    ratio = 2/3
+    ratio = 3/5
     delta = 3/100
 
 ------------------------------------------------------------------------
@@ -424,6 +424,8 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 myStartupHook = do
   setWMName "LG3D"
   safeSpawn "feh" ["--randomize", "--bg-scale", myWallPapers, "--bg-center", myWallPapers]
+  safeSpawn "eww" ["open", "bar"]
+  return ()
 
 ------------------------------------------------------------------------
 -- custom stuff

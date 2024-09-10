@@ -14,10 +14,10 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    xmonad = {
-      url = "path:/home/doyougnu/dotfiles/programs/xmonad";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # xmonad = {
+    #   url = "path:/home/doyougnu/dotfiles/programs/xmonad";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
   };
 
@@ -27,7 +27,6 @@
             , nixos-hardware
             , nixpkgs
             , nixpkgs-unstable
-            , xmonad
             , ...
             }@attrs :
     let
@@ -40,7 +39,7 @@
       };
 
       overlay-dotfiles = final: prev: {
-        dyg-taffybar = xmonad.packages.${system}.default; # set to taffybar for now
+        # dyg-taffybar = xmonad.packages.${system}.default; # set to taffybar for now
       };
 
       # idris2-overlay = final: prev: {

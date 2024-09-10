@@ -256,8 +256,8 @@ in {
   # write config files
   # polybar
   xdg.configFile = {
-    "taffybar" = {
-      source = config.lib.file.mkOutOfStoreSymlink ../../programs/xmonad/taffybar;
+    "eww" = {
+      source = config.lib.file.mkOutOfStoreSymlink /home/doyougnu/dotfiles/programs/xmonad/eww;
       recursive = true;
     };
   };
@@ -379,7 +379,7 @@ in {
     chez
     cachix
     discord
-    dyg-taffybar   # xmonad will try to spawn
+    eww           # bar for xmonad
     entr
     evince
     element-desktop
