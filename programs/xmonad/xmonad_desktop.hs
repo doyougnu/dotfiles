@@ -128,15 +128,21 @@ myManageHook = manageDocks <+> composeAll (concat $
 --     spiral (6/7)) |||
 --     noBorders (fullscreenFull Full))
 
-myLayout = avoidStruts $
-    emptyBSP |||
-    tabbed shrinkText (theme robertTheme) |||
-    spiral (6/7) |||
-    Tall 1 (3/100) (1/2) |||
-    Mirror (Tall 1 (3/100) (1/2)) |||
-    Full |||
-    noBorders (fullscreenFull Full)
+-- myLayout = avoidStruts $
+--     emptyBSP |||
+--     tabbed shrinkText (theme robertTheme) |||
+--     spiral (6/7) |||
+--     Tall 1 (3/100) (1/2) |||
+--     Mirror (Tall 1 (3/100) (1/2)) |||
+--     Full |||
+--     noBorders (fullscreenFull Full)
 
+myLayout = fullscreenFull $ avoidStruts $ noBorders ( tiled ||| Mirror tiled ||| Full )
+  where
+    tiled = Tall nmaster delta ratio
+    nmaster = 1
+    ratio = 2/3
+    delta = 3/100
 
 ------------------------------------------------------------------------
 -- Colors and borders
@@ -438,14 +444,14 @@ lookupPrompt = inputPrompt greenXPConfig "λ" ?+ lookupInDict
 -- ON NIXOS, do this to recompile: nix-shell -p 'xmonad-with-packages.override { packages = p: with p; [ xmonad-extras xmonad-contrib xmonad dbus xmonad-spotify ]; }'
 
 main = do
-  xmproc <- spawnPipe "taffybar"
   dbus <- D.connectSession
   D.requestName dbus (D.busName_ "org.xmonad.Log")
     [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
 
   xmonad
-    $ docks
+    $ fullscreenSupport
     $ ewmh
+    $ docks
     $ pagerHints
     $ defaults {
     logHook = dynamicLogWithPP $ myLogHook dbus

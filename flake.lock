@@ -219,8 +219,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1725993818,
-        "narHash": "sha256-OzrfaWL2KBH5T3vH1X9b9O3bjuKn2/410PL/NUhrf8g=",
+        "lastModified": 1725994863,
+        "narHash": "sha256-k+7rGHNfp7vd3UQBQN4G0pmz7lwDQtJln9tHRTDXaj0=",
         "path": "/home/doyougnu/dotfiles/programs/xmonad",
         "type": "path"
       },

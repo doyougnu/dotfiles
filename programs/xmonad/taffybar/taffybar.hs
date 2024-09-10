@@ -21,13 +21,13 @@ myWorkspaceConfig = defaultWorkspacesConfig
 main = do
 
   let clock        = textClockNewWith myClockConfig
-      clockIcon    = iconImageWidgetNew ".config/taffybar/icons/clock.svg"
+      clockIcon    = iconImageWidgetNew "$HOME/.config/taffybar/icons/clock.svg"
 
       cpu          = textCpuMonitorNew " $total$% " 1
-      cpuIcon      = iconImageWidgetNew ".config/taffybar/icons/cpu.svg"
+      cpuIcon      = iconImageWidgetNew "$HOME/.config/taffybar/icons/cpu.svg"
 
       mem          = textMemoryMonitorNew " $used$ " 1
-      memIcon      = iconImageWidgetNew ".config/taffybar/icons/memory.svg"
+      memIcon      = iconImageWidgetNew "$HOME/.config/taffybar/icons/memory.svg"
 
       workspaces   = workspacesNew myWorkspaceConfig
       tray         = sniTrayThatStartsWatcherEvenThoughThisIsABadWayToDoIt >>= buildPadBox
