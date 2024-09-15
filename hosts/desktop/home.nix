@@ -256,8 +256,8 @@ in {
   # write config files
   # polybar
   xdg.configFile = {
-    "eww" = {
-      source = config.lib.file.mkOutOfStoreSymlink /home/doyougnu/dotfiles/programs/xmonad/eww;
+    "xmobar" = {
+      source = config.lib.file.mkOutOfStoreSymlink /home/doyougnu/dotfiles/programs/xmonad/xmobar;
       recursive = true;
     };
   };
@@ -379,7 +379,6 @@ in {
     chez
     cachix
     discord
-    eww           # bar for xmonad
     entr
     evince
     element-desktop
@@ -396,7 +395,7 @@ in {
     multimarkdown
     nodejs
     pdfpc           # pdf presentaitons from the shell
-    polybar
+    pulseaudio-ctl  # music control in xmonad
     pinentry
     python310
     python310Packages.pygments
@@ -417,6 +416,7 @@ in {
     xdg-dbus-proxy
     xdg-desktop-portal
     xmonad-log
+    xmobar           # bar for xmonad
     w3m              # text browser for emacs-w3m
     sqlite
     wordnet

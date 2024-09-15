@@ -1,13 +1,14 @@
--- xmonad config used by Vic Fryzel
--- Author: Vic Fryzel
--- http://github.com/vicfryzel/xmonad-config
 
+import Data.Maybe (fromJust)
 import System.IO
 import System.Exit
 import XMonad
 import XMonad.Config
-import XMonad.Hooks.DynamicLog
+import qualified XMonad.StackSet as W
+import XMonad.Hooks.StatusBar
+import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.StatusBar
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.EwmhDesktops (ewmh)
@@ -21,6 +22,7 @@ import XMonad.Util.Run(spawnPipe,runProcessWithInput,safeSpawn)
 import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Util.Themes
 import XMonad.Util.Spotify
+import XMonad.Util.Loggers
 import Graphics.X11.ExtraTypes.XF86
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -32,8 +34,10 @@ import XMonad.Prompt
 import XMonad.Prompt.Input
 import XMonad.Prompt.Shell
 import XMonad.Prompt.Theme
-import System.Taffybar.Support.PagerHints (pagerHints)
 
+import XMonad.Actions.CycleWS
+import XMonad.Layout.IndependentScreens
+import XMonad.Util.NamedScratchpad
 
 ------------------------------------------------------------------------
 
@@ -413,6 +417,7 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- > logHook = dynamicLogDzen
 --
 
+mySB = statusBarProp "xmobar -x 1 /home/doyougnu/.config/xmobar/xmobar.hs" (pure xmobarPP)
 
 ------------------------------------------------------------------------
 -- Startup hook
@@ -424,8 +429,8 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 myStartupHook = do
   setWMName "LG3D"
   safeSpawn "feh" ["--randomize", "--bg-scale", myWallPapers, "--bg-center", myWallPapers]
-  safeSpawn "eww" ["open", "bar"]
   return ()
+
 
 ------------------------------------------------------------------------
 -- custom stuff
@@ -439,6 +444,13 @@ lookupInDict arg = do
 lookupPrompt :: X ()
 lookupPrompt = inputPrompt greenXPConfig "λ" ?+ lookupInDict
 
+grey1, grey2, grey3, grey4, cyan, orange :: String
+grey1  = "#2B2E37"
+grey2  = "#555E70"
+grey3  = "#697180"
+grey4  = "#8691A8"
+cyan   = "#8BABF0"
+orange = "#C45500"
 ------------------------------------------------------------------------
 ------------------------------------------------------------------------
 -- Run xmonad with all the defaults we set up.
@@ -446,35 +458,14 @@ lookupPrompt = inputPrompt greenXPConfig "λ" ?+ lookupInDict
 -- ON NIXOS, do this to recompile: nix-shell -p 'xmonad-with-packages.override { packages = p: with p; [ xmonad-extras xmonad-contrib xmonad dbus xmonad-spotify ]; }'
 
 main = do
-  dbus <- D.connectSession
-  D.requestName dbus (D.busName_ "org.xmonad.Log")
-    [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
 
   xmonad
     $ fullscreenSupport
+    $ withSB mySB
     $ ewmh
     $ docks
-    $ pagerHints
-    $ defaults {
-    logHook = dynamicLogWithPP $ myLogHook dbus
-    }
+    $ defaults
 
--- Override the PP values as you would otherwise, adding colors etc depending
--- on  the statusbar used
-myLogHook :: D.Client -> PP
-myLogHook dbus = def { ppOutput = dbusOutput dbus }
-
--- Emit a DBus signal on log updates
-dbusOutput :: D.Client -> String -> IO ()
-dbusOutput dbus str = do
-    let signal = (D.signal objectPath interfaceName memberName) {
-            D.signalBody = [D.toVariant $ UTF8.decodeString str]
-        }
-    D.emit dbus signal
-  where
-    objectPath    = D.objectPath_ "/org/xmonad/Log"
-    interfaceName = D.interfaceName_ "org.xmonad.Log"
-    memberName    = D.memberName_ "Update"
 
 ------------------------------------------------------------------------
 -- Combine it all together
@@ -488,7 +479,6 @@ defaults = def {
     -- simple stuff
    terminal           = myTerminal,
    focusFollowsMouse  = myFocusFollowsMouse,
-   borderWidth        = myBorderWidth,
    modMask            = myModMask,
    workspaces         = myWorkspaces,
    normalBorderColor  = myNormalBorderColor,
