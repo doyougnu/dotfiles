@@ -81,7 +81,7 @@ myWallPapers = "/home/doyougnu/sync/wallpapers"
 -- Workspaces
 -- The default number of workspaces (virtual screens) and their names.
 --
-myWorkspaces = ["ƛ","\xf269","\xf025","\xf27b","\xf014"] ++ map show [6..9]
+myWorkspaces = ["ƛ","\xf269","\xf025","\xf27b","\xf014"]
 
 -- f88݉5
 ------------------------------------------------------------------------
@@ -412,12 +412,35 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- Perform an arbitrary action on each internal state change or X event.
 -- See the 'DynamicLog' extension for examples.
 --
--- To emulate dwm's status bar
---
--- > logHook = dynamicLogDzen
---
 
-mySB = statusBarProp "xmobar -x 1 /home/doyougnu/.config/xmobar/xmobar.hs" (pure xmobarPP)
+mySB = statusBarProp "xmobar -x 1 /home/doyougnu/.config/xmobar/xmobar.hs" (pure myXmobarPP)
+
+myXmobarPP :: PP
+myXmobarPP = def
+    { ppSep             = magenta " • "
+    , ppTitleSanitize   = xmobarStrip
+    , ppCurrent         = wrap " " "" . xmobarBorder "Top" "#8be9fd" 2
+    , ppHidden          = white . wrap " " ""
+    , ppUrgent          = red . wrap (yellow "!") (yellow "!")
+    , ppOrder           = \[ws, l, _, wins] -> [ws, l, wins]
+    , ppExtras          = [logTitles formatFocused formatUnfocused]
+    }
+  where
+    formatFocused   = wrap (white    "[") (white    "]") . magenta . ppWindow
+    formatUnfocused = wrap (lowWhite "[") (lowWhite "]") . blue    . ppWindow
+
+    -- | Windows should have *some* title, which should not not exceed a
+    -- sane length.
+    ppWindow :: String -> String
+    ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 15
+
+    blue, lowWhite, magenta, red, white, yellow :: String -> String
+    magenta  = xmobarColor "#ff79c6" ""
+    blue     = xmobarColor "#bd93f9" ""
+    white    = xmobarColor "#f8f8f2" ""
+    yellow   = xmobarColor "#f1fa8c" ""
+    red      = xmobarColor "#ff5555" ""
+    lowWhite = xmobarColor "#bbbbbb" ""
 
 ------------------------------------------------------------------------
 -- Startup hook
@@ -444,13 +467,6 @@ lookupInDict arg = do
 lookupPrompt :: X ()
 lookupPrompt = inputPrompt greenXPConfig "λ" ?+ lookupInDict
 
-grey1, grey2, grey3, grey4, cyan, orange :: String
-grey1  = "#2B2E37"
-grey2  = "#555E70"
-grey3  = "#697180"
-grey4  = "#8691A8"
-cyan   = "#8BABF0"
-orange = "#C45500"
 ------------------------------------------------------------------------
 ------------------------------------------------------------------------
 -- Run xmonad with all the defaults we set up.
