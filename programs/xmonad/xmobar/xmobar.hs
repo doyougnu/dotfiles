@@ -46,5 +46,5 @@ Config { font = "Bitstream Vera Sans Mono 8"
          ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%XMonadLog% || %multicpu% |}  %date%  %RJTT% {| %default:Master% | %memory% | %dynnetwork% || %disku%"
+       , template = "%multicpu% || %XMonadLog% |}  %date%  %RJTT% {| %default:Master% | %memory% | %dynnetwork% || %disku%"
        }
