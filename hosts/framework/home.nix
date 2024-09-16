@@ -259,9 +259,13 @@ in {
   };
 
   # manually write config files
-  # polybar
-  xdg.configFile."polybar/config.ini".source = ../../programs/polybar/config.ini;
-  xdg.configFile."polybar/launch.sh".source  = ../../programs/polybar/launch.sh;
+  xdg.configFile = {
+    "xmobar" = {
+      source = config.lib.file.mkOutOfStoreSymlink /home/doyougnu/dotfiles/programs/xmonad/xmobar;
+      recursive = true;
+    };
+  };
+
   # xmonad
   home.file.".xmonad/xmonad.hs".source = ../../programs/xmonad/xmonad_framework.hs;
   # doom emacs
@@ -401,7 +405,6 @@ in {
     unstable.mu              # for email
     multimarkdown
     pdfpc           # pdf presentaitons from the shell
-    polybar         # for xmonad
     pinentry
     python310
     python310Packages.pygments
@@ -415,6 +418,8 @@ in {
     tdesktop
     vlc
     xclip
+    xmobar
+    xmonad-log
     # xorg.xwininfo    # for emacs everywhere
     # xdotool          # for emacs everywhere
     w3m              # text broser for emacs-w3m

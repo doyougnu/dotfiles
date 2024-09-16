@@ -1,28 +1,27 @@
--- xmonad config used by Vic Fryzel
--- Author: Vic Fryzel
--- http://github.com/vicfryzel/xmonad-config
-
+import Data.Maybe (fromJust)
 import System.IO
 import System.Exit
-import System.Environment
-import System.FilePath.Posix
 import XMonad
+import XMonad.Config
+import qualified XMonad.StackSet as W
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.StatusBar
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
-import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.EwmhDesktops (ewmh)
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spiral
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.BinarySpacePartition
-import XMonad.Util.Run(spawnPipe,runProcessWithInput,safeSpawn,unsafeSpawn)
+import XMonad.Util.Run(spawnPipe,runProcessWithInput,safeSpawn)
 import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Util.Themes
 import XMonad.Util.Spotify
+import XMonad.Util.Loggers
 import Graphics.X11.ExtraTypes.XF86
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -30,12 +29,14 @@ import qualified DBus            as D
 import qualified DBus.Client     as D
 import XMonad.Actions.SpawnOn
 import qualified Codec.Binary.UTF8.String as UTF8
-import qualified XMonad.Util.Brightness as Bright
 import XMonad.Prompt
 import XMonad.Prompt.Input
-import XMonad.Prompt.Pass -- TODO
 import XMonad.Prompt.Shell
 import XMonad.Prompt.Theme
+
+import XMonad.Actions.CycleWS
+import XMonad.Layout.IndependentScreens
+import XMonad.Util.NamedScratchpad
 
 
 ------------------------------------------------------------------------
@@ -466,11 +467,35 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- Perform an arbitrary action on each internal state change or X event.
 -- See the 'DynamicLog' extension for examples.
 --
--- To emulate dwm's status bar
---
--- > logHook = dynamicLogDzen
---
 
+mySB = statusBarProp "xmobar -x 1 /home/doyougnu/.config/xmobar/xmobar_framework.hs" (pure myXmobarPP)
+
+myXmobarPP :: PP
+myXmobarPP = def
+    { ppSep             = magenta " • "
+    , ppTitleSanitize   = xmobarStrip
+    , ppCurrent         = wrap " " "" . xmobarBorder "Top" "#8be9fd" 2
+    , ppHidden          = white . wrap " " ""
+    , ppUrgent          = red . wrap (yellow "!") (yellow "!")
+    , ppOrder           = \[ws, l, _, wins] -> [ws, l, wins]
+    , ppExtras          = [logTitles formatFocused formatUnfocused]
+    }
+  where
+    formatFocused   = wrap (white    "[") (white    "]") . magenta . ppWindow
+    formatUnfocused = wrap (lowWhite "[") (lowWhite "]") . blue    . ppWindow
+
+    -- | Windows should have *some* title, which should not not exceed a
+    -- sane length.
+    ppWindow :: String -> String
+    ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 15
+
+    blue, lowWhite, magenta, red, white, yellow :: String -> String
+    magenta  = xmobarColor "#ff79c6" ""
+    blue     = xmobarColor "#bd93f9" ""
+    white    = xmobarColor "#f8f8f2" ""
+    yellow   = xmobarColor "#f1fa8c" ""
+    red      = xmobarColor "#ff5555" ""
+    lowWhite = xmobarColor "#bbbbbb" ""
 
 ------------------------------------------------------------------------
 -- Startup hook
@@ -497,36 +522,15 @@ lookupPrompt = inputPrompt greenXPConfig "λ" ?+ lookupInDict
 -- Run xmonad with all the defaults we set up.
 --
 -- ON NIXOS, do this to recompile: nix-shell -p 'xmonad-with-packages.override { packages = p: with p; [ xmonad-extras xmonad-contrib xmonad dbus xmonad-spotify]; }'
+
 main = do
-  polybar <- spawnPipe "$HOME/.config/polybar/launch.sh"
-  dbus <- D.connectSession
-  D.requestName dbus (D.busName_ "org.xmonad.Log")
-    [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
 
   xmonad
-    . ewmh
-    . docks
+    $ fullscreenSupport
+    $ withSB mySB
+    $ ewmh
+    $ docks
     $ defaults
-    { logHook = dynamicLogWithPP $ myLogHook dbus
-    , manageHook = manageDocks <+> myManageHook
-    }
-
--- Override the PP values as you would otherwise, adding colors etc depending
--- on  the statusbar used
-myLogHook :: D.Client -> PP
-myLogHook dbus = def { ppOutput = dbusOutput dbus }
-
--- Emit a DBus signal on log updates
-dbusOutput :: D.Client -> String -> IO ()
-dbusOutput dbus str = do
-    let signal = (D.signal objectPath interfaceName memberName) {
-            D.signalBody = [D.toVariant $ UTF8.decodeString str]
-        }
-    D.emit dbus signal
-  where
-    objectPath    = D.objectPath_ "/org/xmonad/Log"
-    interfaceName = D.interfaceName_ "org.xmonad.Log"
-    memberName    = D.memberName_ "Update"
 
 ------------------------------------------------------------------------
 -- Combine it all together
