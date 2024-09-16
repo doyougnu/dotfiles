@@ -36,7 +36,7 @@ Config { font = "Bitstream Vera Sans Mono 8"
                               ] 10
 
          -- cpu activity monitor
-         , Run MultiCpu       [ "--template" , "Cpu: <total0> | <total1> | <total2> | <total3> | <total4> | <total5> | <total6> | <total7> | <total8> | <total9> | <total10> | <total11> | <total12> | <total13> | <total14> | <total15>"
+         , Run MultiCpu       [ "--template" , "<total0> | <total1> | <total2> | <total3> | <total4> | <total5> | <total6> | <total7> | <total8> | <total9> | <total10> | <total11> | <total12> | <total13> | <total14> | <total15>"
                               , "--Low"      , "50"         -- units: %
                               , "--High"     , "85"         -- units: %
                               , "--low"      , "darkgreen"
@@ -46,5 +46,5 @@ Config { font = "Bitstream Vera Sans Mono 8"
          ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%multicpu% || %XMonadLog% |}  %date%  %RJTT% {| %default:Master% | %memory% | %dynnetwork% || %disku%"
+       , template = "%multicpu% || %date% %RJTT% |}  %XMonadLog% {| %default:Master% | %memory% | %dynnetwork% || %disku%"
        }
