@@ -339,6 +339,10 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_x),
      safeSpawn "xinput" ["--disable", "12"])
 
+  --  Toggle the bottom xmobar
+  , ((modMask .|. controlMask, xK_space),
+     sendMessage $ ToggleStrut D)
+
   -- enable touchpad
   , ((modMask .|. controlMask, xK_x),
      safeSpawn "xinput" ["--enable", "12"])
@@ -352,10 +356,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Cycle through the available layout algorithms.
   , ((modMask, xK_space),
      sendMessage NextLayout)
-
-  --  Reset the layouts on the current workspace to default.
-  , ((modMask .|. mod1Mask, xK_space),
-     setLayout $ XMonad.layoutHook conf)
 
   -- Resize viewed windows to the correct size.
   , ((modMask, xK_n),
@@ -468,7 +468,8 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- See the 'DynamicLog' extension for examples.
 --
 
-mySB = statusBarProp "xmobar -x 1 /home/doyougnu/.config/xmobar/xmobar_framework.hs" (pure myXmobarPP)
+mySBTop = statusBarProp "xmobar -x 1 /home/doyougnu/.config/xmobar/xmobar_framework.hs" (pure myXmobarPP)
+mySBBtm = statusBarProp "xmobar -x 1 /home/doyougnu/.config/xmobar/xmobar_bottom_framework.hs" (pure myXmobarPP)
 
 myXmobarPP :: PP
 myXmobarPP = def
@@ -527,7 +528,8 @@ main = do
 
   xmonad
     $ fullscreenSupport
-    $ withSB mySB
+    $ withSB mySBTop
+    $ withSB mySBBtm
     $ ewmh
     $ docks
     $ defaults
