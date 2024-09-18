@@ -288,6 +288,10 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
   -- spotify next
   , ((modMask .|. controlMask, xK_z), audioNext)
 
+  --  Toggle the bottom xmobar
+  , ((modMask .|. controlMask, xK_space),
+     sendMessage $ ToggleStrut D)
+
   --------------------------------------------------------------------
   -- "Standard" xmonad key bindings
   --
@@ -413,7 +417,8 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- See the 'DynamicLog' extension for examples.
 --
 
-mySB = statusBarProp "xmobar -x 1 /home/doyougnu/.config/xmobar/xmobar.hs" (pure myXmobarPP)
+mySBTop = statusBarProp "xmobar -x 1 /home/doyougnu/.config/xmobar/xmobar.hs" (pure myXmobarPP)
+mySBBtm = statusBarProp "xmobar -x 1 /home/doyougnu/.config/xmobar/xmobar_bottom_desktop.hs" (pure myXmobarPP)
 
 myXmobarPP :: PP
 myXmobarPP = def
@@ -477,7 +482,8 @@ main = do
 
   xmonad
     $ fullscreenSupport
-    $ withSB mySB
+    $ withSB mySBTop
+    $ withSB mySBBtm
     $ ewmh
     $ docks
     $ defaults
