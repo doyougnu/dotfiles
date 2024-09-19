@@ -62,8 +62,8 @@
 ;; recentering hooks and advice
 (add-hook! 'better-jumper-pre-jump-hook :append #'recenter)
 (add-hook! 'better-jumper-post-jump-hook :append #'recenter)
-(advice-add 'evil-avy-goto-line-above :after #'dyg/evil-avy-line-recenter)
-(advice-add 'evil-avy-goto-line-below :after #'dyg/evil-avy-line-recenter)
+;; (advice-add 'evil-avy-goto-line-above :after #'dyg/evil-avy-line-recenter)
+;; (advice-add 'evil-avy-goto-line-below :after #'dyg/evil-avy-line-recenter)
 
 ;; setup EasyPG for gpg
 (setq epg-pinentry-mode 'loopback)
@@ -121,6 +121,17 @@
 (map! :map yas-keymap
 "M-o" #'yas-next-field-or-maybe-expand)
 
+;; snipe
+(setq evil-snipe-override-mode 1)
+(setq evil-snipe-spillover-scope 'visible)
+
+;; set popup height
+(setq compilation-window-height 25)
+(after! popup
+  (set-popup-rule! "^\\*eshell.*" :size 0.3 :vslot -4 :ttl nil :quit t :select t)
+  (set-popup-rule! "^\\*Help.*" :size 0.4 :vslot -4 :ttl nil :quit t :select t))
+
+
 ;; be explicit about the shell
 (setq shell-file-name (getenv "SHELL"))
 
@@ -157,15 +168,14 @@
 
   (map! :map (evil-normal-state-map evil-visual-state-map)
         "l" #'evil-forward-word-begin
-        "h" #'evil-backward-word-begin
+        "h" #'evil-backward-word-end
         "L" #'evil-forward-char
         "H" #'evil-backward-char
         "J" #'evil-forward-paragraph
         "K" #'evil-backward-paragraph
-        "t" #'evil-avy-goto-char-2-below
-        "T" #'evil-avy-goto-char-2-above
         "gj" #'evil-avy-goto-line-below
         "gk" #'evil-avy-goto-line-above
+        "M-t" #'evil-avy-goto-char-2
         "gmj" #'evil-multiedit-match-and-next
         "gmk" #'evil-multiedit-match-and-prev
         "gmr" #'evil-multiedit-match-all
