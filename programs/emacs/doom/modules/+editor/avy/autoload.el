@@ -56,3 +56,11 @@
     (select-window
      (cdr (ring-ref avy-ring 0))))
   t)
+
+
+;;;###autoload
+(defun avy-action-ispell-word (pt)
+  (unwind-protect
+      (save-excursion
+        (goto-char pt)
+        (ispell-word))))

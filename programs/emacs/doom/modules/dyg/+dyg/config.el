@@ -193,6 +193,9 @@
 ;; keybindings
 (map! :leader
       "z" #'zone
+      "|" #'+default/search-project-for-symbol-at-point
+      "\\" #'+default/search-other-project
+
       (:prefix-map ("d" . "doyougnu")
        (:prefix ("d" . "deft")
         :desc "Deft"      "d" #'deft
