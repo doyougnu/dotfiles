@@ -183,7 +183,12 @@
         "C-j" #'evil-join
         "C-o" #'better-jumper-jump-backward
         "C-e" #'better-jumper-jump-forward
-        "C-k" #'electric-newline-and-maybe-indent))
+        "C-k" #'electric-newline-and-maybe-indent
+        ;; swap these to keep f on the home row
+        "t"   #'evil-snipe-f
+        "T"   #'evil-snipe-F
+        "f"   #'evil-snipe-t
+        "f"   #'evil-snipe-T))
 
 ;; keybindings
 (map! :leader
@@ -209,10 +214,6 @@
 
       (:prefix ("r" . "kill-ring")
        :desc "Kill-ring" "y" #'consult-yank-pop)
-
-      (:prefix ("S" . "spelling")
-       :desc "Correct-word-at-point" "s" #'ispell-word
-       :desc "Correct buffer"        "b" #'ispell-buffer)
 
       (:prefix ("t" . "toggle")
        :desc "debug-on-error" "d" #'toggle-debug-on-error)
