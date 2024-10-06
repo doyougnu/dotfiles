@@ -394,6 +394,7 @@ in {
     fasd
     feh
     gcc   # for org-roam
+    gdb
     google-chrome
     # gollum
     libevent
