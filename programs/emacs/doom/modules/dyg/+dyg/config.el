@@ -160,10 +160,11 @@
 
   (map! :leader
         :desc "find file"               "oo" #'find-file
+        :desc "find file other window"  "oO" #'find-file-other-window
         :desc "find recent file"        "ot" #'consult-recent-file
         :desc "find file other project" "op" #'doom/find-file-in-other-project
-        :desc "find file other window"  "ow" #'projectile-find-file-other-window
-        :desc "projectile: find file"   "oO" #'projectile-find-file
+        :desc "projectile: find file"   "oe" #'projectile-find-file
+        :desc "projectile: find file other window"  "oE" #'projectile-find-file-other-window
         :desc "ace-window"              "ww" #'ace-window)
 
   (map! :map (evil-normal-state-map evil-visual-state-map)
