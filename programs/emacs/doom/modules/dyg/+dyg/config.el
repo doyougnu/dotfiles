@@ -163,7 +163,7 @@
         :desc "find file other window"  "oO" #'find-file-other-window
         :desc "find recent file"        "ot" #'consult-recent-file
         :desc "find file other project" "op" #'doom/find-file-in-other-project
-        :desc "projectile: find file"   "oe" #'projectile-find-file
+        :desc "projectile: find file"   "oh" #'projectile-find-file
         :desc "projectile: find file other window"  "oE" #'projectile-find-file-other-window
         :desc "ace-window"              "ww" #'ace-window)
 
@@ -185,6 +185,8 @@
         "C-o" #'better-jumper-jump-backward
         "C-e" #'better-jumper-jump-forward
         "C-k" #'electric-newline-and-maybe-indent
+        "M-h" #'dyg/shift-word-backwards
+        "M-l" #'dyg/shift-word-forwards
         ;; swap these to keep f on the home row
         "t"   #'evil-snipe-f
         "T"   #'evil-snipe-F

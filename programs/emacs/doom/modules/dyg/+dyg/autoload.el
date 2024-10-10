@@ -45,3 +45,28 @@
   "Advice function to recenter buffer after evilavy-goto-line-above
 or below."
   (recenter))
+
+;;;###autoload
+(defun dyg/shift-word-backwards ()
+ "Swap the word at point with the previous word."
+  (interactive)
+  (let ((word (thing-at-point 'word)))
+    (when word
+      (kill-word 1)
+      (backward-word 2)
+      (yank)
+      (forward-word 1))))
+
+;;;###autoload
+(defun dyg/shift-word-forwards ()
+  "Swap the word at point with the next word."
+  (interactive)
+  (let ((current-word (thing-at-point 'word)))
+    (when current-word
+      (kill-word 1)            ;; Kill the current word
+      (forward-word 1)         ;; Move to the next word
+      (yank)                   ;; Paste the killed word
+      (backward-word 1)        ;; Move back to the next word (now in the current position)
+      (kill-word 1)            ;; Kill the next word
+      (backward-word 1)        ;; Move to the previous word (which was just inserted)
+      (yank))))                ;; Paste the killed next word

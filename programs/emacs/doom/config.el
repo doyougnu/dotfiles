@@ -30,6 +30,8 @@
 ;; set private config to dotfiles not nix-store copy
 (setq doom-user-dir "~/dotfiles/programs/emacs/doom")
 
+(setq evil-escape-key-sequence "hh")
+(setq evil-escape-delay 0.2)
 (setq evil-snipe-override-evil-repeat-keys 1)
 (setq doom-localleader-key     ",")
 (setq doom-localleader-alt-key "C-.")
