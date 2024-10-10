@@ -35,7 +35,6 @@
 ;; set projectile to recently used and enable caching
 (setq projectile-enable-caching t
       projectile-sort-order      'recently-active
-      projectile-indexing-method 'hybrid
       projectile-project-root-functions '(projectile-root-bottom-up
                                           projectile-root-local
                                           projectile-root-top-down
