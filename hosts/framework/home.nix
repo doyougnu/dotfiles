@@ -58,6 +58,10 @@ in {
       keybindings = {
         "alt+c" = "copy_to_clipboard";
         "alt+v" = "paste_from_clipboard";
+        "alt+j" = "scroll_line_down";
+        "alt+k" = "scroll_line_up";
+        "alt+u" = "scroll_page_up";
+        "alt+d" = "scroll_page_down";
       };
     extraConfig = ''
       copy_on_select yes
