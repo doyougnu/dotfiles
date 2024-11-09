@@ -386,8 +386,6 @@ in {
   home.packages = with pkgs; [
     alsa-utils
     autorandr
-    cabal-install
-    chez
     cowsay
     cachix
     evince
@@ -398,36 +396,29 @@ in {
     fasd
     feh
     gcc   # for org-roam
-    gdb
     google-chrome
     # gollum
     libevent
-    libpulseaudio  # for polybar config
     libnotify
     killall         # for polybar launch script
     moreutils
     nodejs
     unstable.mu              # for email
-    multimarkdown
     pdfpc           # pdf presentaitons from the shell
     pinentry
     python310
     python310Packages.pygments
-    ranger
     ripgrep
     rsync
     # rnix-lsp         # for nix lsp in emacs
-    sdcv             # for polybar
     slack
     spotify
     tdesktop
-    vlc
     xclip
     xmobar
     xmonad-log
     # xorg.xwininfo    # for emacs everywhere
     # xdotool          # for emacs everywhere
-    w3m              # text broser for emacs-w3m
     sqlite
     wordnet
     zip
