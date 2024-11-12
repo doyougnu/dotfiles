@@ -72,6 +72,9 @@
   ;; set latex to always use -shell-escape
   (setf LaTeX-command "latex -shell-escape")
 
+  (setq org-latex-compiler "lualatex")
+  (setq org-preview-latex-default-process 'dvisvgm)
+
   ;; don't fontify the refile created bookmarks
   (setf bookmark-fontify                 nil)
 

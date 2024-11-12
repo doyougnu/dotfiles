@@ -12,6 +12,12 @@ let
     gpg = "/etc/profiles/per-user/doyougnu/bin/gpg2";
     awk = "/run/current-system/sw/bin/awk";
 
+    tex = (pkgs.texlive.combine {
+    inherit (pkgs.texlive) scheme-basic
+      dvisvgm dvipng # for preview and export as html
+      wrapfig amsmath ulem hyperref capt-of;
+    });
+
     my-fonts = with pkgs; [
       source-code-pro
       # siji
