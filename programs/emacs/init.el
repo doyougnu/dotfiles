@@ -222,23 +222,22 @@
 (use-package evil-lion
   :ensure t
   :bind (:map evil-normal-state-map
-         ("g l " . evil-lion-left)
-         ("g L " . evil-lion-right)
+         ("g l" . evil-lion-left)
+         ("g L" . evil-lion-right)
          :map evil-visual-state-map
-         ("g l " . evil-lion-left)
-         ("g L " . evil-lion-right))
+         ("g l" . evil-lion-left)
+         ("g L" . evil-lion-right))
   :config
   (evil-lion-mode))
 
 (use-package magit
   :config
   (leader-keys
+    :states 'normal
     "g"          '(:ignore t :which-key "magit")
     "g <escape>" '(keyboard-escape-quit :which-key t)
-    "g g"        '(magit-status :which-key "status")
-    "g l"        '(magit-log :which-key "log"))
-  (general-nmap
-    "<escape>" #'transient-quit-one))
+    "g g"        '(magit-status         :which-key "status")
+    "g l"        '(magit-log            :which-key "log")))
 
 ;; a utility package to get magit to play nice with evil
 ;; we can already see how much complexity is added due to evil
@@ -251,14 +250,15 @@
 ;; comment lines with gc
 (use-package evil-nerd-commenter
   :defer
-  :config
-  (general-nvmap
-    "gc" 'evilnc-comment-operator))
+  :bind (:map evil-normal-state-map
+         ("g c" . evilnc-comment-operator)
+         :map evil-visual-state-map
+         ("g c" . evilnc-comment-operator)
+         ))
 
 ;; projectile, should I try project?
 ;; projectile must be after general and evil for #'leader-keys
 (use-package projectile
-  :demand
   :config
   (defun dyg|projectile-switch-project-into-tab ()
     "Open a new tab and then switch to a project"
@@ -271,6 +271,8 @@
   (leader-keys
    :states 'normal
    "SPC" '(projectile-find-file :which-key "find file")
+   "SPC |" '(projectile-ripgrep :which-key "search project")
+   "SPC \\" '(projectile-ripgrep :which-key "search project")
 
    ;; Projects
    "p"          '(:ignore t :which-key "projects")
@@ -278,7 +280,7 @@
    "p p"        '(dyg|projectile-switch-project-into-tab :which-key "switch project")
    "p a"        '(projectile-add-known-project    :which-key "add project")
    "p r"        '(projectile-remove-known-project :which-key "remove project")
-   "p s"        '(projectile-grep                 :which-key "search project"))
+   "p s"        '(projectile-ripgrep              :which-key "search project"))
   :init
   (projectile-mode +1))
 
@@ -327,7 +329,14 @@
 ;; Enable vertico
 (use-package vertico
   :init
-  (vertico-mode))
+  (vertico-mode)
+  :config
+  (general-define-key
+   :keymaps 'vertico-map
+    "C-t"   'vertico-previous
+    "C-u"   'vertico-directory-up
+    "C-n"   'vertico-next
+    "C-a"   'vertico-directory-enter))
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
@@ -399,24 +408,27 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; org ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq initial-major-mode 'org-mode)
+
 (use-package org
   :mode (("\\.org$" . org-mode))
   :ensure org-plus-contrib)
 
-(use-package org-bullets
-  :after org
-  :config
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
-
 (use-package evil-org
   :ensure t
   :after org
-  :hook (org-mode . (lambda () (evil-org-mode)))
+  :hook ((org-mode . evil-org-mode))
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 
+(use-package org-bullets
+  :ensure t
+  :after evil-org
+  :hook ((org-mode . org-bullets-mode)
+         (evil-org-mode . org-bullets-mode)))
+  
 (use-package org-roam
+  :ensure t 
   :config
 
   (setq org-roam-directory (file-truename "~/sync/roam")
