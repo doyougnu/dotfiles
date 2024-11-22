@@ -184,6 +184,7 @@
     "t n"      '(tab-new     :which-key "new tab")
     "t t"      '(tab-switch  :which-key "switch tab")
     "t d"      '(dyg|tab-close :which-key "close tab")
+    "t D"      '(tab-close  :which-key "kill tab")
     "t h"      '(tab-previous :which-key "previous tab")
     "t l"      '(tab-next     :which-key "next tab")
 
@@ -401,6 +402,11 @@
 (use-package org
   :mode (("\\.org$" . org-mode))
   :ensure org-plus-contrib)
+
+(use-package org-bullets
+  :after org
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 (use-package evil-org
   :ensure t
