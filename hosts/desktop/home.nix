@@ -275,9 +275,10 @@ in {
   # xmonad
   home.file.".xmonad/xmonad.hs".source = ../../programs/xmonad/xmonad_desktop.hs;
   home.file.".xmonad/xmonad.hs".onChange = "xmonad --recompile";
-  # doom emacs
-  home.file.".doom.d/".source = ../../programs/emacs/doom;
-  home.file.".doom.d/".onChange = "/home/doyougnu/.emacs.d/bin/doom sync";
+  # emacs
+  home.file.".emacs.d/early-init.el".source = ../../programs/emacs/early-init.el;
+  home.file.".emacs.d/init.el".source       = ../../programs/emacs/init.el;
+  home.file.".emacs.d/snippets".source      = ../../programs/emacs/doom/snippets;
   # symlink auth on new hm generation activation
   home.activation = {
       symlinkAuth = lib.hm.dag.entryAfter ["writeBoundary"] ''

@@ -279,8 +279,9 @@ in {
   # xmonad
   home.file.".xmonad/xmonad.hs".source = ../../programs/xmonad/xmonad_framework.hs;
   # doom emacs
-  home.file.".doom.d/".source = ../../programs/emacs/doom;
-  home.file.".doom.d/".onChange = "/home/doyougnu/.emacs.d/bin/doom sync";
+  home.file.".emacs.d/early-init.el".source = ../../programs/emacs/early-init.el;
+  home.file.".emacs.d/init.el".source       = ../../programs/emacs/init.el;
+  home.file.".emacs.d/snippets".source      = ../../programs/emacs/doom/snippets;
   home.activation = {
       symlinkAuth = lib.hm.dag.entryAfter ["writeBoundary"] ''
                     ln -sf /home/doyougnu/sync/keys/auth/.authinfo.gpg /home/doyougnu/.authinfo.gpg
