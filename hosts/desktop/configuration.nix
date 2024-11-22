@@ -142,7 +142,6 @@ in
       extraPackages = haskellPackages: [
          haskellPackages.dbus
          haskellPackages.xmonad-spotify
-         haskellPackages.taffybar
       ];
     };
 
@@ -155,30 +154,21 @@ in
 
     displayManager = {
       lightdm.enable = true;
-      lightdm.greeters.mini = {
+      lightdm.greeters.enso = {
             enable = true;
-            user = "doyougnu";
       # this file cannot bu under /home, it needs to be accessible by the
       # lightdm user so it must be under /usr/share. I've manually copied it
       # there
-            extraConfig = ''
-                [greeter]
-                show-password-label = true
-                show-input-cursor = true
-                mod-key = meta
-                shutdown-key = s
-                restart-key = r
-                hibernate-key = h
-                suspend-key = u
-                [greeter-theme]
-                background-image = "/usr/share/sylvain-sarrailh-bridgehdartstation.jpg"
-            '';
+          extraConfig = ''
+              [greeter-theme]
+              background-image = "/usr/share/sylvain-sarrailh-bridgehdartstation.jpg"
+          '';
         };
       sessionCommands = ''
        ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
        '';
       setupCommands = ''
-       ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-0 --primary --mode 1920x1080 --rate 60 --pos 0x0 --rotate left --output DVI-D-0 --mode 1920x1080 --rate 120 --right-of HDMI-0
+       ${pkgs.xorg.xrandr}/bin/xrandr --output DVI-D-0 --primary --mode 1920x1080 --rate 120 --output HDMI-0 --mode 1920x1080 --rotate left --rate 60 --pos 0x0 --left-of DVI-D-0
        '';
     };
 

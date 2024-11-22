@@ -409,7 +409,7 @@ in {
     pinentry
     python310
     python310Packages.pygments
-    ranger
+    yazi
     ripgrep
     # rnix-lsp
     rsync

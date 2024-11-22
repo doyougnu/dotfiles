@@ -382,7 +382,7 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
   -- mod-{w,e,r} %! Switch to physical/Xinerama screens 1, 2, or 3
   -- mod-shift-{w,e,r} %! Move client to screen 1, 2, or 3
   [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
-      | (key, sc) <- zip [xK_c, xK_r, xK_l] [0..]
+      | (key, sc) <- zip [xK_r, xK_c, xK_l] [0..]
       , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 ------------------------------------------------------------------------
@@ -417,8 +417,9 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- See the 'DynamicLog' extension for examples.
 --
 
-mySBTop = statusBarProp "xmobar -x 1 /home/doyougnu/.config/xmobar/xmobar.hs" (pure myXmobarPP)
-mySBBtm = statusBarProp "xmobar -x 1 /home/doyougnu/.config/xmobar/xmobar_bottom_desktop.hs" (pure myXmobarPP)
+-- -x 2 says display this on monitor number 2
+mySBTop = statusBarProp "xmobar -x 2 /home/doyougnu/.config/xmobar/xmobar.hs" (pure myXmobarPP)
+mySBBtm = statusBarProp "xmobar -x 2 /home/doyougnu/.config/xmobar/xmobar_bottom_desktop.hs" (pure myXmobarPP)
 
 myXmobarPP :: PP
 myXmobarPP = def

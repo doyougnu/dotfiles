@@ -414,6 +414,7 @@ in {
     pinentry
     python310
     python310Packages.pygments
+    yazi
     ripgrep
     rsync
     # rnix-lsp         # for nix lsp in emacs
