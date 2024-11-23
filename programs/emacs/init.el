@@ -84,11 +84,7 @@
 (use-package doom-themes
   :demand
   :config
-  (load-theme 'doom-challenger-deep t))
-
-;; (use-package doom-modeline
-;;   :ensure t
-;;   :init (doom-modeline-mode 1))
+  (load-theme 'doom-gruvbox-light t))
 
 (use-package nerd-icons)
 
@@ -158,10 +154,18 @@
     :prefix "SPC"
     :global-prefix "C-.")
 
+  (defun dyg|project-switch-project-into-tab ()
+    "Open a new tab and then switch to a project"
+    (interactive)
+    (tab-bar-new-tab -1) ;; create to the left
+    (tab-previous)       ;; move to the new tab
+    (call-interactively 'project-switch-project)
+    (tab-bar-rename-tab project-vc-name))
+
   (defun dyg|tab-close ()
     (interactive)
     (eglot-shutdown (eglot-current-server))
-    (projectile-kill-buffers)
+    (project-kill-buffers)
     (tab-close))
 
   (leader-keys
@@ -171,22 +175,22 @@
     "b" '(:ignore t :which-key "buffer")
 
     ;; Buffers
-    "b b" '(projectile-switch-to-buffer :which-key "switch buffer")
-    "b l" '(buffer-menu                 :which-key "list buffers")
-    "b s" '(save-buffer                 :which-key "save buffer")
-    "b r" '(revert-buffer               :which-key "revert buffer")
+    "b b" '(project-switch-to-buffer :which-key "switch buffer")
+    "b l" '(project-list-buffers     :which-key "list buffers")
+    "b s" '(save-buffer              :which-key "save buffer")
+    "b r" '(revert-buffer            :which-key "revert buffer")
     ;; Don't show an error because SPC b ESC is undefined, just abort
     "b <escape>" '(keyboard-escape-quit :which-key t)
     "b d" 'kill-current-buffer
 
     ;; workspaces via tabs
-    "t"        '(:ignore t :which-key "tabs")
-    "t n"      '(tab-new     :which-key "new tab")
-    "t t"      '(tab-switch  :which-key "switch tab")
+    "t"        '(:ignore t     :which-key "tabs")
+    "t n"      '(tab-new       :which-key "new tab")
+    "t t"      '(tab-switch    :which-key "switch tab")
     "t d"      '(dyg|tab-close :which-key "close tab")
-    "t D"      '(tab-close  :which-key "kill tab")
-    "t h"      '(tab-previous :which-key "previous tab")
-    "t l"      '(tab-next     :which-key "next tab")
+    "t D"      '(tab-close     :which-key "kill tab")
+    "t h"      '(tab-previous  :which-key "previous tab")
+    "t l"      '(tab-next      :which-key "next tab")
 
     ;; notes
     "n"          '(:ignore t :which-key "notes")
@@ -197,8 +201,15 @@
 
     ;; open
     "o"          '(:ignore t :which-key "open")
-    "o o"        '(projectile-find-file   :which-key "find-file")
-    "o h"        '(find-file-other-window :which-key "find-file"))
+    "o o"        '(project-find-file      :which-key "find-file")
+    "o d"        '(project-find-dir       :which-key "find-dir")
+    "o h"        '(find-file-other-window :which-key "find-file-other-window")
+
+    ;; Projects
+    "p"          '(:ignore t :which-key "projects")
+    "p <escape>" '(keyboard-escape-quit                :which-key t)
+    "p p"        '(dyg|project-switch-project-into-tab :which-key "switch project")
+    "p d"        '(project-dired                       :which-key "project dired")))
 
   (general-define-key
    :states '(normal visual)
@@ -208,7 +219,7 @@
     "H"   'evil-backward-char
     "J"   'evil-forward-paragraph
     "K"   'evil-backward-paragraph
-    "C-j" 'evil-join))
+    "C-j" 'evil-join)
 
 (use-package evil
   :demand ; No lazy loading
@@ -232,11 +243,32 @@
 
 (use-package magit
   :ensure t
+  :demand
   :config
   (leader-keys
     "g"          '(:ignore t :which-key "magit")
     "g g"        '(magit-status :which-key "status")
+    "g b"        '(magit-blame :which-key "blame")
     "g l"        '(magit-log    :which-key "log")))
+
+(use-package magit-todos
+  :after magit
+  :ensure t
+  :config
+  (leader-keys "g t" '(magit-todos-list :which-key "todos"))
+  (magit-todos-mode 1))
+
+(use-package git-timemachine
+  :ensure t
+  :demand
+  :config
+  (leader-keys "g m" '(git-timemachine-toggle :which-key "timemachine")))
+
+(use-package zen-mode
+  :ensure t
+  :demand
+  :config
+  (leader-keys "z" '(zen-mode :which-key "zen")))
 
 ;; a utility package to get magit to play nice with evil
 ;; we can already see how much complexity is added due to evil
@@ -254,34 +286,6 @@
          :map evil-visual-state-map
          ("g c" . evilnc-comment-operator)
          ))
-
-;; projectile, should I try project?
-;; projectile must be after general and evil for #'leader-keys
-(use-package projectile
-  :config
-  (defun dyg|projectile-switch-project-into-tab ()
-    "Open a new tab and then switch to a project"
-    (interactive)
-    (tab-bar-new-tab -1) ;; create to the left
-    (tab-previous)       ;; move to the new tab
-    (call-interactively 'projectile-switch-project)
-    (tab-bar-rename-tab (projectile-project-name)))
-
-  (leader-keys
-   :states 'normal
-   "SPC" '(projectile-find-file :which-key "find file")
-   "|" '(projectile-ripgrep :which-key "search project")
-   "\\" '(projectile-ripgrep :which-key "search project")
-
-   ;; Projects
-   "p"          '(:ignore t :which-key "projects")
-   "p <escape>" '(keyboard-escape-quit            :which-key t)
-   "p p"        '(dyg|projectile-switch-project-into-tab :which-key "switch project")
-   "p a"        '(projectile-add-known-project    :which-key "add project")
-   "p r"        '(projectile-remove-known-project :which-key "remove project")
-   "p s"        '(projectile-ripgrep              :which-key "search project"))
-  :init
-  (projectile-mode +1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; eglot, lsp-mode is slow even for rust, bad software
@@ -427,9 +431,9 @@
          ("M-g I" . consult-imenu)
          ;; M-s bindings in `search-map'
          ("M-s d" . consult-find)                  ;; Alternative: consult-fd
-         ("M-s r" . dyg|consult-ripgrep-word-at-point)
-         ("M-s s" . consult-line)
-         ("C-s" . dyg|consult-line-word-at-point)
+         ("M-s s" . dyg|consult-ripgrep-word-at-point)
+         ("M-s r" . consult-ripgrep)
+         ("C-s"   . dyg|consult-line-word-at-point)
          ;; Isearch integration
          ("M-s e" . consult-isearch-history)
          :map isearch-mode-map
