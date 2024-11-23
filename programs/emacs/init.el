@@ -96,6 +96,17 @@
   :config
   (which-key-mode))
 
+(use-package helpful
+  :ensure t
+  :defer
+  :bind (:map global-map
+         ("C-h f" . helpful-callable)
+         ("C-h F" . helpful-Function)
+         ("C-h k" . helpful-key)
+         ("C-h v" . helpful-variable)
+         ("C-h x" . helpful-command)
+         ("C-h h" . helpful-at-point)))
+
 (use-package diff-hl
   :config
   (global-diff-hl-mode))
@@ -106,7 +117,8 @@
 (use-package emacs
   :init
   ;; allows escape to exit anything
-  (global-set-key (kbd "<escape>") 'keyboard-escape-quit))
+  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+  (global-display-line-numbers-mode))
 
 (use-package exec-path-from-shell
   :init
@@ -264,11 +276,11 @@
   :config
   (leader-keys "g m" '(git-timemachine-toggle :which-key "timemachine")))
 
-(use-package zen-mode
+(use-package writeroom-mode
   :ensure t
   :demand
   :config
-  (leader-keys "z" '(zen-mode :which-key "zen")))
+  (leader-keys "z" '(writeroom-mode :which-key "writeroom")))
 
 ;; a utility package to get magit to play nice with evil
 ;; we can already see how much complexity is added due to evil
