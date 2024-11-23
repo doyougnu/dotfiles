@@ -231,13 +231,12 @@
   (evil-lion-mode))
 
 (use-package magit
+  :ensure t
   :config
   (leader-keys
-    :states 'normal
     "g"          '(:ignore t :which-key "magit")
-    "g <escape>" '(keyboard-escape-quit :which-key t)
-    "g g"        '(magit-status         :which-key "status")
-    "g l"        '(magit-log            :which-key "log")))
+    "g g"        '(magit-status :which-key "status")
+    "g l"        '(magit-log    :which-key "log")))
 
 ;; a utility package to get magit to play nice with evil
 ;; we can already see how much complexity is added due to evil
@@ -271,8 +270,8 @@
   (leader-keys
    :states 'normal
    "SPC" '(projectile-find-file :which-key "find file")
-   "SPC |" '(projectile-ripgrep :which-key "search project")
-   "SPC \\" '(projectile-ripgrep :which-key "search project")
+   "|" '(projectile-ripgrep :which-key "search project")
+   "\\" '(projectile-ripgrep :which-key "search project")
 
    ;; Projects
    "p"          '(:ignore t :which-key "projects")
@@ -392,7 +391,120 @@
   ;; the mode gets enabled right away. Note that this forces loading the
   ;; package.
   (marginalia-mode))
+;; Example configuration for Consult
+(use-package consult
+  ;; Replace bindings. Lazily loaded by `use-package'.
+  :bind (;; C-c bindings in `mode-specific-map'
+         ("C-c M-x" . consult-mode-command)
+         ("C-c h" . consult-history)
+         ("C-c k" . consult-kmacro)
+         ("C-c m" . consult-man)
+         ("C-c i" . consult-info)
+         ([remap Info-search] . consult-info)
+         ;; C-x bindings in `ctl-x-map'
+         ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
+         ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
+         ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
+         ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
+         ("C-x t b" . consult-buffer-other-tab)    ;; orig. switch-to-buffer-other-tab
+         ("C-x r b" . consult-bookmark)            ;; orig. bookmark-jump
+         ("C-x p b" . consult-project-buffer)      ;; orig. project-switch-to-buffer
+         ;; Custom M-# bindings for fast register access
+         ("M-#" . consult-register-load)
+         ("M-'" . consult-register-store)          ;; orig. abbrev-prefix-mark (unrelated)
+         ("C-M-#" . consult-register)
+         ;; Other custom bindings
+         ("M-y" . consult-yank-pop)                ;; orig. yank-pop
+         ;; M-g bindings in `goto-map'
+         ("M-g e" . consult-compile-error)
+         ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
+         ("M-g g" . consult-goto-line)             ;; orig. goto-line
+         ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
+         ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
+         ("M-g m" . consult-mark)
+         ("M-g k" . consult-global-mark)
+         ("M-g i" . consult-imenu-multi)
+         ("M-g I" . consult-imenu)
+         ;; M-s bindings in `search-map'
+         ("M-s d" . consult-find)                  ;; Alternative: consult-fd
+         ("M-s r" . dyg|consult-ripgrep-word-at-point)
+         ("M-s s" . consult-line)
+         ("C-s" . dyg|consult-line-word-at-point)
+         ;; Isearch integration
+         ("M-s e" . consult-isearch-history)
+         :map isearch-mode-map
+         ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
+         ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
+         ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch
+         ("M-s L" . consult-line-multi)            ;; needed by consult-line to detect isearch
+         ;; Minibuffer history
+         :map minibuffer-local-map
+         ("M-s" . consult-history)                 ;; orig. next-matching-history-element
+         ("M-r" . consult-history))                ;; orig. previous-matching-history-element
 
+  ;; Enable automatic preview at point in the *Completions* buffer. This is
+  ;; relevant when you use the default completion UI.
+  :hook (completion-list-mode . consult-preview-at-point-mode)
+
+  ;; The :init configuration is always executed (Not lazy)
+  :init
+  ;; Optionally configure the register formatting. This improves the register
+  ;; preview for `consult-register', `consult-register-load',
+  ;; `consult-register-store' and the Emacs built-ins.
+  (setq register-preview-delay 0.5
+        register-preview-function #'consult-register-format)
+
+  ;; Optionally tweak the register preview window.
+  ;; This adds thin lines, sorting and hides the mode line of the window.
+  (advice-add #'register-preview :override #'consult-register-window)
+
+  ;; Use Consult to select xref locations with preview
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref)
+
+  ;; Configure other variables and modes in the :config section,
+  ;; after lazily loading the package.
+  :config
+
+  (defun dyg|consult-ripgrep-word-at-point ()
+    "Run `consult-ripgrep` preloaded with the word under the cursor."
+    (interactive)
+    (let ((word (thing-at-point 'word t)))
+      (if word
+          (consult-ripgrep nil word)
+        (consult-ripgrep nil nil))))
+
+  (defun dyg|consult-line-word-at-point ()
+    "Run `consult-line` preloaded with the word under the cursor."
+    (interactive)
+    (let ((word (thing-at-point 'word t)))
+      (if word
+          (consult-line-multi nil word)
+        (consult-line-multi nil nil))))
+
+  (leader-keys
+   "|"   '(dyg|consult-ripgrep-word-at-point :which-key "search"))
+
+  ;; Optionally configure preview. The default value
+  ;; is 'any, such that any key triggers the preview.
+  ;; (setq consult-preview-key 'any)
+  ;; (setq consult-preview-key "M-.")
+  ;; (setq consult-preview-key '("S-<down>" "S-<up>"))
+  ;; For some commands and buffer sources it is useful to configure the
+  ;; :preview-key on a per-command basis using the `consult-customize' macro.
+  (consult-customize
+   consult-theme :preview-key '(:debounce 0.2 any)
+   consult-ripgrep consult-git-grep consult-grep
+   consult-bookmark consult-recent-file consult-xref
+   consult--source-bookmark consult--source-file-register
+   consult--source-recent-file consult--source-project-recent-file
+   ;; :preview-key "M-."
+   :preview-key '(:debounce 0.4 any))
+
+  ;; Optionally configure the narrowing key.
+  ;; Both < and C-+ work reasonably well.
+  (setq consult-narrow-key "<") ;; "C-+"
+)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; avy ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package avy
   :bind (:map evil-normal-state-map
