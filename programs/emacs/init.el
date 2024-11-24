@@ -310,6 +310,10 @@
   :hook (typescript-mode . eglot-ensure)
 
   :config
+
+  ;; eglot overrites K in normal for some reason
+  (general-define-key :keymaps 'eglot-mode-map "K" nil)
+
   (leader-keys
    "l" '(:ignore t :which-key "lsp")
    "l <escape>" '(keyboard-escape-quit :which-key t)
