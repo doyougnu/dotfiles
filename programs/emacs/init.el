@@ -110,7 +110,7 @@
 
 (use-package diff-hl
   :config
-  (global-diff-hl-mode))
+  (setq global-diff-hl-mode t))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
@@ -214,7 +214,8 @@
 
     ;; open
     "o"          '(:ignore t :which-key "open")
-    "o o"        '(project-find-file      :which-key "find-file")
+    "o o"        '(project-find-file      :which-key "find-file-search")
+    "o O"        '(find-file              :which-key "find-file-browse")
     "o d"        '(project-find-dir       :which-key "find-dir")
     "o h"        '(find-file-other-window :which-key "find-file-other-window")
 
@@ -222,6 +223,7 @@
     "p"          '(:ignore t :which-key "projects")
     "p <escape>" '(keyboard-escape-quit                :which-key t)
     "p p"        '(dyg|project-switch-project-into-tab :which-key "switch project")
+    "p c"        '(project-compile                     :which-key "compile project")
     "p d"        '(project-dired                       :which-key "project dired"))
 
   (general-define-key
@@ -268,14 +270,16 @@
   :config
   (leader-keys
     "g"          '(:ignore t :which-key "magit")
-    "g g"        '(magit-status :which-key "status")
-    "g b"        '(magit-blame :which-key "blame")
-    "g l"        '(magit-log    :which-key "log"))
+    "g g"        '(magit-status            :which-key "status")
+    "g b"        '(magit-blame             :which-key "blame")
+    "g p"        '(diff-hl-previous-hunk   :which-key "previous hunk")
+    "g n"        '(diff-hl-next-hunk       :which-key "next hunk")
+    "g l"        '(magit-log               :which-key "log"))
 
   (leader-keys
     "e"          '(:ignore t :which-key "errors")
-    "e n"        '(flymake-goto-next-error     :which-key "next-error")
-    "e p"        '(flymake-goto-previous-error :which-key "previous-error")))
+    "e n"        '(flymake-goto-next-error :which-key "next-error")
+    "e p"        '(flymake-goto-prev-error :which-key "previous-error")))
 
 (use-package magit-todos
   :after magit
@@ -433,6 +437,12 @@
   :config
   (general-define-key
    :keymaps 'corfu-map
+   "C-t"   'corfu-previous
+   "C-n"   'corfu-next
+   "C-a"   'corfu-complete)
+
+  (general-define-key
+   :states '(insert)
    "C-t"   'corfu-previous
    "C-n"   'corfu-next
    "C-a"   'corfu-complete))
