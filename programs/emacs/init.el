@@ -232,6 +232,7 @@
     "H"   'evil-backward-char
     "J"   'evil-forward-paragraph
     "K"   'evil-backward-paragraph
+    "t"   'evil-find-char
     "C-j" 'evil-join)
 
   (add-hook 'eglot-managed-mode-hook
@@ -269,7 +270,12 @@
     "g"          '(:ignore t :which-key "magit")
     "g g"        '(magit-status :which-key "status")
     "g b"        '(magit-blame :which-key "blame")
-    "g l"        '(magit-log    :which-key "log")))
+    "g l"        '(magit-log    :which-key "log"))
+
+  (leader-keys
+    "e"          '(:ignore t :which-key "errors")
+    "e n"        '(flymake-goto-next-error     :which-key "next-error")
+    "e p"        '(flymake-goto-previous-error :which-key "previous-error")))
 
 (use-package magit-todos
   :after magit
@@ -416,6 +422,21 @@
   ;; the mode gets enabled right away. Note that this forces loading the
   ;; package.
   (marginalia-mode))
+
+(use-package corfu
+  :ensure t
+  :custom
+  (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
+  (corfu-auto t)                 ;; Enable auto completion
+  :init
+  (global-corfu-mode)
+  :config
+  (general-define-key
+   :keymaps 'corfu-map
+   "C-t"   'corfu-previous
+   "C-n"   'corfu-next
+   "C-a"   'corfu-complete))
+
 ;; Example configuration for Consult
 (use-package consult
   ;; Replace bindings. Lazily loaded by `use-package'.
