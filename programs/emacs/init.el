@@ -60,6 +60,7 @@
   (set-keyboard-coding-system   'utf-8)
   (set-selection-coding-system  'utf-8)
   (prefer-coding-system         'utf-8)
+  (setq global-prettify-symbols-mode t)
   (setq default-process-coding-system '(utf-8-unix . utf-8-unix)))
 
 (use-package emacs
@@ -221,7 +222,7 @@
     "p"          '(:ignore t :which-key "projects")
     "p <escape>" '(keyboard-escape-quit                :which-key t)
     "p p"        '(dyg|project-switch-project-into-tab :which-key "switch project")
-    "p d"        '(project-dired                       :which-key "project dired")))
+    "p d"        '(project-dired                       :which-key "project dired"))
 
   (general-define-key
    :states '(normal visual)
@@ -232,6 +233,13 @@
     "J"   'evil-forward-paragraph
     "K"   'evil-backward-paragraph
     "C-j" 'evil-join)
+
+  (add-hook 'eglot-managed-mode-hook
+            (lambda ()
+              (general-define-key
+               :states '(normal visual)
+               :keymaps 'eglot-mode-map
+               "K"   'evil-backward-paragraph))))
 
 (use-package evil
   :demand ; No lazy loading
@@ -310,9 +318,6 @@
   :hook (typescript-mode . eglot-ensure)
 
   :config
-
-  ;; eglot overrites K in normal for some reason
-  (general-define-key :keymaps 'eglot-mode-map "K" nil)
 
   (leader-keys
    "l" '(:ignore t :which-key "lsp")
