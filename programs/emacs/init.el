@@ -183,6 +183,9 @@
 
     ;; Buffer
     "b" '(:ignore t :which-key "buffer")
+    ;; this should be in consult use-package, but then I have to load consult
+    ;; eagerly
+    "," '(consult-buffer :which-key "fast buffer switch")
 
     ;; Buffers
     "b b" '(project-switch-to-buffer :which-key "switch buffer")
@@ -252,7 +255,18 @@
               (general-define-key
                :states '(normal visual)
                :keymaps 'eglot-mode-map
-               "K"   'evil-backward-paragraph))))
+               "K"   'evil-backward-paragraph)))
+
+  ;; Stolen from (http://endlessparentheses.com/ansi-colors-in-the-compilation-buffer-output.html)
+  ;; this displays colors for escape codes in the *compilation* buffer
+  (require 'ansi-color)
+  (defun dyg|colorize-compilation ()
+    "Colorize from `compilation-filter-start' to `point'."
+    (let ((inhibit-read-only t))
+      (ansi-color-apply-on-region
+       compilation-filter-start (point))))
+
+  (add-hook 'compilation-filter-hook #'dyg|colorize-compilation))
 
 (use-package evil
   :demand ; No lazy loading
@@ -541,9 +555,6 @@
           (consult-line-multi nil word)
         (consult-line-multi nil nil))))
 
-  (leader-keys
-   ","   '(consult-buffer :which-key "fast buffer switch"))
-
   ;; Optionally configure preview. The default value
   ;; is 'any, such that any key triggers the preview.
   ;; (setq consult-preview-key 'any)
@@ -693,12 +704,12 @@ headings and their contents. Operates on whole buffer."
 (use-package yasnippet
   :after evil-org
   :ensure t
-  ;; :bind* ("M-o" . yas-expand) ;; Global binding for yas-expand
+  :bind* ("M-o" . yas-expand) ;; Global binding for yas-expand
   :config
   (use-package yasnippet-snippets :ensure t)
   (setq yas-snippet-dirs
         '("/home/doyougnu/.emacs.d/snippets/"))
-  (yas-global-mode t)
+  (yas-global-mode 1)
   ;; (define-key yas-minor-mode-map (kbd "M-o") #'yas-expand)
   (define-key yas-minor-mode-map (kbd "M-o") #'yas-next-field-or-maybe-expand)
   (define-key yas-keymap         (kbd "M-o") #'yas-next-field-or-maybe-expand)
