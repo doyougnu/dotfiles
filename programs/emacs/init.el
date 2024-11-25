@@ -85,7 +85,9 @@
 (use-package doom-themes
   :demand
   :config
-  (load-theme 'doom-gruvbox-light t))
+(if (equal (getenv "EMACS_HOST") "framework")
+    (load-theme 'doom-gruvbox-light t)
+    (load-theme 'doom-laserwave     t)))
 
 (use-package nerd-icons)
 
