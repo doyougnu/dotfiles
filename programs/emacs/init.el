@@ -7,7 +7,7 @@
 (setq inhibit-splash-screen t) ; Remove the "Welcome to GNU Emacs" splash screen
 (setq use-file-dialog nil)      ; Ask for textual confirmation instead of GUI
 
-;; set up staright.el
+;; set up straight.el
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name
@@ -60,7 +60,7 @@
   (set-keyboard-coding-system   'utf-8)
   (set-selection-coding-system  'utf-8)
   (prefer-coding-system         'utf-8)
-  (setq global-prettify-symbols-mode t)
+  (global-prettify-symbols-mode 1)
   (setq default-process-coding-system '(utf-8-unix . utf-8-unix)))
 
 (use-package emacs
@@ -160,6 +160,8 @@
 ;; TODO use boon, meow, or emacs
 (use-package general
   :demand
+  :bind (:map global-map
+              ("C-;" . comment-line))
   :config
   (general-evil-setup)
 
@@ -206,6 +208,7 @@
     "t D"      '(tab-close     :which-key "kill tab")
     "t h"      '(tab-previous  :which-key "previous tab")
     "t l"      '(tab-next      :which-key "next tab")
+    "t r"      '(tab-rename    :which-key "rename tab")
 
     ;; notes
     "n"          '(:ignore t :which-key "notes")
@@ -230,6 +233,7 @@
 
   (general-define-key
    :states '(normal visual)
+   :keymaps 'org-mode-map
     "l"   'evil-forward-word-begin
     "h"   'evil-backward-word-end
     "L"   'evil-forward-char
@@ -309,15 +313,6 @@
   :demand
   :config
   (evil-collection-init))
-
-;; comment lines with gc
-(use-package evil-nerd-commenter
-  :defer
-  :bind (:map evil-normal-state-map
-         ("g c" . evilnc-comment-operator)
-         :map evil-visual-state-map
-         ("g c" . evilnc-comment-operator)
-         ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; eglot, lsp-mode is slow even for rust, bad software
@@ -541,7 +536,7 @@
         (consult-line-multi nil nil))))
 
   (leader-keys
-   "|"   '(dyg|consult-ripgrep-word-at-point :which-key "search"))
+   ","   '(consult-buffer                    :which-key "fast buffer switch"))
 
   ;; Optionally configure preview. The default value
   ;; is 'any, such that any key triggers the preview.
@@ -561,8 +556,8 @@
 
   ;; Optionally configure the narrowing key.
   ;; Both < and C-+ work reasonably well.
-  (setq consult-narrow-key "<") ;; "C-+"
-)
+  (setq consult-narrow-key "<"))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; avy ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package avy
   :bind (:map evil-normal-state-map
@@ -581,7 +576,56 @@
 
 (use-package org
   :mode (("\\.org$" . org-mode))
-  :ensure org-plus-contrib)
+  :ensure org-plus-contrib
+  :config
+  (add-hook 'org-mode-hook 
+            #'(lambda ()
+                (add-hook 'evil-insert-state-entry-hook
+                          #'(lambda () (setq-local org-hide-emphasis-markers nil)))
+                (add-hook 'evil-insert-state-exit-hook
+                          #'(lambda () (setq-local org-hide-emphasis-markers t)))))
+
+
+  ;; from https://github.com/alphapapa/unpackaged.el?tab=readme-ov-file#ensure-blank-lines-between-headings-and-before-contents
+  (defun dyg|org-fix-blank-lines ()
+    "Ensure that blank lines exist between headings and between
+headings and their contents. Operates on whole buffer."
+    (interactive "P")
+    (when (derived-mode-p 'org-mode)
+      (org-map-entries (lambda ()
+                         (org-with-wide-buffer
+                          ;; `org-map-entries' narrows the buffer, which prevents us from seeing
+                          ;; newlines before the current heading, so we do this part widened.
+                          (while (not (looking-back "\n\n" nil))
+                            ;; Insert blank lines before heading.
+                            (insert "\n")))
+                         (let ((end (org-entry-end-position)))
+                           ;; Insert blank lines before entry content
+                           (forward-line)
+                           (while (and (org-at-planning-p)
+                                       (< (point) (point-max)))
+                             ;; Skip planning lines
+                             (forward-line))
+                           (while (re-search-forward org-drawer-regexp end t)
+                             ;; Skip drawers. You might think that `org-at-drawer-p' would suffice, but
+                             ;; for some reason it doesn't work correctly when operating on hidden text.
+                             ;; This works, taken from `org-agenda-get-some-entry-text'.
+                             (re-search-forward "^[ \t]*:END:.*\n?" end t)
+                             (goto-char (match-end 0)))
+                           (unless (or (= (point) (point-max))
+                                       (org-at-heading-p)
+                                       (looking-at-p "\n"))
+                             (insert "\n"))))
+                       t nil)))
+
+  (add-hook 'org-mode-hook #'auto-fill-mode)
+  (add-hook 'before-save-hook :append #'dyg|org-fix-blank-lines)
+
+  (setq org-clock-persist 'history)
+  (org-clock-persistence-insinuate)
+
+  ;; use firefox
+  (setf browse-url-browser-function 'browse-url-firefox))
 
 (use-package evil-org
   :ensure t
@@ -641,10 +685,13 @@
 (use-package yasnippet
   :after evil-org
   :ensure t
-  :bind* ("M-o" . yas-expand) ;; Global binding for yas-expand
+  ;; :bind* ("M-o" . yas-expand) ;; Global binding for yas-expand
   :config
   (use-package yasnippet-snippets :ensure t)
   (setq yas-snippet-dirs
         '("/home/doyougnu/.emacs.d/snippets/"))
   (yas-global-mode t)
-  (define-key yas-minor-mode-map (kbd "M-o") #'yas-expand))
+  ;; (define-key yas-minor-mode-map (kbd "M-o") #'yas-expand)
+  (define-key yas-minor-mode-map (kbd "M-o") #'yas-next-field-or-maybe-expand)
+  (define-key yas-keymap         (kbd "M-o") #'yas-next-field-or-maybe-expand)
+  )
