@@ -112,7 +112,7 @@
 
 (use-package diff-hl
   :config
-  (setq global-diff-hl-mode t))
+  (global-diff-hl-mode 1))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
@@ -155,6 +155,13 @@
                       :background "transparent")
   (global-display-fill-column-indicator-mode 1))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;; project management ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package project-tab-groups
+  :ensure
+  :demand
+  :config
+  (project-tab-groups-mode 1))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; evil ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; use general to setup the evil keybinds
 ;; TODO use boon, meow, or emacs
@@ -170,20 +177,6 @@
     :keymaps 'override
     :prefix "SPC"
     :global-prefix "C-.")
-
-  (defun dyg|project-switch-project-into-tab ()
-    "Open a new tab and then switch to a project"
-    (interactive)
-    (tab-bar-new-tab -1) ;; create to the left
-    (tab-previous)       ;; move to the new tab
-    (call-interactively 'project-switch-project)
-    (tab-bar-rename-tab project-vc-name))
-
-  (defun dyg|tab-close ()
-    (interactive)
-    (eglot-shutdown (eglot-current-server))
-    (project-kill-buffers)
-    (tab-close))
 
   (leader-keys
     "x" '(scratch-buffer :which-key "*scratch*")
@@ -204,7 +197,7 @@
     "t"        '(:ignore t     :which-key "tabs")
     "t n"      '(tab-new       :which-key "new tab")
     "t t"      '(tab-switch    :which-key "switch tab")
-    "t d"      '(dyg|tab-close :which-key "close tab")
+    "t d"      '(project-kill-buffers :which-key "close tabbed project")
     "t D"      '(tab-close     :which-key "kill tab")
     "t h"      '(tab-previous  :which-key "previous tab")
     "t l"      '(tab-next      :which-key "next tab")
@@ -226,10 +219,21 @@
 
     ;; Projects
     "p"          '(:ignore t :which-key "projects")
-    "p <escape>" '(keyboard-escape-quit                :which-key t)
-    "p p"        '(dyg|project-switch-project-into-tab :which-key "switch project")
-    "p c"        '(project-compile                     :which-key "compile project")
-    "p d"        '(project-dired                       :which-key "project dired"))
+    "p <escape>" '(keyboard-escape-quit   :which-key t)
+    "p p"        '(project-switch-project :which-key "switch project")
+    "p c"        '(project-compile        :which-key "compile project")
+    "p d"        '(project-dired          :which-key "project dired"))
+
+  (general-define-key
+   :states '(normal visual)
+    "l"   'evil-forward-word-begin
+    "h"   'evil-backward-word-end
+    "L"   'evil-forward-char
+    "H"   'evil-backward-char
+    "J"   'evil-forward-paragraph
+    "K"   'evil-backward-paragraph
+    "t"   'evil-find-char
+    "C-j" 'evil-join)
 
   (general-define-key
    :states '(normal visual)
@@ -519,6 +523,7 @@
   ;; after lazily loading the package.
   :config
 
+  ;;;###autoload
   (defun dyg|consult-ripgrep-word-at-point ()
     "Run `consult-ripgrep` preloaded with the word under the cursor."
     (interactive)
@@ -527,6 +532,7 @@
           (consult-ripgrep nil word)
         (consult-ripgrep nil nil))))
 
+  ;;;###autoload
   (defun dyg|consult-line-word-at-point ()
     "Run `consult-line` preloaded with the word under the cursor."
     (interactive)
@@ -536,7 +542,7 @@
         (consult-line-multi nil nil))))
 
   (leader-keys
-   ","   '(consult-buffer                    :which-key "fast buffer switch"))
+   ","   '(consult-buffer :which-key "fast buffer switch"))
 
   ;; Optionally configure preview. The default value
   ;; is 'any, such that any key triggers the preview.
@@ -587,6 +593,7 @@
 
 
   ;; from https://github.com/alphapapa/unpackaged.el?tab=readme-ov-file#ensure-blank-lines-between-headings-and-before-contents
+  ;;;###autoload
   (defun dyg|org-fix-blank-lines ()
     "Ensure that blank lines exist between headings and between
 headings and their contents. Operates on whole buffer."
@@ -677,6 +684,7 @@ headings and their contents. Operates on whole buffer."
   (setq org-roam-node-display-template
         (concat "${type:15} ${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
 
+  ;;;###autoload
   (defun roam|tag-new-node-as-draft ()
     (org-roam-tag-add '("draft")))
 
