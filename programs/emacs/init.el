@@ -61,6 +61,7 @@
   (set-selection-coding-system  'utf-8)
   (prefer-coding-system         'utf-8)
   (global-prettify-symbols-mode 1)
+  (setq compilation-scroll-output t)
   (setq default-process-coding-system '(utf-8-unix . utf-8-unix)))
 
 (use-package emacs
@@ -126,9 +127,9 @@
 
   (with-eval-after-load 'whitespace-mode
     (set-face-attribute 'whitespace-space nil
-                        :foreground "gray21")
+                        :foreground "gray18")
     (set-face-attribute 'whitespace-tab nil
-                        :foreground "gray21"))
+                        :foreground "gray18"))
 
   (add-hook 'before-save-hook #'delete-trailing-whitespace)
   (setq global-whitespace-mode 1))
@@ -235,6 +236,8 @@
     "p <escape>" '(keyboard-escape-quit   :which-key t)
     "p p"        '(project-switch-project :which-key "switch project")
     "p c"        '(project-compile        :which-key "compile project")
+    "p w"        '(project-other-window-command :which-key "project other window")
+    "p W"        '(project-other-frame-command :which-key "project other frame")
     "p d"        '(project-dired          :which-key "project dired"))
 
   (general-define-key
