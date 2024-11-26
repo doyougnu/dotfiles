@@ -123,10 +123,13 @@
   (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
   (global-display-line-numbers-mode)
   (setq whitespace-style '(face spaces trailing tabs space-mark tab-mark))
-  (set-face-attribute 'whitespace-space nil
-                      :foreground "gray21")
-  (set-face-attribute 'whitespace-tab nil
-                      :foreground "gray21")
+
+  (with-eval-after-load 'whitespace-mode
+    (set-face-attribute 'whitespace-space nil
+                        :foreground "gray21")
+    (set-face-attribute 'whitespace-tab nil
+                        :foreground "gray21"))
+
   (add-hook 'before-save-hook #'delete-trailing-whitespace)
   (setq global-whitespace-mode 1))
 
@@ -243,7 +246,8 @@
     "J"   'evil-forward-paragraph
     "K"   'evil-backward-paragraph
     "t"   'evil-find-char
-    "C-j" 'evil-join)
+    "C-j" 'evil-join
+    "C-w x" 'kill-buffer-and-window)
 
   (general-define-key
    :states '(normal visual)
