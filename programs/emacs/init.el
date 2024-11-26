@@ -124,7 +124,7 @@
   (global-display-line-numbers-mode)
   (setq whitespace-style '(face spaces trailing tabs space-mark tab-mark))
   (add-hook 'before-save-hook #'delete-trailing-whitespace)
-  (whitespace-mode))
+  (setq global-whitespace-mode 1))
 
 (use-package exec-path-from-shell
   :init
@@ -598,6 +598,7 @@
   :mode (("\\.org$" . org-mode))
   :ensure org-plus-contrib
   :config
+  (setq org-startup-indented t)
   (add-hook 'org-mode-hook
             #'(lambda ()
                 (add-hook 'evil-insert-state-entry-hook
