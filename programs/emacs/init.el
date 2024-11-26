@@ -503,13 +503,13 @@
          ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
          ("M-g m" . consult-mark)
          ("M-g k" . consult-global-mark)
-         ("M-g i" . consult-imenu-multi)
-         ("M-g I" . consult-imenu)
          ;; M-s bindings in `search-map'
          ("M-s d" . consult-find)                  ;; Alternative: consult-fd
          ("M-s s" . dyg|consult-ripgrep-word-at-point)
          ("M-s r" . consult-ripgrep)
          ("C-s"   . dyg|consult-line-word-at-point)
+         ("M-s i" . consult-imenu-multi)
+         ("M-s I" . consult-imenu)
          ;; Isearch integration
          ("M-s e" . consult-isearch-history)
          :map isearch-mode-map
