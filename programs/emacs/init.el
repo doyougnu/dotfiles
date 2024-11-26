@@ -123,6 +123,10 @@
   (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
   (global-display-line-numbers-mode)
   (setq whitespace-style '(face spaces trailing tabs space-mark tab-mark))
+  (set-face-attribute 'whitespace-space nil
+                      :foreground "gray21")
+  (set-face-attribute 'whitespace-tab nil
+                      :foreground "gray21")
   (add-hook 'before-save-hook #'delete-trailing-whitespace)
   (setq global-whitespace-mode 1))
 
@@ -375,7 +379,9 @@
     "m k" '(rust-check :which-key "check")
     "m c" '(rust-run-clippy :which-key "clippy")))
 
-(use-package haskell-mode)
+(use-package haskell-mode
+  :hook (haskell-mode . haskell-indentation-mode)
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; completion ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Enable vertico
@@ -597,7 +603,17 @@
 (use-package org
   :mode (("\\.org$" . org-mode))
   :ensure org-plus-contrib
+  :bind (:map org-mode-map
+        ("S-<return>" . dyg|org-insert-subheading-respect-content))
   :config
+
+  (defun dyg|org-insert-subheading-respect-content ()
+  "Insert a subheading respecting the content below the current heading."
+  (interactive)
+  (org-insert-heading-respect-content)
+  (org-do-demote))
+
+  (setq org-M-RET-may-split-line nil)
   (setq org-startup-indented t)
   (add-hook 'org-mode-hook
             #'(lambda ()
