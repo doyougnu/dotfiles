@@ -121,7 +121,10 @@
   :init
   ;; allows escape to exit anything
   (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-  (global-display-line-numbers-mode))
+  (global-display-line-numbers-mode)
+  (setq whitespace-style '(face spaces trailing tabs space-mark tab-mark))
+  (add-hook 'before-save-hook #'delete-trailing-whitespace)
+  (whitespace-mode))
 
 (use-package exec-path-from-shell
   :init
@@ -595,7 +598,7 @@
   :mode (("\\.org$" . org-mode))
   :ensure org-plus-contrib
   :config
-  (add-hook 'org-mode-hook 
+  (add-hook 'org-mode-hook
             #'(lambda ()
                 (add-hook 'evil-insert-state-entry-hook
                           #'(lambda () (setq-local org-hide-emphasis-markers nil)))
@@ -604,11 +607,10 @@
 
 
   ;; from https://github.com/alphapapa/unpackaged.el?tab=readme-ov-file#ensure-blank-lines-between-headings-and-before-contents
-  ;;;###autoload
   (defun dyg|org-fix-blank-lines ()
     "Ensure that blank lines exist between headings and between
-headings and their contents. Operates on whole buffer."
-    (interactive "P")
+    headings and their contents. Operates on whole buffer."
+    (interactive)
     (when (derived-mode-p 'org-mode)
       (org-map-entries (lambda ()
                          (org-with-wide-buffer
@@ -637,7 +639,7 @@ headings and their contents. Operates on whole buffer."
                        t nil)))
 
   (add-hook 'org-mode-hook #'auto-fill-mode)
-  (add-hook 'before-save-hook :append #'dyg|org-fix-blank-lines)
+  (add-hook 'before-save-hook  #'dyg|org-fix-blank-lines)
 
   (setq org-clock-persist 'history)
   (org-clock-persistence-insinuate)
@@ -658,9 +660,9 @@ headings and their contents. Operates on whole buffer."
   :after evil-org
   :hook ((org-mode . org-bullets-mode)
          (evil-org-mode . org-bullets-mode)))
-  
+
 (use-package org-roam
-  :ensure t 
+  :ensure t
   :config
 
   (setq org-roam-directory (file-truename "~/sync/roam")
