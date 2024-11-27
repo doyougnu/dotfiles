@@ -181,7 +181,9 @@
 (use-package general
   :demand
   :bind (:map global-map
-              ("C-;" . comment-line))
+              ("C-;"   . comment-line)
+              ("C-M-k" . 'scroll-other-window)
+              ("C-M-j" . 'scroll-other-window-down))
   :config
   (general-evil-setup)
 
