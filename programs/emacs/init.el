@@ -199,6 +199,7 @@
     ;; this should be in consult use-package, but then I have to load consult
     ;; eagerly
     "," '(consult-buffer :which-key "fast buffer switch")
+    "w" '(other-window-prefix :which-key "other-window-prefix")
 
     ;; Buffers
     "b b" '(project-switch-to-buffer :which-key "switch buffer")
