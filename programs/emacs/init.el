@@ -62,6 +62,7 @@
   (prefer-coding-system         'utf-8)
   (global-prettify-symbols-mode 1)
   (setq compilation-scroll-output t)
+  (setq transient-show-common-commands t)
   (setq default-process-coding-system '(utf-8-unix . utf-8-unix)))
 
 (use-package emacs
@@ -122,14 +123,15 @@
   :init
   ;; allows escape to exit anything
   (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-  (global-display-line-numbers-mode)
+  (setq global-display-line-numbers-mode t)
   (setq whitespace-style '(face spaces trailing tabs space-mark tab-mark))
 
-  (with-eval-after-load 'whitespace-mode
-    (set-face-attribute 'whitespace-space nil
-                        :foreground "gray18")
-    (set-face-attribute 'whitespace-tab nil
-                        :foreground "gray18"))
+  (if (not (equal (getenv "EMACS_HOST") "framework"))
+    (with-eval-after-load 'whitespace-mode
+      (set-face-attribute 'whitespace-space nil
+                          :foreground "gray18")
+      (set-face-attribute 'whitespace-tab nil
+                          :foreground "gray18")))
 
   (add-hook 'before-save-hook #'delete-trailing-whitespace)
   (setq global-whitespace-mode 1))
