@@ -670,6 +670,7 @@
   (add-hook 'org-mode-hook #'auto-fill-mode)
   (add-hook 'before-save-hook  #'dyg|org-fix-blank-lines)
 
+  (setq org-pretty-entities t)
   (setq org-clock-persist 'history)
   (org-clock-persistence-insinuate)
 
