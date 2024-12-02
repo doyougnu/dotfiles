@@ -62,7 +62,6 @@
   (prefer-coding-system         'utf-8)
   (global-prettify-symbols-mode 1)
   (setq compilation-scroll-output t)
-  (setq transient-show-common-commands t)
   (setq default-process-coding-system '(utf-8-unix . utf-8-unix)))
 
 (use-package emacs
@@ -122,19 +121,7 @@
 (use-package emacs
   :init
   ;; allows escape to exit anything
-  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-  (setq global-display-line-numbers-mode t)
-  (setq whitespace-style '(face spaces trailing tabs space-mark tab-mark))
-
-  (if (not (equal (getenv "EMACS_HOST") "framework"))
-    (with-eval-after-load 'whitespace-mode
-      (set-face-attribute 'whitespace-space nil
-                          :foreground "gray18")
-      (set-face-attribute 'whitespace-tab nil
-                          :foreground "gray18")))
-
-  (add-hook 'before-save-hook #'delete-trailing-whitespace)
-  (setq global-whitespace-mode 1))
+  (global-set-key (kbd "<escape>") 'keyboard-escape-quit))
 
 (use-package exec-path-from-shell
   :init
@@ -229,6 +216,13 @@
     "n r i"      '(org-roam-node-insert   :which-key "insert node")
     "n r r"      '(org-roam-buffer-toggle :which-key "Toggle roam buffer")
 
+    ;; smerge
+    "m"        '(:ignore t :which-key "smerge")
+    "m n"      '(smerge-next :which-key "smerge next")
+    "m p"      '(smerge-prev :which-key "smerge prev")
+    "m u"      '(smerge-upper :which-key "accept upper")
+    "m l"      '(smerge-lower :which-key "accept lower")
+
     ;; open
     "o"          '(:ignore t :which-key "open")
     "o o"        '(project-find-file      :which-key "find-file-search")
@@ -312,12 +306,14 @@
   :demand
   :config
   (leader-keys
-    "g"          '(:ignore t :which-key "magit")
-    "g g"        '(magit-status            :which-key "status")
-    "g b"        '(magit-blame             :which-key "blame")
-    "g p"        '(diff-hl-previous-hunk   :which-key "previous hunk")
-    "g n"        '(diff-hl-next-hunk       :which-key "next hunk")
-    "g l"        '(magit-log               :which-key "log"))
+    "g"   '(:ignore t :which-key "magit")
+    "g g" '(magit-status           :which-key "status")
+    "g b" '(magit-blame            :which-key "blame")
+    "g p" '(diff-hl-previous-hunk  :which-key "previous hunk")
+    "g n" '(diff-hl-next-hunk      :which-key "next hunk")
+    "g m" '(git-timemachine-toggle :which-key "timemachine")
+    "g t" '(magit-todos-list       :which-key "todos")
+    "g l" '(magit-log              :which-key "log"))
 
   (leader-keys
     "e"          '(:ignore t :which-key "errors")
@@ -325,17 +321,10 @@
     "e p"        '(flymake-goto-prev-error :which-key "previous-error")))
 
 (use-package magit-todos
-  :after magit
   :ensure t
   :config
-  (leader-keys "g t" '(magit-todos-list :which-key "todos"))
   (magit-todos-mode 1))
-
-(use-package git-timemachine
-  :ensure t
-  :demand
-  :config
-  (leader-keys "g m" '(git-timemachine-toggle :which-key "timemachine")))
+(use-package git-timemachine :ensure t)
 
 (use-package writeroom-mode
   :ensure t
@@ -372,24 +361,17 @@
 (use-package markdown-mode
   :config
   (setq markdown-fontify-code-blocks-natively t))
-(use-package zig-mode
-  :config
-  (leader-keys
-    "m" '(:ignore t :which-key "mode")
-    "m <escape>" '(keyboard-escape-quit :which-key t)
-    "m b" '(zig-compile :which-key "build")
-    "m r" '(zig-run :which-key "run")
-    "m t" '(zig-test :which-key "test")))
+
 (use-package rust-mode
   :config
   (leader-keys
-    "m" '(:ignore t :which-key "mode")
-    "m <escape>" '(keyboard-escape-quit :which-key t)
-    "m b" '(rust-compile :which-key "build")
-    "m r" '(rust-run :which-key "run")
-    "m t" '(rust-test :which-key "test")
-    "m k" '(rust-check :which-key "check")
-    "m c" '(rust-run-clippy :which-key "clippy")))
+    "c" '(:ignore t :which-key "mode")
+    "c <escape>" '(keyboard-escape-quit :which-key t)
+    "c b" '(rust-compile :which-key "build")
+    "c r" '(rust-run :which-key "run")
+    "c t" '(rust-test :which-key "test")
+    "c k" '(rust-check :which-key "check")
+    "c c" '(rust-run-clippy :which-key "clippy")))
 
 (use-package haskell-mode
   :hook (haskell-mode . haskell-indentation-mode)
@@ -746,3 +728,18 @@
   (define-key yas-minor-mode-map (kbd "M-o") #'yas-next-field-or-maybe-expand)
   (define-key yas-keymap         (kbd "M-o") #'yas-next-field-or-maybe-expand)
   )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;; globals ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq global-display-line-numbers-mode t)
+(setq whitespace-style '(face spaces trailing tabs space-mark tab-mark))
+
+(use-package emacs
+  :init
+  (if (not (equal (getenv "EMACS_HOST") "framework"))
+      (with-eval-after-load 'whitespace-mode
+        (set-face-attribute 'whitespace-space nil
+                            :foreground "gray18")
+        (set-face-attribute 'whitespace-tab nil
+                            :foreground "gray18")))
+  (add-hook 'before-save-hook #'delete-trailing-whitespace)
+  (setq global-whitespace-mode 1))
