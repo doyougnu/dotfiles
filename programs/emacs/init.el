@@ -652,9 +652,24 @@
   (add-hook 'org-mode-hook #'auto-fill-mode)
   (add-hook 'before-save-hook  #'dyg|org-fix-blank-lines)
 
+  (setq org-directory       "~/sync/org")
+  (setq org-clock-idle-time 20)
   (setq org-pretty-entities t)
-  (setq org-clock-persist 'history)
+  (setq org-clock-persist   'history)
+  (setq org-journal-file-format                "%Y/%m/%d.org")
+  (setq org-columns-default-format             "%50ITEM(Task) %10CLOCKSUM %16TIMESTAMP_IA")
+  (setq org-journal-enable-agenda-integration t)
+  (setq org-journal-carryover-items           "TODO=\"NEXT\"|TODO=\"TODO\"|TODO=\"HOLD\"|TODO=\"INPROG\"")
+  (setq org-confirm-babel-evaluate             nil)
+  (setq org-edit-src-content-indentation      2)
+  ;; don't set bookmarks on a capture
+  (setf org-bookmark-names-plist             nil)
+  ;; request a note everytime we clock out on clocked in item
+  (setf org-log-note-clock-out           t)
   (org-clock-persistence-insinuate)
+
+  ;; load my personal org agenda and capture config
+  (load-user-file "personal-org.el")
 
   ;; use firefox
   (setf browse-url-browser-function 'browse-url-firefox))

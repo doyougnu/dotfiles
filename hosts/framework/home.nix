@@ -281,6 +281,7 @@ in {
   # doom emacs
   home.file.".emacs.d/early-init.el".source = ../../programs/emacs/early-init.el;
   home.file.".emacs.d/init.el".source       = ../../programs/emacs/init.el;
+  home.file.".emacs.d/personal-org.el".source       = ../../programs/emacs/personal-org.el;
   home.file.".emacs.d/snippets".source      = ../../programs/emacs/doom/snippets;
   home.activation = {
       symlinkAuth = lib.hm.dag.entryAfter ["writeBoundary"] ''
