@@ -189,6 +189,7 @@
     ;; eagerly
     "," '(consult-buffer :which-key "fast buffer switch")
     "w" '(other-window-prefix :which-key "other-window-prefix")
+    "SPC" '(org-capture :which-key "capture")
 
     ;; Buffers
     "b b" '(project-switch-to-buffer :which-key "switch buffer")
@@ -215,6 +216,9 @@
     "n r o"      '(org-roam-node-find     :which-key "find node")
     "n r i"      '(org-roam-node-insert   :which-key "insert node")
     "n r r"      '(org-roam-buffer-toggle :which-key "Toggle roam buffer")
+
+    ;; agenda
+    "a"      '(org-agenda :which-key "agenda")
 
     ;; smerge
     "m"        '(:ignore t :which-key "smerge")

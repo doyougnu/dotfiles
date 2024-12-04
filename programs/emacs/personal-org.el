@@ -392,7 +392,7 @@
 
 ;; Custom agenda command definitions
 (setq org-agenda-custom-commands
-      '((" " "Agenda"
+      '(("a" "Agenda"
          ((agenda "" nil)
           (tags "REFILE"
                 ((org-agenda-overriding-header "Tasks to Refile")
