@@ -420,6 +420,7 @@ in {
     spotify
     slack
     steam
+    tex
     xfce.thunar
     unison
     xclip

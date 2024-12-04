@@ -423,6 +423,7 @@ in {
     slack
     spotify
     tdesktop
+    tex
     xclip
     xmobar
     xmonad-log
