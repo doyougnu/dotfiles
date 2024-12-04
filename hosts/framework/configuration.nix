@@ -171,7 +171,6 @@
       extraGroups = [ "networkmanager" "wheel" "audio" "pulse"
                       "docker" "video" "input" "uinput"
                     ];
-      uid = 1729;
       shell = pkgs.zsh;
       home = "/home/doyougnu";
     };
@@ -179,7 +178,7 @@
   # Enable the XServer settings
   services.libinput.enable = true;
   services.displayManager.defaultSession = "none+xmonad";
-  services.displayManager.autoLogin.user = "doyougnu";
+  services.xserver.desktopManager.xterm.enable = true;
   services.xserver = {
 
     # Enable the X11 windowing system.
@@ -205,6 +204,7 @@
      };
      displayManager = {
       lightdm.enable = true;
+      lightdm.greeters.enso.enable = true;
       sessionCommands = ''
          ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
          '';
