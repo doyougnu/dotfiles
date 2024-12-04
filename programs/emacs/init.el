@@ -181,7 +181,9 @@
     :global-prefix "C-.")
 
   (leader-keys
-    "x" '(scratch-buffer :which-key "*scratch*")
+    "x" '(scratch-buffer            :which-key "*scratch*")
+    "h" '(highlight-symbol-at-point :which-key "highlight")
+    "H" '(unhighlight-regexp        :which-key "unhighlight")
 
     ;; Buffer
     "b" '(:ignore t :which-key "buffer")
@@ -330,7 +332,19 @@
   :ensure t
   :demand
   :config
-  (leader-keys "z" '(writeroom-mode :which-key "writeroom")))
+
+  (leader-keys "z" '(writeroom-mode :which-key "writeroom"))
+  (defcustom writeroom-text-scale 3 "Text scale for writeroom" :type 'integer)
+
+  ;; bump font in writeroom
+  (add-to-list 'writeroom-global-effects
+               (lambda (arg)
+                 (require 'face-remap)
+                 (if arg (progn
+                           (set (make-local-variable '*local-text-scale*) text-scale-mode-amount)
+                           (text-scale-set writeroom-text-scale))
+                   (text-scale-set 0))))
+  )
 
 ;; a utility package to get magit to play nice with evil
 ;; we can already see how much complexity is added due to evil
