@@ -338,10 +338,11 @@
   :config
 
   (leader-keys "z" '(writeroom-mode :which-key "writeroom"))
-  (defcustom writeroom-text-scale 3 "Text scale for writeroom" :type 'integer)
+  ;; just make the write area a tad larger than wrap
+  (setq writeroom-width 90)
 
   ;; bump font in writeroom
-  (add-hook 'writeroom-mode-enable-hook (lambda () (text-scale-set 2)))
+  (add-hook 'writeroom-mode-enable-hook (lambda () (text-scale-set 1)))
   (add-hook 'writeroom-mode-disable-hook (lambda () (text-scale-set 0))))
 
 ;; a utility package to get magit to play nice with evil
