@@ -620,6 +620,7 @@
   (org-insert-heading-respect-content)
   (org-do-demote))
 
+  (setq org-startup-with-inline-images t)
   (setq org-M-RET-may-split-line nil)
   (setq org-startup-indented t)
   (add-hook 'org-mode-hook
@@ -746,6 +747,7 @@
 (use-package yasnippet
   :after evil-org
   :ensure t
+  :demand
   :bind* ("M-o" . yas-expand) ;; Global binding for yas-expand
   :config
   (use-package yasnippet-snippets :ensure t)
