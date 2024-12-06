@@ -324,8 +324,10 @@
 
   (leader-keys
     "e"          '(:ignore t :which-key "errors")
-    "e n"        '(flymake-goto-next-error :which-key "next-error")
-    "e p"        '(flymake-goto-prev-error :which-key "previous-error")))
+    "e N"        '(flymake-goto-next-error :which-key "next-error")
+    "e P"        '(flymake-goto-prev-error :which-key "previous-error")
+    "e n"        '(next-error     :which-key "next-error")
+    "e p"        '(previous-error :which-key "previous-error")))
 
 (use-package magit-todos
   :ensure t
@@ -571,6 +573,18 @@
       (if word
           (consult-line-multi nil word)
         (consult-line-multi nil nil))))
+
+  ;; avoid certain buffers in search
+  (mapcar
+   (lambda (rx) (add-to-list 'consult-buffer-filter rx))
+   '("\\`magit\\(?:-[a-z]+\\)?:"
+     "\\*Warnings\\*"
+     "\\*helpful.*"
+     "\\*Help\\*"
+     "\\*\\#.*\\#\\*" ;; temp files
+     "\\*Async-native-compile-log\\*"
+     "\\*Messages\\*"
+     "\\`\\*EGLOT .* events\\*\\'"))
 
   ;; Optionally configure preview. The default value
   ;; is 'any, such that any key triggers the preview.
