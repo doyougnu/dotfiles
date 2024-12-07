@@ -343,6 +343,7 @@
   (leader-keys "z" '(writeroom-mode :which-key "writeroom"))
   ;; just make the write area a tad larger than wrap
   (setq writeroom-width 90)
+  (setq writeroom-fullscreen-effect 'maximized)
 
   ;; bump font in writeroom
   (add-hook 'writeroom-mode-enable-hook (lambda () (text-scale-set 1)))
@@ -380,6 +381,13 @@
 
 (use-package rust-mode
   :config
+  ;; use tabs for irreducible
+  ;; todo move this to dir-locals
+  (setq-default indent-tabs-mode t)
+  (setq-default tab-width 4)
+  (defvaralias 'rust-indent-offset 'tab-width)
+
+  (setq rust-format-on-save t)
   (leader-keys
     "c" '(:ignore t :which-key "mode")
     "c <escape>" '(keyboard-escape-quit :which-key t)
