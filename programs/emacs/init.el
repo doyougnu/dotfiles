@@ -137,7 +137,7 @@
 
 (use-package emacs
   :config
-  (setq backup-directory-alist `(("." . "~/.saves"))))
+  (setq backup-directory-alist `((".*" . "~/.emacs.d/saves"))))
 
 (use-package treesit-auto
   :defer

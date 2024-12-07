@@ -41,12 +41,12 @@ in {
   programs.git = {
     enable    = true;
     userEmail = "jeffrey.young@iohk.io";
-    userName  = "doyougnu";
+    userName  = "Jeffrey Young";
     signing.signByDefault = true;
     signing.key = "57403751AE1F59BBC10771F5AF59A1E46422D9C9";
     ignores = [ "TAGS" "GPATH" "GRTAGS" "GTAGS" ".dir-locals.el" "dist-newstyle"
                 "*.elc" "*.swp" ".projectile" ".ignored" "config.sub" ".envrc"
-                "config.sub"
+                "config.sub" ".direnv/"
               ];
   };
 
