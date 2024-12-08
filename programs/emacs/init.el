@@ -643,6 +643,19 @@
   (org-insert-heading-respect-content)
   (org-do-demote))
 
+  (defun dyg|org-latex-preview ()
+	"Automatically refresh LaTeX fragments in the current buffer."
+	(when (eq major-mode 'org-mode)
+	  (org-clear-latex-preview (point-min) (point-max))
+	  (org-latex-preview (point-min) (point-max))))
+
+  ;; Enable automatic LaTeX fragment preview
+  (defun dyg|org-latex-preview-setup ()
+  "Set up auto LaTeX fragment preview."
+  (add-hook 'after-change-functions #'dyg|org-latex-preview nil t))
+
+  (add-hook 'org-mode-hook #'dyg|org-latex-preview-setup)
+
   (setq org-startup-with-inline-images t)
   (setq org-M-RET-may-split-line nil)
   (setq org-startup-indented t)
