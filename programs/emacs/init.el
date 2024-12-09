@@ -231,9 +231,10 @@
 
     ;; open
     "o"          '(:ignore t :which-key "open")
-    "o o"        '(project-find-file      :which-key "find-file-search")
-    "o O"        '(find-file              :which-key "find-file-browse")
-    "o d"        '(project-find-dir       :which-key "find-dir")
+    "o o"        '(find-file              :which-key "find-file-browse")
+    "o O"        '(project-find-file      :which-key "find-file-search")
+    "o D"        '(dired-jump             :which-key "dired")
+    "o D"        '(project-find-dir       :which-key "find-dir")
     "o h"        '(find-file-other-window :which-key "find-file-other-window")
 
     ;; Projects
@@ -646,19 +647,20 @@
   (defun dyg|org-latex-preview ()
 	"Automatically refresh LaTeX fragments in the current buffer."
 	(when (eq major-mode 'org-mode)
-	  (org-clear-latex-preview (point-min) (point-max))
-	  (org-latex-preview (point-min) (point-max))))
+	  (org-latex-preview)))
 
   ;; Enable automatic LaTeX fragment preview
   (defun dyg|org-latex-preview-setup ()
   "Set up auto LaTeX fragment preview."
-  (add-hook 'after-change-functions #'dyg|org-latex-preview nil t))
+  (add-hook 'after-save-hook #'dyg|org-latex-preview nil t))
 
   (add-hook 'org-mode-hook #'dyg|org-latex-preview-setup)
 
   (setq org-startup-with-inline-images t)
   (setq org-M-RET-may-split-line nil)
   (setq org-startup-indented t)
+  (setq org-format-latex-options
+		(plist-put org-format-latex-options :scale 1.5))
   (add-hook 'org-mode-hook
             #'(lambda ()
                 (add-hook 'evil-insert-state-entry-hook
