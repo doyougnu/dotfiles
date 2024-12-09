@@ -137,7 +137,7 @@
 
 (use-package emacs
   :config
-  (setq backup-directory-alist `(("." . "~/.saves"))))
+  (setq backup-directory-alist `((".*" . "~/.emacs.d/saves"))))
 
 (use-package treesit-auto
   :defer
@@ -231,9 +231,10 @@
 
     ;; open
     "o"          '(:ignore t :which-key "open")
-    "o o"        '(project-find-file      :which-key "find-file-search")
-    "o O"        '(find-file              :which-key "find-file-browse")
-    "o d"        '(project-find-dir       :which-key "find-dir")
+    "o o"        '(find-file              :which-key "find-file-browse")
+    "o O"        '(project-find-file      :which-key "find-file-search")
+    "o D"        '(dired-jump             :which-key "dired")
+    "o D"        '(project-find-dir       :which-key "find-dir")
     "o h"        '(find-file-other-window :which-key "find-file-other-window")
 
     ;; Projects
@@ -343,6 +344,7 @@
   (leader-keys "z" '(writeroom-mode :which-key "writeroom"))
   ;; just make the write area a tad larger than wrap
   (setq writeroom-width 90)
+  (setq writeroom-fullscreen-effect 'maximized)
 
   ;; bump font in writeroom
   (add-hook 'writeroom-mode-enable-hook (lambda () (text-scale-set 1)))
@@ -383,6 +385,13 @@
   (setq rust-mode-treesitter-derive t)
   :hook (rust-mode . prettify-symbols-mode)
   :config
+  ;; use tabs for irreducible
+  ;; todo move this to dir-locals
+  (setq-default indent-tabs-mode t)
+  (setq-default tab-width 4)
+  (defvaralias 'rust-indent-offset 'tab-width)
+
+  (setq rust-format-on-save t)
   (leader-keys
     "c" '(:ignore t :which-key "mode")
     "c <escape>" '(keyboard-escape-quit :which-key t)
@@ -638,9 +647,23 @@
   (org-insert-heading-respect-content)
   (org-do-demote))
 
+  (defun dyg|org-latex-preview ()
+	"Automatically refresh LaTeX fragments in the current buffer."
+	(when (eq major-mode 'org-mode)
+	  (org-latex-preview)))
+
+  ;; Enable automatic LaTeX fragment preview
+  (defun dyg|org-latex-preview-setup ()
+  "Set up auto LaTeX fragment preview."
+  (add-hook 'after-save-hook #'dyg|org-latex-preview nil t))
+
+  (add-hook 'org-mode-hook #'dyg|org-latex-preview-setup)
+
   (setq org-startup-with-inline-images t)
   (setq org-M-RET-may-split-line nil)
   (setq org-startup-indented t)
+  (setq org-format-latex-options
+		(plist-put org-format-latex-options :scale 1.5))
   (add-hook 'org-mode-hook
             #'(lambda ()
                 (add-hook 'evil-insert-state-entry-hook
