@@ -379,6 +379,9 @@
   (setq markdown-fontify-code-blocks-natively t))
 
 (use-package rust-mode
+  :init
+  (setq rust-mode-treesitter-derive t)
+  :hook (rust-mode . prettify-symbols-mode)
   :config
   (leader-keys
     "c" '(:ignore t :which-key "mode")
