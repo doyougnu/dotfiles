@@ -256,6 +256,7 @@
     "K"   'evil-backward-paragraph
     "t"   'evil-find-char
     "C-j" 'evil-join
+	"C-e" 'evil-jump-forward
     "C-w x" 'kill-buffer-and-window)
 
   (general-define-key
@@ -382,15 +383,21 @@
 
 (use-package rust-mode
   :init
-  (setq rust-mode-treesitter-derive t)
+  ;; TODO (setq rust-mode-treesitter-derive t)
   :hook (rust-mode . prettify-symbols-mode)
+  :hook (rust-mode . display-line-numbers-mode)
   :config
   ;; use tabs for irreducible
-  ;; todo move this to dir-locals
+  ;; TODO move this to dir-locals
   (setq-default indent-tabs-mode t)
   (setq-default tab-width 4)
   (defvaralias 'rust-indent-offset 'tab-width)
 
+  ;; Turn off for inlay hints for rust
+  (add-hook 'eglot-managed-mode-hook
+			(lambda ()
+			  (when (derived-mode-p 'rust-mode)
+				(eglot-inlay-hints-mode -1))))
   (setq rust-format-on-save t)
   (leader-keys
     "c" '(:ignore t :which-key "mode")
