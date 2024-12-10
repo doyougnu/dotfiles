@@ -310,6 +310,13 @@
   :config
   (evil-lion-mode))
 
+(use-package evil-multiedit
+  :ensure t
+  :bind (:map evil-normal-state-map
+		 ("g m m" . evil-multiedit-match-all)
+		 ("g m j" . evil-multiedit-match-and-next)
+		 ("g m k" . evil-multiedit-match-and-prev)))
+
 (use-package magit
   :ensure t
   :demand
