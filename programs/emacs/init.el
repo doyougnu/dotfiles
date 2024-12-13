@@ -296,8 +296,8 @@
   (setq evil-want-keybinding nil)
   (setq evil-want-C-u-scroll t) ;; make C-u scroll up
   :config
-  (setq evil-undo-system 'undo-redo)
-  (evil-mode 1))
+  (evil-mode 1)
+  (setq evil-undo-system 'undo-redo))
 
 (use-package evil-lion
   :ensure t
