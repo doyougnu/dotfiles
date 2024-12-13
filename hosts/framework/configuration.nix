@@ -240,15 +240,15 @@
           (defalias
               ;; home row mods base
 
-              home_; (tap-hold-next-release 160 ; lmet)
-              home_q (tap-hold-next-release 160 q lalt)
+              home_g (tap-hold-next-release 160 g lmet)
+              home_x (tap-hold-next-release 160 x lalt)
               home_j (tap-hold-next-release 160 j lctl)
               home_k (tap-hold-next-release 160 k lsft)
 
-              home_z (tap-hold-next-release 160 z rmet)
-              home_v (tap-hold-next-release 160 v lalt)
-              home_w (tap-hold-next-release 160 w rctl)
-              home_m (tap-hold-next-release 160 m rsft)
+              home_p (tap-hold-next-release 160 p rmet)
+              home_f (tap-hold-next-release 160 f lalt)
+              home_m (tap-hold-next-release 160 m rctl)
+              home_r (tap-hold-next-release 160 r rsft)
 
              ;; symbols
              syms (layer-toggle sym)
@@ -262,17 +262,17 @@
 
           (deflayer base
             XX  XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    bspc
-            tab     '    ,    .    p    y   f    g    c    r    l    XX   XX    XX
-            @syms   a   o    e   u    i    d   h   t   n   s @nums ret
-            lshft @home_;    @home_q    @home_j    @home_k    x    b    @home_m    @home_w    @home_v    @home_z    rsft
+            tab     b    y    o    u    z   q    l    d    w    v    XX   XX    XX
+            @syms   c    i    e    a    ,    .   h    t    s    n   @nums ret
+            lshft @home_g    @home_x    @home_j    k  lshft    rshft    r @home_m    @home_f    @home_p    rsft
             lctl lmet esc    spc            ret rctl
           )
 
           (deflayer sym
             XX   XX   XX   XX   XX    XX   XX   XX   XX   XX   XX   XX   XX   bspc
-            tab  "    <    >    ^     [    ]    &    !    /    XX   XX   XX   XX
+            tab  XX   <    >    ^     [    ]    &    !    /    '   XX   XX   XX
             caps XX   `    :    ?    \(   \)    =    $    |    @_    -   ret
-            lsft XX  XX    ~    @     {    }    #    %    \    XX rsft
+            lsft XX  XX    ~    @     {    }    #    %    \    " rsft
             lctl lmet lalt           spc            ret rctl
           )
 
