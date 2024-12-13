@@ -394,11 +394,6 @@
   :hook (rust-mode . prettify-symbols-mode)
   :hook (rust-mode . display-line-numbers-mode)
   :config
-  ;; use tabs for irreducible
-  ;; TODO move this to dir-locals
-  (setq-default indent-tabs-mode t)
-  (setq-default tab-width 4)
-  (defvaralias 'rust-indent-offset 'tab-width)
 
   ;; Turn off for inlay hints for rust
   (add-hook 'eglot-managed-mode-hook
