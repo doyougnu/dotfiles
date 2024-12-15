@@ -225,10 +225,10 @@ myBorderWidth = 3
 --
 myModMask = mod4Mask
 
-myNumRow = [ xK_apostrophe
-           , xK_comma
-           , xK_period
-           , xK_p
+myNumRow = [ xK_b
+           , xK_y
+           , xK_o
+           , xK_u
            ]
 
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
@@ -237,7 +237,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   --
 
   -- Start a terminal.  Terminal to start is specified by myTerminal variable.
-  [ ((modMask, xK_u),
+  [ ((modMask, xK_a),
      spawn $ XMonad.terminal conf)
     --
   , ((modMask .|. controlMask, xK_Return),
@@ -249,31 +249,19 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
   -- Spawn the launcher using command specified by myLauncher.
   -- Use this to launch programs without a key binding.
-  , ((modMask, xK_d),
+  , ((modMask, xK_period),
      spawn myLauncher)
 
   -- On Mod f open the browser
   , ((modMask, xK_e),
      spawn myBrowser)
 
-  , ((modMask, xK_i),
+  , ((modMask, xK_comma),
      safeSpawn "google-chrome-stable" mempty)
 
-  -- run emacs everywhere
-  , ((modMask, xK_a),
-    safeSpawn "emacsclient" ["--eval", "(emacs-everywhere)"])
-
   -- On Mod f open the browser
-  , ((modMask, xK_o),
+  , ((modMask, xK_i),
      spawn myIDE)
-
-  -- On Mod f open the browser
-  , ((modMask .|. mod1Mask, xK_o),
-     spawn myIDESameBuf)
-
-  -- On Mod d open the file bro
-  -- , ((modMask, xK_u),
-  --    spawn myFS)
 
   -- change themes with mod + ctrl + t
   , ((modMask .|. controlMask, xK_t), themePrompt def)
@@ -282,7 +270,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_r),
      lookupPrompt)
 
-  , ((modMask .|. mod1Mask, xK_r)
+  , ((modMask .|. mod1Mask, xK_v)
     , safeSpawn "dunstctl" ["close"])
 
 
@@ -307,11 +295,11 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      spawn "light -A 5")
 
   -- -- Mute volume.
-  , ((modMask .|. controlMask, xK_w),
+  , ((modMask .|. controlMask, xK_m),
      spawn "amixer -q set Master toggle")
 
   -- -- Decrease volume.
-  , ((modMask .|. controlMask, xK_n),
+  , ((modMask .|. controlMask, xK_s),
      spawn "amixer -q set Master 5%-")
 
   -- -- Increase volume.
@@ -319,20 +307,20 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      spawn "amixer -q set Master 5%+")
 
   -- Pause any spotify music
-  , ((modMask .|. controlMask, xK_v), audioPlayPause)
+  , ((modMask .|. controlMask, xK_m), audioPlayPause)
 
   -- Previous
-  , ((modMask .|. controlMask, xK_w), audioPrev)
+  , ((modMask .|. controlMask, xK_r), audioPrev)
 
   -- Next
-  , ((modMask .|. controlMask, xK_z), audioNext)
+  , ((modMask .|. controlMask, xK_f), audioNext)
 
   -- Decrease brightness.
-  , ((modMask .|. controlMask, xK_c),
+  , ((modMask .|. controlMask, xK_d),
      spawn "light -U 2")
 
-  -- -- Increase volume.
-  , ((modMask .|. controlMask, xK_r),
+  -- -- Increase brightness.
+  , ((modMask .|. controlMask, xK_w),
      spawn "light -A 2")
 
   -- disable touchpad
@@ -357,16 +345,12 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_space),
      sendMessage NextLayout)
 
-  -- Resize viewed windows to the correct size.
-  , ((modMask, xK_n),
-     refresh)
-
   -- Move focus to the next window.
   , ((modMask, xK_Tab),
      windows W.focusDown)
 
   -- Move focus to the next window.
-  , ((modMask, xK_n),
+  , ((modMask, xK_s),
      windows W.focusDown) --
 
   -- Move focus to the previous window.
@@ -374,7 +358,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      windows W.focusUp  )
 
   -- Move focus to the master window.
-  , ((modMask, xK_m),
+  , ((modMask, xK_w),
      windows W.focusMaster  )
 
   -- Swap the focused window and the master window.
@@ -382,7 +366,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      windows W.swapMaster)
 
   -- Swap the focused window with the next window.
-  , ((modMask .|. shiftMask, xK_n),
+  , ((modMask .|. shiftMask, xK_s),
      windows W.swapDown  )
 
   -- Swap the focused window with the previous window.
@@ -394,12 +378,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      sendMessage Shrink)
 
   -- Expand the master area.
-  , ((modMask, xK_s),
+  , ((modMask, xK_n),
      sendMessage Expand)
-
-  -- Push window back into tiling.
-  , ((modMask, xK_y),
-     withFocused $ windows . W.sink)
 
   -- Increment the number of windows in the master area.
   -- , ((modMask, xK_comma),
@@ -410,14 +390,14 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   --    sendMessage (IncMasterN (-1)))
 
   -- Toggle the status bar gap.
-  -- TODO: update this binding with avoidStruts, ((modMask, xK_b),
+  -- TODO: update this binding with avoidStruts, ((modMask, x_b),
 
   -- Quit xmonad.
-  , ((modMask .|. shiftMask, xK_apostrophe),
+  , ((modMask .|. shiftMask, xK_b),
      io (exitWith ExitSuccess))
 
   -- Restart xmonad.
-  , ((modMask, xK_semicolon),
+  , ((modMask, xK_g),
      restart "xmonad" True)
   ]
   ++
