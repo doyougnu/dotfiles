@@ -185,10 +185,10 @@ myBorderWidth = 1
 --
 myModMask = mod4Mask
 
-myNumRow = [ xK_apostrophe
-           , xK_comma
-           , xK_period
-           , xK_p
+myNumRow = [ xK_b
+           , xK_y
+           , xK_o
+           , xK_u
            ]
 
 myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
@@ -197,7 +197,7 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
   --
 
   -- Start a terminal.
-  [ ((modMask, xK_u),
+  [ ((modMask, xK_a),
      spawn $ XMonad.terminal conf)
 
   -- spawn an eshell
@@ -210,7 +210,7 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
 
   -- Spawn the launcher using command specified by myLauncher.
   -- Use this to launch programs without a key binding.
-  , ((modMask, xK_d),
+  , ((modMask, xK_period),
      spawn myLauncher)
 
   -- On Mod d open the browser
@@ -218,11 +218,11 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
      spawn myBrowser)
 
   -- On Mod g open the browser
-  , ((modMask, xK_i),
+  , ((modMask, xK_comma),
      spawn "google-chrome-stable")
 
   -- On Mod s open emacs
-  , ((modMask, xK_o),
+  , ((modMask, xK_i),
      spawn myIDE)
 
   -- On Mod f open the browser
@@ -240,12 +240,8 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
   , ((modMask, xK_r), lookupPrompt)
 
   -- close last notification
-  , ((modMask .|. mod1Mask, xK_r),
+  , ((modMask .|. mod1Mask, xK_w),
     safeSpawn "dunstctl" ["close"])
-
-  -- run emacs everywhere
-  , ((modMask, xK_a),
-    safeSpawn "emacsclient" ["--eval", "(emacs-everywhere)"])
 
   -- Take a selective screenshot using the command specified by mySelectScreenshot.
   -- , ((modMask .|. shiftMask, xK_p),
@@ -272,21 +268,21 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
      spawn "amixer -q set Master toggle")
 
   -- -- Decrease volume.
-  , ((modMask .|. controlMask, xK_n),
+  , ((modMask .|. controlMask, xK_r),
      spawn "amixer -q set Master 10%-")
 
   -- -- Increase volume.
-  , ((modMask .|. controlMask, xK_t),
+  , ((modMask .|. controlMask, xK_f),
      spawn "amixer -q set Master 10%+")
 
 
-  , ((modMask .|. controlMask, xK_v), audioPlayPause)
+  , ((modMask .|. controlMask, xK_m), audioPlayPause)
 
   -- spotify previous
-  , ((modMask .|. controlMask, xK_w), audioPrev)
+  , ((modMask .|. controlMask, xK_r), audioPrev)
 
   -- spotify next
-  , ((modMask .|. controlMask, xK_z), audioNext)
+  , ((modMask .|. controlMask, xK_f), audioNext)
 
   --  Toggle the bottom xmobar
   , ((modMask .|. controlMask, xK_space),
@@ -317,7 +313,7 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
      windows W.focusDown)
 
   -- Move focus to the next window.
-  , ((modMask, xK_n),
+  , ((modMask, xK_s),
      windows W.focusDown)
 
   -- Move focus to the previous window.
@@ -325,7 +321,7 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
      windows W.focusUp)
 
   -- Move focus to the master window.
-  , ((modMask, xK_m),
+  , ((modMask, xK_w),
      windows W.focusMaster  )
 
   -- Swap the focused window and the master window.
@@ -333,7 +329,7 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
      windows W.swapMaster)
 
   -- Swap the focused window with the next window.
-  , ((modMask .|. shiftMask, xK_n),
+  , ((modMask .|. shiftMask, xK_s),
      windows W.swapDown  )
 
   -- Swap the focused window with the previous window.
@@ -345,7 +341,7 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
      sendMessage Shrink)
 
   -- Expand the master area.
-  , ((modMask, xK_s),
+  , ((modMask, xK_n),
      sendMessage Expand)
 
   -- Push window back into tiling.
@@ -368,7 +364,7 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
      io exitSuccess)
 
   -- Restart xmonad.
-  , ((modMask, xK_semicolon),
+  , ((modMask, xK_g),
      restart "xmonad" True)
   ]
   ++
@@ -382,7 +378,7 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
   -- mod-{w,e,r} %! Switch to physical/Xinerama screens 1, 2, or 3
   -- mod-shift-{w,e,r} %! Move client to screen 1, 2, or 3
   [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
-      | (key, sc) <- zip [xK_r, xK_c, xK_l] [0..]
+      | (key, sc) <- zip [xK_w, xK_d] [0..]
       , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 ------------------------------------------------------------------------

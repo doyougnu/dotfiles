@@ -423,9 +423,9 @@
   (general-define-key
    :keymaps 'vertico-map
     "C-t"   'vertico-previous
-    "C-u"   'vertico-directory-up
+    "C-a"   'vertico-directory-up
     "C-n"   'vertico-next
-    "C-a"   'vertico-directory-enter))
+    "C-i"   'vertico-directory-enter))
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
