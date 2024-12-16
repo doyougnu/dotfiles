@@ -209,7 +209,7 @@
     "t d"      '(project-kill-buffers :which-key "close tabbed project")
     "t D"      '(tab-close     :which-key "kill tab")
     "t h"      '(tab-previous  :which-key "previous tab")
-    "t l"      '(tab-next      :which-key "next tab")
+    "t n"      '(tab-next      :which-key "next tab")
     "t r"      '(tab-rename    :which-key "rename tab")
 
     ;; notes
