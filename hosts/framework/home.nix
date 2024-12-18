@@ -348,7 +348,7 @@ in {
       bindkey "^[n" history-search-forward
       bindkey -e "^t" up-line-or-history
       bindkey -e "^n" down-line-or-history
-      bindkey -e "^i" autosuggest-accept
+      bindkey -e "^d" autosuggest-accept
       bindkey -e "^w" forward-word
       bindkey "^w" forward-word
       bindkey -e "^b" backward-word
