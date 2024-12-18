@@ -336,6 +336,7 @@ in {
       bindkey -r '^E'
       bindkey -r '^V'
       bindkey -r '^D'
+      bindkey -r '^S'
 
       bindkey "^t" history-beginning-search-backward
       bindkey "^n" history-beginning-search-forward
@@ -343,7 +344,7 @@ in {
       bindkey "^[n" history-search-forward
       bindkey -e "^t" up-line-or-history
       bindkey -e "^n" down-line-or-history
-      bindkey -e "^d" autosuggest-accept
+      bindkey -e "^s" autosuggest-accept
       bindkey -e "^w" forward-word
       bindkey "^w" forward-word
       bindkey -e "^b" backward-word

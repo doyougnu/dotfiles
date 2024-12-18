@@ -432,7 +432,7 @@
     "C-t"   'vertico-previous
     "C-."   'vertico-directory-up
     "C-n"   'vertico-next
-    "C-d"   'vertico-directory-enter))
+    "C-s"   'vertico-directory-enter))
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
