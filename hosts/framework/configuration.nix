@@ -270,8 +270,8 @@
 
           (deflayer sym
             XX   XX   XX   XX   XX    XX   XX   XX   XX   XX   XX   XX   XX   bspc
-            tab  XX   <    >    ^     [    ]    &    !    /    '   XX   XX   XX
-            caps ;    `    :    ?    \(   \)    =    $    |    @_    -   ret
+            tab  XX   XX   ;    ^     [    ]    &    !    /    '   XX   XX   XX
+            caps XX   `    :    ?    \(   \)    =    $    |    @_    -   ret
             lsft XX  XX    ~    @     {    }    #    %    \    " rsft
             lctl lmet lalt           spc            ret rctl
           )
