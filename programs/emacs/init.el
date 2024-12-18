@@ -417,7 +417,9 @@
     "c c" '(rust-run-clippy :which-key "clippy")))
 
 (use-package haskell-mode
-  :hook (haskell-mode . haskell-indentation-mode))
+  :hook (haskell-mode . haskell-indentation-mode)
+  :hook (haskell-mode . prettify-symbols-mode)
+  :hook (haskell-mode . display-line-numbers-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; completion ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Enable vertico
