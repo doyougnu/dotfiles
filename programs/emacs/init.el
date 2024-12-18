@@ -358,6 +358,12 @@
   (add-hook 'writeroom-mode-enable-hook (lambda () (text-scale-set 1)))
   (add-hook 'writeroom-mode-disable-hook (lambda () (text-scale-set 0))))
 
+(use-package writegood-mode
+  :ensure t
+  :demand
+  :config
+  (leader-keys "Z" 'writegood-mode :which-key "writegood"))
+
 ;; a utility package to get magit to play nice with evil
 ;; we can already see how much complexity is added due to evil
 (use-package evil-collection
