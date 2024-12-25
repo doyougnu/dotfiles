@@ -501,13 +501,13 @@
    :keymaps 'corfu-map
    "C-t"   'corfu-previous
    "C-n"   'corfu-next
-   "C-a"   'corfu-complete)
+   "C-s"   'corfu-complete)
 
   (general-define-key
    :states '(insert)
    "C-t"   'corfu-previous
    "C-n"   'corfu-next
-   "C-a"   'corfu-complete))
+   "C-s"   'corfu-complete))
 
 ;; Example configuration for Consult
 (use-package consult
@@ -533,6 +533,7 @@
          ("C-M-#" . consult-register)
          ;; Other custom bindings
          ("M-y" . consult-yank-pop)                ;; orig. yank-pop
+         ("M-p" . fill-paragraph)
          ;; M-g bindings in `goto-map'
          ("M-g e" . consult-compile-error)
          ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
