@@ -256,7 +256,7 @@
     "K"   'evil-backward-paragraph
     "t"   'evil-find-char
     "C-j" 'evil-join
-	"C-e" 'evil-jump-forward
+    "C-e" 'evil-jump-forward
     "C-w x" 'kill-buffer-and-window)
 
   (general-define-key
@@ -295,9 +295,18 @@
   ;; prevents evil and evil-collection from interfering
   (setq evil-want-keybinding nil)
   (setq evil-want-C-u-scroll t) ;; make C-u scroll up
+  (setq evil-undo-system 'undo-redo)
   :config
-  (evil-mode 1)
-  (setq evil-undo-system 'undo-redo))
+  (evil-mode 1))
+
+(use-package vundo
+  :ensure t
+  :demand
+  :after evil
+  :config
+  (general-define-key
+   :states '(normal visual)
+   "U"     'vundo))
 
 (use-package evil-lion
   :ensure t
