@@ -190,6 +190,7 @@
     ;; this should be in consult use-package, but then I have to load consult
     ;; eagerly
     "," '(consult-buffer :which-key "fast buffer switch")
+    "." '(consult-buffer-other-window :which-key "fast buffer other")
     "w" '(other-window-prefix :which-key "other-window-prefix")
     "SPC" '(org-capture :which-key "capture")
 
@@ -402,6 +403,23 @@
 (use-package markdown-mode
   :config
   (setq markdown-fontify-code-blocks-natively t))
+
+(use-package zig-mode
+  :ensure t
+  :hook (zig-mode . prettify-symbols-mode)
+  :hook (zig-mode . display-line-numbers-mode)
+  :custom (zig-format-on-save t)
+  :config
+
+  (leader-keys
+    "c" '(:ignore t :which-key "mode")
+    "c <escape>" '(keyboard-escape-quit :which-key t)
+    "c b" '(zig-compile :which-key "build")
+    "c r" '(zig-run :which-key "run")
+    "c t" '(zig-test-buffer :which-key "test")
+    "c f" '(zig-format-buffer :which-key "check")
+    "j"   '(zig-end-of-defun :which-key "end defun")
+    "k"   '(zig-beginning-of-defun :which-key "beg defun")))
 
 (use-package rust-mode
   :init

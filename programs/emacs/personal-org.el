@@ -359,7 +359,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;; Org Agenda Config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; orgmode organization stuff
 (setq-default org-default-todo-file "~/sync/org/refile.org"
-              org-default-issue-file "~/sync/org/job/projects/js-backend.org")
+              org-default-issue-file "~/sync/org/refile.org")
 
 (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
                           (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "MEETING")))
