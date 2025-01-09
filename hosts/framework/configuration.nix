@@ -264,8 +264,8 @@
             XX  XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    bspc
             tab     b    y    o    u    z   q    l    d    w    v    XX   XX    XX
             @syms   c    i    e    a    ,    .   h    t    s    n   @nums ret
-            lshft @home_g    @home_x    @home_j    k  lshft    rshft    r @home_m    @home_f    @home_p    rsft
-            lctl lmet esc    spc            ret rctl
+            lshft @home_g    @home_x    @home_j    k  ;    '    r @home_m    @home_f    @home_p    rsft
+            lctl lmet  lshft   spc            ret rctl
           )
 
           (deflayer sym
@@ -279,8 +279,8 @@
           (deflayer num
             XX  XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    bspc
             tab  *    <    >    +   XX    XX    XX    XX    XX    XX    XX    XX    XX
-            caps 0     1    2   3    4    XX    XX    XX    XX    XX    XX ret
-            lsft 5    6   7    8    9     XX    XX    XX    XX    XX       rsft
+            esc  0     1    2   3    4    XX    XX    XX    XX    XX    XX ret
+            caps 5    6   7    8    9     XX    XX    XX    XX    XX       rsft
             lctl lmet lalt           spc            ret rctl
           )
          '';
