@@ -262,9 +262,9 @@
 
           (deflayer base
             XX  XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    bspc
-            tab     b    y    o    u    z   q    l    d    w    v    XX   XX    XX
+            esc b    y    o    u    z   q    l    d    w    v    XX   XX    XX
             @syms   c    i    e    a    ,    .   h    t    s    n   @nums ret
-            lshft @home_g    @home_x    @home_j    k  ;    '    r @home_m    @home_f    @home_p    rsft
+            tab  @home_g    @home_x    @home_j    k  ;    '    r @home_m    @home_f    @home_p    rsft
             lctl lmet  lshft   spc            ret rctl
           )
 
