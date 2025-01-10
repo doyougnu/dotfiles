@@ -411,6 +411,11 @@
   :custom (zig-format-on-save t)
   :config
 
+  (add-hook 'eglot-managed-mode-hook
+			(lambda ()
+			  (when (derived-mode-p 'zig-mode)
+				(eglot-inlay-hints-mode -1))))
+
   (leader-keys
     "c" '(:ignore t :which-key "mode")
     "c <escape>" '(keyboard-escape-quit :which-key t)
