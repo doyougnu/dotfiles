@@ -845,8 +845,8 @@
         '("/home/doyougnu/.emacs.d/snippets/"))
   (yas-global-mode 1)
   ;; (define-key yas-minor-mode-map (kbd "M-o") #'yas-expand)
-  (define-key yas-minor-mode-map (kbd "M-o") #'yas-next-field-or-maybe-expand)
-  (define-key yas-keymap         (kbd "M-o") #'yas-next-field-or-maybe-expand)
+  (define-key yas-minor-mode-map (kbd "M-i") #'yas-next-field-or-maybe-expand)
+  (define-key yas-keymap         (kbd "M-i") #'yas-next-field-or-maybe-expand)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; globals ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
