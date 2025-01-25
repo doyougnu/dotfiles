@@ -838,7 +838,7 @@
   :after evil-org
   :ensure t
   :demand
-  :bind* ("M-o" . yas-expand) ;; Global binding for yas-expand
+  :bind* ("M-i" . yas-expand) ;; Global binding for yas-expand
   :config
   (use-package yasnippet-snippets :ensure t)
   (setq yas-snippet-dirs
@@ -846,8 +846,7 @@
   (yas-global-mode 1)
   ;; (define-key yas-minor-mode-map (kbd "M-o") #'yas-expand)
   (define-key yas-minor-mode-map (kbd "M-i") #'yas-next-field-or-maybe-expand)
-  (define-key yas-keymap         (kbd "M-i") #'yas-next-field-or-maybe-expand)
-  )
+  (define-key yas-keymap         (kbd "M-i") #'yas-next-field-or-maybe-expand))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; globals ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq global-display-line-numbers-mode t)
