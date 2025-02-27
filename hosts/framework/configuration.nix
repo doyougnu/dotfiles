@@ -155,6 +155,7 @@
     General =
       { Experimental = true;
         Enable = "Source,Sink,Media,Socket";
+        ControllerMode = "dual";
       };
                                 };
 #   hardware.bluetooth.settings = { General = { ControllerMode = "dual";

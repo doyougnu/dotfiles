@@ -676,7 +676,7 @@
          :map evil-visual-state-map
          ("g j " . evil-avy-goto-line-below)
          ("g k " . evil-avy-goto-line-above)
-         ("M-t " . evil-avy-goto-char-2))
+         ("t " . evil-avy-goto-char-2))
   :config
   (setq avy-keys '(?a ?o ?e ?u ?h ?t ?n ?s)))
 
