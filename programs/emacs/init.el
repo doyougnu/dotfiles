@@ -236,7 +236,6 @@
     "o O"        '(project-find-file      :which-key "find-file-search")
     "o D"        '(dired-jump             :which-key "dired")
     "o D"        '(project-find-dir       :which-key "find-dir")
-    "o h"        '(find-file-other-window :which-key "find-file-other-window")
 
     ;; Projects
     "p"          '(:ignore t :which-key "projects")
@@ -666,6 +665,78 @@
   ;; Optionally configure the narrowing key.
   ;; Both < and C-+ work reasonably well.
   (setq consult-narrow-key "<"))
+
+(use-package embark
+  :ensure t
+
+  :bind
+  (("C-," . embark-act)         ;; pick some comfortable binding
+   ("C-;" . embark-dwim)        ;; good alternative: M-.
+   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+
+  :init
+
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
+
+  ;; Show the Embark target at point via Eldoc. You may adjust the
+  ;; Eldoc strategy, if you want to see the documentation from
+  ;; multiple providers. Beware that using this can be a little
+  ;; jarring since the message shown in the minibuffer can be more
+  ;; than one line, causing the modeline to move up and down:
+
+  ;; (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
+  ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
+
+  :config
+
+  (defvar-keymap my/window-prefix-map
+    :doc "Keymap for various window-prefix maps"
+    :suppress 'nodigits
+    "t" #'same-window-prefix
+    "|" #'split-window-horizontally
+    "-" #'split-window-vertically
+    "w" #'other-window-prefix
+    "f" #'other-frame-prefix)
+
+  ;; Look up the key in `my/window-prefix-map' and call that function first.
+  ;; Then run the default embark action.
+  (cl-defun my/embark--call-prefix-action (&rest rest &key run type &allow-other-keys)
+    (when-let ((cmd (keymap-lookup
+                     my/window-prefix-map
+                     (key-description (this-command-keys-vector)))))
+      (funcall cmd))
+    (funcall run :action (embark--default-action type) :type type rest))
+
+  ;; Dummy function, will be overridden by running `embark-around-action-hooks'
+  (defun my/embark-set-window () (interactive))
+
+  ;; When running the dummy function, call the prefix action from above
+  (setf (alist-get 'my/embark-set-window embark-around-action-hooks)
+        '(my/embark--call-prefix-action))
+
+  ;; to support multi-category commands like those provided by Consult
+  (setf (alist-get 'buffer embark-default-action-overrides) #'pop-to-buffer-same-window
+        (alist-get 'file embark-default-action-overrides) #'find-file
+        (alist-get 'bookmark embark-default-action-overrides) #'bookmark-jump
+        (alist-get 'library embark-default-action-overrides) #'find-library)
+
+  (map-keymap (lambda (key cmd)
+                (keymap-set embark-general-map (key-description (make-vector 1 key))
+                            #'my/embark-set-window))
+              my/window-prefix-map)
+
+  ;; Hide the mode line of the Embark live/completions buffers
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+
+;; Consult users will also want the embark-consult package.
+(use-package embark-consult
+  :ensure t
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; avy ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package avy
