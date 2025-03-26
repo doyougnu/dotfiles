@@ -227,8 +227,8 @@
     "m"        '(:ignore t :which-key "smerge")
     "m n"      '(smerge-next :which-key "smerge next")
     "m p"      '(smerge-prev :which-key "smerge prev")
-    "m u"      '(smerge-upper :which-key "accept upper")
-    "m l"      '(smerge-lower :which-key "accept lower")
+    "m u"      '(smerge-keep-upper :which-key "accept upper")
+    "m l"      '(smerge-keep-lower :which-key "accept lower")
 
     ;; open
     "o"          '(:ignore t :which-key "open")
@@ -256,8 +256,8 @@
     "K"   'evil-backward-paragraph
     "t"   'evil-find-char
     "C-j" 'evil-join
-    "C-e" 'evil-jump-forward
-    "C-w x" 'kill-buffer-and-window)
+    "C-y" 'evil-jump-backward
+    "C-o" 'evil-jump-forward)
 
   (general-define-key
    :states '(normal visual)
@@ -666,11 +666,29 @@
   ;; Both < and C-+ work reasonably well.
   (setq consult-narrow-key "<"))
 
+(use-package ace-window
+  :ensure t
+  :demand
+  :after evil
+  :bind (("C-w" . ace-window))
+  :config
+  (eval-after-load "evil-maps"
+    (dolist (map '(evil-motion-state-map
+                   evil-insert-state-map
+                   evil-emacs-state-map))
+      (define-key (eval map) "C-w" 'ace-window)))
+
+  (global-set-key (kbd "C-w") 'ace-window)
+  (general-define-key
+   :states '(normal visual)
+    "C-w" 'ace-window)
+
+  (setq aw-keys '(?i ?e ?a ?, ?. ?h ?t ?s ?n)))
+
 (use-package embark
   :ensure t
-
   :bind
-  (("C-," . embark-act)         ;; pick some comfortable binding
+  (("C-e" . embark-act)         ;; pick some comfortable binding
    ("C-;" . embark-dwim)        ;; good alternative: M-.
    ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
 
@@ -690,9 +708,33 @@
 
   :config
 
+  (general-define-key
+   :states '(normal visual)
+    "C-e" 'embark-act)
+
+  ;;;###autoload
+  (defun ace-window-prefix ()
+    "Use `ace-window' to display the buffer of the next command. The
+     next buffer is the buffer displayed by the next command invoked
+     immediately after this command (ignoring reading from the
+     minibuffer). Creates a new window before displaying the
+     buffer. When `switch-to-buffer-obey-display-actions' is
+     non-nil,`switch-to-buffer' commands are also supported."
+    (interactive)
+    (display-buffer-override-next-command
+     (lambda (buffer _)
+       (let (window type)
+         (setq
+          window (aw-select (propertize " ACE" 'face 'mode-line-highlight))
+          type 'reuse)
+         (cons window type)))
+     nil "[ace-window]")
+    (message "Use `ace-window' to display next command buffer..."))
+
   (defvar-keymap my/window-prefix-map
     :doc "Keymap for various window-prefix maps"
     :suppress 'nodigits
+    "o" #'ace-window-prefix
     "t" #'same-window-prefix
     "|" #'split-window-horizontally
     "-" #'split-window-vertically
@@ -701,6 +743,7 @@
 
   ;; Look up the key in `my/window-prefix-map' and call that function first.
   ;; Then run the default embark action.
+  ;;;###autoload
   (cl-defun my/embark--call-prefix-action (&rest rest &key run type &allow-other-keys)
     (when-let ((cmd (keymap-lookup
                      my/window-prefix-map
@@ -730,7 +773,23 @@
   (add-to-list 'display-buffer-alist
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
                  nil
-                 (window-parameters (mode-line-format . none)))))
+                 (window-parameters (mode-line-format . none))))
+
+  (eval-when-compile
+    (defmacro my/embark-ace-action (fn)
+      `(defun ,(intern (concat "my/embark-ace-" (symbol-name fn))) ()
+         (interactive)
+         (with-demoted-errors "%s"
+           (require 'ace-window)
+           (let ((aw-dispatch-always t))
+             (aw-switch-to-window (aw-select nil))
+             (call-interactively (symbol-function ',fn)))))))
+
+  (define-key embark-file-map     (kbd "o") (my/embark-ace-action find-file))
+  (define-key embark-buffer-map   (kbd "o") (my/embark-ace-action switch-to-buffer))
+  (define-key embark-bookmark-map (kbd "o") (my/embark-ace-action bookmark-jump))
+
+  )
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
