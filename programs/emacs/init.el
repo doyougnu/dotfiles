@@ -789,6 +789,24 @@
   (define-key embark-buffer-map   (kbd "o") (my/embark-ace-action switch-to-buffer))
   (define-key embark-bookmark-map (kbd "o") (my/embark-ace-action bookmark-jump))
 
+  (eval-when-compile
+    (defmacro my/embark-split-action (fn split-type)
+      `(defun ,(intern (concat "my/embark-"
+                               (symbol-name fn)
+                               "-"
+                               (car (last  (split-string
+                                            (symbol-name split-type) "-"))))) ()
+         (interactive)
+         (funcall #',split-type)
+         (call-interactively #',fn))))
+
+  (define-key embark-file-map     (kbd "-") (my/embark-split-action find-file split-window-below))
+  (define-key embark-buffer-map   (kbd "-") (my/embark-split-action switch-to-buffer split-window-below))
+  (define-key embark-bookmark-map (kbd "-") (my/embark-split-action bookmark-jump split-window-below))
+
+  (define-key embark-file-map     (kbd "|") (my/embark-split-action find-file split-window-right))
+  (define-key embark-buffer-map   (kbd "|") (my/embark-split-action switch-to-buffer split-window-right))
+  (define-key embark-bookmark-map (kbd "|") (my/embark-split-action bookmark-jump split-window-right))
   )
 
 ;; Consult users will also want the embark-consult package.
