@@ -271,6 +271,12 @@
     "t"   'evil-find-char
     "C-j" 'evil-join)
 
+  (general-define-key
+   :states '(normal insert visual)
+   :keymaps 'eshell-mode-map
+   "C-p" 'eshell-previous-matching-input-from-input
+   "C-n" 'eshell-next-matching-input-from-input)
+
   (add-hook 'eglot-managed-mode-hook
             (lambda ()
               (general-define-key
