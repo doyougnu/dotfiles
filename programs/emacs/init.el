@@ -682,17 +682,18 @@
     (dolist (map '(evil-motion-state-map
                    evil-insert-state-map
                    evil-emacs-state-map))
-      (define-key (eval map) "C-w" 'ace-window)))
+      (define-key (eval map) (kbd "C-w") 'ace-window)))
 
   (global-set-key (kbd "C-w") 'ace-window)
   (general-define-key
-   :states '(normal visual)
+   :states '(normal insert visual)
     "C-w" 'ace-window)
 
   (setq aw-keys '(?i ?e ?a ?, ?. ?h ?t ?s ?n)))
 
 (use-package embark
   :ensure t
+  :demand
   :bind
   (("C-e" . embark-act)         ;; pick some comfortable binding
    ("C-;" . embark-dwim)        ;; good alternative: M-.
@@ -715,7 +716,7 @@
   :config
 
   (general-define-key
-   :states '(normal visual)
+   :states '(normal insert visual)
     "C-e" 'embark-act)
 
   ;;;###autoload
