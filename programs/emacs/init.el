@@ -168,11 +168,73 @@
   :demand t
   :config
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
+;; TODO: https://github.com/meow-edit/meow/issues/71
+  ;; (leader-keys
+  ;;   "g"   '(:ignore t :which-key "magit")
+  ;;   "g g" '(magit-status           :which-key "status")
+  ;;   "g b" '(magit-blame            :which-key "blame")
+  ;;   "g p" '(diff-hl-previous-hunk  :which-key "previous hunk")
+  ;;   "g n" '(diff-hl-next-hunk      :which-key "next hunk")
+  ;;   "g m" '(git-timemachine-toggle :which-key "timemachine")
+  ;;   "g t" '(magit-todos-list       :which-key "todos")
+  ;;   "g l" '(magit-log              :which-key "log"))
+
   (meow-motion-overwrite-define-key
    '("j" . meow-next)
+   '("$" . backward-paragraph)
+   '("^" . meow-page-down)
+   '("!" . meow-page-up)
+   '("_" . forward-paragraph)
+   '("T" . avy-goto-char-2)
    '("k" . meow-prev)
    '("<escape>" . ignore))
   (meow-leader-define-key
+   ;; errors
+   '("e n" . next-error)
+   '("e p" . previous-error)
+   '("e N" . flymake-goto-next-error)
+   '("e P" . flymake-goto-prev-error)
+   ;; misc
+   '("h" . highlight-symbol-at-point)
+   '("H" . unhighlight-regexp)
+   ;; buffers
+   '(","   . consult-buffer)
+   '("."   . consult-buffer-other-window)
+   '("b b" . project-switch-to-buffer)
+   '("b l" . project-list-buffers)
+   '("b s" . save-buffer)
+   '("b r" . revert-buffer)
+   '("b d" . kill-current-buffer)
+   '("x"   . scratch-buffer)
+   ;; workspaces
+   '("t t" . tab-switch)
+   '("t n" . tab-next)
+   '("t p" . tab-previous)
+   '("t d" . project-kill-buffers)
+   '("t D" . tab-close)
+   '("t r" . tab-rename)
+   ;; notes and agenda
+   '("a"   . org-agenda)
+   '("SPC" . org-capture)
+   '("n o" . org-roam-node-find)
+   '("n i" . org-roam-node-insert)
+   '("n r" . org-roam-buffer-display-dedicated)
+   ;; smerge
+   '("m n" . smerge-next)
+   '("m p" . smerge-prev)
+   '("m u" . magit-smerge-keep-upper)
+   '("m l" . magit-smerge-keep-lower)
+   ;; Open
+   '("o o" . find-file)
+   '("o O" . project-find-file)
+   '("o d" . dired-jump)
+   '("o D" . project-find-dir)
+   ;; Projects
+   '("p d" . project-dired)
+   '("p p" . project-switch-project)
+   '("p c" . project-compile)
+   '("p w" . project-other-window-command)
+   '("p W" . project-other-frame-command)
    ;; Use SPC (0-9) for digit arguments.
    '("1" . meow-digit-argument)
    '("2" . meow-digit-argument)
@@ -249,8 +311,8 @@
    '("'" . repeat)
    '("<escape>" . ignore)
    '("$" . backward-paragraph)
-   '("^" . scroll-down)
-   '("!" . scroll-up)
+   '("^" . meow-page-down)
+   '("!" . meow-page-up)
    '("_" . forward-paragraph)
    '("T" . avy-goto-char-2))
 
@@ -383,25 +445,7 @@
 
 (use-package magit
   :ensure t
-  :demand
-  :config
-  ;; (leader-keys
-  ;;   "g"   '(:ignore t :which-key "magit")
-  ;;   "g g" '(magit-status           :which-key "status")
-  ;;   "g b" '(magit-blame            :which-key "blame")
-  ;;   "g p" '(diff-hl-previous-hunk  :which-key "previous hunk")
-  ;;   "g n" '(diff-hl-next-hunk      :which-key "next hunk")
-  ;;   "g m" '(git-timemachine-toggle :which-key "timemachine")
-  ;;   "g t" '(magit-todos-list       :which-key "todos")
-  ;;   "g l" '(magit-log              :which-key "log"))
-
-  ;; (leader-keys
-  ;;   "e"          '(:ignore t :which-key "errors")
-  ;;   "e N"        '(flymake-goto-next-error :which-key "next-error")
-  ;;   "e P"        '(flymake-goto-prev-error :which-key "previous-error")
-  ;;   "e n"        '(next-error     :which-key "next-error")
-  ;;   "e p"        '(previous-error :which-key "previous-error"))
-  )
+  :demand)
 
 (use-package magit-todos
   :ensure t
