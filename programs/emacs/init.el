@@ -181,12 +181,13 @@
 
   (meow-motion-overwrite-define-key
    '("j" . meow-next)
+   '("k" . meow-prev)
    '("$" . backward-paragraph)
    '("^" . meow-page-down)
    '("!" . meow-page-up)
    '("_" . forward-paragraph)
    '("T" . avy-goto-char-2)
-   '("k" . meow-prev)
+   '("C" . comment-dwim)
    '("<escape>" . ignore))
   (meow-leader-define-key
    ;; errors
@@ -195,7 +196,7 @@
    '("e N" . flymake-goto-next-error)
    '("e P" . flymake-goto-prev-error)
    ;; misc
-   '("h" . highlight-symbol-at-point)
+   ;; TODO: '("h" . highlight-symbol-at-point)
    '("H" . unhighlight-regexp)
    ;; buffers
    '(","   . consult-buffer)
@@ -205,7 +206,7 @@
    '("b s" . save-buffer)
    '("b r" . revert-buffer)
    '("b d" . kill-current-buffer)
-   '("x"   . scratch-buffer)
+   '("b x" . scratch-buffer)
    ;; workspaces
    '("t t" . tab-switch)
    '("t n" . tab-next)
@@ -216,14 +217,15 @@
    ;; notes and agenda
    '("a"   . org-agenda)
    '("SPC" . org-capture)
+   '("n s" . org-roam-db-sync)
    '("n o" . org-roam-node-find)
    '("n i" . org-roam-node-insert)
    '("n r" . org-roam-buffer-display-dedicated)
-   ;; smerge
-   '("m n" . smerge-next)
-   '("m p" . smerge-prev)
-   '("m u" . magit-smerge-keep-upper)
-   '("m l" . magit-smerge-keep-lower)
+   ;; TODO: smerge
+   ;; '("m n" . smerge-next)
+   ;; '("m p" . smerge-prev)
+   ;; '("m u" . magit-smerge-keep-upper)
+   ;; '("m l" . magit-smerge-keep-lower)
    ;; Open
    '("o o" . find-file)
    '("o O" . project-find-file)
