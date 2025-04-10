@@ -1,4 +1,4 @@
-;; based on https://arne.me/blog/emacs-from-scratch-part-one-foundations#become-evil
+; based on https://arne.me/blog/emacs-from-scratch-part-one-foundations#become-evil
 ;; thank you for your labor!
 
 ;; hide the ui elements
@@ -170,7 +170,7 @@
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
   (meow-motion-overwrite-define-key
    '("j" . meow-next)
-   '("k" . meow-previous)
+   '("k" . meow-prev)
    '("<escape>" . ignore))
   (meow-leader-define-key
    ;; Use SPC (0-9) for digit arguments.
@@ -248,8 +248,11 @@
    '("z" . meow-pop-selection)
    '("'" . repeat)
    '("<escape>" . ignore)
-   '("$" . forward-paragraph)
-   '("_" . backward-paragraph))
+   '("$" . backward-paragraph)
+   '("^" . scroll-down)
+   '("!" . scroll-up)
+   '("_" . forward-paragraph)
+   '("T" . avy-goto-char-2))
 
   ;; kickoff
   (meow-global-mode 1)
@@ -506,14 +509,11 @@
 (use-package vertico
   :init
   (vertico-mode)
-  :config
-  ;; (general-define-key
-  ;;  :keymaps 'vertico-map
-  ;;   "C-t"   'vertico-previous
-  ;;   "C-."   'vertico-directory-up
-  ;;   "C-n"   'vertico-next
-  ;;   "C-s"   'vertico-directory-enter)
-  )
+  :bind (:map    vertico-map
+        ("C-t" . vertico-previous)
+        ("C-." . vertico-directory-up)
+        ("C-n" . vertico-next)
+        ("C-s" . vertico-directory-enter)))
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
@@ -577,20 +577,10 @@
   (corfu-auto t)                 ;; Enable auto completion
   :init
   (global-corfu-mode)
-  :config
-  ;; TODO
-  ;; (general-define-key
-  ;;  :keymaps 'corfu-map
-  ;;  "C-t"   'corfu-previous
-  ;;  "C-n"   'corfu-next
-  ;;  "C-s"   'corfu-complete)
-
-  ;; (general-define-key
-  ;;  :states '(insert)
-  ;;  "C-t"   'corfu-previous
-  ;;  "C-n"   'corfu-next
-  ;;  "C-s"   'corfu-complete)
-  )
+  :bind (:map corfu-map
+              ("C-t" . corfu-previous)
+              ("C-n" . corfu-next)
+              ("C-s" . corfu-complete)))
 
 ;; Example configuration for Consult
 (use-package consult
@@ -721,21 +711,8 @@
 (use-package ace-window
   :ensure t
   :demand
-  ;; TODO, this binding kills meow, set it to something else, maybe a single key press?
-  ; :bind (("C-w" . ace-window))
+  :bind (("M-o" . ace-window))
   :config
-  ;; TODO
-  ;; (eval-after-load "evil-maps"
-  ;;   (dolist (map '(evil-motion-state-map
-  ;;                  evil-insert-state-map
-  ;;                  evil-emacs-state-map))
-  ;;     (define-key (eval map) (kbd "C-w") 'ace-window)))
-
-  ; (global-set-key (kbd "C-w") 'ace-window)
-  ; (general-define-key
-  ;  :states '(normal insert visual)
-  ;   "C-w" 'ace-window)
-
   (setq aw-keys '(?i ?e ?a ?, ?. ?h ?t ?s ?n)))
 
 (use-package embark
@@ -866,18 +843,9 @@
   (embark-collect-mode . consult-preview-at-point-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; avy ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; TODO
-;; (use-package avy
-;;   :bind (:map evil-normal-state-map
-;;          ("g j " . evil-avy-goto-line-below)
-;;          ("g k " . evil-avy-goto-line-above)
-;;          ("M-t " . evil-avy-goto-char-2)
-;;          :map evil-visual-state-map
-;;          ("g j " . evil-avy-goto-line-below)
-;;          ("g k " . evil-avy-goto-line-above)
-;;          ("t " . evil-avy-goto-char-2))
-;;   :config
-;;   (setq avy-keys '(?a ?o ?e ?u ?h ?t ?n ?s)))
+(use-package avy
+  :config
+  (setq avy-keys '(?a ?o ?e ?u ?h ?t ?n ?s)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; org ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq initial-major-mode 'org-mode)
