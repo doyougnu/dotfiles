@@ -168,26 +168,73 @@
   :demand t
   :config
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
-;; TODO: https://github.com/meow-edit/meow/issues/71
-  ;; (leader-keys
-  ;;   "g"   '(:ignore t :which-key "magit")
-  ;;   "g g" '(magit-status           :which-key "status")
-  ;;   "g b" '(magit-blame            :which-key "blame")
-  ;;   "g p" '(diff-hl-previous-hunk  :which-key "previous hunk")
-  ;;   "g n" '(diff-hl-next-hunk      :which-key "next hunk")
-  ;;   "g m" '(git-timemachine-toggle :which-key "timemachine")
-  ;;   "g t" '(magit-todos-list       :which-key "todos")
-  ;;   "g l" '(magit-log              :which-key "log"))
+  (defvar magit-keymap
+    (let ((keymap (make-keymap)))
+      (define-key keymap (kbd "v") #'magit-status)
+      (define-key keymap (kbd "b") #'magit-blame)
+      (define-key keymap (kbd "p") #'diff-hl-show-hunk-previous)
+      (define-key keymap (kbd "n") #'diff-hl-show-hunk-next)
+      (define-key keymap (kbd "m") #'git-timemachine-toggle)
+      (define-key keymap (kbd "t") #'magit-todos-list)
+      (define-key keymap (kbd "l") #'magit-log)
+      keymap))
+
+  (defvar buffer-keymap
+    (let ((keymap (make-keymap)))
+      (define-key keymap (kbd "b") #'project-switch-to-buffer)
+      (define-key keymap (kbd "l") #'project-list-buffers)
+      (define-key keymap (kbd "s") #'save-buffer)
+      (define-key keymap (kbd "r") #'revert-buffer)
+      (define-key keymap (kbd "d") #'kill-current-buffer)
+      (define-key keymap (kbd "x") #'scratch-buffer)
+      keymap))
+
+  (defvar notes-keymap
+    (let ((keymap (make-keymap)))
+      (define-key keymap (kbd "s") #'org-roam-db-sync)
+      (define-key keymap (kbd "i") #'org-roam-node-insert)
+      (define-key keymap (kbd "f") #'org-roam-node-find)
+      (define-key keymap (kbd "r") #'org-roam-buffer-display-dedicated)
+      keymap))
+
+  (defvar error-keymap
+    (let ((keymap (make-keymap)))
+      (define-key keymap (kbd "n") #'next-error)
+      (define-key keymap (kbd "p") #'previous-error)
+      (define-key keymap (kbd "N") #'flymake-goto-next-error)
+      (define-key keymap (kbd "P") #'flymake-goto-prev-error)
+      keymap))
+
+  (defvar smerge-keymap
+    (let ((keymap (make-keymap)))
+      (define-key keymap (kbd "n") #'smerge-next)
+      (define-key keymap (kbd "p") #'smerge-prev)
+      (define-key keymap (kbd "u") #'magit-smerge-keep-upper)
+      (define-key keymap (kbd "l") #'magit-smerge-keep-lower)
+      keymap))
+
+  ;; define an alias for your keymap
+  (defalias 'magit-keymap  magit-keymap)
+  (defalias 'buffer-keymap buffer-keymap)
+  (defalias 'notes-keymap  notes-keymap)
+  (defalias 'error-keymap  error-keymap)
+  (defalias 'smerge-keymap smerge-keymap)
+
+  (global-set-key (kbd "C-c v") 'magit-keymap)
+  (global-set-key (kbd "C-c b") 'buffer-keymap)
+  (global-set-key (kbd "C-c n") 'notes-keymap)
+  (global-set-key (kbd "C-c e") 'error-keymap)
+  (global-set-key (kbd "C-c i") 'smerge-keymap)
 
   (meow-motion-overwrite-define-key
    '("j" . meow-next)
    '("k" . meow-prev)
    '("$" . backward-paragraph)
-   '("^" . meow-page-down)
-   '("!" . meow-page-up)
+   '("!" . meow-page-down)
+   '("^" . meow-page-up)
    '("_" . forward-paragraph)
    '("T" . avy-goto-char-2)
-   '("C" . comment-dwim)
+   '("C" . comment-line)
    '("<escape>" . ignore))
   (meow-leader-define-key
    ;; errors
@@ -196,47 +243,14 @@
    '("e N" . flymake-goto-next-error)
    '("e P" . flymake-goto-prev-error)
    ;; misc
-   ;; TODO: '("h" . highlight-symbol-at-point)
-   '("H" . unhighlight-regexp)
+   '("s" . highlight-symbol-at-point)
+   '("S" . unhighlight-regexp)
    ;; buffers
    '(","   . consult-buffer)
    '("."   . consult-buffer-other-window)
-   '("b b" . project-switch-to-buffer)
-   '("b l" . project-list-buffers)
-   '("b s" . save-buffer)
-   '("b r" . revert-buffer)
-   '("b d" . kill-current-buffer)
-   '("b x" . scratch-buffer)
-   ;; workspaces
-   '("t t" . tab-switch)
-   '("t n" . tab-next)
-   '("t p" . tab-previous)
-   '("t d" . project-kill-buffers)
-   '("t D" . tab-close)
-   '("t r" . tab-rename)
    ;; notes and agenda
    '("a"   . org-agenda)
    '("SPC" . org-capture)
-   '("n s" . org-roam-db-sync)
-   '("n o" . org-roam-node-find)
-   '("n i" . org-roam-node-insert)
-   '("n r" . org-roam-buffer-display-dedicated)
-   ;; TODO: smerge
-   ;; '("m n" . smerge-next)
-   ;; '("m p" . smerge-prev)
-   ;; '("m u" . magit-smerge-keep-upper)
-   ;; '("m l" . magit-smerge-keep-lower)
-   ;; Open
-   '("o o" . find-file)
-   '("o O" . project-find-file)
-   '("o d" . dired-jump)
-   '("o D" . project-find-dir)
-   ;; Projects
-   '("p d" . project-dired)
-   '("p p" . project-switch-project)
-   '("p c" . project-compile)
-   '("p w" . project-other-window-command)
-   '("p W" . project-other-frame-command)
    ;; Use SPC (0-9) for digit arguments.
    '("1" . meow-digit-argument)
    '("2" . meow-digit-argument)
@@ -311,143 +325,24 @@
    '("Y" . meow-sync-grab)
    '("z" . meow-pop-selection)
    '("'" . repeat)
+   '("C" . comment-line)
    '("<escape>" . ignore)
    '("$" . backward-paragraph)
-   '("^" . meow-page-down)
-   '("!" . meow-page-up)
+   '("!" . meow-page-down)
+   '("^" . meow-page-up)
    '("_" . forward-paragraph)
+   '("=" . meow-indent)
    '("T" . avy-goto-char-2))
 
   ;; kickoff
   (meow-global-mode 1)
   (meow-setup-indicator))
 
-;; use general to setup the evil keybinds
-;; TODO use boon, meow, or emacs
-;; (use-package general
-;;   :demand
-;;   :bind (:map global-map
-;;               ("C-;"   . comment-line)
-;;               ("C-M-k" . 'scroll-other-window)
-;;               ("C-M-j" . 'scroll-other-window-down))
-;;   :config
-;;   (general-evil-setup)
-;;
-;;   (general-create-definer leader-keys
-;;     :states '(normal insert visual emacs)
-;;     :keymaps 'override
-;;     :prefix "SPC"
-;;     :global-prefix "C-.")
-;;
-;;   (leader-keys
-;;     "x" '(scratch-buffer :which-key "*scratch*")
-;;     "h" '(highlight-symbol-at-point :which-key "highlight")
-;;     "H" '(unhighlight-regexp :which-key "unhighlight")
-;;
-;;     ;; Buffer
-;;     "b" '(:ignore t :which-key "buffer")
-;;     ;; this should be in consult use-package, but then I have to load consult
-;;     ;; eagerly
-;;     "," '(consult-buffer :which-key "fast buffer switch")
-;;     "." '(consult-buffer-other-window :which-key "fast buffer other")
-;;     "w" '(other-window-prefix :which-key "other-window-prefix")
-;;     "SPC" '(org-capture :which-key "capture")
-;;
-;;     ;; Buffers
-;;     "b b" '(project-switch-to-buffer :which-key "switch buffer")
-;;     "b l" '(project-list-buffers     :which-key "list buffers")
-;;     "b s" '(save-buffer              :which-key "save buffer")
-;;     "b r" '(revert-buffer            :which-key "revert buffer")
-;;     ;; Don't show an error because SPC b ESC is undefined, just abort
-;;     "b <escape>" '(keyboard-escape-quit :which-key t)
-;;     "b d" 'kill-current-buffer
-;;
-;;     ;; workspaces via tabs
-;;     "t"        '(:ignore t     :which-key "tabs")
-;;     "t n"      '(tab-new       :which-key "new tab")
-;;     "t t"      '(tab-switch    :which-key "switch tab")
-;;     "t d"      '(project-kill-buffers :which-key "close tabbed project")
-;;     "t D"      '(tab-close     :which-key "kill tab")
-;;     "t h"      '(tab-previous  :which-key "previous tab")
-;;     "t n"      '(tab-next      :which-key "next tab")
-;;     "t r"      '(tab-rename    :which-key "rename tab")
-;;
-;;     ;; notes
-;;     "n"          '(:ignore t :which-key "notes")
-;;     "n r"        '(:ignore t :which-key "roam")
-;;     "n r o"      '(org-roam-node-find     :which-key "find node")
-;;     "n r i"      '(org-roam-node-insert   :which-key "insert node")
-;;     "n r r"      '(org-roam-buffer-toggle :which-key "Toggle roam buffer")
-;;
-;;     ;; agenda
-;;     "a"      '(org-agenda :which-key "agenda")
-;;
-;;     ;; smerge
-;;     "m"        '(:ignore t :which-key "smerge")
-;;     "m n"      '(smerge-next :which-key "smerge next")
-;;     "m p"      '(smerge-prev :which-key "smerge prev")
-;;     "m u"      '(smerge-keep-upper :which-key "accept upper")
-;;     "m l"      '(smerge-keep-lower :which-key "accept lower")
-;;
-;;     ;; open
-;;     "o"          '(:ignore t :which-key "open")
-;;     "o o"        '(find-file              :which-key "find-file-browse")
-;;     "o O"        '(project-find-file      :which-key "find-file-search")
-;;     "o D"        '(dired-jump             :which-key "dired")
-;;     "o D"        '(project-find-dir       :which-key "find-dir")
-;;
-;;     ;; Projects
-;;     "p"          '(:ignore t :which-key "projects")
-;;     "p <escape>" '(keyboard-escape-quit   :which-key t)
-;;     "p p"        '(project-switch-project :which-key "switch project")
-;;     "p c"        '(project-compile        :which-key "compile project")
-;;     "p w"        '(project-other-window-command :which-key "project other window")
-;;     "p W"        '(project-other-frame-command :which-key "project other frame")
-;;     "p d"        '(project-dired          :which-key "project dired"))
-;;
-;;   (general-define-key
-;;    :states '(normal visual)
-;;     "l"   'evil-forward-word-begin
-;;     "h"   'evil-backward-word-end
-;;     "L"   'evil-forward-char
-;;     "H"   'evil-backward-char
-;;     "J"   'evil-forward-paragraph
-;;     "K"   'evil-backward-paragraph
-;;     "t"   'evil-find-char
-;;     "C-j" 'evil-join
-;;     "C-y" 'evil-jump-backward
-;;     "C-o" 'evil-jump-forward)
-;;
-;;   (general-define-key
-;;    :states '(normal visual)
-;;    :keymaps 'org-mode-map
-;;     "l"   'evil-forward-word-begin
-;;     "h"   'evil-backward-word-end
-;;     "L"   'evil-forward-char
-;;     "H"   'evil-backward-char
-;;     "J"   'evil-forward-paragraph
-;;     "K"   'evil-backward-paragraph
-;;     "t"   'evil-find-char
-;;     "C-j" 'evil-join)
-;;
-;;   (general-define-key
-;;    :states '(normal insert visual)
-;;    :keymaps 'eshell-mode-map
-;;    "C-p" 'eshell-previous-matching-input-from-input
-;;    "C-n" 'eshell-next-matching-input-from-input)
-;;
-;;   (add-hook 'eglot-managed-mode-hook
-;;             (lambda ()
-;;               (general-define-key
-;;                :states '(normal visual)
-;;                :keymaps 'eglot-mode-map
-;;                "K"   'evil-backward-paragraph)))
-;;
-;;   )
-
 (use-package magit
   :ensure t
-  :demand)
+  :demand
+  :config
+  (define-key magit-mode-map (kbd "x") #'magit-discard))
 
 (use-package magit-todos
   :ensure t
@@ -460,7 +355,7 @@
   :demand
   :config
 
-  ;(leader-keys "z" '(writeroom-mode :which-key "writeroom"))
+  (global-set-key (kbd "C-c z") #'writeroom-mode)
   ;; just make the write area a tad larger than wrap
   (setq writeroom-width 90)
   (setq writeroom-fullscreen-effect 'maximized)
@@ -473,8 +368,7 @@
   :ensure t
   :demand
   :config
-  ;(leader-keys "Z" 'writegood-mode :which-key "writegood")
-  )
+  (global-set-key (kbd "C-c Z") #'writegood-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; eglot, lsp-mode is slow even for rust, bad software
@@ -608,8 +502,6 @@
   ;; `completion-list-mode-map'.
   :bind (:map minibuffer-local-map
          ("M-A" . marginalia-cycle))
-
-  ;; The :init section is always executed.
   :init
   ;; Marginalia must be activated in the :init section of use-package such that
   ;; the mode gets enabled right away. Note that this forces loading the
@@ -636,7 +528,7 @@
          ("C-c h" . consult-history)
          ("C-c k" . consult-kmacro)
          ("C-c m" . consult-man)
-         ("C-c i" . consult-info)
+         ("C-c I" . consult-info)
          ([remap Info-search] . consult-info)
          ;; C-x bindings in `ctl-x-map'
          ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
@@ -734,11 +626,6 @@
      "\\*Messages\\*"
      "\\`\\*EGLOT .* events\\*\\'"))
 
-  ;; Optionally configure preview. The default value
-  ;; is 'any, such that any key triggers the preview.
-  ;; (setq consult-preview-key 'any)
-  ;; (setq consult-preview-key "M-.")
-  ;; (setq consult-preview-key '("S-<down>" "S-<up>"))
   ;; For some commands and buffer sources it is useful to configure the
   ;; :preview-key on a per-command basis using the `consult-customize' macro.
   (consult-customize
@@ -918,7 +805,6 @@
   (defun dyg|org-latex-preview-setup ()
   "Set up auto LaTeX fragment preview."
   (add-hook 'after-save-hook #'dyg|org-latex-preview nil t))
-
   (add-hook 'org-mode-hook #'dyg|org-latex-preview-setup)
 
   (setq org-startup-with-inline-images t)
@@ -926,13 +812,12 @@
   (setq org-startup-indented t)
   (setq org-format-latex-options
 		(plist-put org-format-latex-options :scale 1.5))
-  ;; TODO
-  ;; (add-hook 'org-mode-hook
-  ;;           #'(lambda ()
-  ;;               (add-hook 'evil-insert-state-entry-hook
-  ;;                         #'(lambda () (setq-local org-hide-emphasis-markers nil)))
-  ;;               (add-hook 'evil-insert-state-exit-hook
-  ;;                         #'(lambda () (setq-local org-hide-emphasis-markers t)))))
+  (add-hook 'org-mode-hook
+            #'(lambda ()
+                (add-hook 'meow-insert-mode-hook
+                          #'(lambda () (setq-local org-hide-emphasis-markers nil)))
+                (add-hook 'meow-insert-exit-hook
+                          #'(lambda () (setq-local org-hide-emphasis-markers t)))))
 
 
   ;; from https://github.com/alphapapa/unpackaged.el?tab=readme-ov-file#ensure-blank-lines-between-headings-and-before-contents
