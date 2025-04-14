@@ -214,17 +214,17 @@
       keymap))
 
   ;; define an alias for your keymap
-  (defalias 'magit-keymap  magit-keymap)
-  (defalias 'buffer-keymap buffer-keymap)
-  (defalias 'notes-keymap  notes-keymap)
-  (defalias 'error-keymap  error-keymap)
-  (defalias 'smerge-keymap smerge-keymap)
+  (defalias '+magit  magit-keymap)
+  (defalias '+buffer buffer-keymap)
+  (defalias '+notes  notes-keymap)
+  (defalias '+error  error-keymap)
+  (defalias '+smerge smerge-keymap)
 
-  (global-set-key (kbd "C-c v") 'magit-keymap)
-  (global-set-key (kbd "C-c b") 'buffer-keymap)
-  (global-set-key (kbd "C-c n") 'notes-keymap)
-  (global-set-key (kbd "C-c e") 'error-keymap)
-  (global-set-key (kbd "C-c i") 'smerge-keymap)
+  (global-set-key (kbd "C-c v") '+magit)
+  (global-set-key (kbd "C-c b") '+buffer)
+  (global-set-key (kbd "C-c n") '+notes)
+  (global-set-key (kbd "C-c e") '+error)
+  (global-set-key (kbd "C-c i") '+smerge)
 
   (meow-motion-overwrite-define-key
    '("j" . meow-next)
@@ -235,6 +235,7 @@
    '("_" . forward-paragraph)
    '("T" . avy-goto-char-2)
    '("C" . comment-line)
+   '("?" . align-regexp)
    '("<escape>" . ignore))
   (meow-leader-define-key
    ;; errors
@@ -331,6 +332,7 @@
    '("!" . meow-page-down)
    '("^" . meow-page-up)
    '("_" . forward-paragraph)
+   '("?" . align-regexp)
    '("=" . meow-indent)
    '("T" . avy-goto-char-2))
 
@@ -520,6 +522,12 @@
               ("C-n" . corfu-next)
               ("C-s" . corfu-complete)))
 
+(use-package wgrep
+  :defer t
+  :config
+  (add-hook 'embark-after-export-hook #'wgrep-change-to-wgrep-mode)
+  (add-hook 'embark-collect-mode-hook #'wgrep-change-to-wgrep-mode))
+
 ;; Example configuration for Consult
 (use-package consult
   ;; Replace bindings. Lazily loaded by `use-package'.
@@ -557,7 +565,8 @@
          ("M-s d" . consult-find)                  ;; Alternative: consult-fd
          ("M-s s" . dyg|consult-ripgrep-word-at-point)
          ("M-s r" . consult-ripgrep)
-         ("C-s"   . dyg|consult-line-word-at-point)
+         ("|"     . dyg|consult-ripgrep-word-at-point)
+         ("C-s"   . consult-line)
          ("M-s i" . consult-imenu-multi)
          ("M-s I" . consult-imenu)
          ;; Isearch integration
