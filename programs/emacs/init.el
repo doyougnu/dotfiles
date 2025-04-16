@@ -517,13 +517,6 @@
               ("C-n" . corfu-next)
               ("C-s" . corfu-complete)))
 
-;; only needed until emacs-31
-(use-package corfu-terminal
-  :if (not (display-graphic-p))
-  :after corfu
-  :config
-  (corfu-terminal-mode))
-
 (use-package wgrep
   :defer t
   :config
