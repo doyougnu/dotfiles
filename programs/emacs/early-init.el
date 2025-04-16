@@ -27,6 +27,9 @@
 ;; disable package.el at startup
 ;; we use straight.el in init.el
 (setq package-enable-at-startup nil)
+(setq native-comp-async-report-warnings-errors 'error)
+
+
 
 (defconst user-init-dir
   (cond ((boundp 'user-emacs-directory)

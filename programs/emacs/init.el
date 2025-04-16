@@ -1,11 +1,11 @@
+;;; init.el --- Description -*- lexical-binding: t; -*-
 ; based on https://arne.me/blog/emacs-from-scratch-part-one-foundations#become-evil
 ;; thank you for your labor!
 
-;; hide the ui elements
-(tool-bar-mode -1)             ; Hide the outdated icons
 (scroll-bar-mode -1)           ; Hide the always-visible scrollbar
 (setq inhibit-splash-screen t) ; Remove the "Welcome to GNU Emacs" splash screen
 (setq use-file-dialog nil)      ; Ask for textual confirmation instead of GUI
+(add-to-list 'default-frame-alist '(undecorated . t)) ; remove the window manager frame
 
 ;; set up straight.el
 (defvar bootstrap-version)
@@ -81,14 +81,8 @@
                       :font "Source Code Pro"
                       :height 100))
 
-;; themes
-(setq custom-safe-themes t)
-(use-package doom-themes
-  :demand
-  :config
-(if (equal (getenv "EMACS_HOST") "framework")
-    (load-theme 'doom-gruvbox-light t)
-    (load-theme 'doom-laserwave     t)))
+;; best theme for nw on alacritty
+(load-theme 'modus-vivendi t)
 
 (use-package nerd-icons)
 
@@ -183,6 +177,7 @@
     (let ((keymap (make-keymap)))
       (define-key keymap (kbd "b") #'project-switch-to-buffer)
       (define-key keymap (kbd "l") #'project-list-buffers)
+      (define-key keymap (kbd "i") #'ibuffer)
       (define-key keymap (kbd "s") #'save-buffer)
       (define-key keymap (kbd "r") #'revert-buffer)
       (define-key keymap (kbd "d") #'kill-current-buffer)
@@ -225,6 +220,13 @@
   (global-set-key (kbd "C-c n") '+notes)
   (global-set-key (kbd "C-c e") '+error)
   (global-set-key (kbd "C-c i") '+smerge)
+
+  ;; for windows wsl
+  (defun my/meow-copy ()
+    (interactive)
+    (let ((text (meow--region-string)))
+      (kill-new text)
+      (call-process-region (point) (mark) "clip.exe")))
 
   (meow-motion-overwrite-define-key
    '("j" . meow-next)
@@ -308,7 +310,7 @@
    '("n" . meow-search)
    '("o" . meow-block)
    '("O" . meow-to-block)
-   '("p" . meow-yank)
+   '("p" . meow-clipboard-yank)
    '("q" . meow-quit)
    '("Q" . meow-goto-line)
    '("r" . meow-replace)
@@ -322,7 +324,7 @@
    '("W" . meow-mark-symbol)
    '("x" . meow-line)
    '("X" . meow-goto-line)
-   '("y" . meow-save)
+   '("y" . meow-clipboard-save)
    '("Y" . meow-sync-grab)
    '("z" . meow-pop-selection)
    '("'" . repeat)
@@ -522,6 +524,13 @@
               ("C-n" . corfu-next)
               ("C-s" . corfu-complete)))
 
+;; only needed until emacs-31
+(use-package corfu-terminal
+  :if (not (display-graphic-p))
+  :after corfu
+  :config
+  (corfu-terminal-mode))
+
 (use-package wgrep
   :defer t
   :config
@@ -565,7 +574,6 @@
          ("M-s d" . consult-find)                  ;; Alternative: consult-fd
          ("M-s s" . dyg|consult-ripgrep-word-at-point)
          ("M-s r" . consult-ripgrep)
-         ("|"     . dyg|consult-ripgrep-word-at-point)
          ("C-s"   . consult-line)
          ("M-s i" . consult-imenu-multi)
          ("M-s I" . consult-imenu)
