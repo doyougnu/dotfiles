@@ -221,13 +221,6 @@
   (global-set-key (kbd "C-c e") '+error)
   (global-set-key (kbd "C-c i") '+smerge)
 
-  ;; for windows wsl
-  (defun my/meow-copy ()
-    (interactive)
-    (let ((text (meow--region-string)))
-      (kill-new text)
-      (call-process-region (point) (mark) "clip.exe")))
-
   (meow-motion-overwrite-define-key
    '("j" . meow-next)
    '("k" . meow-prev)
