@@ -27,7 +27,7 @@
 ;; disable package.el at startup
 ;; we use straight.el in init.el
 (setq package-enable-at-startup nil)
-(setq native-comp-async-report-warnings-errors 'error)
+(setq native-comp-async-report-warnings-errors 'silent)
 
 
 
