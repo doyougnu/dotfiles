@@ -36,7 +36,7 @@
   :config
   (gcmh-mode 1))
 
-;; a must have for nix
+;; a must have for nix.
 (use-package envrc
   :hook (after-init . envrc-global-mode))
 
