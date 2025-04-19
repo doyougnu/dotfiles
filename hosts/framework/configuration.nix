@@ -10,7 +10,7 @@
   {
   imports =
     [ ./hardware-configuration.nix
-      ../../programs/kmonad/kmonad.nix
+      # ../../programs/kmonad/kmonad.nix
     ];
 
 
@@ -34,8 +34,8 @@
   powerManagement.powertop.enable = true;
 
   # sound
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.support32Bit = true;
+  hardware.pulseaudio.enable = false;
+  # hardware.pulseaudio.support32Bit = true;
 
   # framework firmware update
   services.fwupd.enable = true;
@@ -43,7 +43,6 @@
   # enable acceleration for 32-bit
   hardware.opengl = {
     enable = true;
-    driSupport = true;
     driSupport32Bit = true;
     extraPackages = with pkgs; [
       libva
@@ -117,7 +116,7 @@
   environment.systemPackages = with pkgs; [
     wget vim binutils man-pages coreutils gnumake iw sshfs stdenv pkg-config curl
     htop aspellDicts.en aspell pciutils wirelesstools pavucontrol unzip openssl
-    gnutls git libnotify alsaLib xmonad-log xorg.xprop xorg.xwininfo
+    gnutls git libnotify alsa-lib xmonad-log xorg.xprop xorg.xwininfo
     xclip xdotool
   ];
 

@@ -3,7 +3,7 @@
 {
   description = "NixOS configuration and home-manager configurations";
   inputs = {
-    nixpkgs.url          = "nixpkgs/nixos-24.05";
+    nixpkgs.url          = "nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     # nixpkgs-local.url    = "/home/doyougnu/programming/nix/nixpkgs";
     emacs-overlay.url  = github:nix-community/emacs-overlay;
@@ -11,7 +11,7 @@
     # git-idris2.url     = github:idris-lang/Idris2?rev=5e9a90bd97d3940054dcf2fcaffccff7c72ef5ae;
     nur.url            = github:nix-community/nur;
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # xmonad = {
@@ -129,4 +129,3 @@
       node0     = node0-system.activationPackage;
     };
 }
-
