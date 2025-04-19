@@ -447,8 +447,7 @@
   :init
   (vertico-mode)
   :bind (:map    vertico-map
-        ("C-t" . vertico-previous)
-        ("C-." . vertico-directory-up)
+        ("C-t" . vertico-directory-up)
         ("C-n" . vertico-next)
         ("C-s" . vertico-directory-enter)))
 
