@@ -73,7 +73,7 @@ in {
       copy_on_select yes
       clear_all_shortcuts yes
     '';
-    theme = "Tomorrow Night Blue";
+    themeFile = "Tomorrow_Night_Blue";
     settings = {
       font_size = "14.0";
     };

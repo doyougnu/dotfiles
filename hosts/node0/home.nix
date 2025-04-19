@@ -52,7 +52,7 @@
     extraConfig = ''
       copy_on_select yes
     '';
-    theme = "Tomorrow Night Blue";
+    themeFile = "Tomorrow_Night_Blue";
     settings = {
       font_size = "9.0";
     };

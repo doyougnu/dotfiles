@@ -41,23 +41,23 @@
   services.fwupd.enable = true;
 
   # enable acceleration for 32-bit
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport32Bit = true;
-    extraPackages = with pkgs; [
-      libva
-      vaapiIntel
-      vaapiVdpau
-      libvdpau-va-gl
-      intel-media-driver
-      intel-compute-runtime
-    ];
-    extraPackages32 = with pkgs.pkgsi686Linux; [
-      libva
-      vaapiIntel
-      vaapiVdpau
-      libvdpau-va-gl
-    ];
+    # enabledriSupport32Bit = true;
+    # extraPackages = with pkgs; [
+    #   libva
+    #   vaapiIntel
+    #   vaapiVdpau
+    #   libvdpau-va-gl
+    #   intel-media-driver
+    #   intel-compute-runtime
+    # ];
+    # extraPackages32 = with pkgs.pkgsi686Linux; [
+    #   libva
+    #   vaapiIntel
+    #   vaapiVdpau
+    #   libvdpau-va-gl
+    # ];
   };
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.powersave = true;

@@ -47,7 +47,7 @@
       # };
 
       homeManagerConfFor = config: { ... }: {
-        nixpkgs.overlays = [ emacs-overlay.overlay nur.overlay overlay-unstable overlay-dotfiles ];
+        nixpkgs.overlays = [ emacs-overlay.overlay nur.overlays.default overlay-unstable overlay-dotfiles ];
         imports = [ config ];
       };
 

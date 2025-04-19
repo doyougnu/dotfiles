@@ -86,14 +86,6 @@
 
 (use-package nerd-icons)
 
-;; which-key
-(use-package which-key
-  :demand
-  :init
-  (setq which-key-idle-delay 0.35) ; Open after .5s instead of 1s
-  :config
-  (which-key-mode))
-
 (use-package helpful
   :ensure t
   :defer
@@ -116,6 +108,7 @@
   :init
   ;; allows escape to exit anything
   (global-set-key (kbd "<escape>") 'keyboard-escape-quit))
+
 
 (use-package exec-path-from-shell
   :init
@@ -515,6 +508,14 @@
               ("C-t" . corfu-previous)
               ("C-n" . corfu-next)
               ("C-s" . corfu-complete)))
+
+(use-package corfu-terminal
+  :ensure t
+  :demand
+  :after corfu
+  :init
+  (unless (display-graphic-p)
+    (corfu-terminal-mode +1)))
 
 (use-package wgrep
   :defer t
@@ -953,7 +954,10 @@
         (set-face-attribute 'whitespace-tab nil
                             :foreground "gray18")))
   (add-hook 'before-save-hook #'delete-trailing-whitespace)
-  (setq global-whitespace-mode 1))
+  (setq global-whitespace-mode 1)
+  (which-key-mode)
+  (setq which-key-idle-delay 0.10)
+  )
 
   ;; Stolen from (http://endlessparentheses.com/ansi-colors-in-the-compilation-buffer-output.html)
   ;; this displays colors for escape codes in the *compilation* buffer
