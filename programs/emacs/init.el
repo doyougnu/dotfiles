@@ -789,7 +789,8 @@
   :mode (("\\.org$" . org-mode))
   :ensure org-plus-contrib
   :bind (:map org-mode-map
-        ("C-<return>" . dyg|org-insert-subheading-respect-content))
+        ("M-t" . org-meta-return)
+        ("M-n" . dyg|org-insert-subheading-respect-content))
   :config
 
   (defun dyg|org-insert-subheading-respect-content ()
