@@ -2,7 +2,7 @@
 ; based on https://arne.me/blog/emacs-from-scratch-part-one-foundations#become-evil
 ;; thank you for your labor!
 
-(scroll-bar-mode -1)           ; Hide the always-visible scrollbar
+;(scroll-bar-mode -2)           ; Hide the always-visible scrollbar
 (setq inhibit-splash-screen t) ; Remove the "Welcome to GNU Emacs" splash screen
 (setq use-file-dialog nil)      ; Ask for textual confirmation instead of GUI
 (add-to-list 'default-frame-alist '(undecorated . t)) ; remove the window manager frame
@@ -240,6 +240,8 @@
    ;; notes and agenda
    '("a"   . org-agenda)
    '("SPC" . org-capture)
+   ;; eval
+   '(":"   . eval-expression)
    ;; Use SPC (0-9) for digit arguments.
    '("1" . meow-digit-argument)
    '("2" . meow-digit-argument)
@@ -786,6 +788,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; org ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq initial-major-mode 'org-mode)
 
+(use-package emacsql
+  :ensure t
+  :demand)
+
 (use-package org
   :mode (("\\.org$" . org-mode))
   :ensure org-plus-contrib
@@ -935,7 +941,7 @@
   :config
   (use-package yasnippet-snippets :ensure t)
   (setq yas-snippet-dirs
-        '("/home/doyougnu/.emacs.d/snippets/"))
+        '("~/.emacs.d/snippets/"))
   (yas-global-mode 1)
   ;; (define-key yas-minor-mode-map (kbd "M-o") #'yas-expand)
   (define-key yas-minor-mode-map (kbd "M-i") #'yas-next-field-or-maybe-expand)
