@@ -214,6 +214,39 @@
   (global-set-key (kbd "C-c e") '+error)
   (global-set-key (kbd "C-c i") '+smerge)
 
+  (defun dyg/meow-save-to-clipboard ()
+    "Meow save selection and copy to system clipboard."
+    (interactive)
+    (meow-save) ; this is the actual saving function
+    (when (use-region-p)
+      (let ((text (buffer-substring-no-properties (region-beginning) (region-end))))
+        (dyg/copy-to-clipboard text)))
+    (meow--cancel-selection))
+
+  (defun dyg/copy-to-clipboard (text)
+    "Copy TEXT to the system clipboard, handling both Linux and WSL."
+    (cond
+     ;; WSL clipboard
+     ((and (eq system-type 'gnu/linux)
+           (getenv "WSLENV"))
+      (let ((proc (start-process "clip.exe" nil "clip.exe")))
+        (process-send-string proc text)
+        (process-send-eof proc)))
+
+     ;; Native Linux clipboard via xclip or xsel
+     ((eq system-type 'gnu/linux)
+      (if (executable-find "xclip")
+          (let ((proc (start-process "xclip" nil "xclip" "-selection" "clipboard")))
+            (process-send-string proc text)
+            (process-send-eof proc))
+        (message "xclip not found. Install it for clipboard support.")))
+
+     ;; Windows
+     ((eq system-type 'windows-nt)
+      (let ((proc (start-process "clip" nil "clip.exe")))
+        (process-send-string proc text)
+        (process-send-eof proc)))))
+
   (meow-motion-overwrite-define-key
    '("j" . meow-next)
    '("k" . meow-prev)
@@ -295,6 +328,7 @@
    '("l" . meow-right)
    '("L" . meow-right-expand)
    '("m" . meow-join)
+   '("M" . undo-redo)
    '("n" . meow-search)
    '("o" . meow-block)
    '("O" . meow-to-block)
@@ -312,7 +346,7 @@
    '("W" . meow-mark-symbol)
    '("x" . meow-line)
    '("X" . meow-goto-line)
-   '("y" . meow-save)
+   '("y" . dyg/meow-save-to-clipboard)
    '("Y" . meow-sync-grab)
    '("z" . meow-pop-selection)
    '("'" . repeat)
