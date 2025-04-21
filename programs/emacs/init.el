@@ -247,6 +247,13 @@
         (process-send-string proc text)
         (process-send-eof proc)))))
 
+  (defun dyg/join-line ()
+    "Mimic vims join-line behavior"
+    (interactive)
+    (forward-line 1)
+    (join-line)
+    (indent-according-to-mode))
+
   (meow-motion-overwrite-define-key
    '("j" . meow-next)
    '("k" . meow-prev)
@@ -330,6 +337,7 @@
    '("m" . meow-join)
    '("M" . undo-redo)
    '("n" . meow-search)
+   '("N" . dyg/join-line)
    '("o" . meow-block)
    '("O" . meow-to-block)
    '("p" . meow-yank)
