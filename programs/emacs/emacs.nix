@@ -12,7 +12,7 @@ To run the newly compiled executable:
 
 $ ./result/bin/emacs
 */
-{ pkgs 
+{ pkgs
 , config
 , unstable
 }:
@@ -21,7 +21,7 @@ $ ./result/bin/emacs
 
 let
   # myEmacs = pkgs.emacsUnstable;
-  myEmacs = pkgs.emacs29-pgtk;
+  myEmacs = pkgs.emacs-pgtk;
 
   emacsWithPackages = (pkgs.emacsPackagesFor myEmacs).emacsWithPackages;
 

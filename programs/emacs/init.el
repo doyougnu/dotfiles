@@ -1,11 +1,11 @@
+;;; init.el --- Description -*- lexical-binding: t; -*-
 ; based on https://arne.me/blog/emacs-from-scratch-part-one-foundations#become-evil
 ;; thank you for your labor!
 
-;; hide the ui elements
-(tool-bar-mode -1)             ; Hide the outdated icons
-(scroll-bar-mode -1)           ; Hide the always-visible scrollbar
+;(scroll-bar-mode -2)           ; Hide the always-visible scrollbar
 (setq inhibit-splash-screen t) ; Remove the "Welcome to GNU Emacs" splash screen
 (setq use-file-dialog nil)      ; Ask for textual confirmation instead of GUI
+(add-to-list 'default-frame-alist '(undecorated . t)) ; remove the window manager frame
 
 ;; set up straight.el
 (defvar bootstrap-version)
@@ -36,7 +36,7 @@
   :config
   (gcmh-mode 1))
 
-;; a must have for nix
+;; a must have for nix.
 (use-package envrc
   :hook (after-init . envrc-global-mode))
 
@@ -81,24 +81,10 @@
                       :font "Source Code Pro"
                       :height 100))
 
-;; themes
-(setq custom-safe-themes t)
-(use-package doom-themes
-  :demand
-  :config
-(if (equal (getenv "EMACS_HOST") "framework")
-    (load-theme 'doom-gruvbox-light t)
-    (load-theme 'doom-laserwave     t)))
+;; best theme for nw on alacritty
+(load-theme 'modus-vivendi t)
 
 (use-package nerd-icons)
-
-;; which-key
-(use-package which-key
-  :demand
-  :init
-  (setq which-key-idle-delay 0.35) ; Open after .5s instead of 1s
-  :config
-  (which-key-mode))
 
 (use-package helpful
   :ensure t
@@ -122,6 +108,7 @@
   :init
   ;; allows escape to exit anything
   (global-set-key (kbd "<escape>") 'keyboard-escape-quit))
+
 
 (use-package exec-path-from-shell
   :init
@@ -183,6 +170,7 @@
     (let ((keymap (make-keymap)))
       (define-key keymap (kbd "b") #'project-switch-to-buffer)
       (define-key keymap (kbd "l") #'project-list-buffers)
+      (define-key keymap (kbd "i") #'ibuffer)
       (define-key keymap (kbd "s") #'save-buffer)
       (define-key keymap (kbd "r") #'revert-buffer)
       (define-key keymap (kbd "d") #'kill-current-buffer)
@@ -214,17 +202,57 @@
       keymap))
 
   ;; define an alias for your keymap
-  (defalias 'magit-keymap  magit-keymap)
-  (defalias 'buffer-keymap buffer-keymap)
-  (defalias 'notes-keymap  notes-keymap)
-  (defalias 'error-keymap  error-keymap)
-  (defalias 'smerge-keymap smerge-keymap)
+  (defalias '+magit  magit-keymap)
+  (defalias '+buffer buffer-keymap)
+  (defalias '+notes  notes-keymap)
+  (defalias '+error  error-keymap)
+  (defalias '+smerge smerge-keymap)
 
-  (global-set-key (kbd "C-c v") 'magit-keymap)
-  (global-set-key (kbd "C-c b") 'buffer-keymap)
-  (global-set-key (kbd "C-c n") 'notes-keymap)
-  (global-set-key (kbd "C-c e") 'error-keymap)
-  (global-set-key (kbd "C-c i") 'smerge-keymap)
+  (global-set-key (kbd "C-c v") '+magit)
+  (global-set-key (kbd "C-c b") '+buffer)
+  (global-set-key (kbd "C-c n") '+notes)
+  (global-set-key (kbd "C-c e") '+error)
+  (global-set-key (kbd "C-c i") '+smerge)
+
+  (defun dyg/meow-save-to-clipboard ()
+    "Meow save selection and copy to system clipboard."
+    (interactive)
+    (meow-save) ; this is the actual saving function
+    (when (use-region-p)
+      (let ((text (buffer-substring-no-properties (region-beginning) (region-end))))
+        (dyg/copy-to-clipboard text)))
+    (meow--cancel-selection))
+
+  (defun dyg/copy-to-clipboard (text)
+    "Copy TEXT to the system clipboard, handling both Linux and WSL."
+    (cond
+     ;; WSL clipboard
+     ((and (eq system-type 'gnu/linux)
+           (getenv "WSLENV"))
+      (let ((proc (start-process "clip.exe" nil "clip.exe")))
+        (process-send-string proc text)
+        (process-send-eof proc)))
+
+     ;; Native Linux clipboard via xclip or xsel
+     ((eq system-type 'gnu/linux)
+      (if (executable-find "xclip")
+          (let ((proc (start-process "xclip" nil "xclip" "-selection" "clipboard")))
+            (process-send-string proc text)
+            (process-send-eof proc))
+        (message "xclip not found. Install it for clipboard support.")))
+
+     ;; Windows
+     ((eq system-type 'windows-nt)
+      (let ((proc (start-process "clip" nil "clip.exe")))
+        (process-send-string proc text)
+        (process-send-eof proc)))))
+
+  (defun dyg/join-line ()
+    "Mimic vims join-line behavior"
+    (interactive)
+    (forward-line 1)
+    (join-line)
+    (indent-according-to-mode))
 
   (meow-motion-overwrite-define-key
    '("j" . meow-next)
@@ -235,6 +263,7 @@
    '("_" . forward-paragraph)
    '("T" . avy-goto-char-2)
    '("C" . comment-line)
+   '("?" . align-regexp)
    '("<escape>" . ignore))
   (meow-leader-define-key
    ;; errors
@@ -251,6 +280,8 @@
    ;; notes and agenda
    '("a"   . org-agenda)
    '("SPC" . org-capture)
+   ;; eval
+   '(":"   . eval-expression)
    ;; Use SPC (0-9) for digit arguments.
    '("1" . meow-digit-argument)
    '("2" . meow-digit-argument)
@@ -304,7 +335,9 @@
    '("l" . meow-right)
    '("L" . meow-right-expand)
    '("m" . meow-join)
+   '("M" . undo-redo)
    '("n" . meow-search)
+   '("N" . dyg/join-line)
    '("o" . meow-block)
    '("O" . meow-to-block)
    '("p" . meow-yank)
@@ -321,7 +354,7 @@
    '("W" . meow-mark-symbol)
    '("x" . meow-line)
    '("X" . meow-goto-line)
-   '("y" . meow-save)
+   '("y" . dyg/meow-save-to-clipboard)
    '("Y" . meow-sync-grab)
    '("z" . meow-pop-selection)
    '("'" . repeat)
@@ -331,6 +364,7 @@
    '("!" . meow-page-down)
    '("^" . meow-page-up)
    '("_" . forward-paragraph)
+   '("?" . align-regexp)
    '("=" . meow-indent)
    '("T" . avy-goto-char-2))
 
@@ -450,8 +484,7 @@
   :init
   (vertico-mode)
   :bind (:map    vertico-map
-        ("C-t" . vertico-previous)
-        ("C-." . vertico-directory-up)
+        ("C-t" . vertico-directory-up)
         ("C-n" . vertico-next)
         ("C-s" . vertico-directory-enter)))
 
@@ -520,6 +553,20 @@
               ("C-n" . corfu-next)
               ("C-s" . corfu-complete)))
 
+(use-package corfu-terminal
+  :ensure t
+  :demand
+  :after corfu
+  :init
+  (unless (display-graphic-p)
+    (corfu-terminal-mode +1)))
+
+(use-package wgrep
+  :defer t
+  :config
+  (add-hook 'embark-after-export-hook #'wgrep-change-to-wgrep-mode)
+  (add-hook 'embark-collect-mode-hook #'wgrep-change-to-wgrep-mode))
+
 ;; Example configuration for Consult
 (use-package consult
   ;; Replace bindings. Lazily loaded by `use-package'.
@@ -557,7 +604,7 @@
          ("M-s d" . consult-find)                  ;; Alternative: consult-fd
          ("M-s s" . dyg|consult-ripgrep-word-at-point)
          ("M-s r" . consult-ripgrep)
-         ("C-s"   . dyg|consult-line-word-at-point)
+         ("C-s"   . consult-line)
          ("M-s i" . consult-imenu-multi)
          ("M-s I" . consult-imenu)
          ;; Isearch integration
@@ -783,11 +830,16 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; org ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq initial-major-mode 'org-mode)
 
+(use-package emacsql
+  :ensure t
+  :demand)
+
 (use-package org
   :mode (("\\.org$" . org-mode))
   :ensure org-plus-contrib
   :bind (:map org-mode-map
-        ("S-<return>" . dyg|org-insert-subheading-respect-content))
+        ("M-t" . org-insert-heading-respect-content)
+        ("M-n" . dyg|org-insert-subheading-respect-content))
   :config
 
   (defun dyg|org-insert-subheading-respect-content ()
@@ -931,7 +983,7 @@
   :config
   (use-package yasnippet-snippets :ensure t)
   (setq yas-snippet-dirs
-        '("/home/doyougnu/.emacs.d/snippets/"))
+        '("~/.emacs.d/snippets/"))
   (yas-global-mode 1)
   ;; (define-key yas-minor-mode-map (kbd "M-o") #'yas-expand)
   (define-key yas-minor-mode-map (kbd "M-i") #'yas-next-field-or-maybe-expand)
@@ -950,7 +1002,10 @@
         (set-face-attribute 'whitespace-tab nil
                             :foreground "gray18")))
   (add-hook 'before-save-hook #'delete-trailing-whitespace)
-  (setq global-whitespace-mode 1))
+  (setq global-whitespace-mode 1)
+  (which-key-mode)
+  (setq which-key-idle-delay 0.10)
+  )
 
   ;; Stolen from (http://endlessparentheses.com/ansi-colors-in-the-compilation-buffer-output.html)
   ;; this displays colors for escape codes in the *compilation* buffer

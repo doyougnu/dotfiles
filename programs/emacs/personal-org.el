@@ -1,3 +1,4 @@
+;;; personal-org.el --- Description -*- lexical-binding: t; -*-
 ;; Majority of these functions taken and renamed (to make sense for me) from
 ;; http://doc.norang.ca/org-mode.html
 ;;

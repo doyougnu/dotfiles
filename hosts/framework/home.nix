@@ -2,7 +2,7 @@
 
 let
     # myEmacs = import ../../programs/emacs/emacs.nix { pkgs = pkgs; config = config; unstable = pkgs; };
-    myEmacs = pkgs.emacs29.override {withGTK3 = true; };
+    myEmacs = pkgs.emacs30.override {withGTK3 = true; };
 
     R-with-packages = pkgs.rWrapper.override { packages = with pkgs.rPackages; [
       tidyverse cowplot
@@ -71,8 +71,9 @@ in {
       };
     extraConfig = ''
       copy_on_select yes
+      clear_all_shortcuts yes
     '';
-    theme = "Tomorrow Night Blue";
+    themeFile = "Tomorrow_Night_Blue";
     settings = {
       font_size = "14.0";
     };
