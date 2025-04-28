@@ -420,7 +420,6 @@ in {
     sdcv             # for polybar
     spotify
     slack
-    steam
     tex
     xfce.thunar
     unison

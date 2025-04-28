@@ -42,4 +42,5 @@
     ];
 
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
 }

@@ -19,15 +19,13 @@ in
   # boot.kernelPackages = pkgs.linuxPackages_6_9;
 
   ## Enable pulseaudio and bluetooth
-  sound.enable = true;
-  sound.mediaKeys.enable = true;
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
   hardware.bluetooth.enable = true;
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.support32Bit = true;
-  hardware.pulseaudio.package = pkgs.pulseaudioFull;
-  hardware.pulseaudio.zeroconf.discovery.enable = true;
+  # hardware.pulseaudio.enable = true;
+  # hardware.pulseaudio.support32Bit = true;
+  # hardware.pulseaudio.package = pkgs.pulseaudioFull;
+  # hardware.pulseaudio.zeroconf.discovery.enable = true;
 
   networking.networkmanager.enable = true;
   networking.hostName = "7thChamber"; # Define your hostname.
@@ -176,7 +174,18 @@ in
 
   # Drivers 32bit support
   hardware.opengl.enable = true;
-  hardware.opengl.driSupport32Bit = true;
+  hardware.graphics.enable32Bit = true;
+  hardware.graphics.enable = true;
+
+  # nvidia graphics driver
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+    open = false;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
 
   # nice compton settings
   services.compton = {
