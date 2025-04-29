@@ -254,6 +254,21 @@
     (join-line)
     (indent-according-to-mode))
 
+  (defun dyg/paste-from-clipboard ()
+    (interactive)
+    (insert
+     (string-trim-right
+      (cond
+       ;; WSL
+       ((getenv "WSLENV")
+        (shell-command-to-string "powershell.exe -command Get-Clipboard"))
+       ;; Linux
+       ((executable-find "xclip")
+        (shell-command-to-string "xclip -selection clipboard -o"))
+       ;; Windows
+       ((eq system-type 'windows-nt)
+        (shell-command-to-string "powershell.exe -command Get-Clipboard"))))))
+
   (meow-motion-overwrite-define-key
    '("j" . meow-next)
    '("k" . meow-prev)
@@ -341,6 +356,7 @@
    '("o" . meow-block)
    '("O" . meow-to-block)
    '("p" . meow-yank)
+   '("P" . dyg/paste-from-clipboard)
    '("q" . meow-quit)
    '("Q" . meow-goto-line)
    '("r" . meow-replace)
@@ -1005,15 +1021,15 @@
   (setq global-whitespace-mode 1)
   (which-key-mode)
   (setq which-key-idle-delay 0.10)
+  (setq ring-bell-function 'ignore)
+  (define-key eshell-mode-map (kbd "C-n") #'eshell-next-input)
+
+  (define-key eshell-mode-map (kbd "M-n") #'eshell-next-matching-input)
+  (define-key eshell-mode-map (kbd "M-p") #'eshell-previous-matching-input)
   )
 
-  ;; Stolen from (http://endlessparentheses.com/ansi-colors-in-the-compilation-buffer-output.html)
-  ;; this displays colors for escape codes in the *compilation* buffer
-  ;; (require 'ansi-color)
-  ;; (defun dyg|colorize-compilation ()
-  ;;   "Colorize from `compilation-filter-start' to `point'."
-  ;;   (let ((inhibit-read-only t))
-  ;;     (ansi-color-apply-on-region
-  ;;      compilation-filter-start (point))))
-
-  ;; (add-hook 'compilation-filter-hook #'dyg|colorize-compilation)
+;; Specifics for Verse
+(if (equal (getenv "EMACS_HOST") "thinkpad")
+    (progn
+      (add-to-list 'load-path "~/.emacs.d/lisp/")
+      (require 'verse-mode)))
