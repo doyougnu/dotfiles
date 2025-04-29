@@ -1023,10 +1023,11 @@
   (which-key-mode)
   (setq which-key-idle-delay 0.10)
   (setq ring-bell-function 'ignore)
-  (define-key eshell-mode-map (kbd "C-n") #'eshell-next-input)
 
-  (define-key eshell-mode-map (kbd "M-n") #'eshell-next-matching-input)
-  (define-key eshell-mode-map (kbd "M-p") #'eshell-previous-matching-input)
+  (with-eval-after-load 'eshell-mode
+    (define-key eshell-mode-map (kbd "C-n") #'eshell-next-input)
+    (define-key eshell-mode-map (kbd "M-n") #'eshell-next-matching-input)
+    (define-key eshell-mode-map (kbd "M-p") #'eshell-previous-matching-input))
   )
 
 ;; Specifics for Verse
