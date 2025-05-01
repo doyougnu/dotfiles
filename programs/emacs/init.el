@@ -367,7 +367,7 @@
    '("u" . meow-undo)
    '("U" . meow-undo-in-selection)
    '("v" . meow-visit)
-   '("V" . consult-global-mark)
+   '("V" . consult-mark)
    '("w" . meow-mark-word)
    '("W" . meow-mark-symbol)
    '("x" . meow-line)
@@ -621,7 +621,7 @@
          ("M-s d" . consult-find)                  ;; Alternative: consult-fd
          ("M-s s" . dyg|consult-ripgrep-word-at-point)
          ("M-s r" . consult-ripgrep)
-         ("C-s"   . consult-line)
+         ("C-s"   . dyg|consult-line-word-at-point)
          ("M-s i" . consult-imenu-multi)
          ("M-s I" . consult-imenu)
          ;; Isearch integration
@@ -675,8 +675,8 @@
     (interactive)
     (let ((word (thing-at-point 'word t)))
       (if word
-          (consult-line-multi nil word)
-        (consult-line-multi nil nil))))
+          (consult-line nil word)
+        (consult-line nil nil))))
 
   ;; avoid certain buffers in search
   (mapcar
