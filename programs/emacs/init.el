@@ -364,6 +364,7 @@
    '("R" . meow-swap-grab)
    '("s" . meow-kill)
    '("t" . meow-till)
+   '("T" . avy-goto-char-2)
    '("u" . meow-undo)
    '("U" . meow-undo-in-selection)
    '("v" . meow-visit)
@@ -381,11 +382,11 @@
    '("!" . meow-page-down)
    '("^" . meow-page-up)
    '("_" . forward-paragraph)
-   '("?" . align-regexp)
-   '("=" . meow-indent)
-   '("T" . avy-goto-char-2))
+   '(":" . align-regexp)
+   '("=" . meow-indent))
 
   ;; kickoff
+  (setq meow-use-clipboard t)
   (meow-global-mode 1)
   (meow-setup-indicator))
 
