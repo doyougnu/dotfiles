@@ -62,16 +62,15 @@ in {
   programs.kitty = {
     enable = true;
       keybindings = {
-        "alt+c" = "copy_to_clipboard";
-        "alt+v" = "paste_from_clipboard";
-        "alt+j" = "scroll_line_down";
-        "alt+k" = "scroll_line_up";
-        "alt+u" = "scroll_page_up";
-        "alt+d" = "scroll_page_down";
+        "shift+alt+c" = "copy_to_clipboard";
+        "shift+alt+v" = "paste_from_clipboard";
+        "shift+alt+j" = "scroll_line_down";
+        "shift+alt+k" = "scroll_line_up";
+        "shift+alt+u" = "scroll_page_up";
+        "shift+alt+d" = "scroll_page_down";
       };
     extraConfig = ''
       copy_on_select yes
-      clear_all_shortcuts yes
     '';
     themeFile = "Tomorrow_Night_Blue";
     settings = {
