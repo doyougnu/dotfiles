@@ -152,7 +152,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; meow ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package move-text
   :ensure t
-  :demand t
+  :demand
   :config
   (defun indent-region-advice (&rest ignored)
     "Indent after moving"
@@ -412,7 +412,8 @@
   :ensure t
   :demand
   :config
-  (define-key magit-mode-map (kbd "x") #'magit-discard))
+  (define-key magit-mode-map (kbd "x") #'magit-discard)
+  (define-key magit-mode-map (kbd "p") #'magit-push))
 
 (use-package magit-todos
   :ensure t
