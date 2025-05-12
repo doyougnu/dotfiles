@@ -150,6 +150,23 @@
   (project-tab-groups-mode 1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; meow ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package move-text
+  :ensure t
+  :demand t
+  :config
+  (defun indent-region-advice (&rest ignored)
+    "Indent after moving"
+    (let ((deactivate deactivate-mark))
+      (if (region-active-p)
+          (indent-region (region-beginning) (region-end))
+        (indent-region (line-beginning-position) (line-end-position)))
+      (setq deactivate-mark deactivate)))
+  (advice-add 'move-text-up :after 'indent-region-advice)
+  (advice-add 'move-text-down :after 'indent-region-advice)
+
+  (global-set-key (kbd "M-t") #'move-text-up)
+  (global-set-key (kbd "M-n") #'move-text-down))
+
 (use-package meow
   :ensure t
   :demand t
@@ -159,6 +176,7 @@
     (let ((keymap (make-keymap)))
       (define-key keymap (kbd "v") #'magit-status)
       (define-key keymap (kbd "b") #'magit-blame)
+      (define-key keymap (kbd "h") #'magit-status-here)
       (define-key keymap (kbd "p") #'diff-hl-show-hunk-previous)
       (define-key keymap (kbd "n") #'diff-hl-show-hunk-next)
       (define-key keymap (kbd "m") #'git-timemachine-toggle)
