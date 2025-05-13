@@ -296,7 +296,7 @@
    '("_" . forward-paragraph)
    '("T" . avy-goto-char-2)
    '("C" . comment-line)
-   '("?" . align-regexp)
+   '(":" . align-regexp)
    '("<escape>" . ignore))
   (meow-leader-define-key
    ;; errors
