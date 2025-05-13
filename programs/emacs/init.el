@@ -413,6 +413,7 @@
   :demand
   :config
   (define-key magit-mode-map (kbd "x") #'magit-discard)
+  (define-key magit-mode-map (kbd "y") #'magit-copy-section-value)
   (define-key magit-mode-map (kbd "p") #'magit-push))
 
 (use-package magit-todos
