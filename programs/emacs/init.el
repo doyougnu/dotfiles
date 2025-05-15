@@ -1047,6 +1047,7 @@
 
   (with-eval-after-load 'eshell-mode
     (define-key eshell-mode-map (kbd "C-n") #'eshell-next-input)
+    (define-key eshell-mode-map (kbd "C-t") #'eshell-previous-input)
     (define-key eshell-mode-map (kbd "M-n") #'eshell-next-matching-input)
     (define-key eshell-mode-map (kbd "M-p") #'eshell-previous-matching-input))
   )
