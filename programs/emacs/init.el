@@ -1030,6 +1030,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; globals ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq global-display-line-numbers-mode t)
 (setq whitespace-style '(face spaces trailing tabs space-mark tab-mark))
+(defun dyg|c-style ()
+  (c-set-offset 'case-label '+)
+  (c-set-offset 'label '+)
+  (c-set-offset 'statement-case-intro '+))
+
+(add-hook 'c-mode-hook #'dyg|c-style)
 
 (use-package emacs
   :init
