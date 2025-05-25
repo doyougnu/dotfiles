@@ -589,7 +589,12 @@
   :bind (:map corfu-map
               ("C-t" . corfu-previous)
               ("C-n" . corfu-next)
-              ("C-s" . corfu-complete)))
+              ("C-s" . corfu-complete))
+  :config
+  (setopt text-mode-ispell-word-completion nil)
+  (defun my-dabbrev-in-text()
+    (add-to-list 'completion-at-point-functions #'cape-dabbrev))
+  (add-hook 'text-mode-hook #'my-dabbrev-in-text))
 
 (use-package corfu-terminal
   :ensure t
