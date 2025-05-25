@@ -5,6 +5,7 @@
     "spotify"
     "spotify-unwrapped"
     "discord"
+    "parsec-bin"
     "google-chrome"
     "steam"
     "steam-original"

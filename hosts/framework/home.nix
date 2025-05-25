@@ -413,6 +413,7 @@ in {
     moreutils
     nodejs
     unstable.mu              # for email
+    parsec-bin
     pdfpc           # pdf presentaitons from the shell
     pinentry
     python310
