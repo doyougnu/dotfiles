@@ -648,8 +648,8 @@
          ("M-s s" . dyg|consult-ripgrep-word-at-point)
          ("M-s r" . consult-ripgrep)
          ("C-s"   . dyg|consult-line-word-at-point)
-         ("M-s i" . consult-imenu-multi)
-         ("M-s I" . consult-imenu)
+         ("M-s i" . consult-imenu)
+         ("M-s I" . consult-imenu-multi)
          ;; Isearch integration
          ("M-s e" . consult-isearch-history)
          :map isearch-mode-map
