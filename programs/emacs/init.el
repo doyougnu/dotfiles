@@ -142,6 +142,9 @@
                       :background "transparent")
   (global-display-fill-column-indicator-mode 1))
 
+(use-package vundo
+  :defer)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; project management ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package project-tab-groups
   :ensure
@@ -161,8 +164,8 @@
           (indent-region (region-beginning) (region-end))
         (indent-region (line-beginning-position) (line-end-position)))
       (setq deactivate-mark deactivate)))
-  (advice-add 'move-text-up :after 'indent-region-advice)
-  (advice-add 'move-text-down :after 'indent-region-advice)
+  ;; (advice-add 'move-text-up :after 'indent-region-advice)
+  ;; (advice-add 'move-text-down :after 'indent-region-advice)
 
   (global-set-key (kbd "M-t") #'move-text-up)
   (global-set-key (kbd "M-n") #'move-text-down))
@@ -368,7 +371,7 @@
    '("l" . meow-right)
    '("L" . meow-right-expand)
    '("m" . meow-join)
-   '("M" . undo-redo)
+   '("M" . vundo)
    '("n" . meow-search)
    '("N" . dyg/join-line)
    '("o" . meow-block)
