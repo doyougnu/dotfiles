@@ -296,7 +296,7 @@
   services.compton = {
   enable          = true;
   fade            = true;
-  inactiveOpacity = 0.80;
+  inactiveOpacity = 0.92;
   shadow          = false;
   fadeDelta       = 1;
   };
