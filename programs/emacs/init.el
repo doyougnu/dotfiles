@@ -904,7 +904,9 @@
   :ensure org-plus-contrib
   :bind (:map org-mode-map
         ("M-t" . org-insert-heading-respect-content)
-        ("M-n" . dyg|org-insert-subheading-respect-content))
+        ("M-n" . dyg|org-insert-subheading-respect-content)
+        ("C-M-t" . org-move-subtree-up)
+        ("C-M-n" . org-move-subtree-down))
   :config
 
   (defun dyg|org-insert-subheading-respect-content ()
@@ -935,12 +937,6 @@
                           #'(lambda () (setq-local org-hide-emphasis-markers nil)))
                 (add-hook 'meow-insert-exit-hook
                           #'(lambda () (setq-local org-hide-emphasis-markers t)))))
-
-  (defun org-mode-key-overrides ()
-    (local-set-key (kbd "M-t") #'org-move-subtree-up)
-    (local-set-key (kbd "M-n") #'org-move-subtree-down))
-
-  (add-hook 'org-mode-hook #'org-mode-key-overrides)
 
   ;; from https://github.com/alphapapa/unpackaged.el?tab=readme-ov-file#ensure-blank-lines-between-headings-and-before-contents
   (defun dyg|org-fix-blank-lines ()
