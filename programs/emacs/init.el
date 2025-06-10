@@ -592,6 +592,7 @@
   :bind (:map corfu-map
               ("C-t" . corfu-previous)
               ("C-n" . corfu-next)
+              ("RET" . nil)
               ("C-s" . corfu-complete))
   :config
   (setopt text-mode-ispell-word-completion nil)
