@@ -411,6 +411,15 @@
   (meow-global-mode 1)
   (meow-setup-indicator))
 
+(use-package better-jumper
+  :ensure t
+  :init
+  (better-jumper-mode +1)
+  :bind (("M-<" . better-jumper-jump-backward)
+         ("M->" . better-jumper-jump-forward))
+  :config
+  (add-hook 'meow-insert-exit-hook #'better-jumper-set-jump))
+
 (use-package magit
   :ensure t
   :demand
@@ -454,14 +463,6 @@
   :hook (haskell-mode    . eglot-ensure)
   :hook (lisp-mode       . eglot-ensure)
   :hook (typescript-mode . eglot-ensure)
-
-  :config
-
-  ;; (leader-keys
-  ;;  "l" '(:ignore t :which-key "lsp")
-  ;;  "l <escape>" '(keyboard-escape-quit :which-key t)
-  ;;  "l r" '(eglot-rename :which-key "rename")
-  ;;  "l a" '(eglot-code-actions :which-key "code actions"))
   )
 
 (use-package markdown-mode
@@ -478,18 +479,7 @@
   (add-hook 'eglot-managed-mode-hook
 			(lambda ()
 			  (when (derived-mode-p 'zig-mode)
-				(eglot-inlay-hints-mode -1))))
-
-  ;; (leader-keys
-  ;;   "c" '(:ignore t :which-key "mode")
-  ;;   "c <escape>" '(keyboard-escape-quit :which-key t)
-  ;;   "c b" '(zig-compile :which-key "build")
-  ;;   "c r" '(zig-run :which-key "run")
-  ;;   "c t" '(zig-test-buffer :which-key "test")
-  ;;   "c f" '(zig-format-buffer :which-key "check")
-  ;;   "j"   '(zig-end-of-defun :which-key "end defun")
-  ;;   "k"   '(zig-beginning-of-defun :which-key "beg defun"))
-  )
+				  (eglot-inlay-hints-mode -1)))))
 
 (use-package rust-mode
   :init
@@ -503,16 +493,7 @@
 			(lambda ()
 			  (when (derived-mode-p 'rust-mode)
 				(eglot-inlay-hints-mode -1))))
-  (setq rust-format-on-save t)
-  ;; (leader-keys
-  ;;   "c" '(:ignore t :which-key "mode")
-  ;;   "c <escape>" '(keyboard-escape-quit :which-key t)
-  ;;   "c b" '(rust-compile :which-key "build")
-  ;;   "c r" '(rust-run :which-key "run")
-  ;;   "c t" '(rust-test :which-key "test")
-  ;;   "c k" '(rust-check :which-key "check")
-  ;;   "c c" '(rust-run-clippy :which-key "clippy"))
-  )
+  (setq rust-format-on-save t))
 
 (use-package haskell-mode
   :hook (haskell-mode . haskell-indentation-mode)
@@ -609,14 +590,7 @@
     (corfu-terminal-mode +1)))
 
 (use-package cape
-  ;; Bind prefix keymap providing all Cape commands under a mnemonic key.
-  ;; Press C-c p ? to for help.
   :bind ("C-c p" . cape-prefix-map) ;; Alternative key: M-<tab>, M-p, M-+
-  ;; Alternatively bind Cape commands individually.
-  ;; :bind (("C-c p d" . cape-dabbrev)
-  ;;        ("C-c p h" . cape-history)
-  ;;        ("C-c p f" . cape-file)
-  ;;        ...)
   :init
   ;; Add to the global default value of `completion-at-point-functions' which is
   ;; used by `completion-at-point'.  The order of the functions matters, the
@@ -1079,6 +1053,7 @@
   (which-key-mode)
   (setq which-key-idle-delay 0.10)
   (setq ring-bell-function 'ignore)
+  (setq-default buffer-file-coding-system 'unix)
 
   (with-eval-after-load 'eshell-mode
     (define-key eshell-mode-map (kbd "C-n") #'eshell-next-input)
