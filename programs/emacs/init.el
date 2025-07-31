@@ -145,6 +145,11 @@
 (use-package vundo
   :defer)
 
+(use-package xclip
+  :demand
+  :init
+  (xclip-mode 1))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; project management ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package project-tab-groups
   :ensure
@@ -235,6 +240,7 @@
   (global-set-key (kbd "C-c e") '+error)
   (global-set-key (kbd "C-c i") '+smerge)
 
+  ;; DROP: leaving this in here just for windows for now
   (defun dyg/meow-save-to-clipboard ()
     "Meow save selection and copy to system clipboard."
     (interactive)
@@ -393,7 +399,8 @@
    '("W" . meow-mark-symbol)
    '("x" . meow-line)
    '("X" . meow-goto-line)
-   '("y" . dyg/meow-save-to-clipboard)
+   ;; '("y" . dyg/meow-save-to-clipboard)
+   '("y" . meow-save)
    '("Y" . meow-sync-grab)
    '("z" . meow-pop-selection)
    '("'" . repeat)
