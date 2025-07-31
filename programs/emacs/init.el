@@ -1055,6 +1055,14 @@
   (setq ring-bell-function 'ignore)
   (setq-default buffer-file-coding-system 'unix)
 
+  ;; add color to compilation buffers
+  (require 'ansi-color)
+  (defun colorize-compilation-buffer ()
+      (ansi-color-apply-on-region compilation-filter-start (point))
+      (toggle-read-only))
+
+  (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+
   (with-eval-after-load 'eshell-mode
     (define-key eshell-mode-map (kbd "C-n") #'eshell-next-input)
     (define-key eshell-mode-map (kbd "C-t") #'eshell-previous-input)
