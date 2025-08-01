@@ -1038,7 +1038,7 @@
   (define-key yas-keymap         (kbd "M-i") #'yas-next-field-or-maybe-expand))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; globals ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq global-display-line-numbers-mode t)
+(setq global-display-line-numbers-mode 1)
 (setq whitespace-style '(face spaces trailing tabs space-mark tab-mark))
 (defun dyg|c-style ()
   (c-set-offset 'case-label '+)
