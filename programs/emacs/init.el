@@ -705,7 +705,7 @@
     (interactive)
     (let ((word (thing-at-point 'word t)))
       (if word
-          (consult-line nil word)
+          (consult-line word nil)
         (consult-line nil nil))))
 
   ;; avoid certain buffers in search
