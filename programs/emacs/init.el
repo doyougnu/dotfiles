@@ -81,9 +81,6 @@
                       :font "Source Code Pro"
                       :height 100))
 
-;; best theme for nw on alacritty
-(load-theme 'modus-vivendi t)
-
 (use-package nerd-icons)
 
 (use-package helpful
@@ -437,9 +434,12 @@
 
 (use-package magit-todos
   :ensure t
+  :demand
   :config
   (magit-todos-mode 1))
 (use-package git-timemachine :ensure t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;; eye candy ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package writeroom-mode
   :ensure t
@@ -460,6 +460,12 @@
   :demand
   :config
   (global-set-key (kbd "C-c Z") #'writegood-mode))
+
+(unless (package-installed-p 'standard-themes)
+  (package-install 'standard-themes))
+
+(load-theme 'modus-vivendi-tinted)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; eglot, lsp-mode is slow even for rust, bad software
@@ -638,7 +644,7 @@
          ("C-M-#" . consult-register)
          ;; Other custom bindings
          ("M-y" . consult-yank-pop)                ;; orig. yank-pop
-         ("M-p" . fill-paragraph)
+         ;; ("M-p" . fill-paragraph)
          ;; M-g bindings in `goto-map'
          ("M-g e" . consult-compile-error)
          ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
