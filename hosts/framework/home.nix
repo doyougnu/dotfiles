@@ -42,28 +42,28 @@ in {
     enable    = true;
     userEmail = "jmy6342@gmail.com";
     userName  = "Jeffrey Young";
-    signing = {
-      key = "~/.ssh/id_ed25519.pub";
-      signByDefault = true;
-    };
-
-    extraConfig = {
-      gpg.format = "ssh";
-    };
-
+    signing.signByDefault = true;
+    signing.key = "57403751AE1F59BBC10771F5AF59A1E46422D9C9";
     ignores = [ "TAGS" "GPATH" "GRTAGS" "GTAGS" ".dir-locals.el" "dist-newstyle"
                 "*.elc" "*.swp" ".projectile" ".ignored" "config.sub" ".envrc"
                 "config.sub" ".direnv/"
               ];
   };
 
-  services.ssh-agent.enable = true;
-  programs.ssh = {
+  # if on new PC make sure you `gpg --import secret.key`
+  programs.gpg = {
     enable = true;
-    addKeysToAgent = "yes";
+  };
+
+  services.gpg-agent = {
+    enable               = true;
+    enableZshIntegration = true;
+    defaultCacheTtl = 34560000;
+    maxCacheTtl     = 34560000;
     extraConfig = ''
-      AddKeysToAgent yes
-      IdentityFile ~/.ssh/id_ed25519
+      allow-emacs-pinentry
+      allow-loopback-pinentry
+      pinentry-program /home/doyougnu/.nix-profile/bin/pinentry
     '';
   };
 
@@ -86,19 +86,6 @@ in {
       font_size = "14.0";
     };
   };
-
-
-  # services.gpg-agent = {
-  #   enable               = true;
-  #   enableZshIntegration = true;
-  #   defaultCacheTtl = 34560000;
-  #   maxCacheTtl     = 34560000;
-  #   extraConfig = ''
-  #   allow-emacs-pinentry
-  #   allow-loopback-pinentry
-  #   pinentry-program /home/doyougnu/.nix-profile/bin/pinentry
-  #   '';
-  # };
 
   services.unison = {
     enable = true;
@@ -298,6 +285,7 @@ in {
                     '';
   };
   home.file.".p10k.zsh".source = ../../.p10k.zsh;
+  home.file.".zprofile".source = ../../.zprofile;
 
   programs.rofi = {
     enable = true;
