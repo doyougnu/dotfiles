@@ -63,7 +63,7 @@ in {
     addKeysToAgent = "yes";
     extraConfig = ''
       AddKeysToAgent yes
-      IdentityFile /.ssh/id_ed25519
+      IdentityFile ~/.ssh/id_ed25519
     '';
   };
 
