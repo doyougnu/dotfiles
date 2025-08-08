@@ -43,7 +43,7 @@ in {
     userEmail = "jmy6342@gmail.com";
     userName  = "Jeffrey Young";
     signing.signByDefault = true;
-    signing.key = "57403751AE1F59BBC10771F5AF59A1E46422D9C9";
+    signing.key = "880C84B0DCF06CB8E2644B23B4A2FD65CAA27F03";
     ignores = [ "TAGS" "GPATH" "GRTAGS" "GTAGS" ".dir-locals.el" "dist-newstyle"
                 "*.elc" "*.swp" ".projectile" ".ignored" "config.sub" ".envrc"
                 "config.sub" ".direnv/"
