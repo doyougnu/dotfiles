@@ -65,7 +65,7 @@ in
     ];
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  # services.openssh.enable = true;
 
   # set vim to default editor
   environment.variables.VISUAL       = "emacs";

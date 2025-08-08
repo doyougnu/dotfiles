@@ -65,19 +65,7 @@ in {
       AddKeysToAgent yes
       IdentityFile ~/.ssh/id_ed25519
     '';
-    # extraConfig = ''
-      # Host *
-        # UseKeyChain yes
-    # '';
   };
-
-  # if on new PC make sure you `gpg --import secret.key`
-  # programs.gpg = {
-    # enable = true;
-    # settings = {
-      # default-key = "0xAF59A1E46422D9C9";
-    # };
-  # };
 
   # kitty config
   programs.kitty = {

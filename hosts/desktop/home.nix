@@ -56,22 +56,13 @@ in {
               ];
   };
 
-  programs.gpg = {
+  services.ssh-agent.enable = true;
+  programs.ssh = {
     enable = true;
-    settings = {
-      default-key = "0xAF59A1E46422D9C9";
-    };
-  };
-
-  services.gpg-agent = {
-    enable               = true;
-    enableZshIntegration = true;
-    defaultCacheTtl = 34560000;
-    maxCacheTtl     = 34560000;
+    addKeysToAgent = "yes";
     extraConfig = ''
-    allow-emacs-pinentry
-    allow-loopback-pinentry
-    pinentry-program /home/doyougnu/.nix-profile/bin/pinentry
+      AddKeysToAgent yes
+      IdentityFile ~/.ssh/id_ed25519
     '';
   };
 
