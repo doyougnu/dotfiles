@@ -63,7 +63,7 @@ in {
     addKeysToAgent = "yes";
     extraConfig = ''
       AddKeysToAgent yes
-      IdentityFile ~/.ssh/id_ed25519
+      IdentityFile /.ssh/id_ed25519
     '';
   };
 
@@ -88,17 +88,17 @@ in {
   };
 
 
-  services.gpg-agent = {
-    enable               = true;
-    enableZshIntegration = true;
-    defaultCacheTtl = 34560000;
-    maxCacheTtl     = 34560000;
-    extraConfig = ''
-    allow-emacs-pinentry
-    allow-loopback-pinentry
-    pinentry-program /home/doyougnu/.nix-profile/bin/pinentry
-    '';
-  };
+  # services.gpg-agent = {
+  #   enable               = true;
+  #   enableZshIntegration = true;
+  #   defaultCacheTtl = 34560000;
+  #   maxCacheTtl     = 34560000;
+  #   extraConfig = ''
+  #   allow-emacs-pinentry
+  #   allow-loopback-pinentry
+  #   pinentry-program /home/doyougnu/.nix-profile/bin/pinentry
+  #   '';
+  # };
 
   services.unison = {
     enable = true;
