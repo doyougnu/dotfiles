@@ -40,23 +40,44 @@ in {
   # git setup
   programs.git = {
     enable    = true;
-    userEmail = "jeffrey.young@iohk.io";
+    userEmail = "jmy6342@gmail.com";
     userName  = "Jeffrey Young";
-    signing.signByDefault = true;
-    signing.key = "57403751AE1F59BBC10771F5AF59A1E46422D9C9";
+    signing = {
+      key = "~/.ssh/id_ed25519.pub";
+      signByDefault = true;
+    };
+
+    extraConfig = {
+      gpg.format = "ssh";
+    };
+
     ignores = [ "TAGS" "GPATH" "GRTAGS" "GTAGS" ".dir-locals.el" "dist-newstyle"
                 "*.elc" "*.swp" ".projectile" ".ignored" "config.sub" ".envrc"
                 "config.sub" ".direnv/"
               ];
   };
 
-  # if on new PC make sure you `gpg --import secret.key`
-  programs.gpg = {
+  services.ssh-agent.enable = true;
+  programs.ssh = {
     enable = true;
-    settings = {
-      default-key = "0xAF59A1E46422D9C9";
-    };
+    addKeysToAgent = "yes";
+    extraConfig = ''
+      AddKeysToAgent yes
+      IdentityFile ~/.ssh/id_ed25519
+    '';
+    # extraConfig = ''
+      # Host *
+        # UseKeyChain yes
+    # '';
   };
+
+  # if on new PC make sure you `gpg --import secret.key`
+  # programs.gpg = {
+    # enable = true;
+    # settings = {
+      # default-key = "0xAF59A1E46422D9C9";
+    # };
+  # };
 
   # kitty config
   programs.kitty = {
