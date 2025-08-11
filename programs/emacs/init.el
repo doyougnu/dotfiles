@@ -134,9 +134,6 @@
 (use-package emacs
   :init
   (setq-default fill-column 80)
-  (set-face-attribute 'fill-column-indicator nil
-                      :foreground "#717C7C"
-                      :background "transparent")
   (global-display-fill-column-indicator-mode 1))
 
 (use-package vundo
