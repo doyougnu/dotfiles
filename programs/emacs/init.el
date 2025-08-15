@@ -470,7 +470,7 @@
   :hook (zig-mode        . eglot-ensure)
   :hook (rust-mode       . eglot-ensure)
   :hook (scheme-mode     . eglot-ensure)
-  :hook (haskell-mode    . eglot-ensure)
+  ;; :hook (haskell-mode    . eglot-ensure)
   :hook (lisp-mode       . eglot-ensure)
   :hook (typescript-mode . eglot-ensure)
   )
@@ -506,9 +506,69 @@
   (setq rust-format-on-save t))
 
 (use-package haskell-mode
-  :hook (haskell-mode . haskell-indentation-mode)
-  :hook (haskell-mode . prettify-symbols-mode)
-  :hook (haskell-mode . display-line-numbers-mode))
+  :ensure t
+  ;; :mode "\\.hs\\'"
+  :hook
+  ((haskell-mode . interactive-haskell-mode)
+   (haskell-mode . subword-mode) ;; treat camel case as separate words
+   (haskell-mode . eldoc-mode)
+   (after-save . my-haskell-maybe-update-tags))
+  :config
+  ;; --- Indentation / QoL ---
+  (setq haskell-indentation-layout-offset  4
+        haskell-indentation-starter-offset 4
+        haskell-indentation-left-offset    4
+        haskell-indentation-where-pre-offset  2
+        haskell-indentation-where-post-offset 2)
+
+  (setq prettify-symbols-alist
+        '(("\\"  . ?λ) ("->" . ?→) ("<-" . ?←) ("=>" . ?⇒)))
+  (add-hook 'haskell-mode-hook #'prettify-symbols-mode)
+
+  ;; --- Project root detection ---
+  (defun my-haskell-project-root ()
+    "Find Haskell project root."
+    (or (when (fboundp 'project-current)
+          (when-let ((pr (project-current nil)))
+            (car (project-roots pr))))
+        (and (fboundp 'vc-root-dir) (vc-root-dir))
+        default-directory))
+
+  ;; --- TAGS generation with fast-tags ---
+  (defun haskell-generate-tags ()
+    "Generate TAGS file for the current Haskell project using fast-tags."
+    (interactive)
+    (let* ((root (my-haskell-project-root))
+           (tags-file (expand-file-name "TAGS" root))
+           (cmd (format "fast-tags -R --emacs ."
+                        (shell-quote-argument tags-file)
+                        (shell-quote-argument root))))
+      (message "Running: %s" cmd)
+      (shell-command cmd)
+      (visit-tags-table tags-file t)
+      (message "TAGS updated: %s" tags-file)))
+
+  ;; --- Auto-refresh TAGS after saving a Haskell file ---
+  (defun my-haskell-maybe-update-tags ()
+    "Update TAGS file automatically if we're in a Haskell project."
+    (when (eq major-mode 'haskell-mode)
+      (haskell-generate-tags)))
+
+  ;; --- xref integration ---
+  ;; Once TAGS are visited, M-. and M-, will work project-wide.
+  ;; TODO: make tag generation project and language independant
+  (add-hook 'haskell-mode-hook
+            (lambda ()
+              (let ((tags-file (expand-file-name "TAGS" (my-haskell-project-root))))
+                (when (file-exists-p tags-file)
+                  (visit-tags-table tags-file t)))))
+
+  ;; --- Keybindings ---
+  (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
+  (define-key haskell-mode-map (kbd "C-c C-r") 'haskell-process-load-region)
+  (define-key haskell-mode-map (kbd "C-c C-z") 'haskell-interactive-switch)
+  (define-key haskell-mode-map (kbd "C-c d")   'haskell-generate-tags))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; completion ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Enable vertico
