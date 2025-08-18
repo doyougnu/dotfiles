@@ -46,23 +46,30 @@ in {
   # git setup
   programs.git = {
     enable    = true;
-    userEmail = "jeffrey.young@iohk.io";
+    userEmail = "jmy6342@gmail.com";
     userName  = "Jeffrey Young";
     signing.signByDefault = true;
-    signing.key = "57403751AE1F59BBC10771F5AF59A1E46422D9C9";
+    signing.key = "4C6A178AF6FA3F553ABED0F23AA937E2C385868B";
     ignores = [ "TAGS" "GPATH" "GRTAGS" "GTAGS" ".dir-locals.el" "dist-newstyle"
-                "*.elc" "*.swp" ".projectile" ".ignored" "*/config.sub" ".envrc"
-                "config.sub" "libraries/unix" ".direnv/"
+                "*.elc" "*.swp" ".projectile" ".ignored" "config.sub" ".envrc"
+                "config.sub" ".direnv/"
               ];
   };
 
-  services.ssh-agent.enable = true;
-  programs.ssh = {
+  # if on new PC make sure you `gpg --import secret.key`
+  programs.gpg = {
     enable = true;
-    addKeysToAgent = "yes";
+  };
+
+  services.gpg-agent = {
+    enable               = true;
+    enableZshIntegration = true;
+    defaultCacheTtl = 34560000;
+    maxCacheTtl     = 34560000;
     extraConfig = ''
-      AddKeysToAgent yes
-      IdentityFile ~/.ssh/id_ed25519
+      allow-emacs-pinentry
+      allow-loopback-pinentry
+      pinentry-program /home/doyougnu/.nix-profile/bin/pinentry
     '';
   };
 
