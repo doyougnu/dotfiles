@@ -1099,7 +1099,8 @@
   (define-key yas-keymap         (kbd "M-i") #'yas-next-field-or-maybe-expand))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; globals ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq global-display-line-numbers-mode 1)
+(setq-default display-line-numbers-width nil) ;; dynamically compute the width
+(global-display-line-numbers-mode)
 (setq whitespace-style '(face spaces trailing tabs space-mark tab-mark))
 (defun dyg|c-style ()
   (c-set-offset 'case-label '+)
