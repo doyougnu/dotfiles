@@ -1,11 +1,9 @@
 { config, pkgs, lib, ... }:
 
 let
-    # myEmacs = import ../../programs/emacs/emacs.nix { pkgs = pkgs; config = config; unstable = pkgs; };
-    # haskell-env = with pkgs.haskell.packages.${config.ghc.version}; [
     myEmacs = pkgs.emacs.override {withGTK3 = true; };
     myTaffybar = pkgs.callPackage ../../programs/taffybar/default.nix {};
-    # ];
+
     R-with-packages = pkgs.rWrapper.override { packages = with pkgs.rPackages; [
       tidyverse cowplot
     ]; };
