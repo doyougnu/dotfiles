@@ -512,13 +512,11 @@
   ((haskell-mode . interactive-haskell-mode)
    (haskell-mode . subword-mode) ;; treat camel case as separate words
    (haskell-mode . eldoc-mode)
-   (after-save . my-haskell-maybe-update-tags))
+   (haskell-mode . haskell-indentation-mode)
+   (after-save   . my-haskell-maybe-update-tags))
   :config
   ;; --- Indentation / QoL ---
-  (setq haskell-indentation-layout-offset  4
-        haskell-indentation-starter-offset 4
-        haskell-indentation-left-offset    4
-        haskell-indentation-where-pre-offset  2
+  (setq haskell-indentation-where-pre-offset  2
         haskell-indentation-where-post-offset 2)
 
   (setq prettify-symbols-alist
