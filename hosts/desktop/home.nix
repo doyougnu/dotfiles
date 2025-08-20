@@ -4,9 +4,9 @@ let
     myEmacs = pkgs.emacs.override {withGTK3 = true; };
     myTaffybar = pkgs.callPackage ../../programs/taffybar/default.nix {};
 
-    R-with-packages = pkgs.rWrapper.override { packages = with pkgs.rPackages; [
-      tidyverse cowplot
-    ]; };
+    # R-with-packages = pkgs.rWrapper.override { packages = with pkgs.rPackages; [
+      # tidyverse cowplot
+    # ]; };
 
     # for mbsync service
     gpg = "/etc/profiles/per-user/doyougnu/bin/gpg2";
@@ -397,12 +397,11 @@ in {
     gcc            # for org-roam
     google-chrome
     gforth # aoc2023
-    haskellPackages.hasktags
     libevent
     killall         # for polybar launch script
     moreutils
     multimarkdown
-    nodejs
+    parsec-bin
     pdfpc           # pdf presentaitons from the shell
     pulseaudio-ctl  # music control in xmonad
     pinentry
@@ -431,8 +430,6 @@ in {
     wordnet
     zip
   ] ++
-  [ R-with-packages
-  ] ++
     my-fonts
     ++
   (with unstable;
@@ -444,7 +441,6 @@ in {
       valgrind
       linuxPackages.perf
       firefox
-      mu     # for email
   ]);
 
   # This value determines the Home Manager release that your

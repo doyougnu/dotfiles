@@ -152,16 +152,6 @@ in
 
     displayManager = {
       lightdm.enable = true;
-      lightdm.greeters.enso = {
-            enable = true;
-      # this file cannot bu under /home, it needs to be accessible by the
-      # lightdm user so it must be under /usr/share. I've manually copied it
-      # there
-          extraConfig = ''
-              [greeter-theme]
-              background-image = "/usr/share/sylvain-sarrailh-bridgehdartstation.jpg"
-          '';
-        };
       sessionCommands = ''
        ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
        '';
@@ -173,7 +163,6 @@ in
   };
 
   # Drivers 32bit support
-  hardware.opengl.enable = true;
   hardware.graphics.enable32Bit = true;
   hardware.graphics.enable = true;
 
