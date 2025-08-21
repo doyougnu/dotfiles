@@ -510,7 +510,7 @@
   ;; :mode "\\.hs\\'"
   :hook
   ((haskell-mode . interactive-haskell-mode)
-   (haskell-mode . subword-mode) ;; treat camel case as separate words
+   ;; (haskell-mode . subword-mode) ;; treat camel case as separate words
    (haskell-mode . eldoc-mode)
    (haskell-mode . haskell-indentation-mode)
    (after-save   . my-haskell-maybe-update-tags))
