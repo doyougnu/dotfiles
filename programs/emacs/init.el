@@ -221,6 +221,14 @@
       (define-key keymap (kbd "l") #'magit-smerge-keep-lower)
       keymap))
 
+
+  ;; avy tweaks
+  (defun dyg|avy-goto-char-2 ()
+    "Run `avy-goto-char-2' then mark the symbol at point with Meow."
+    (interactive)
+    (call-interactively #'avy-goto-char-2)
+    (meow-mark-symbol 1))
+
   ;; define an alias for your keymap
   (defalias '+magit  magit-keymap)
   (defalias '+buffer buffer-keymap)
@@ -233,7 +241,7 @@
   (global-set-key (kbd "C-c n") '+notes)
   (global-set-key (kbd "C-c e") '+error)
   (global-set-key (kbd "C-c i") '+smerge)
-  (global-set-key (kbd "C-t")   'avy-goto-char-2)
+  (global-set-key (kbd "C-t")   'dyg|avy-goto-char-2)
 
   ;; DROP: leaving this in here just for windows for now
   (defun dyg/meow-save-to-clipboard ()
@@ -290,6 +298,7 @@
        ;; Windows
        ((eq system-type 'windows-nt)
         (shell-command-to-string "powershell.exe -command Get-Clipboard"))))))
+
 
   (meow-motion-overwrite-define-key
    '("j" . meow-next)
@@ -489,9 +498,9 @@
   :config
 
   (add-hook 'eglot-managed-mode-hook
-			(lambda ()
-			  (when (derived-mode-p 'zig-mode)
-				  (eglot-inlay-hints-mode -1)))))
+			      (lambda ()
+			        (when (derived-mode-p 'zig-mode)
+				        (eglot-inlay-hints-mode -1)))))
 
 (use-package rust-mode
   :init
@@ -502,9 +511,9 @@
 
   ;; Turn off for inlay hints for rust
   (add-hook 'eglot-managed-mode-hook
-			(lambda ()
-			  (when (derived-mode-p 'rust-mode)
-				(eglot-inlay-hints-mode -1))))
+			      (lambda ()
+			        (when (derived-mode-p 'rust-mode)
+				        (eglot-inlay-hints-mode -1))))
   (setq rust-format-on-save t))
 
 (use-package haskell-mode
@@ -576,9 +585,9 @@
   :init
   (vertico-mode)
   :bind (:map    vertico-map
-        ("C-t" . vertico-directory-up)
-        ("C-n" . vertico-next)
-        ("C-s" . vertico-directory-enter)))
+                 ("C-t" . vertico-directory-up)
+                 ("C-n" . vertico-next)
+                 ("C-s" . vertico-directory-enter)))
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist
@@ -626,7 +635,7 @@
   ;; available in the *Completions* buffer, add it to the
   ;; `completion-list-mode-map'.
   :bind (:map minibuffer-local-map
-         ("M-A" . marginalia-cycle))
+              ("M-A" . marginalia-cycle))
   :init
   ;; Marginalia must be activated in the :init section of use-package such that
   ;; the mode gets enabled right away. Note that this forces loading the
@@ -935,7 +944,27 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; avy ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package avy
   :config
-  (setq avy-keys '(?a ?o ?e ?u ?h ?t ?n ?s)))
+
+  ;; First, define the action
+  (defun avy-action-kill-line-stay (pt)
+    "At point PT: kill line, join with the next, and leave point at join."
+    (save-excursion
+      (goto-char pt)
+      (kill-line)
+      (delete-indentation))
+    (goto-char pt))
+
+  ;; First, define the action
+  (defun avy-action-kill-line-and-join (pt)
+    "At point PT: kill line, join with the next, and leave point at join."
+    (avy-action-kill-line-and-join pt)
+    (goto-char pt))
+
+  ;; Then, register it
+  (setf (alist-get ?k avy-dispatch-alist) #'avy-action-kill-line-and-join
+        (alist-get ?K avy-dispatch-alist) #'avy-action-kill-line-stay)
+
+  (setq avy-keys '(?c ?i ?e ?a ?h ?t ?s ?n)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; org ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq initial-major-mode 'org-mode)
