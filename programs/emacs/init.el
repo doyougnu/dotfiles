@@ -233,6 +233,7 @@
   (global-set-key (kbd "C-c n") '+notes)
   (global-set-key (kbd "C-c e") '+error)
   (global-set-key (kbd "C-c i") '+smerge)
+  (global-set-key (kbd "C-t")   'avy-goto-char-2)
 
   ;; DROP: leaving this in here just for windows for now
   (defun dyg/meow-save-to-clipboard ()
@@ -373,7 +374,8 @@
    '("m" . meow-join)
    '("M" . vundo)
    '("n" . meow-search)
-   '("N" . dyg/join-line)
+   ;; just use m s
+   ;; '("N" . dyg/join-line)
    '("o" . meow-block)
    '("O" . meow-to-block)
    '("p" . meow-yank)
