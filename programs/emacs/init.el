@@ -229,6 +229,24 @@
     (call-interactively #'avy-goto-char-2)
     (meow-mark-symbol 1))
 
+  ;; compilation tweaks
+  (defun dyg|recompile ()
+    "Recompile using the last compilation buffer, regardless of current buffer."
+    (interactive)
+    (let ((buffer next-error-last-buffer))
+      (if (and (boundp        'next-error-last-buffer)
+               (buffer-live-p  buffer))
+               (with-current-buffer buffer (recompile))
+               (call-interactively #'recompile))))
+
+  (defun dyg|toggle-compilation-window ()
+    "Show/Hide the window containing the '*compilation*' buffer."
+    (interactive)
+    (when-let ((buffer next-error-last-buffer))
+      (if (get-buffer-window buffer 'visible)
+          (delete-windows-on buffer)
+        (display-buffer buffer))))
+
   ;; define an alias for your keymap
   (defalias '+magit  magit-keymap)
   (defalias '+buffer buffer-keymap)
@@ -242,6 +260,8 @@
   (global-set-key (kbd "C-c e") '+error)
   (global-set-key (kbd "C-c i") '+smerge)
   (global-set-key (kbd "C-t")   'dyg|avy-goto-char-2)
+  (global-set-key (kbd "C-c c") #'dyg|recompile)
+  (global-set-key (kbd "C-,")   #'dyg|toggle-compilation-window)
 
   ;; DROP: leaving this in here just for windows for now
   (defun dyg/meow-save-to-clipboard ()
@@ -307,7 +327,7 @@
    '("!" . meow-page-down)
    '("^" . meow-page-up)
    '("_" . forward-paragraph)
-   '("T" . avy-goto-char-2)
+   ;; '("T" . avy-goto-char-2)
    '("C" . comment-line)
    '(":" . align-regexp)
    '("<escape>" . ignore))
@@ -395,7 +415,7 @@
    '("R" . meow-swap-grab)
    '("s" . meow-kill)
    '("t" . meow-till)
-   '("T" . avy-goto-char-2)
+   ;; '("T" . avy-goto-char-2)
    '("u" . meow-undo)
    '("U" . meow-undo-in-selection)
    '("v" . meow-visit)
@@ -950,14 +970,13 @@
     "At point PT: kill line, join with the next, and leave point at join."
     (save-excursion
       (goto-char pt)
-      (kill-line)
-      (delete-indentation))
-    (goto-char pt))
+      (kill-whole-line)))
 
   ;; First, define the action
   (defun avy-action-kill-line-and-join (pt)
     "At point PT: kill line, join with the next, and leave point at join."
-    (avy-action-kill-line-and-join pt)
+    (avy-action-kill-line-stay pt)
+    (delete-indentation)
     (goto-char pt))
 
   ;; Then, register it
@@ -1159,7 +1178,7 @@
   (require 'ansi-color)
   (defun colorize-compilation-buffer ()
       (ansi-color-apply-on-region compilation-filter-start (point))
-      (toggle-read-only))
+      (read-only-mode))
 
   (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
