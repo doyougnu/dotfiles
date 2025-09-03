@@ -319,18 +319,39 @@
        ((eq system-type 'windows-nt)
         (shell-command-to-string "powershell.exe -command Get-Clipboard"))))))
 
-
-  (meow-motion-overwrite-define-key
+  (meow-motion-define-key
    '("j" . meow-next)
    '("k" . meow-prev)
    '("$" . backward-paragraph)
    '("!" . meow-page-down)
    '("^" . meow-page-up)
    '("_" . forward-paragraph)
-   ;; '("T" . avy-goto-char-2)
    '("C" . comment-line)
    '(":" . align-regexp)
-   '("<escape>" . ignore))
+   '("<escape>" . ignore)
+   '("b" . meow-back-word)
+   '("B" . meow-back-symbol)
+   '("e" . meow-next-word)
+   '("E" . meow-next-symbol)
+   '("f" . meow-find)
+   '("g" . meow-cancel-selection)
+   '("h" . meow-left)
+   '("H" . meow-left-expand)
+   '("i" . meow-insert)
+   '("j" . meow-next)
+   '("J" . meow-next-expand)
+   '("k" . meow-prev)
+   '("K" . meow-prev-expand)
+   '("l" . meow-right)
+   '("L" . meow-right-expand)
+   '("n" . meow-search)
+   '("z" . meow-pop-selection)
+   '("w" . meow-mark-word)
+   '("W" . meow-mark-symbol)
+   '("x" . meow-line)
+   '("o" . meow-block)
+   '("O" . meow-to-block))
+
   (meow-leader-define-key
    ;; errors
    '("e n" . next-error)
@@ -361,6 +382,7 @@
    '("0" . meow-digit-argument)
    '("/" . meow-keypad-describe-key)
    '("?" . meow-cheatsheet))
+
   (meow-normal-define-key
    '("0" . meow-expand-0)
    '("9" . meow-expand-9)
