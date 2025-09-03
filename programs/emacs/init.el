@@ -137,6 +137,15 @@
   (global-display-fill-column-indicator-mode 1))
 
 (use-package vundo
+  :bind
+  (:map vundo-mode-map
+        ("C-n" . vundo-next)
+        ("C-p" . vundo-previous)
+        ("C-f" . vundo-forward)
+        ("C-b" . vundo-backward)
+        ("C-a" . vundo-stem-root)
+        ("C-e" . vundo-stem-end)
+        ("C-d" . vundo-diff))
   :defer)
 
 (use-package xclip
@@ -350,7 +359,9 @@
    '("W" . meow-mark-symbol)
    '("x" . meow-line)
    '("o" . meow-block)
-   '("O" . meow-to-block))
+   '("O" . meow-to-block)
+   '("y" . meow-save)
+   '("Y" . meow-sync-grab))
 
   (meow-leader-define-key
    ;; errors
