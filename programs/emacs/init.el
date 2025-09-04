@@ -256,6 +256,8 @@
           (delete-windows-on buffer)
         (display-buffer buffer))))
 
+  (push '(compilation-mode . normal) meow-mode-state-list)
+
   ;; define an alias for your keymap
   (defalias '+magit  magit-keymap)
   (defalias '+buffer buffer-keymap)
@@ -335,33 +337,8 @@
    '("!" . meow-page-down)
    '("^" . meow-page-up)
    '("_" . forward-paragraph)
-   '("C" . comment-line)
    '(":" . align-regexp)
-   '("<escape>" . ignore)
-   '("b" . meow-back-word)
-   '("B" . meow-back-symbol)
-   '("e" . meow-next-word)
-   '("E" . meow-next-symbol)
-   '("f" . meow-find)
-   '("g" . meow-cancel-selection)
-   '("h" . meow-left)
-   '("H" . meow-left-expand)
-   '("i" . meow-insert)
-   '("j" . meow-next)
-   '("J" . meow-next-expand)
-   '("k" . meow-prev)
-   '("K" . meow-prev-expand)
-   '("l" . meow-right)
-   '("L" . meow-right-expand)
-   '("n" . meow-search)
-   '("z" . meow-pop-selection)
-   '("w" . meow-mark-word)
-   '("W" . meow-mark-symbol)
-   '("x" . meow-line)
-   '("o" . meow-block)
-   '("O" . meow-to-block)
-   '("y" . meow-save)
-   '("Y" . meow-sync-grab))
+   '("<escape>" . ignore))
 
   (meow-leader-define-key
    ;; errors
