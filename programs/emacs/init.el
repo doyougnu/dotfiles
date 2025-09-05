@@ -238,6 +238,43 @@
     (call-interactively #'avy-goto-char-2)
     (meow-mark-symbol 1))
 
+;; TODO:
+;; (defvar my-compilation-buffer-name "*compilation*")
+
+;;   (defun my-toggle-compilation-window ()
+;;     "Toggle visibility of the compilation buffer.
+;; Never reuse the current editing window; always pop a new one when showing."
+;;     (interactive)
+;;     (let* ((buf (get-buffer my-compilation-buffer-name))
+;;            (win (and buf (get-buffer-window buf t))))
+;;       (cond
+;;        ;; If visible in the selected window → hide it (bury + delete window)
+;;        ((and win (eq win (selected-window)))
+;;         (quit-window nil win))
+;;        ;; If visible elsewhere → just jump to it
+;;        (win
+;;         (select-window win))
+;;        ;; If buffer exists but not visible → pop it up in a new window
+;;        (buf
+;;         (let ((display-buffer-overriding-action '(display-buffer-pop-up-window)))
+;;           (display-buffer buf)))
+;;        ;; No buffer yet → politely say so (or kick off a compile; your call)
+;;        (t
+;;         (message "No %s buffer yet; run `my-recompile-no-steal` first." my-compilation-buffer-name)))))
+
+;;   (defun my-recompile-no-steal ()
+;;   "Recompile using the last compilation buffer/command in a new window.
+;; Never takes over the current window."
+;;   (interactive)
+;;   (let ((display-buffer-overriding-action '(display-buffer-pop-up-window)))
+;;     (if (and (boundp 'compilation-last-buffer)
+;;              (buffer-live-p compilation-last-buffer))
+;;         ;; Reuse the last compilation buffer and its command
+;;         (with-current-buffer compilation-last-buffer
+;;           (recompile))
+;;       ;; Otherwise, start fresh with `compile` (prompts/uses `compile-command`)
+;;       (call-interactively #'compile))))
+
   ;; compilation tweaks
   (defun dyg|recompile ()
     "Recompile using the last compilation buffer, regardless of current buffer."
@@ -257,6 +294,9 @@
         (display-buffer buffer))))
 
   (push '(compilation-mode . normal) meow-mode-state-list)
+  ;; always put the next error at the top of the compilation window when jumping
+  ;; to the next or previous error
+  (setq next-error-recenter 0)
 
   ;; define an alias for your keymap
   (defalias '+magit  magit-keymap)
