@@ -296,7 +296,7 @@
   (push '(compilation-mode . normal) meow-mode-state-list)
   ;; always put the next error at the top of the compilation window when jumping
   ;; to the next or previous error
-  (setq next-error-recenter 0)
+  (setq next-error-recenter 30)
 
   ;; define an alias for your keymap
   (defalias '+magit  magit-keymap)
