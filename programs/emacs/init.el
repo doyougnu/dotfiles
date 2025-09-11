@@ -512,6 +512,28 @@
   (define-key magit-mode-map (kbd "y") #'magit-copy-section-value)
   (define-key magit-mode-map (kbd "p") #'magit-push))
 
+(use-package hl-todo
+  :ensure t
+  :config
+  (setq hl-todo-keyword-faces
+        '(("HOLD"   . "#d0bf8f")
+          ("DYG"    . "#d0bf8f")
+          ("TODO"   . "#cc9393")
+          ("NEXT"   . "#dca3a3")
+          ("START"  . "#dc8cc3")
+          ("PROG"   . "#7cb8bb")
+          ("OKAY"   . "#7cb8bb")
+          ("DONT"   . "#5f7f5f")
+          ("FAIL"   . "#8c5353")
+          ("DONE"   . "#afd8af")
+          ("NOTE"   . "#d0bf8f")
+          ("MAYBE"  . "#d0bf8f")
+          ("HACK"   . "#d0bf8f")
+          ("TEMP"   . "#d0bf8f")
+          ("FIXME"  . "#cc9393")
+          ("XXXX*"  . "#cc9393")))
+  (global-hl-todo-mode))
+
 (use-package magit-todos
   :ensure t
   :demand
