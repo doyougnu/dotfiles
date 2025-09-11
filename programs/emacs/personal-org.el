@@ -467,7 +467,7 @@
          "Note taken on %U \\\\ \n%?"
          :clock-resume t :empty-lines 1)
 
-        ("i" "idea" entry (function org-roam-dailies-capture-today)
+        ("d" "daily" entry (function org-roam-dailies-capture-today)
          "* %? :IDEA:\n - Idea taken on %U \\\\ \n" :clock-resume t :empty-lines 1)
 
         ("m" "meeting" entry (file org-default-todo-file)

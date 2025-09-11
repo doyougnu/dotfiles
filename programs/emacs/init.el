@@ -209,8 +209,8 @@
   (defvar notes-keymap
     (let ((keymap (make-keymap)))
       (define-key keymap (kbd "s") #'org-roam-db-sync)
-      (define-key keymap (kbd "D") #'org-roam-dailies-capture-today)
-      (define-key keymap (kbd "d") #'org-roam-dailies-goto-today)
+      (define-key keymap (kbd "d") #'org-roam-dailies-capture-today)
+      (define-key keymap (kbd "'") #'org-roam-dailies-goto-today)
       (define-key keymap (kbd "i") #'org-roam-node-insert)
       (define-key keymap (kbd "f") #'org-roam-node-find)
       (define-key keymap (kbd "r") #'org-roam-buffer-display-dedicated)
@@ -240,42 +240,24 @@
     (call-interactively #'avy-goto-char-2)
     (meow-mark-symbol 1))
 
-;; TODO:
-;; (defvar my-compilation-buffer-name "*compilation*")
+  (defun dyg|find-eshell-buffer ()
+  "Find and return the first Eshell buffer, or nil if none exists."
+  (cl-find-if (lambda (buffer)
+                (with-current-buffer buffer
+                  (eq major-mode 'eshell-mode)))
+              (buffer-list)))
 
-;;   (defun my-toggle-compilation-window ()
-;;     "Toggle visibility of the compilation buffer.
-;; Never reuse the current editing window; always pop a new one when showing."
-;;     (interactive)
-;;     (let* ((buf (get-buffer my-compilation-buffer-name))
-;;            (win (and buf (get-buffer-window buf t))))
-;;       (cond
-;;        ;; If visible in the selected window → hide it (bury + delete window)
-;;        ((and win (eq win (selected-window)))
-;;         (quit-window nil win))
-;;        ;; If visible elsewhere → just jump to it
-;;        (win
-;;         (select-window win))
-;;        ;; If buffer exists but not visible → pop it up in a new window
-;;        (buf
-;;         (let ((display-buffer-overriding-action '(display-buffer-pop-up-window)))
-;;           (display-buffer buf)))
-;;        ;; No buffer yet → politely say so (or kick off a compile; your call)
-;;        (t
-;;         (message "No %s buffer yet; run `my-recompile-no-steal` first." my-compilation-buffer-name)))))
-
-;;   (defun my-recompile-no-steal ()
-;;   "Recompile using the last compilation buffer/command in a new window.
-;; Never takes over the current window."
-;;   (interactive)
-;;   (let ((display-buffer-overriding-action '(display-buffer-pop-up-window)))
-;;     (if (and (boundp 'compilation-last-buffer)
-;;              (buffer-live-p compilation-last-buffer))
-;;         ;; Reuse the last compilation buffer and its command
-;;         (with-current-buffer compilation-last-buffer
-;;           (recompile))
-;;       ;; Otherwise, start fresh with `compile` (prompts/uses `compile-command`)
-;;       (call-interactively #'compile))))
+  (defun dyg|toggle-eshell-window ()
+    "Toggle visibility of the compilation buffer.
+Never reuse the current editing window; always pop a new one when showing."
+    (interactive)
+    (if-let ((buffer (dyg|find-eshell-buffer)))
+        ;; if eshell is up then toggle it
+        (if (get-buffer-window buffer 'visible)
+            (delete-windows-on buffer)
+          (display-buffer buffer))
+       ;; else it hasn't started so call it
+      (project-eshell)))
 
   ;; compilation tweaks
   (defun dyg|recompile ()
@@ -284,8 +266,8 @@
     (let ((buffer next-error-last-buffer))
       (if (and (boundp        'next-error-last-buffer)
                (buffer-live-p  buffer))
-               (with-current-buffer buffer (recompile))
-               (call-interactively #'recompile))))
+          (with-current-buffer buffer (recompile))
+        (call-interactively #'recompile))))
 
   (defun dyg|toggle-compilation-window ()
     "Show/Hide the window containing the '*compilation*' buffer."
@@ -314,7 +296,10 @@
   (global-set-key (kbd "C-c i") '+smerge)
   (global-set-key (kbd "C-t")   'dyg|avy-goto-char-2)
   (global-set-key (kbd "C-c c") #'dyg|recompile)
-  (global-set-key (kbd "C-,")   #'dyg|toggle-compilation-window)
+  (global-set-key (kbd "C-c C") #'dyg|toggle-compilation-window)
+  (global-set-key (kbd "C-c o") #'dyg|toggle-eshell-window)
+  (global-set-key (kbd "C-c j") #'org-roam-dailies-goto-today)
+
 
   ;; DROP: leaving this in here just for windows for now
   (defun dyg/meow-save-to-clipboard ()
@@ -1070,34 +1055,34 @@
   :mode (("\\.org$" . org-mode))
   :ensure org-plus-contrib
   :bind (:map org-mode-map
-        ("M-t" . org-insert-heading-respect-content)
-        ("M-n" . dyg|org-insert-subheading-respect-content)
-        ("C-M-t" . org-move-subtree-up)
-        ("C-M-n" . org-move-subtree-down))
+              ("M-t" . org-insert-heading-respect-content)
+              ("M-n" . dyg|org-insert-subheading-respect-content)
+              ("C-M-t" . org-move-subtree-up)
+              ("C-M-n" . org-move-subtree-down))
   :config
 
   (defun dyg|org-insert-subheading-respect-content ()
-  "Insert a subheading respecting the content below the current heading."
-  (interactive)
-  (org-insert-heading-respect-content)
-  (org-do-demote))
+    "Insert a subheading respecting the content below the current heading."
+    (interactive)
+    (org-insert-heading-respect-content)
+    (org-do-demote))
 
   (defun dyg|org-latex-preview ()
-	"Automatically refresh LaTeX fragments in the current buffer."
-	(when (eq major-mode 'org-mode)
-	  (org-latex-preview)))
+	  "Automatically refresh LaTeX fragments in the current buffer."
+	  (when (eq major-mode 'org-mode)
+	    (org-latex-preview)))
 
   ;; Enable automatic LaTeX fragment preview
   (defun dyg|org-latex-preview-setup ()
-  "Set up auto LaTeX fragment preview."
-  (add-hook 'after-save-hook #'dyg|org-latex-preview nil t))
+    "Set up auto LaTeX fragment preview."
+    (add-hook 'after-save-hook #'dyg|org-latex-preview nil t))
   (add-hook 'org-mode-hook #'dyg|org-latex-preview-setup)
 
   (setq org-startup-with-inline-images t)
   (setq org-M-RET-may-split-line nil)
   (setq org-startup-indented t)
   (setq org-format-latex-options
-		(plist-put org-format-latex-options :scale 1.5))
+		    (plist-put org-format-latex-options :scale 1.5))
   (add-hook 'org-mode-hook
             #'(lambda ()
                 (add-hook 'meow-insert-mode-hook
@@ -1194,7 +1179,7 @@
           ("d" "daily" entry
            "* FLP\n%?\n"
            :if-new (file+head "%<%Y-%m-%d>.org"
-                     "#+title: %<%Y-%m-%d %A>\n#+filetags: :journal:\n\n*"))))
+                              "#+title: %<%Y-%m-%d %A>\n#+filetags: :journal:\n\n*"))))
 
   (cl-defmethod org-roam-node-type ((node org-roam-node))
     "Return the TYPE of NODE."
