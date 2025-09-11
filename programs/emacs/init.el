@@ -209,6 +209,8 @@
   (defvar notes-keymap
     (let ((keymap (make-keymap)))
       (define-key keymap (kbd "s") #'org-roam-db-sync)
+      (define-key keymap (kbd "D") #'org-roam-dailies-capture-today)
+      (define-key keymap (kbd "d") #'org-roam-dailies-goto-today)
       (define-key keymap (kbd "i") #'org-roam-node-insert)
       (define-key keymap (kbd "f") #'org-roam-node-find)
       (define-key keymap (kbd "r") #'org-roam-buffer-display-dedicated)
@@ -1148,6 +1150,7 @@
   :config
 
   (setq org-roam-directory (file-truename "~/sync/roam")
+        org-roam-dailies-directory "dialies/"
         org-roam-inbox     (concat org-roam-directory "/" "refile.org"))
 
   (setq org-roam-capture-templates
@@ -1165,7 +1168,11 @@
            :if-new
            (file+head "concepts/${title}.org" "#+title: ${title}\n#+filetags: :article:\n")
            :immediate-finish t
-           :unnarrowed t)))
+           :unnarrowed t)
+          ("d" "daily" entry
+           "* FLP\n%?\n"
+           :if-new (file+head "%<%Y-%m-%d>.org"
+                     "#+title: %<%Y-%m-%d %A>\n#+filetags: :journal:\n\n*"))))
 
   (cl-defmethod org-roam-node-type ((node org-roam-node))
     "Return the TYPE of NODE."

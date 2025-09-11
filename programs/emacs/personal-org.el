@@ -373,10 +373,11 @@
       org-agenda-start-day nil)
 
 (setq org-tag-alist '(("research"     . ?r)
-                      ("job"          . ?j)
                       ("dnd"          . ?d)
-                      ("chores"       . ?c)
+                      ("klister"      . ?k)
+                      ("math"         . ?m)
                       ("dev-setup"    . ?s)
+                      ("verse"        . ?v)
                       ("longterm"     . ?l)))
 
 
@@ -454,28 +455,26 @@
          nil)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;; Org Capture Config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (setq org-capture-templates
-        '(("t" "todo" entry (file org-default-todo-file)
-           "* TODO %?\n - Todo made on %U \\\\ \n" :clock-resume t :empty-lines 1)
 
-          ("o" "oneoff" entry (file org-default-todo-file)
-           "* NEXT %?\n - OneOff made on %U \\\\ \n" :clock-resume t :empty-lines 1)
+(setq org-capture-templates
+      '(("t" "todo" entry (file org-default-todo-file)
+         "* TODO %?\n - Todo made on %U \\\\ \n" :clock-resume t :empty-lines 1)
 
-          ("j" "jira ticket" entry (file+headline org-default-issue-file "NEXT JS Backend")
-           "* TODO LT-%^{Prompt}\n - Issue made on %U \\\\ \n" :clock-resume t :immediate-finish t :empty-lines 1)
+        ("o" "oneoff" entry (file org-default-todo-file)
+         "* NEXT %?\n - OneOff made on %U \\\\ \n" :clock-resume t :empty-lines 1)
 
-          ("n" "note" item (function +default/org-notes-headlines)
-           "Note taken on %U \\\\ \n%?"
-           :clock-resume t :empty-lines 1)
+        ("n" "note" item (function +default/org-notes-headlines)
+         "Note taken on %U \\\\ \n%?"
+         :clock-resume t :empty-lines 1)
 
-          ("i" "idea" entry (file org-default-todo-file)
-           "* %? :IDEA:\n - Idea taken on %U \\\\ \n" :clock-resume t :empty-lines 1)
+        ("i" "idea" entry (function org-roam-dailies-capture-today)
+         "* %? :IDEA:\n - Idea taken on %U \\\\ \n" :clock-resume t :empty-lines 1)
 
-          ("m" "meeting" entry (file org-default-todo-file)
-           "* MEETING with %? :MEETING:\n%U" :clock-resume t :empty-lines 1)
+        ("m" "meeting" entry (file org-default-todo-file)
+         "* MEETING with %? :MEETING:\n%U" :clock-resume t :empty-lines 1)
 
-          ("s" "Slipbox" entry  (file org-roam-inbox)
-           "* %?\n")
+        ("s" "Slipbox" entry  (file org-roam-inbox)
+         "* %?\n")
           ))
 
 
