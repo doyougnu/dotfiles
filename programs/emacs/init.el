@@ -214,6 +214,7 @@
       (define-key keymap (kbd "i") #'org-roam-node-insert)
       (define-key keymap (kbd "f") #'org-roam-node-find)
       (define-key keymap (kbd "r") #'org-roam-buffer-display-dedicated)
+      (define-key keymap (kbd "n") #'org-add-note)
       keymap))
 
   (defvar error-keymap
