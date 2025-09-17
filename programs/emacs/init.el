@@ -215,8 +215,8 @@
       (define-key keymap (kbd "f") #'org-roam-node-find)
       (define-key keymap (kbd "r") #'org-roam-buffer-display-dedicated)
       (define-key keymap (kbd "n") #'org-add-note)
-      (define-key keymap (kbd "c") #'org-clock-in)
       (define-key keymap (kbd "C") #'org-clock-out)
+      (define-key keymap (kbd "c") #'dyg|org-clock-in-from-history)
       keymap))
 
   (defvar error-keymap
@@ -235,6 +235,12 @@
       (define-key keymap (kbd "l") #'magit-smerge-keep-lower)
       keymap))
 
+  ;; org clock custom commands
+  (defun dyg|org-clock-in-from-history ()
+    "Clock into one of the recent tasks in `org-clock-history`."
+    (interactive)
+    (let ((current-prefix-arg '(4)))
+      (call-interactively 'org-clock-in)))
 
   ;; avy tweaks
   (defun dyg|avy-goto-char-2 ()
@@ -1027,23 +1033,30 @@ Never reuse the current editing window; always pop a new one when showing."
 (use-package avy
   :config
 
-  ;; First, define the action
+  ;; Custom actions
   (defun avy-action-kill-line-stay (pt)
     "At point PT: kill line, join with the next, and leave point at join."
     (save-excursion
       (goto-char pt)
       (kill-whole-line)))
 
-  ;; First, define the action
   (defun avy-action-kill-line-and-join (pt)
     "At point PT: kill line, join with the next, and leave point at join."
     (avy-action-kill-line-stay pt)
     (delete-indentation)
     (goto-char pt))
 
+  (defun dyg|avy-embark (pt)
+    "Run `avy-goto-char-2' then mark the symbol at point with Meow."
+    (interactive)
+    (goto-char pt)
+    (meow-mark-symbol 1)
+    (embark-act))
+
   ;; Then, register it
   (setf (alist-get ?k avy-dispatch-alist) #'avy-action-kill-line-and-join
-        (alist-get ?K avy-dispatch-alist) #'avy-action-kill-line-stay)
+        (alist-get ?K avy-dispatch-alist) #'avy-action-kill-line-stay
+        (alist-get ?E avy-dispatch-alist) #'dyg|avy-embark)
 
   (setq avy-keys '(?c ?i ?e ?a ?h ?t ?s ?n)))
 
