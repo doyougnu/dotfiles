@@ -456,6 +456,30 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;; Org Capture Config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun dyg|org-roam-carry-over-headlines ()
+  "Insert all top-level headlines from yesterday’s daily into today’s buffer."
+  (let* ((yesterday (org-roam-dailies--file-name "yesterday"))
+         (y-file (org-roam-dailies--find-file yesterday)))
+    (when (file-exists-p y-file)
+      (insert
+       (with-temp-buffer
+         (insert-file-contents y-file)
+         (goto-char (point-min))
+         ;; Collect only top-level headlines
+         (let (headlines)
+           (while (re-search-forward "^\\* " nil t)
+             (push (buffer-substring (line-beginning-position)
+                                     (line-end-position))
+                   headlines))
+           (mapconcat #'identity (nreverse headlines) "\n")))) "\n")))
+
+(setq org-roam-dailies-capture-templates
+      '(("d" "default" entry "* %?"
+         :if-new
+         (file+head "%<%Y-%m-%d>.org"
+                    "#+title: %<%Y-%m-%d>\n\n")
+         :hook (dyg|org-roam-carry-over-headlines))))
+
 (setq org-capture-templates
       '(("t" "todo" entry (file org-default-todo-file)
          "* TODO %?\n - Todo made on %U \\\\ \n" :clock-resume t :empty-lines 1)

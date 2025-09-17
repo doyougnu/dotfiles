@@ -211,6 +211,7 @@
       (define-key keymap (kbd "s") #'org-roam-db-sync)
       (define-key keymap (kbd "d") #'org-roam-dailies-capture-today)
       (define-key keymap (kbd "'") #'org-roam-dailies-goto-today)
+      (define-key keymap (kbd "y") #'org-roam-dailies-goto-yesterday)
       (define-key keymap (kbd "i") #'org-roam-node-insert)
       (define-key keymap (kbd "f") #'org-roam-node-find)
       (define-key keymap (kbd "r") #'org-roam-buffer-display-dedicated)
