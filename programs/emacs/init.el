@@ -406,8 +406,7 @@ Never reuse the current editing window; always pop a new one when showing."
    '("9" . meow-digit-argument)
    '("0" . meow-digit-argument)
    '("/" . meow-keypad-describe-key)
-   '("?" . ispell)
-   '("=" . ispell-word))
+   '("?" . ispell))
 
   (meow-normal-define-key
    '("0" . meow-expand-0)
