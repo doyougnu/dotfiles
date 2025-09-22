@@ -610,7 +610,7 @@ Never reuse the current editing window; always pop a new one when showing."
   ;; :mode "\\.hs\\'"
   :hook
   ((haskell-mode . interactive-haskell-mode)
-   ;; (haskell-mode . subword-mode) ;; treat camel case as separate words
+   (haskell-mode . subword-mode) ;; treat camel case as separate words
    (haskell-mode . eldoc-mode)
    (haskell-mode . haskell-indentation-mode)
    (after-save   . my-haskell-maybe-update-tags))
@@ -1174,7 +1174,7 @@ Never reuse the current editing window; always pop a new one when showing."
   :config
 
   (setq org-roam-directory (file-truename "~/sync/roam")
-        org-roam-dailies-directory "dialies/"
+        org-roam-dailies-directory "dailies/"
         org-roam-inbox     (concat org-roam-directory "/" "refile.org"))
 
   (setq org-roam-capture-templates
