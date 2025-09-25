@@ -288,6 +288,7 @@ Never reuse the current editing window; always pop a new one when showing."
         (display-buffer buffer))))
 
   (push '(compilation-mode . normal) meow-mode-state-list)
+  (push '(em-mode . normal) meow-mode-state-list)
   ;; always put the next error at the top of the compilation window when jumping
   ;; to the next or previous error
   (setq next-error-recenter 30)

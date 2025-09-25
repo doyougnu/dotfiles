@@ -391,6 +391,7 @@ in {
 
   home.packages = with pkgs; [
     alsa-utils
+    anki       # for flashcard spaced repetition
     autorandr
     cowsay
     cachix
