@@ -491,6 +491,12 @@ Never reuse the current editing window; always pop a new one when showing."
   (meow-global-mode 1)
   (meow-setup-indicator))
 
+(use-package meow-tree-sitter
+  :requires meow
+  :demand
+  :init
+  (meow-tree-sitter-register-defaults))
+
 (use-package better-jumper
   :ensure t
   :init
@@ -668,6 +674,9 @@ Never reuse the current editing window; always pop a new one when showing."
   (define-key haskell-mode-map (kbd "C-c C-z") 'haskell-interactive-switch)
   (define-key haskell-mode-map (kbd "C-c d")   'haskell-generate-tags))
 
+(setq major-mode-remap-alist
+      '((c-mode   . c-ts-mode)
+        (c++-mode . c++-ts-mode)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; completion ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Enable vertico
