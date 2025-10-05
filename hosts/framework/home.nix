@@ -3,7 +3,7 @@
 let
     # myEmacs = import ../../programs/emacs/emacs.nix { pkgs = pkgs; config = config; unstable = pkgs; };
     # myEmacs = pkgs.emacs30-pgtk.override {withGTK3 = true; };
-    myEmacs = (pkgs.emacsPackagesFor pkgs.emacs30-pgtk).emacsWithPackages (epkgs: with epkgs; [
+    myEmacs = (pkgs.emacsPackagesFor pkgs.emacs30).emacsWithPackages (epkgs: with epkgs; [
       vterm
       treesit-grammars.with-all-grammars
     ]);

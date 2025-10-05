@@ -372,8 +372,8 @@ Never reuse the current editing window; always pop a new one when showing."
    '("j" . meow-next)
    '("k" . meow-prev)
    '("$" . backward-paragraph)
-   '("!" . meow-page-down)
-   '("^" . meow-page-up)
+   ;; '("!" . meow-page-down)
+   ;; '("^" . meow-page-up)
    '("_" . forward-paragraph)
    '(":" . align-regexp)
    '("<escape>" . ignore))
@@ -617,7 +617,7 @@ Never reuse the current editing window; always pop a new one when showing."
   ;; :mode "\\.hs\\'"
   :hook
   ((haskell-mode . interactive-haskell-mode)
-   (haskell-mode . subword-mode) ;; treat camel case as separate words
+   ;; (haskell-mode . subword-mode) ;; treat camel case as separate words
    (haskell-mode . eldoc-mode)
    (haskell-mode . haskell-indentation-mode)
    (after-save   . my-haskell-maybe-update-tags))
@@ -874,10 +874,14 @@ Never reuse the current editing window; always pop a new one when showing."
   (defun dyg|consult-line-word-at-point ()
     "Run `consult-line` preloaded with the word under the cursor."
     (interactive)
-    (let ((word (thing-at-point 'word t)))
-      (if word
-          (consult-line word nil)
-        (consult-line nil nil))))
+    (let* ((word (thing-at-point 'word t))
+           (region? (region-active-p))
+           (region  (if region?
+                        (buffer-substring (region-beginning) (region-end))
+                      nil)))
+      (cond
+       (region (consult-line region nil))
+       (t      (consult-line nil  nil)))))
 
   ;; avoid certain buffers in search
   (mapcar
