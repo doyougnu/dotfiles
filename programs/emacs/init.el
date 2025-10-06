@@ -1068,12 +1068,26 @@ Never reuse the current editing window; always pop a new one when showing."
     (meow-mark-symbol 1)
     (embark-act))
 
+  (defun dyg|avy-consult-line (pt)
+    "Any wrapper to run `consult-line'."
+    (interactive)
+    (goto-char pt)
+    (consult-line (thing-at-point 'word) nil))
+
+  (defun dyg|avy-consult-line-multi (pt)
+    "Avy wrapper to run `consult-line-multi'."
+    (interactive)
+    (goto-char pt)
+    (consult-line-multi (thing-at-point 'word) nil))
+
   ;; Then, register it
   (setf (alist-get ?k avy-dispatch-alist) #'avy-action-kill-line-and-join
         (alist-get ?K avy-dispatch-alist) #'avy-action-kill-line-stay
+        (alist-get ?s avy-dispatch-alist) #'dyg|avy-consult-line
+        (alist-get ?S avy-dispatch-alist) #'dyg|avy-consult-line-multi
         (alist-get ?E avy-dispatch-alist) #'dyg|avy-embark)
 
-  (setq avy-keys '(?c ?i ?e ?a ?h ?t ?s ?n)))
+  (setq avy-keys '(?c ?i ?e ?a ?h ?t ?d ?n))) ; reserve s for search
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; org ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq initial-major-mode 'org-mode)
