@@ -414,6 +414,7 @@ in {
     killall         # for polybar launch script
     moreutils
     nodejs
+    nethack
     unstable.mu              # for email
     parsec-bin
     pdfpc           # pdf presentaitons from the shell
