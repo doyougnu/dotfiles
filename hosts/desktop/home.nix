@@ -100,6 +100,7 @@ in {
         "alt+d" = "scroll_page_down";
       };
     extraConfig = ''
+      cursor none
       copy_on_select yes
     '';
     themeFile = "Tomorrow_Night_Blue";
@@ -357,7 +358,7 @@ in {
     '';
     shellAliases = {
       rgf = "rg --files | rg";
-      e  = "emacsclient -cn";
+      e  = "emacsclient -nw -cn";
 
       gs = "git status";
       gp = "git push";

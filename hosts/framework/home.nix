@@ -367,7 +367,7 @@ in {
     '';
     shellAliases = {
       rgf = "rg --files | rg";
-      e  = "emacsclient -cn";
+      e  = "emacsclient -nw -cn";
 
       gs = "git status";
       gp = "git push";
