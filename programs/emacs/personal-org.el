@@ -480,6 +480,16 @@
                     "#+title: %<%Y-%m-%d>\n\n")
          :hook (dyg|org-roam-carry-over-headlines))))
 
+(defun org-capture-slugify (title)
+  "Convert TITLE to a slug suitable for filenames."
+  (downcase (replace-regexp-in-string "[^a-z0-9]+" "-" title)))
+
+(defun org-capture-blog-file ()
+  "Prompt for blog title and return filename and header."
+  (let* ((title (read-string "Blog title: "))
+         (slug  (org-capture-slugify title)))
+    (expand-file-name
+     (format "~/writing/blog/orgblog/drafts/%s-%s.org" (format-time-string "%Y-%m-%d") slug))))
 
 (setq org-capture-templates
       '(("t" "todo" entry (file org-default-todo-file)
@@ -495,12 +505,8 @@
         ("d" "daily" entry (function org-roam-dailies-capture-today)
          "* %? :IDEA:\n - Idea taken on %U \\\\ \n" :clock-resume t :empty-lines 1)
 
-        ("m" "meeting" entry (file org-default-todo-file)
-         "* MEETING with %? :MEETING:\n%U" :clock-resume t :empty-lines 1)
-
-        ;; TODO
-        ;; ("b" "New blog post" plain (function jj/open-new-project-file)
-         ;; "#+TITLE: %^{Title}\n#+DATE: %T\n#+AUTHOR: Your Name\n#+FILETAGS: :blog: :draft:\n#+OPTIONS: toc:nil num:nil\n\n* Introduction\n")
+        ("b" "Blog draft" plain (file org-capture-blog-file)
+         "#+title: %^{Title}\n#+date: %<%Y-%m-%d>\n#+filetags: :draft:\n\n")
 
         ))
 
