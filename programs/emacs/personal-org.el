@@ -480,6 +480,7 @@
                     "#+title: %<%Y-%m-%d>\n\n")
          :hook (dyg|org-roam-carry-over-headlines))))
 
+
 (setq org-capture-templates
       '(("t" "todo" entry (file org-default-todo-file)
          "* TODO %?\n - Todo made on %U \\\\ \n" :clock-resume t :empty-lines 1)
@@ -497,12 +498,14 @@
         ("m" "meeting" entry (file org-default-todo-file)
          "* MEETING with %? :MEETING:\n%U" :clock-resume t :empty-lines 1)
 
-        ("s" "Slipbox" entry  (file org-roam-inbox)
-         "* %?\n")
-          ))
+        ;; TODO
+        ;; ("b" "New blog post" plain (function jj/open-new-project-file)
+         ;; "#+TITLE: %^{Title}\n#+DATE: %T\n#+AUTHOR: Your Name\n#+FILETAGS: :blog: :draft:\n#+OPTIONS: toc:nil num:nil\n\n* Introduction\n")
+
+        ))
 
 
-  (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 9))))
+  (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 5))))
   (setq org-refile-use-outline-path 'file)
   (setq org-outline-path-complete-in-steps nil)
 
@@ -511,26 +514,6 @@
   (setq org-archive-location (concat
                               org-archive-default-directory
                               "%s_archive::* Archived Tasks"))
-
-;;;;;;;;;;;;;;;;;;;;;;;;; Org Publish Config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (setq org-publish-project-alist
-        '(("org-notes"
-           :base-directory "~/Programming/blog/orgblog"
-           :base-extension "org"
-           :publishing-directory "~/Programming/blog/public_html/"
-           :recursive t
-           :publishing-function org-html-publish-to-html
-           :headline-levels 4           ; Just the default for this project.
-           :auto-preamble t)
-
-          ("org-static"
-           :base-directory "~/Programming/blog/orgblog"
-           :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
-           :publishing-directory "~/Programming/blog/public_html/"
-           :recursive t
-           :publishing-function org-publish-attachment)
-
-          ("orgblog" :components ("org-notes" "org-static"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;; Org Babel        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; template special for sicp
