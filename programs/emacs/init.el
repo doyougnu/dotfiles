@@ -568,7 +568,7 @@ Never reuse the current editing window; always pop a new one when showing."
 (unless (package-installed-p 'standard-themes)
   (package-install 'standard-themes))
 
-(load-theme 'modus-vivendi-tinted)
+(load-theme 'modus-operandi-tinted)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -600,11 +600,12 @@ Never reuse the current editing window; always pop a new one when showing."
 
 (use-package rust-mode
   :init
-  ;; TODO (setq rust-mode-treesitter-derive t)
+  (setq rust-mode-treesitter-derive t)
   :hook (rust-mode . prettify-symbols-mode)
   :hook (rust-mode . display-line-numbers-mode)
   :config
 
+  (setq eldoc-echo-area-use-multiline-p t)
   ;; Turn off for inlay hints for rust
   (add-hook 'eglot-managed-mode-hook
 			      (lambda ()

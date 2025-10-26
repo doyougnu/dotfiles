@@ -84,6 +84,7 @@ in {
       };
     extraConfig = ''
       copy_on_select yes
+      cursor none
     '';
     themeFile = "Tomorrow_Night_Blue";
     settings = {
