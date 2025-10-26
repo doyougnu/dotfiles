@@ -102,6 +102,7 @@ in {
     extraConfig = ''
       cursor none
       copy_on_select yes
+      sync_to_monitor no
     '';
     themeFile = "Tomorrow_Night_Blue";
     settings = {
