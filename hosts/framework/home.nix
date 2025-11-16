@@ -410,6 +410,7 @@ in {
     feh
     gcc   # for org-roam
     google-chrome
+    globalprotect-openconnect  # vpn
     # gollum
     libevent
     libnotify
