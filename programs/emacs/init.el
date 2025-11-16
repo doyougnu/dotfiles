@@ -138,14 +138,15 @@
 
 (use-package vundo
   :bind
-  (:map vundo-mode-map
+  (("M-u" . vundo)
+   (:map vundo-mode-map
         ("C-n" . vundo-next)
         ("C-p" . vundo-previous)
         ("C-f" . vundo-forward)
         ("C-b" . vundo-backward)
         ("C-a" . vundo-stem-root)
         ("C-e" . vundo-stem-end)
-        ("C-d" . vundo-diff))
+        ("C-d" . vundo-diff)))
   :defer)
 
 (use-package xclip
@@ -449,7 +450,7 @@ Never reuse the current editing window; always pop a new one when showing."
    '("l" . meow-right)
    '("L" . meow-right-expand)
    '("m" . meow-join)
-   '("M" . vundo)
+   ;; '("M" . vundo)
    '("n" . meow-search)
    ;; just use m s
    ;; '("N" . dyg/join-line)
@@ -457,7 +458,7 @@ Never reuse the current editing window; always pop a new one when showing."
    '("O" . meow-to-block)
    '("p" . meow-yank)
    '("P" . dyg/paste-from-clipboard)
-   ;; '("q" . meow-quit)
+   '("q" . meow-pop-selection)
    ;; '("Q" . meow-goto-line)
    '("r" . meow-replace)
    '("R" . meow-swap-grab)
@@ -475,7 +476,7 @@ Never reuse the current editing window; always pop a new one when showing."
    ;; '("y" . dyg/meow-save-to-clipboard)
    '("y" . meow-save)
    '("Y" . meow-sync-grab)
-   '("z" . meow-pop-selection)
+   ;; '("z" . meow-pop-selection)
    '("'" . repeat)
    '("<escape>" . ignore)
    '("$" . backward-paragraph)
