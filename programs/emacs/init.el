@@ -372,10 +372,10 @@ Never reuse the current editing window; always pop a new one when showing."
   (meow-motion-define-key
    '("j" . meow-next)
    '("k" . meow-prev)
-   '("$" . backward-paragraph)
+   ;; '("$" . backward-paragraph)
    ;; '("!" . meow-page-down)
    ;; '("^" . meow-page-up)
-   '("_" . forward-paragraph)
+   ;; '("_" . forward-paragraph)
    '(":" . align-regexp)
    '("<escape>" . ignore))
 
@@ -917,6 +917,7 @@ Never reuse the current editing window; always pop a new one when showing."
   :demand
   :bind (("M-o" . ace-window))
   :config
+  (ace-window-display-mode)
   (setq aw-keys '(?i ?e ?a ?, ?. ?h ?t ?s ?n)))
 
 (use-package embark

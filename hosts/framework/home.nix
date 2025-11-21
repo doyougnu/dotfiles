@@ -74,14 +74,8 @@ in {
   # kitty config
   programs.kitty = {
     enable = true;
-      keybindings = {
-        "shift+alt+c" = "copy_to_clipboard";
-        "shift+alt+v" = "paste_from_clipboard";
-        "shift+alt+j" = "scroll_line_down";
-        "shift+alt+k" = "scroll_line_up";
-        "shift+alt+u" = "scroll_page_up";
-        "shift+alt+d" = "scroll_page_down";
-      };
+      # keybindings = {
+      # };
     extraConfig = ''
       copy_on_select yes
       cursor none
@@ -339,32 +333,48 @@ in {
 
       function lookup-notify () { notify-send -t 2000 "$(lookup $1)" }
 
-      # Remove any custom keybindings for copy/paste in zsh
-      bindkey -r '^O'
-      bindkey -r '^E'
-      bindkey -r '^V'
-      bindkey -r '^D'
-      bindkey -r '^S'
+      ### --- Basic Emacs movement ---
+      bindkey '^A' beginning-of-line          # C-a
+      bindkey '^E' end-of-line                # C-e
+      bindkey '^B' backward-char              # C-b
+      bindkey '^F' forward-char               # C-f
+      bindkey '^P' up-line-or-history         # C-p
+      bindkey '^N' down-line-or-history       # C-n
 
-      bindkey "^t" history-beginning-search-backward
-      bindkey "^n" history-beginning-search-forward
-      bindkey "^[t" history-search-backward
-      bindkey "^[n" history-search-forward
-      bindkey -e "^t" up-line-or-history
-      bindkey -e "^n" down-line-or-history
-      bindkey -e "^s" autosuggest-accept
-      bindkey -e "^w" forward-word
-      bindkey "^w" forward-word
-      bindkey -e "^b" backward-word
-      bindkey "^b" backward-word
-      bindkey -e "^d" kill-word
-      bindkey "^d" kill-word
-      bindkey -e "^H" backward-kill-word
-      bindkey "^H" backward-kill-word
-      bindkey "^[k" kill-whole-line
-      bindkey "^[i" expand-or-complete-with-indicator
+      ### --- Word movement like Emacs ---
+      bindkey '^[b' backward-word             # M-b
+      bindkey '^[f' forward-word              # M-f
 
-      # Set the autosuggestion highlight style to a lava-like color
+      ### --- Kill / yank (cut / paste) ---
+      bindkey '^K' kill-line                  # C-k
+      bindkey '^Y' yank                       # C-y
+      bindkey '^[d' kill-word                 # M-d
+
+      ### --- Transpose / delete / insert ---
+      bindkey '^T' transpose-chars            # C-t
+      bindkey '^D' delete-char                # C-d
+
+      ### --- Eshell-style incremental search ---
+      # bindkey '^R' history-incremental-search-backward  # C-r
+      bindkey '^S' history-incremental-search-backward  # C-s
+      bindkey -e "^[s" autosuggest-accept
+
+      # bindkey "^t" history-beginning-search-backward
+      # bindkey "^n" history-beginning-search-forward
+      # bindkey -e "^t" up-line-or-history
+      # bindkey -e "^n" down-line-or-history
+      # bindkey -e "^w" forward-word
+      # bindkey "^w" forward-word
+      # bindkey -e "^b" backward-word
+      # bindkey "^b" backward-word
+      # bindkey -e "^d" kill-word
+      # bindkey "^d" kill-word
+      # bindkey -e "^H" backward-kill-word
+      # bindkey "^H" backward-kill-word
+      # bindkey "^[k" kill-whole-line
+      # bindkey "^[i" expand-or-complete-with-indicator
+
+     # Set the autosuggestion highlight style to a lava-like color
       ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#ff4500'
     '';
     shellAliases = {
