@@ -311,6 +311,7 @@ Never reuse the current editing window; always pop a new one when showing."
   (global-set-key (kbd "C-c C") #'dyg|toggle-compilation-window)
   (global-set-key (kbd "C-c o") #'dyg|toggle-eshell-window)
   (global-set-key (kbd "C-c j") #'org-roam-dailies-goto-today)
+  (global-set-key (kbd "M-j")   #'dyg|join-line)
 
 
   ;; DROP: leaving this in here just for windows for now
@@ -347,7 +348,7 @@ Never reuse the current editing window; always pop a new one when showing."
         (process-send-string proc text)
         (process-send-eof proc)))))
 
-  (defun dyg/join-line ()
+  (defun dyg|join-line ()
     "Mimic vims join-line behavior"
     (interactive)
     (forward-line 1)
