@@ -1282,7 +1282,6 @@ Never reuse the current editing window; always pop a new one when showing."
                             :foreground "gray18")))
   (add-hook 'before-save-hook #'delete-trailing-whitespace)
   (setq global-whitespace-mode 1)
-  (which-key-mode)
   (setq which-key-idle-delay 0.10)
   (setq ring-bell-function 'ignore)
   (setq-default buffer-file-coding-system 'unix)
