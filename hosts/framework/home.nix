@@ -355,9 +355,9 @@ in {
       bindkey '^D' delete-char                # C-d
 
       ### --- Eshell-style incremental search ---
-      # bindkey '^R' history-incremental-search-backward  # C-r
-      bindkey '^S' history-incremental-search-backward  # C-s
-      bindkey -e "^[s" autosuggest-accept
+      bindkey '^R' history-incremental-search-backward  # C-r
+      # bindkey '^S' history-incremental-search-backward  # C-s
+      bindkey '^S' autosuggest-accept       # C-s accept autosuggestion
 
       # bindkey "^t" history-beginning-search-backward
       # bindkey "^n" history-beginning-search-forward

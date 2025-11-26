@@ -353,8 +353,8 @@ in {
 
       ### --- Eshell-style incremental search ---
       # bindkey '^R' history-incremental-search-backward  # C-r
-      bindkey '^S' history-incremental-search-backward  # C-s
-      bindkey -e "^[s" autosuggest-accept
+      bindkey '^S' autosuggest-accept       # C-s accept autosuggestion
+      # bindkey -e "^[s" autosuggest-accept
 
       # bindkey "^t" history-beginning-search-backward
       # bindkey "^n" history-beginning-search-forward

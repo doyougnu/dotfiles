@@ -825,7 +825,7 @@ Never reuse the current editing window; always pop a new one when showing."
          ("M-s d" . consult-find)                  ;; Alternative: consult-fd
          ("M-s s" . dyg|consult-ripgrep-word-at-point)
          ("M-s r" . consult-ripgrep)
-         ("C-s"   . dyg|consult-line-word-at-point)
+         ("C-r"   . dyg|consult-line-word-at-point)
          ("M-s i" . consult-imenu)
          ("M-s I" . consult-imenu-multi)
          ;; Isearch integration
