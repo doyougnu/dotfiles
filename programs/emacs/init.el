@@ -162,23 +162,6 @@
   (project-tab-groups-mode 1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; meow ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package move-text
-  :ensure t
-  :demand
-  :config
-  (defun indent-region-advice (&rest ignored)
-    "Indent after moving"
-    (let ((deactivate deactivate-mark))
-      (if (region-active-p)
-          (indent-region (region-beginning) (region-end))
-        (indent-region (line-beginning-position) (line-end-position)))
-      (setq deactivate-mark deactivate)))
-  ;; (advice-add 'move-text-up :after 'indent-region-advice)
-  ;; (advice-add 'move-text-down :after 'indent-region-advice)
-
-  (global-set-key (kbd "M-t") #'move-text-up)
-  (global-set-key (kbd "M-n") #'move-text-down))
-
 (use-package meow
   :ensure t
   :demand t
@@ -312,6 +295,9 @@ Never reuse the current editing window; always pop a new one when showing."
   (global-set-key (kbd "C-c o") #'dyg|toggle-eshell-window)
   (global-set-key (kbd "C-c j") #'org-roam-dailies-goto-today)
   (global-set-key (kbd "M-j")   #'dyg|join-line)
+  (global-set-key (kbd "C-j")   #'dyg|newline)
+  (global-set-key (kbd "M-t")   #'mark-sexp)
+  (global-set-key (kbd "M-n")   #'mark-defun)
 
 
   ;; DROP: leaving this in here just for windows for now
@@ -348,12 +334,19 @@ Never reuse the current editing window; always pop a new one when showing."
         (process-send-string proc text)
         (process-send-eof proc)))))
 
+  (defun dyg|newline ()
+    "Create a newline, don't move the point"
+    (interactive)
+    (save-excursion
+      (electric-newline-and-maybe-indent)))
+
   (defun dyg|join-line ()
     "Mimic vims join-line behavior"
     (interactive)
-    (forward-line 1)
-    (join-line)
-    (indent-according-to-mode))
+    (save-excursion
+      (forward-line 1)
+      (join-line)
+      (indent-according-to-mode)))
 
   (defun dyg/paste-from-clipboard ()
     (interactive)
@@ -1106,6 +1099,8 @@ Never reuse the current editing window; always pop a new one when showing."
   :bind (:map org-mode-map
               ("M-t" . org-insert-heading-respect-content)
               ("M-n" . dyg|org-insert-subheading-respect-content)
+              ("C-j" . dyg|newline)
+              ("M-j" . dyg|join-line)
               ("C-M-t" . org-move-subtree-up)
               ("C-M-n" . org-move-subtree-down))
   :config
