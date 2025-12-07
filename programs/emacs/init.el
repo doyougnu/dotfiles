@@ -140,13 +140,14 @@
   :bind
   (("M-u" . vundo)
    (:map vundo-mode-map
-        ("C-n" . vundo-next)
-        ("C-p" . vundo-previous)
-        ("C-f" . vundo-forward)
-        ("C-b" . vundo-backward)
-        ("C-a" . vundo-stem-root)
-        ("C-e" . vundo-stem-end)
-        ("C-d" . vundo-diff)))
+        ("n" . vundo-next)
+        ("p" . vundo-previous)
+        ("f" . vundo-forward)
+        ("b" . vundo-backward)
+        ("a" . vundo-stem-root)
+        ("e" . vundo-stem-end)
+        ("d" . vundo-diff)
+        ("g" . vundo-quit)))
   :defer)
 
 (use-package xclip
