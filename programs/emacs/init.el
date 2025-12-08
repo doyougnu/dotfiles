@@ -339,6 +339,7 @@ Never reuse the current editing window; always pop a new one when showing."
     "Create a newline, don't move the point"
     (interactive)
     (save-excursion
+      (beginning-of-line)
       (electric-newline-and-maybe-indent)))
 
   (defun dyg|join-line ()
