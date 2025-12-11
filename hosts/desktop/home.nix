@@ -408,6 +408,7 @@ in {
     alsa-utils
     chez
     cachix
+    clang-tools # need to be system-wide for emacs
     discord
     entr
     evince

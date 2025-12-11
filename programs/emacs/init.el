@@ -299,6 +299,8 @@ Never reuse the current editing window; always pop a new one when showing."
   (global-set-key (kbd "C-j")   #'dyg|newline)
   (global-set-key (kbd "M-t")   #'mark-sexp)
   (global-set-key (kbd "M-n")   #'mark-defun)
+  (global-set-key (kbd "M-;")   #'comment-line)
+  ;; (global-set-key (kbd "C-m")   #'dyg|skip-newline)
 
 
   ;; DROP: leaving this in here just for windows for now
@@ -340,6 +342,13 @@ Never reuse the current editing window; always pop a new one when showing."
     (interactive)
     (save-excursion
       (beginning-of-line)
+      (electric-newline-and-maybe-indent)))
+
+  (defun dyg|skip-newline ()
+    "Create a newline, don't move the point"
+    (interactive)
+    (save-excursion
+      (forward-line 1)
       (electric-newline-and-maybe-indent)))
 
   (defun dyg|join-line ()
@@ -427,7 +436,7 @@ Never reuse the current editing window; always pop a new one when showing."
    '("b" . meow-back-word)
    '("B" . meow-back-symbol)
    '("c" . meow-change)
-   '("C" . comment-line)
+   ;; '("C" . comment-line)
    '("d" . meow-delete)
    '("D" . meow-backward-delete)
    '("e" . meow-next-word)
@@ -609,6 +618,45 @@ Never reuse the current editing window; always pop a new one when showing."
 			        (when (derived-mode-p 'rust-mode)
 				        (eglot-inlay-hints-mode -1))))
   (setq rust-format-on-save t))
+
+;; add UE style
+(c-add-style
+ "UE"
+ '((c-basic-offset . 4)
+   (indent-tabs-mode . nil)
+   (c-comment-only-line-offset . 0)
+   (c-hanging-braces-alist . ((class-open) (substatement-open) (block-open))) ; Forces opening brace on its own line
+   (c-hanging-parens-alist . ((lambda-intro)))
+   (c-brace-imaginary-offset . 0)
+   (c-brace-offset . 0)
+   (c-argdecl-indent . c-continuation-indent)
+   (c-label-offset . -4)
+   (c-lineup-switch-statements . t)))
+
+(defun dyg|c-setup ()
+  "Use LLVM coding style for C/C++."
+  (setq c-default-style "UE")
+  (add-hook 'before-save-hook #'clang-format-buffer nil t))
+
+;; c++ mode and clang-format
+(use-package clang-format
+  ;; clang-format.el is not a MELPA package, so we load it manually.
+  :ensure nil
+  :commands (clang-format-region clang-format-buffer)
+  :init
+  (let* ((clang-bin (executable-find "clang-format"))
+         (clang-el
+          (when clang-bin
+            (expand-file-name
+             "../share/emacs/site-lisp/clang-format/clang-format.el"
+             (file-name-directory clang-bin)))))
+    (when (and clang-el (file-exists-p clang-el))
+      (load clang-el)))
+
+  :hook
+  ((c++-ts-mode . dyg|c-setup)
+   (c-ts-mode   . dyg|c-setup)))
+
 
 (use-package haskell-mode
   :ensure t
@@ -914,7 +962,7 @@ Never reuse the current editing window; always pop a new one when showing."
   :bind (("M-o" . ace-window))
   :config
   (ace-window-display-mode)
-  (setq aw-keys '(?i ?e ?a ?, ?. ?h ?t ?s ?n)))
+  (setq aw-keys '(?h ?t ?s ?n ?, ?.)))
 
 (use-package embark
   :ensure t
@@ -1261,13 +1309,12 @@ Never reuse the current editing window; always pop a new one when showing."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; globals ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq-default display-line-numbers-width nil) ;; dynamically compute the width
 (global-display-line-numbers-mode)
-(setq whitespace-style '(face spaces trailing tabs space-mark tab-mark))
-(defun dyg|c-style ()
-  (c-set-offset 'case-label '+)
-  (c-set-offset 'label '+)
-  (c-set-offset 'statement-case-intro '+))
-
-(add-hook 'c-mode-hook #'dyg|c-style)
+(setq style '(face spaces trailing tabs space-mark tab-mark))
+;; (defun dyg|c-style ()
+;;   (c-set-offset 'case-label '+)
+;;   (c-set-offset 'label '+)
+;;   (c-set-offset 'statement-case-intro '+))
+;; (add-hook 'c-mode-hook #'dyg|c-style)
 
 (use-package emacs
   :init
@@ -1296,7 +1343,7 @@ Never reuse the current editing window; always pop a new one when showing."
     (define-key eshell-mode-map (kbd "C-t") #'eshell-previous-input)
     (define-key eshell-mode-map (kbd "M-n") #'eshell-next-matching-input)
     (define-key eshell-mode-map (kbd "M-p") #'eshell-previous-matching-input))
-  )
+  (which-key-mode))
 
 ;; Specifics for Verse
 (if (equal (getenv "EMACS_HOST") "thinkpad")

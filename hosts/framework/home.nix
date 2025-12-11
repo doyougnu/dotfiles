@@ -411,6 +411,7 @@ in {
     autorandr
     cowsay
     cachix
+    clang-tools # need to be system-wide for emacs
     evince
     entr
     element-desktop
