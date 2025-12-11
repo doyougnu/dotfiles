@@ -147,7 +147,8 @@
         ("a" . vundo-stem-root)
         ("e" . vundo-stem-end)
         ("d" . vundo-diff)
-        ("g" . vundo-quit)))
+        ("g" . vundo-quit)
+        ("C-s" . vundo-confirm)))
   :defer)
 
 (use-package xclip
@@ -340,9 +341,8 @@ Never reuse the current editing window; always pop a new one when showing."
   (defun dyg|newline ()
     "Create a newline, don't move the point"
     (interactive)
-    (save-excursion
-      (beginning-of-line)
-      (electric-newline-and-maybe-indent)))
+    (forward-line -1)
+      (electric-newline-and-maybe-indent))
 
   (defun dyg|skip-newline ()
     "Create a newline, don't move the point"
@@ -1329,6 +1329,10 @@ Never reuse the current editing window; always pop a new one when showing."
   (setq which-key-idle-delay 0.10)
   (setq ring-bell-function 'ignore)
   (setq-default buffer-file-coding-system 'unix)
+
+  (define-key isearch-mode-map (kbd "C-n") #'isearch-repeat-forward)
+  (define-key isearch-mode-map (kbd "C-p") #'isearch-repeat-backward)
+  (define-key isearch-mode-map (kbd "C-s") #'isearch-exit)
 
   ;; add color to compilation buffers
   (require 'ansi-color)
