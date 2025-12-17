@@ -587,6 +587,8 @@ Never reuse the current editing window; always pop a new one when showing."
   ;; :hook (haskell-mode    . eglot-ensure)
   :hook (lisp-mode       . eglot-ensure)
   :hook (typescript-mode . eglot-ensure)
+  :hook (c++-ts-mode     . eglot-ensure)
+  :hook (c++-mode        . eglot-ensure)
   )
 
 (use-package markdown-mode
