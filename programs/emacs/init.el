@@ -575,8 +575,8 @@ Never reuse the current editing window; always pop a new one when showing."
 (unless (package-installed-p 'standard-themes)
   (package-install 'standard-themes))
 
-(load-theme 'modus-operandi-tinted)
-
+(if (package-installed-p 'standard-themes)
+    (load-theme 'modus-operandi-tinted))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; eglot, lsp-mode is slow even for rust, bad software
