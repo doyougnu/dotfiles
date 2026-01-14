@@ -156,7 +156,7 @@ in
        ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
        '';
       setupCommands = ''
-       ${pkgs.xorg.xrandr}/bin/xrandr --output DP-2.8 --primary --mode 3440x1440 --rate 60
+       ${pkgs.xorg.xrandr}/bin/xrandr --output DP-2 --primary --mode 1920x1080 --rate 120 --output HDMI-0 --mode 1920x1080 --rotate left --rate 60 --pos 0x0 --left-of DP-2
        '';
     };
 
