@@ -25,7 +25,6 @@ let
     my-fonts = with pkgs; [
       source-code-pro
       # siji
-      nerdfonts
       font-awesome_5
       # material-icons
       emacs-all-the-icons-fonts
@@ -44,8 +43,8 @@ in {
   # git setup
   programs.git = {
     enable    = true;
-    userEmail = "jmy6342@gmail.com";
-    userName  = "Jeffrey Young";
+    settings.user.email = "jmy6342@gmail.com";
+    settings.user.name  = "JeFfrey Young";
     signing.signByDefault = true;
     signing.key = "880C84B0DCF06CB8E2644B23B4A2FD65CAA27F03";
     ignores = [ "TAGS" "GPATH" "GRTAGS" "GTAGS" ".dir-locals.el" "dist-newstyle"
@@ -285,7 +284,7 @@ in {
                     '';
   };
   home.file.".p10k.zsh".source = ../../.p10k.zsh;
-  home.file.".zprofile".source = ../../.zprofile;
+  # home.file.".zprofile".source = ../../.zprofile;
 
   programs.rofi = {
     enable = true;
@@ -325,7 +324,7 @@ in {
                       ];
     prezto.editor.keymap = "emacs";
     syntaxHighlighting.enable = true;
-    initExtra = ''
+    initContent = ''
       source ~/.p10k.zsh
       alias hg='history | grep'
 
@@ -422,7 +421,6 @@ in {
     feh
     gcc   # for org-roam
     google-chrome
-    globalprotect-openconnect  # vpn
     # gollum
     libevent
     libnotify
@@ -431,15 +429,13 @@ in {
     nodejs
     nethack
     unstable.mu              # for email
-    parsec-bin
     pdfpc           # pdf presentaitons from the shell
-    pinentry
+    pinentry-curses
     python310
     python310Packages.pygments
     yazi
     ripgrep
     rsync
-    # rnix-lsp         # for nix lsp in emacs
     slack
     spotify
     telegram-desktop
@@ -447,8 +443,6 @@ in {
     xclip
     xmobar
     xmonad-log
-    # xorg.xwininfo    # for emacs everywhere
-    # xdotool          # for emacs everywhere
     sqlite
     wordnet
     zip

@@ -17,7 +17,7 @@ Config { font = "Bitstream Vera Sans Mono 12"
        , iconRoot = ".config/xmonad/xmobar/icons/"
        , commands =
          [ Run XMonadLog
-         , Run Date "%a, %d %b  <fn=5>󰥔</fn>   %H:%M:%S" "date" 10
+         , Run Date "%a, %d %b %H:%M:%S" "date" 10
          , Run Brightness [] 60
          , Run Weather "RJTT" [ "--template", "<skyCondition> | <fc=#4682B4><tempC></fc>°C"
                               ] 36000
