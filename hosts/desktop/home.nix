@@ -21,7 +21,6 @@ let
     my-fonts = with pkgs; [
       source-code-pro
       siji
-      nerdfonts
       font-awesome_5
       material-icons
       emacs-all-the-icons-fonts
@@ -44,8 +43,8 @@ in {
   # git setup
   programs.git = {
     enable    = true;
-    userEmail = "jmy6342@gmail.com";
-    userName  = "Jeffrey Young";
+    settings.user.email = "jmy6342@gmail.com";
+    settings.user.name  = "Jeffrey Young";
     signing.signByDefault = true;
     signing.key = "4C6A178AF6FA3F553ABED0F23AA937E2C385868B";
     ignores = [ "TAGS" "GPATH" "GRTAGS" "GTAGS" ".dir-locals.el" "dist-newstyle"
@@ -314,7 +313,7 @@ in {
                       ];
     prezto.editor.keymap = "emacs";
     syntaxHighlighting.enable = true;
-    initExtra = ''
+    initContent = ''
       source ~/.p10k.zsh
       alias hg='history | grep'
 
@@ -423,10 +422,9 @@ in {
     killall         # for polybar launch script
     moreutils
     multimarkdown
-    parsec-bin
     pdfpc           # pdf presentaitons from the shell
     pulseaudio-ctl  # music control in xmonad
-    pinentry
+    pinentry-curses
     python310
     python310Packages.pygments
     yazi
@@ -434,7 +432,7 @@ in {
     # rnix-lsp
     rsync
     # sbcl
-    sdcv             # for polybar
+    # sdcv             # for polybar
     spotify
     slack
     tex
@@ -458,10 +456,10 @@ in {
     [ gmp
       numactl
       flameshot
-      tdesktop
+      telegram-desktop
       pianobar
       valgrind
-      linuxPackages.perf
+      perf
       firefox
   ]);
 

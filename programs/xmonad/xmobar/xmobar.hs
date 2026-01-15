@@ -17,7 +17,7 @@ Config { font = "Bitstream Vera Sans Mono 8"
        , iconRoot = ".config/xmonad/xmobar/icons/"
        , commands =
          [ Run XMonadLog
-         , Run Date "%a, %d %b  <fn=5>󰥔</fn>   %H:%M:%S" "date" 10
+         , Run Date "%a, %d %b %H:%M:%S" "date" 10
          , Run Memory ["-t","Mem: <fc=#AAC0F0><usedratio></fc>%"] 10
          , Run Com "uname" ["-s", "-r"] "" 0
          , Run Weather "RJTT" [ "--template", "<skyCondition> | <fc=#4682B4><tempC></fc>°C"

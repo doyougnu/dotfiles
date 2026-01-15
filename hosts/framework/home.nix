@@ -301,6 +301,7 @@ in {
   ## environment variables
   home.sessionVariables = {
     LIBGL_ALWAYS_SOFTWARE = "1";
+    GPG_TTY = "$(tty)";
   };
 
   programs.zsh = {
@@ -441,7 +442,7 @@ in {
     # rnix-lsp         # for nix lsp in emacs
     slack
     spotify
-    tdesktop
+    telegram-desktop
     tex
     xclip
     xmobar

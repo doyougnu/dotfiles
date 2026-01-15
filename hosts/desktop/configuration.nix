@@ -1,4 +1,3 @@
-# Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’)
 
@@ -39,6 +38,9 @@ in
   i18n.defaultLocale = "en_US.UTF-8";
   console.font = "Lat2-Terminus16";
   console.keyMap = "us";
+
+  # steam
+  programs.steam.enable = true;
 
   programs.zsh = {
     enable = true;
@@ -122,7 +124,9 @@ in
   # systemd.targets.suspend.enable = false;
   # systemd.targets.hybrid-sleep.enable = false;
   systemd.sleep.extraConfig = "HibernateDelaySec=4h";
-  services.logind.extraConfig = "IdleAction=ignore";
+  services.logind.settings.Login = {
+    IdleAction = "ignore";
+  };
 
   ## default is no desktop manager and xmonad
   services.displayManager.defaultSession = "none+xmonad";
@@ -144,6 +148,7 @@ in
     };
 
     # values taken from nvidia-settings
+    dpi = 96; # default, high dpi is 180
     screenSection = ''
       # Removed Option "metamodes" "DVI-D-0: 1920x1080_120 +0+0, HDMI-0: nvidia-auto-select +1920+0"
     '';
@@ -189,7 +194,7 @@ in
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "20.03"; # Did you read the comment?
+  system.stateVersion = "25.11"; # Did you read the comment?
 
   networking.firewall.allowedTCPPorts = [ 9001 ]; #open default port for cardano-node
 

@@ -3,7 +3,7 @@
 {
   description = "NixOS configuration and home-manager configurations";
   inputs = {
-    nixpkgs.url          = "nixpkgs/nixos-24.11";
+    nixpkgs.url          = "nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     # nixpkgs-local.url    = "/home/doyougnu/programming/nix/nixpkgs";
     emacs-overlay.url  = github:nix-community/emacs-overlay;
@@ -11,7 +11,7 @@
     # git-idris2.url     = github:idris-lang/Idris2?rev=5e9a90bd97d3940054dcf2fcaffccff7c72ef5ae;
     nur.url            = github:nix-community/nur;
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # xmonad = {
@@ -35,15 +35,15 @@
       home   = "/home/doyougnu";
 
       overlay-unstable = final: prev: {
-        unstable = nixpkgs-unstable.legacyPackages.${prev.system};
+        unstable = nixpkgs-unstable.legacyPackages.${prev.stdenv.hostPlatform.system};
       };
 
       overlay-dotfiles = final: prev: {
-        # dyg-taffybar = xmonad.packages.${system}.default; # set to taffybar for now
+        # dyg-taffybar = xmonad.packages.${stdenv.hostPlatform.system}.default; # set to taffybar for now
       };
 
       # idris2-overlay = final: prev: {
-      #   idris2 = git-idris2.packages.${system}.idris2;
+      #   idris2 = git-idris2.packages.${stdenv.hostPlatform.system}.idris2;
       # };
 
       homeManagerConfFor = config: { ... }: {
