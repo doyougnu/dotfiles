@@ -25,8 +25,10 @@
   boot.kernel.sysctl = {
     "dev.i915.perf_stream_paranoid" = 0;
   };
-  services.logind.lidSwitch = "suspend-then-hibernate";
-  services.logind.extraConfig = "IdleActionSec=300min";
+  services.logind.settings.Login = {
+    IdleActionSec = "300min";
+    HandleLidSwitch = "suspend-then-hibernate";
+  };
 
   # power
   services.tlp.enable = true;
@@ -34,7 +36,7 @@
   powerManagement.powertop.enable = true;
 
   # sound
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   # hardware.pulseaudio.support32Bit = true;
 
   # framework firmware update
