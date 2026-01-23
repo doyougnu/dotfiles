@@ -66,7 +66,7 @@ in {
     extraConfig = ''
       allow-emacs-pinentry
       allow-loopback-pinentry
-      pinentry-program /home/doyougnu/.nix-profile/bin/pinentry
+      pinentry-program /home/doyougnu/.nix-profile/bin/pinentry-gtk-2
     '';
   };
 
@@ -424,7 +424,7 @@ in {
     multimarkdown
     pdfpc           # pdf presentaitons from the shell
     pulseaudio-ctl  # music control in xmonad
-    pinentry-curses
+    pinentry-gtk2
     python310
     python310Packages.pygments
     yazi

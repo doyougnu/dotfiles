@@ -11,6 +11,11 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" "iwlwifi" ];
+  boot.kernelParams = [
+    "nvidia-drm.modeset=1"
+    "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+    "nvidia.NVreg_TemporaryFilePath=/var/tmp"
+  ];
   boot.extraModulePackages = [ ];
   # boot.extraModprobeConfig = ''
   #   options iwlwifi bt_coex_active=0 power_save=Y
