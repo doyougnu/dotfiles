@@ -478,7 +478,7 @@ main = do
 
   xmonad
     $ fullscreenSupport
-    -- $ withSB mySBTop
+    $ withSB mySBTop
     $ withSB mySBBtm
     $ ewmh
     $ docks
