@@ -959,7 +959,7 @@
 (setq-default display-line-numbers-width nil) ;; dynamically compute the width
 (global-display-line-numbers-mode)
 (setq style '(face spaces trailing tabs space-mark tab-mark))
-(setq-default cursor-type 'bar)
+(setq-default cursor-type '(bar . 3))
 
 (use-package emacs
   :init
