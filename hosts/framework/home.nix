@@ -66,7 +66,7 @@ in {
     extraConfig = ''
       allow-emacs-pinentry
       allow-loopback-pinentry
-      pinentry-program /home/doyougnu/.nix-profile/bin/pinentry
+      pinentry-program /home/doyougnu/.nix-profile/bin/pinentry-gtk-2
     '';
   };
 
@@ -178,6 +178,14 @@ in {
     package = myEmacs;
   };
 
+  # set emacs keybinds in gtk
+  gtk.enable = true;
+  gtk.gtk3 = {
+    extraConfig = {
+      gtk-key-theme-name = "Emacs";
+    };
+  };
+
   # email
   programs.mbsync.enable = true;        ## sync
   programs.msmtp.enable  = true;        ## sending
@@ -274,10 +282,11 @@ in {
   # xmonad
   home.file.".xmonad/xmonad.hs".source = ../../programs/xmonad/xmonad_framework.hs;
   # doom emacs
-  home.file.".emacs.d/early-init.el".source = ../../programs/emacs/early-init.el;
-  home.file.".emacs.d/init.el".source       = ../../programs/emacs/init.el;
-  home.file.".emacs.d/personal-org.el".source       = ../../programs/emacs/personal-org.el;
-  home.file.".emacs.d/snippets".source      = ../../programs/emacs/doom/snippets;
+  home.file.".emacs.d/early-init.el".source    = ../../programs/emacs/early-init.el;
+  home.file.".emacs.d/init.el".source          = ../../programs/emacs/init.el;
+  home.file.".emacs.d/personal-org.el".source  = ../../programs/emacs/personal-org.el;
+  home.file.".emacs.d/snippets".source         = ../../programs/emacs/doom/snippets;
+  home.file.".emacs.d/lisp/dyg-keys-mode.el".source = ../../programs/emacs/dyg-keys-mode.el;
   home.activation = {
       symlinkAuth = lib.hm.dag.entryAfter ["writeBoundary"] ''
                     ln -sf /home/doyougnu/sync/keys/auth/.authinfo.gpg /home/doyougnu/.authinfo.gpg
@@ -430,7 +439,7 @@ in {
     nethack
     unstable.mu              # for email
     pdfpc           # pdf presentaitons from the shell
-    pinentry-curses
+    pinentry-gtk2
     python310
     python310Packages.pygments
     yazi

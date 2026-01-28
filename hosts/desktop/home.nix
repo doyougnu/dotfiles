@@ -267,10 +267,11 @@ in {
   home.file.".xmonad/xmonad.hs".source = ../../programs/xmonad/xmonad_desktop.hs;
   home.file.".xmonad/xmonad.hs".onChange = "xmonad --recompile";
   # emacs
-  home.file.".emacs.d/early-init.el".source = ../../programs/emacs/early-init.el;
-  home.file.".emacs.d/init.el".source       = ../../programs/emacs/init.el;
-  home.file.".emacs.d/personal-org.el".source       = ../../programs/emacs/personal-org.el;
-  home.file.".emacs.d/snippets".source      = ../../programs/emacs/doom/snippets;
+  home.file.".emacs.d/early-init.el".source    = ../../programs/emacs/early-init.el;
+  home.file.".emacs.d/init.el".source          = ../../programs/emacs/init.el;
+  home.file.".emacs.d/personal-org.el".source  = ../../programs/emacs/personal-org.el;
+  home.file.".emacs.d/snippets".source         = ../../programs/emacs/doom/snippets;
+  home.file.".emacs.d/dyg-keys-mode.el".source = ../../programs/emacs/dyg-keys-mode.el;
   # symlink auth on new hm generation activation
   home.activation = {
       symlinkAuth = lib.hm.dag.entryAfter ["writeBoundary"] ''

@@ -1,4 +1,4 @@
-import Data.Maybe (fromJust)
+jimport Data.Maybe (fromJust)
 import System.IO
 import System.Exit
 import XMonad
@@ -70,7 +70,8 @@ myFS = "caja --no-desktop $HOME"
 myBrowser = "firefox"
 
 -- Use emacs as server
-myIDE = "kitty --hold sh -c 'emacsclient -nw --create-frame'"
+-- myIDE = "kitty --hold sh -c 'emacsclient -nw --create-frame'"
+myIDE = "emacsclient --create-frame"
 
 myIDESameBuf = "emacsclient --create-frame --tty"
 
