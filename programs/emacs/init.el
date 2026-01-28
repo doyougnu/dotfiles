@@ -462,14 +462,6 @@
     (add-to-list 'completion-at-point-functions #'cape-dabbrev))
   (add-hook 'text-mode-hook #'my-dabbrev-in-text))
 
-(use-package corfu-terminal
-  :ensure t
-  :demand
-  :after corfu
-  :init
-  (unless (display-graphic-p)
-    (corfu-terminal-mode +1)))
-
 (use-package cape
   :bind ("C-c p" . cape-prefix-map) ;; Alternative key: M-<tab>, M-p, M-+
   :init
