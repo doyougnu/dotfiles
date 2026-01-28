@@ -70,7 +70,7 @@ myFS = "caja --no-desktop $HOME"
 myBrowser = "firefox"
 
 -- Use emacs as server
-myIDE = "kitty --hold sh -c 'emacsclient -nw --create-frame'"
+myIDE = "emacsclient -create-frame"
 
 -- Email client
 myEmail = "thunderbird"
