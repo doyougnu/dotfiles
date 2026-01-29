@@ -386,10 +386,10 @@
 (use-package vertico
   :init
   (vertico-mode)
-  :bind (:map    vertico-map
-                 ("C-t" . vertico-directory-up)
-                 ("C-n" . vertico-next)
-                 ("C-s" . vertico-directory-enter)))
+  :bind (:map vertico-map
+              ("C-t" . vertico-directory-up)
+              ("C-n" . vertico-next)
+              ("C-s" . vertico-directory-enter)))
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist

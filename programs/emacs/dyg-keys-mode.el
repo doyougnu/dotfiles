@@ -166,6 +166,13 @@
 ;;   "C-c e" '("+error"  . dyg/error-map)
 ;;   "C-c i" '("+smerge" . dyg/smerge-map))
 
+(add-hook 'minibuffer-setup-hook
+          (lambda ()
+            (dyg-keys-mode -1)))
+(add-hook 'minibuffer-exit-hook
+          (lambda ()
+            (dyg-keys-mode 1)))
+
 ;;;###autoload
 (define-minor-mode dyg-keys-mode
   "Personal minor mode replacing Meow leader bindings."
