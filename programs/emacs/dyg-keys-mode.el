@@ -143,12 +143,15 @@
     (define-key map (kbd "C-c i") dyg/smerge-map)
 
     ;; Globals
-    (define-key map (kbd "C-t")   #'dyg|avy-goto-char-2)
-    (define-key map (kbd "C-c c") #'dyg|recompile)
-    (define-key map (kbd "C-c C") #'dyg|toggle-compilation-window)
-    (define-key map (kbd "C-c o") #'dyg|toggle-eshell-window)
-    (define-key map (kbd "C-c j") #'org-roam-dailies-goto-today)
+    (define-key map (kbd "C-t")     #'dyg|avy-goto-char-2)
+    (define-key map (kbd "C-c c")   #'dyg|recompile)
+    (define-key map (kbd "C-c C")   #'dyg|toggle-compilation-window)
+    (define-key map (kbd "C-c o")   #'dyg|toggle-eshell-window)
+    (define-key map (kbd "C-c j")   #'org-roam-dailies-goto-today)
+    (define-key map (kbd "C-c a")   #'org-agenda)
+    (define-key map (kbd "C-c SPC") #'org-capture)
 
+    ;; refinements
     (define-key map (kbd "M-j")   #'dyg|join-line)
     (define-key map (kbd "C-j")   #'dyg|newline)
     (define-key map (kbd "M-t")   #'mark-sexp)
