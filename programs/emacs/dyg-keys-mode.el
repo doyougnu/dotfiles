@@ -156,7 +156,8 @@
     (define-key map (kbd "C-j")   #'dyg|newline)
     (define-key map (kbd "M-t")   #'mark-sexp)
     (define-key map (kbd "M-n")   #'mark-defun)
-    (define-key map (kbd "M-;")   #'comment-line)
+    (define-key map (kbd "M-;")   #'comment-line
+    (define-key map (kbd "C-;")   #'indent-relative))
 
     map)
   "Keymap for `dyg-keys-mode`.")
