@@ -248,7 +248,14 @@
   :hook (typescript-mode . eglot-ensure)
   :hook (c++-ts-mode     . eglot-ensure)
   :hook (c++-mode        . eglot-ensure)
-  )
+  :config
+  ;; turn off the inlay hints
+  (add-hook 'eglot-managed-mode-hook
+          (lambda ()
+            (eglot-inlay-hints-mode -1)
+            (eldoc-mode 1)))
+  ;; setup eldoc
+  (add-hook 'eglot-managed-mode-hook #'eldoc-mode))
 
 (use-package markdown-mode
   :config
@@ -283,7 +290,7 @@
 
 (defun dyg|c-setup ()
   "Use LLVM coding style for C/C++."
-  (setq c-default-style "UE")
+  (setq c-default-style "Pike")
   (add-hook 'before-save-hook #'clang-format-buffer nil t))
 
 ;; c++ mode and clang-format
@@ -982,6 +989,8 @@
               (when (memq (process-status proc) '(signal exit))
                 (jump-to-register gud-window-register)
                 (bury-buffer))))
+
+
 
 (use-package emacs
   :init
