@@ -967,6 +967,8 @@
 (global-display-line-numbers-mode)
 (setq style '(face spaces trailing tabs space-mark tab-mark))
 (setq-default cursor-type '(bar . 3))
+(setq-default sentence-end-double-space nil)
+
 ;;;;;; gdb setup
 (setq gdb-many-windows t)
 (setq gdb-use-separate-io-buffer t)
