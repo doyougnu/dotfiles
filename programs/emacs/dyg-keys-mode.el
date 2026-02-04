@@ -162,6 +162,9 @@
     map)
   "Keymap for `dyg-keys-mode`.")
 
+;; tweak org-mode general keybinds
+(define-key org-mode-map (kbd "M-RET") #'dyg|org-insert-subheading-respect-content)
+
 ;; TODO: fix the +prefix in which key
 ;; (which-key-add-keymap-based-replacements dyg-keys-mode-map
 ;;   "C-c v" '("+magit"  . dyg/magit-map)

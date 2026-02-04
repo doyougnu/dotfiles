@@ -253,27 +253,27 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
 
   -- Mute volume.
   , ((0, xF86XK_AudioMute),
-     spawn "amixer -q set Master toggle")
+     spawn "wpctl set-mute @DEFAULT_SINK@ toggle")
   --
   -- Decrease volume.
   , ((0, xF86XK_AudioLowerVolume),
-     spawn "amixer -q set Master 5%-")
-  --
+     spawn "wpctl set-volume @DEFAULT_SINK@ .1-")
+
   -- Increase volume.
   , ((0, xF86XK_AudioRaiseVolume),
-     spawn "amixer -q set Master 5%+")
+     spawn "wpctl set-volume @DEFAULT_SINK@ .1+")
   --
   -- -- Mute volume.
   , ((modMask .|. controlMask, xK_t),
-     spawn "amixer -q set Master toggle")
+     spawn "wpctl set-mute @DEFAULT_SINK@ toggle")
 
   -- -- Decrease volume.
   , ((modMask .|. controlMask, xK_h),
-     spawn "amixer -q set Master 10%-")
+     spawn "wpctl set-volume @DEFAULT_SINK@ .1-")
 
   -- -- Increase volume.
   , ((modMask .|. controlMask, xK_s),
-     spawn "amixer -q set Master 10%+")
+     spawn "wpctl set-volume @DEFAULT_SINK@ .1+")
 
 
   , ((modMask .|. controlMask, xK_m), audioPlayPause)
