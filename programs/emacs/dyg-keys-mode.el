@@ -75,6 +75,144 @@
 ;; Prefix keymaps
 ;; -----------------------
 
+;;; Text Object Selection Configuration
+
+(defun dyg/get-bounds-of-thing (type)
+  "Return the (start . end) bounds of TYPE around point.
+TYPE can be: 'paren, 'bracket, 'curly, 'string, 'defun, 'line, 'buffer."
+  (save-excursion
+    (let ((orig-point (point)))
+      (condition-case nil
+          (cond
+           ;; 1. ROUND PARENTHESES ()
+           ((eq type 'paren)
+            (let ((start (scan-lists (point) -1 1)))
+              (cons start (scan-lists start 1 0))))
+
+           ;; 2. SQUARE BRACKETS []
+           ((eq type 'bracket)
+            ;; Search backward for [ escaping strings/comments, limited logic
+            (search-backward "[" nil t)
+            (let ((start (point)))
+              (forward-list)
+              (cons start (point))))
+
+           ;; 3. CURLY BRACES {}
+           ((eq type 'curly)
+            (search-backward "{" nil t)
+            (let ((start (point)))
+              (forward-list)
+              (cons start (point))))
+
+           ;; 4. STRINGS ""
+           ((eq type 'string)
+            (let ((syntax (syntax-ppss)))
+              (if (nth 3 syntax) ;; If inside string
+                  (let* ((start (nth 8 syntax))
+                         (end (save-excursion
+                                (goto-char start)
+                                (forward-sexp)
+                                (point))))
+                    (cons start end))
+                ;; Attempt to find nearby string if not strictly inside
+                (search-backward "\"" (line-beginning-position) t)
+                (let ((start (point)))
+                  (forward-sexp)
+                  (cons start (point))))))
+
+           ;; 5. FUNCTIONS (Defun)
+           ((eq type 'defun)
+            (end-of-defun)
+            (let ((end (point)))
+              (beginning-of-defun)
+              (cons (point) end)))
+
+           ;; 6. LINE
+           ((eq type 'line)
+            (cons (line-beginning-position) (line-end-position)))
+
+           ;; 7. BUFFER
+           ((eq type 'buffer)
+            (cons (point-min) (point-max))))
+
+        (error nil)))))
+
+(defun dyg/select-text-object (type inner)
+  "Mark the object TYPE. If INNER is non-nil, exclude delimiters."
+  (let ((bounds (dyg/get-bounds-of-thing type)))
+    (if bounds
+        (progn
+          (push-mark (car bounds) t t)
+          (goto-char (cdr bounds))
+
+          ;; Adjust for Inner Selection
+          (when inner
+            (cond
+             ;; For delimiters (parens, brackets, strings), shrink by 1 char
+             ((memq type '(paren bracket curly string))
+              (if (> (point) (mark))
+                  (progn (backward-char 1) (exchange-point-and-mark) (forward-char 1))
+                (progn (forward-char 1) (exchange-point-and-mark) (backward-char 1))))
+             ;; For line, usually 'inner' means trim whitespace (optional preference)
+             ((eq type 'line)
+              ;; Simple trim implementation could go here
+              nil)))
+
+          ;; Activate the region visually
+          (setq deactivate-mark nil)
+          (message "Marked %s %s" (if inner "inner" "outer") type))
+      (message "No %s found around point." type))))
+
+;;; Dispatchers
+
+(defvar dyg/text-object-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "p") (lambda () (interactive) (dyg/select-text-object 'paren nil)))
+    (define-key map (kbd "(") (lambda () (interactive) (dyg/select-text-object 'paren nil)))
+    (define-key map (kbd ")") (lambda () (interactive) (dyg/select-text-object 'paren nil)))
+
+    (define-key map (kbd "b") (lambda () (interactive) (dyg/select-text-object 'bracket nil)))
+    (define-key map (kbd "[") (lambda () (interactive) (dyg/select-text-object 'bracket nil)))
+    (define-key map (kbd "]") (lambda () (interactive) (dyg/select-text-object 'bracket nil)))
+
+    (define-key map (kbd "B") (lambda () (interactive) (dyg/select-text-object 'curly nil)))
+    (define-key map (kbd "{") (lambda () (interactive) (dyg/select-text-object 'curly nil)))
+    (define-key map (kbd "}") (lambda () (interactive) (dyg/select-text-object 'curly nil)))
+
+    (define-key map (kbd "s") (lambda () (interactive) (dyg/select-text-object 'string nil)))
+    (define-key map (kbd "\"") (lambda () (interactive) (dyg/select-text-object 'string nil)))
+
+    (define-key map (kbd "f") (lambda () (interactive) (dyg/select-text-object 'defun nil)))
+    (define-key map (kbd "l") (lambda () (interactive) (dyg/select-text-object 'line nil)))
+    (define-key map (kbd "g") (lambda () (interactive) (dyg/select-text-object 'buffer nil)))
+    map)
+  "Map for selecting text objects.")
+
+(defun dyg/dispatch-mark-inner ()
+  "Dispatch key for selecting Inner text objects."
+  (interactive)
+  (message "Inner: (p)aren (b)racket {B}curly (s)tring (f)unc (l)ine (g)lobal")
+  (set-transient-map
+   (let ((map (make-sparse-keymap)))
+     ;; Map specific keys to call the selector with INNER = true
+     (define-key map (kbd "p") (lambda () (interactive) (dyg/select-text-object 'paren t)))
+     (define-key map (kbd "(") (lambda () (interactive) (dyg/select-text-object 'paren t)))
+     (define-key map (kbd "b") (lambda () (interactive) (dyg/select-text-object 'bracket t)))
+     (define-key map (kbd "[") (lambda () (interactive) (dyg/select-text-object 'bracket t)))
+     (define-key map (kbd "B") (lambda () (interactive) (dyg/select-text-object 'curly t)))
+     (define-key map (kbd "{") (lambda () (interactive) (dyg/select-text-object 'curly t)))
+     (define-key map (kbd "s") (lambda () (interactive) (dyg/select-text-object 'string t)))
+     (define-key map (kbd "f") (lambda () (interactive) (dyg/select-text-object 'defun t)))
+     (define-key map (kbd "l") (lambda () (interactive) (dyg/select-text-object 'line t)))
+     (define-key map (kbd "g") (lambda () (interactive) (dyg/select-text-object 'buffer t)))
+     map)))
+
+(defun dyg/dispatch-mark-outer ()
+  "Dispatch key for selecting Outer text objects."
+  (interactive)
+  (message "Outer: (p)aren (b)racket {B}curly (s)tring (f)unc (l)ine (g)lobal")
+  (set-transient-map dyg/text-object-map))
+
 (defvar dyg/magit-map
   (let ((map (make-sparse-keymap "+magit")))
     (define-key map (kbd "v") #'magit-status)
@@ -152,15 +290,18 @@
     (define-key map (kbd "C-c SPC") #'org-capture)
 
     ;; refinements
-    (define-key map (kbd "M-j")   #'dyg|join-line)
-    (define-key map (kbd "C-j")   #'dyg|newline)
-    (define-key map (kbd "M-t")   #'mark-sexp)
-    (define-key map (kbd "M-n")   #'mark-defun)
-    (define-key map (kbd "M-;")   #'comment-line
-    (define-key map (kbd "C-;")   #'indent-relative))
+    (define-key map (kbd "M-j") #'dyg|join-line)
+    (define-key map (kbd "C-j") #'dyg|newline)
+    (define-key map (kbd "M-t") #'mark-sexp)
+    (define-key map (kbd "M-n") #'mark-defun)
+    (define-key map (kbd "M-;") #'comment-line)
+    (define-key map (kbd "C-;") #'indent-relative)
+    (define-key map (kbd "C-,") #'dyg/dispatch-mark-outer)
+    (define-key map (kbd "C-.") #'dyg/dispatch-mark-inner)
 
     map)
   "Keymap for `dyg-keys-mode`.")
+
 
 ;; tweak org-mode general keybinds
 (define-key org-mode-map (kbd "M-RET") #'dyg|org-insert-subheading-respect-content)
