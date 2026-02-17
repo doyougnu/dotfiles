@@ -167,10 +167,11 @@
   :ensure t
   :init
   (better-jumper-mode +1)
-  :bind (("M-<" . better-jumper-jump-backward)
-         ("M->" . better-jumper-jump-forward))
+  :bind (("C-o" . better-jumper-jump-backward)
+         ("C-i" . better-jumper-jump-forward))
   :config
-  (add-hook 'meow-insert-exit-hook #'better-jumper-set-jump))
+  (add-hook 'isearch-mode-end-hook #'better-jumper-set-jump)
+  (add-hook 'before-save-hook      #'better-jumper-set-jump))
 
 (use-package magit
   :ensure t
@@ -382,7 +383,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; Keybinds  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package dyg-keys-mode
   :straight (:local-repo "~/.emacs.d/lisp" :files ("dyg-keys-mode.el"))
-  ;; :after (org org-mode magit magit-todos avy flymake)
   :demand t
   :config
   (dyg-keys-mode 1))
@@ -1011,6 +1011,22 @@
   (define-key isearch-mode-map (kbd "C-n") #'isearch-repeat-forward)
   (define-key isearch-mode-map (kbd "C-p") #'isearch-repeat-backward)
   (define-key isearch-mode-map (kbd "C-s") #'isearch-exit)
+
+  ;; Define a directory for auto-save files
+  (defvar auto-saves-dir (expand-file-name "~/.emacs.d/auto-saves/"))
+  (defvar backup-dir     (expand-file-name "~/.emacs.d/backups/"))
+
+  ;; Create the directory if it doesn't exist
+  (if (not (file-exists-p auto-saves-dir))
+      (make-directory auto-saves-dir t))
+
+  ;; Redirect all auto-saves to that directory
+  (setq auto-save-file-name-transforms
+        `((".*" ,auto-saves-dir t)))
+
+  ;; save all backup files to backup dir
+  (setq backup-directory-alist
+      `((".*" . ,backup-dir)))
 
   ;; add color to compilation buffers
   (require 'ansi-color)

@@ -298,7 +298,7 @@ TYPE can be: 'paren, 'bracket, 'curly, 'string, 'defun, 'line, 'buffer."
     (define-key map (kbd "C-;") #'indent-relative)
     (define-key map (kbd "C-,") #'dyg/dispatch-mark-outer)
     (define-key map (kbd "C-.") #'dyg/dispatch-mark-inner)
-
+    (define-key map (kbd "C-x r e") #'bookmark-jump)
     map)
   "Keymap for `dyg-keys-mode`.")
 
