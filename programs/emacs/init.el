@@ -170,7 +170,10 @@
   :bind (("C-o" . better-jumper-jump-backward)
          ("C-i" . better-jumper-jump-forward))
   :config
-  (add-hook 'isearch-mode-end-hook #'better-jumper-set-jump)
+  (add-hook 'isearch-mode-hook     #'better-jumper-set-jump) ; mark at start
+  (add-hook 'isearch-mode-end-hook #'better-jumper-set-jump) ; mark at end
+  (add-hook 'imenu-after-jump-hook #'better-jumper-set-jump)
+  (add-hook 'activate-mark-hook    #'better-jumper-set-jump)
   (add-hook 'before-save-hook      #'better-jumper-set-jump))
 
 (use-package magit
