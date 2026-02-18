@@ -771,7 +771,6 @@
     "Run `avy-goto-char-2' then mark the symbol at point with Meow."
     (interactive)
     (goto-char pt)
-    (meow-mark-symbol 1)
     (embark-act))
 
   (defun dyg|avy-consult-line (pt)
