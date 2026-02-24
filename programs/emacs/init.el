@@ -970,10 +970,26 @@
 (setq style '(face spaces trailing tabs space-mark tab-mark))
 (setq-default cursor-type '(bar . 3))
 (setq-default sentence-end-double-space nil)
+(setq-default project-vc-extra-root-markers '(".git" ".gitignore"))
+
+(defun my-project-root ()
+  (or (when-let ((proj (project-current)))
+        (project-root proj))
+      (vc-root-dir)
+      default-directory))
+
+(defun run-gdb-in-project-root (orig &rest args)
+  (let ((default-directory (my-project-root)))
+    (apply orig args)))
+
+(advice-add 'gdb :around #'run-gdb-in-project-root)
+
 
 ;;;;;; gdb setup
 (setq gdb-many-windows t)
 (setq gdb-use-separate-io-buffer t)
+(setq gdb-show-main t)
+
 (advice-add 'gdb-setup-windows :after
             (lambda () (set-window-dedicated-p (selected-window) t)))
 (defconst gud-window-register 123456)
