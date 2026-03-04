@@ -1,12 +1,11 @@
 { config, pkgs, lib, ... }:
 
 let
-    myEmacs = pkgs.emacs.override {withGTK3 = true; };
     myTaffybar = pkgs.callPackage ../../programs/taffybar/default.nix {};
-
-    # R-with-packages = pkgs.rWrapper.override { packages = with pkgs.rPackages; [
-      # tidyverse cowplot
-    # ]; };
+    myEmacs = (pkgs.emacsPackagesFor pkgs.emacs30).emacsWithPackages (epkgs: with epkgs; [
+      vterm
+      treesit-grammars.with-all-grammars
+    ]);
 
     # for mbsync service
     gpg = "/etc/profiles/per-user/doyougnu/bin/gpg2";
