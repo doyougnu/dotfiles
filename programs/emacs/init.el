@@ -987,7 +987,6 @@
 
 ;;;;;; gdb setup
 (setq gdb-many-windows t)
-(setq gdb-use-separate-io-buffer t)
 (setq gdb-show-main t)
 
 (advice-add 'gdb-setup-windows :after
@@ -1054,15 +1053,18 @@
 
   (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
+  ;; Always open compilation in a new dedicated side window
+  (add-to-list 'display-buffer-alist
+               '("\\*compilation\\*"
+                 (display-buffer-in-side-window)
+                 (side . right)
+                 ;; (slot . 0)
+                 (window-width . 0.5)
+                 (dedicated . t)))  ; marks the window as dedicated
+
   (with-eval-after-load 'eshell-mode
     (define-key eshell-mode-map (kbd "C-n") #'eshell-next-input)
     (define-key eshell-mode-map (kbd "C-t") #'eshell-previous-input)
     (define-key eshell-mode-map (kbd "M-n") #'eshell-next-matching-input)
     (define-key eshell-mode-map (kbd "M-p") #'eshell-previous-matching-input))
   (which-key-mode))
-
-;; Specifics for Verse
-(if (equal (getenv "EMACS_HOST") "thinkpad")
-    (progn
-      (add-to-list 'load-path "~/.emacs.d/lisp/")
-      (require 'verse-mode)))

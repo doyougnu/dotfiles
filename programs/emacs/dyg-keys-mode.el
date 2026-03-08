@@ -215,14 +215,17 @@ TYPE can be: 'paren, 'bracket, 'curly, 'string, 'defun, 'line, 'buffer."
 
 (defvar dyg/magit-map
   (let ((map (make-sparse-keymap "+magit")))
-    (define-key map (kbd "v") #'magit-status)
-    (define-key map (kbd "b") #'magit-blame)
-    (define-key map (kbd "h") #'magit-status-here)
-    (define-key map (kbd "p") #'diff-hl-show-hunk-previous)
-    (define-key map (kbd "n") #'diff-hl-show-hunk-next)
-    (define-key map (kbd "m") #'git-timemachine-toggle)
-    (define-key map (kbd "t") #'magit-todos-list)
-    (define-key map (kbd "l") #'magit-log)
+    (with-eval-after-load 'magit
+      (define-key map (kbd "v") #'magit-status)
+      (define-key map (kbd "b") #'magit-blame)
+      (define-key map (kbd "h") #'magit-status-here)
+      (define-key map (kbd "t") #'magit-todos-list)
+      (define-key map (kbd "l") #'magit-log))
+    (with-eval-after-load 'diff-hl
+      (define-key map (kbd "p") #'diff-hl-show-hunk-previous)
+      (define-key map (kbd "n") #'diff-hl-show-hunk-next))
+    (with-eval-after-load 'git-timemachine
+      (define-key map (kbd "m") #'git-timemachine-toggle))
     map))
 
 (defvar dyg/buffer-map
@@ -238,32 +241,38 @@ TYPE can be: 'paren, 'bracket, 'curly, 'string, 'defun, 'line, 'buffer."
 
 (defvar dyg/notes-map
   (let ((map (make-sparse-keymap "+notes")))
-    (define-key map (kbd "s") #'org-roam-db-sync)
-    (define-key map (kbd "d") #'org-roam-dailies-capture-today)
-    (define-key map (kbd "'") #'org-roam-dailies-goto-today)
-    (define-key map (kbd "y") #'org-roam-dailies-goto-yesterday)
-    (define-key map (kbd "i") #'org-roam-node-insert)
-    (define-key map (kbd "f") #'org-roam-node-find)
-    (define-key map (kbd "r") #'org-roam-buffer-display-dedicated)
-    (define-key map (kbd "n") #'org-add-note)
-    (define-key map (kbd "C") #'org-clock-out)
-    (define-key map (kbd "c") #'dyg|org-clock-in-from-history)
+    (with-eval-after-load 'org-roam
+      (define-key map (kbd "s") #'org-roam-db-sync)
+      (define-key map (kbd "d") #'org-roam-dailies-capture-today)
+      (define-key map (kbd "'") #'org-roam-dailies-goto-today)
+      (define-key map (kbd "y") #'org-roam-dailies-goto-yesterday)
+      (define-key map (kbd "i") #'org-roam-node-insert)
+      (define-key map (kbd "f") #'org-roam-node-find)
+      (define-key map (kbd "r") #'org-roam-buffer-display-dedicated))
+    (with-eval-after-load 'org
+      (define-key map (kbd "n") #'org-add-note)
+      (define-key map (kbd "C") #'org-clock-out)
+      (define-key map (kbd "c") #'dyg|org-clock-in-from-history))
     map))
 
 (defvar dyg/error-map
   (let ((map (make-sparse-keymap "+error")))
+    ;; next-error and previous-error are built-in, no deferral needed
     (define-key map (kbd "n") #'next-error)
     (define-key map (kbd "p") #'previous-error)
-    (define-key map (kbd "N") #'flymake-goto-next-error)
-    (define-key map (kbd "P") #'flymake-goto-prev-error)
+    (with-eval-after-load 'flymake
+      (define-key map (kbd "N") #'flymake-goto-next-error)
+      (define-key map (kbd "P") #'flymake-goto-prev-error))
     map))
 
 (defvar dyg/smerge-map
   (let ((map (make-sparse-keymap "+smerge")))
-    (define-key map (kbd "n") #'smerge-next)
-    (define-key map (kbd "p") #'smerge-prev)
-    (define-key map (kbd "u") #'magit-smerge-keep-upper)
-    (define-key map (kbd "l") #'magit-smerge-keep-lower)
+    (with-eval-after-load 'smerge-mode
+      (define-key map (kbd "n") #'smerge-next)
+      (define-key map (kbd "p") #'smerge-prev))
+    (with-eval-after-load 'magit
+      (define-key map (kbd "u") #'magit-smerge-keep-upper)
+      (define-key map (kbd "l") #'magit-smerge-keep-lower))
     map))
 
 ;; -----------------------
@@ -304,7 +313,8 @@ TYPE can be: 'paren, 'bracket, 'curly, 'string, 'defun, 'line, 'buffer."
 
 
 ;; tweak org-mode general keybinds
-(define-key org-mode-map (kbd "M-RET") #'dyg|org-insert-subheading-respect-content)
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "M-RET") #'dyg|org-insert-subheading-respect-content))
 
 ;; TODO: fix the +prefix in which key
 ;; (which-key-add-keymap-based-replacements dyg-keys-mode-map
@@ -328,6 +338,9 @@ TYPE can be: 'paren, 'bracket, 'curly, 'string, 'defun, 'line, 'buffer."
   :keymap dyg-keys-mode-map
   :group 'dyg
   :global t)
+
+(define-globalized-minor-mode global-dyg-keys-mode dyg-keys-mode
+  (lambda () (unless (minibufferp) (dyg-keys-mode 1))))
 
 (provide 'dyg-keys-mode)
 ;;; dyg-keys-mode.el ends here
