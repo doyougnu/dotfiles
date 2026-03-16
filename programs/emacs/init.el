@@ -1057,9 +1057,9 @@
   (add-to-list 'display-buffer-alist
                '("\\*compilation\\*"
                  (display-buffer-in-side-window)
-                 (side . right)
+                 (side . bottom)
                  ;; (slot . 0)
-                 (window-width . 0.5)
+                 (window-height . 0.4)
                  (dedicated . t)))  ; marks the window as dedicated
 
   (with-eval-after-load 'eshell-mode
