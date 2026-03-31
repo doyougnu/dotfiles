@@ -6,6 +6,7 @@ let
     myEmacs = (pkgs.emacsPackagesFor pkgs.emacs30).emacsWithPackages (epkgs: with epkgs; [
       vterm
       treesit-grammars.with-all-grammars
+      htmlize
     ]);
 
     R-with-packages = pkgs.rWrapper.override { packages = with pkgs.rPackages; [
