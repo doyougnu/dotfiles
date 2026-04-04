@@ -1059,7 +1059,7 @@
                  (display-buffer-in-side-window)
                  (side . bottom)
                  ;; (slot . 0)
-                 (window-height . 0.35)
+                 (window-height . 0.30)
                  (dedicated . t)))  ; marks the window as dedicated
 
   (with-eval-after-load 'eshell-mode
