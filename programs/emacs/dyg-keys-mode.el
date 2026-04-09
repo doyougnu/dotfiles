@@ -291,6 +291,7 @@ TYPE can be: 'paren, 'bracket, 'curly, 'string, 'defun, 'line, 'buffer."
 
     ;; Globals
     (define-key map (kbd "C-t")     #'dyg|avy-goto-char-2)
+    (define-key map (kbd "M-SPC")   #'completion-at-point)
     (define-key map (kbd "C-c c")   #'dyg|recompile)
     (define-key map (kbd "C-c C")   #'dyg|toggle-compilation-window)
     (define-key map (kbd "C-c o")   #'dyg|toggle-eshell-window)

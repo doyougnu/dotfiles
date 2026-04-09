@@ -455,10 +455,11 @@
   (marginalia-mode))
 
 (use-package corfu
-  :ensure t
+  :demand t
   :custom
   (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
-  (corfu-auto t)                 ;; Enable auto completion
+  (corfu-auto nil)                 ;; Enable auto completion
+  (corfu-auto-delay 0)
   :init
   (global-corfu-mode)
   :bind (:map corfu-map
