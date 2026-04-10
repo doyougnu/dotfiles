@@ -171,6 +171,14 @@ in {
   services.emacs.enable  = true;
   services.emacs.package = myEmacs;
 
+  # set emacs keybinds in gtk
+  gtk.enable = true;
+  gtk.gtk3 = {
+    extraConfig = {
+      gtk-key-theme-name = "Emacs";
+    };
+  };
+
   # email
   programs.mbsync.enable = true;        ## sync
   programs.msmtp.enable  = true;        ## sending
