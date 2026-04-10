@@ -1,6 +1,4 @@
 ;;; init.el --- Description -*- lexical-binding: t; -*-
-; based on https://arne.me/blog/emacs-from-scratch-part-one-foundations#become-evil
-;; thank you for your labor!
 
 ;(scroll-bar-mode -2)           ; Hide the always-visible scrollbar
 (setq inhibit-splash-screen t) ; Remove the "Welcome to GNU Emacs" splash screen
