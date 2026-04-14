@@ -789,6 +789,7 @@
         (alist-get ?K avy-dispatch-alist) #'avy-action-kill-line-stay
         (alist-get ?s avy-dispatch-alist) #'dyg|avy-consult-line
         (alist-get ?S avy-dispatch-alist) #'dyg|avy-consult-line-multi
+        (alist-get ?f avy-dispatch-alist) #'find-file
         (alist-get ?E avy-dispatch-alist) #'dyg|avy-embark)
 
   (setq avy-keys '(?c ?i ?e ?a ?h ?t ?d ?n))) ; reserve s for search
@@ -1060,6 +1061,15 @@
                  ;; (slot . 0)
                  (window-height . 0.30)
                  (dedicated . t)))  ; marks the window as dedicated
+
+  ;; Always open eshell in a new dedicated side window
+  (add-to-list 'display-buffer-alist
+               '(".*-eshell\\*"
+                 (display-buffer-in-side-window)
+                 (side . bottom)
+                 ;; (slot . 0)
+                 (window-width . 0.40)
+                 (dedicated . t)))
 
   (with-eval-after-load 'eshell-mode
     (define-key eshell-mode-map (kbd "C-n") #'eshell-next-input)
