@@ -458,6 +458,8 @@
   (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
   (corfu-auto nil)                 ;; Enable auto completion
   (corfu-auto-delay 0)
+  (corfu-auto-prefix 3)
+  (global-corfu-minibuffer t)
   :init
   (global-corfu-mode)
   :bind (:map corfu-map
@@ -469,7 +471,13 @@
   (setopt text-mode-ispell-word-completion nil)
   (defun my-dabbrev-in-text()
     (add-to-list 'completion-at-point-functions #'cape-dabbrev))
-  (add-hook 'text-mode-hook #'my-dabbrev-in-text))
+  (add-hook 'text-mode-hook #'my-dabbrev-in-text)
+
+  (defun dyg|minibuffer-corfu ()
+    (when (where-is-internal #'completion-at-point (list (current-local-map)))
+      (setq-local corfu-auto t)
+      (corfu-mode 1)))
+  (add-hook 'minibuffer-setup-hook #'dyg|minibuffer-corfu))
 
 (use-package cape
   :bind ("C-c p" . cape-prefix-map) ;; Alternative key: M-<tab>, M-p, M-+
@@ -525,6 +533,7 @@
          ;; M-s bindings in `search-map'
          ("M-s d" . consult-find)                  ;; Alternative: consult-fd
          ("M-s s" . dyg|consult-ripgrep-word-at-point)
+         ("M-s M-s" . dyg|consult-ripgrep-word-at-point)
          ("M-s r" . consult-ripgrep)
          ("C-r"   . dyg|consult-line-word-at-point)
          ("M-s i" . consult-imenu)
