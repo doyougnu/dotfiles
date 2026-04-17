@@ -1052,6 +1052,9 @@
 
   (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
+  ;; dired refinements
+  (setq dired-kill-when-opening-new-dired-buffer 1)
+
   ;; Always open compilation in a new dedicated side window
   (add-to-list 'display-buffer-alist
                '("\\*compilation\\*"
