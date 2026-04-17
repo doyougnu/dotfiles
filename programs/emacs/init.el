@@ -620,6 +620,14 @@
   :bind (("M-o" . ace-window))
   :config
   (ace-window-display-mode)
+
+  (defun dyg|aw-project-find-file (window)
+    "Select a window with ace-window and open a project file in it."
+    (aw-switch-to-window window)
+    (call-interactively #'project-find-file))
+
+  (add-to-list 'aw-dispatch-alist '(?f dyg|aw-project-find-file "project find file"))
+  (add-to-list 'aw-dispatch-alist '(?b aw-switch-buffer-in-window "switch buffer"))
   (setq aw-keys '(?h ?t ?s ?n ?, ?.)))
 
 (use-package embark
