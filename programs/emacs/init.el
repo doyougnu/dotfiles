@@ -532,10 +532,10 @@
          ("M-g k" . consult-global-mark)
          ;; M-s bindings in `search-map'
          ("M-s d" . consult-find)                  ;; Alternative: consult-fd
-         ("M-s s" . dyg|consult-ripgrep-word-at-point)
+         ;; ("M-s s" . dyg|consult-ripgrep-word-at-point)
          ("M-s M-s" . dyg|consult-ripgrep-word-at-point)
          ("M-s r" . consult-ripgrep)
-         ("C-r"   . dyg|consult-line-word-at-point)
+         ;; ("C-r"   . dyg|consult-line-word-at-point)
          ("M-s i" . consult-imenu)
          ("M-s I" . consult-imenu-multi)
          ;; Isearch integration
@@ -789,24 +789,9 @@
     (goto-char pt)
     (embark-act))
 
-  (defun dyg|avy-consult-line (pt)
-    "Any wrapper to run `consult-line'."
-    (interactive)
-    (goto-char pt)
-    (consult-line (thing-at-point 'word) nil))
-
-  (defun dyg|avy-consult-line-multi (pt)
-    "Avy wrapper to run `consult-line-multi'."
-    (interactive)
-    (goto-char pt)
-    (consult-line-multi (thing-at-point 'word) nil))
-
   ;; Then, register it
   (setf (alist-get ?k avy-dispatch-alist) #'avy-action-kill-line-and-join
         (alist-get ?K avy-dispatch-alist) #'avy-action-kill-line-stay
-        (alist-get ?s avy-dispatch-alist) #'dyg|avy-consult-line
-        (alist-get ?S avy-dispatch-alist) #'dyg|avy-consult-line-multi
-        (alist-get ?f avy-dispatch-alist) #'find-file
         (alist-get ?E avy-dispatch-alist) #'dyg|avy-embark)
 
   (setq avy-keys '(?c ?i ?e ?a ?h ?t ?d ?n))) ; reserve s for search
@@ -1072,6 +1057,9 @@
 
   ;; dired refinements
   (setq dired-kill-when-opening-new-dired-buffer 1)
+  ;; isearch don't pause on wrap
+  (setq isearch-wrap-pause 'no-ding
+        isearch-lazy-count t)
 
   ;; Always open compilation in a new dedicated side window
   (add-to-list 'display-buffer-alist
