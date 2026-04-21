@@ -172,7 +172,11 @@
   (add-hook 'isearch-mode-end-hook #'better-jumper-set-jump) ; mark at end
   (add-hook 'imenu-after-jump-hook #'better-jumper-set-jump)
   (add-hook 'activate-mark-hook    #'better-jumper-set-jump)
-  (add-hook 'before-save-hook      #'better-jumper-set-jump))
+  (add-hook 'before-save-hook      #'better-jumper-set-jump)
+  (add-hook 'xref-after-jump-hook  #'better-jumper-set-jump)
+  (add-hook 'embark-pre-action-hooks #'better-jumper-set-jump)
+  (advice-add 'xref-find-definitions :before #'(lambda (&rest _)
+                                                 (better-jumper-set-jump))))
 
 (use-package magit
   :ensure t
