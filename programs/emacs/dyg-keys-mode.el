@@ -298,6 +298,7 @@ TYPE can be: 'paren, 'bracket, 'curly, 'string, 'defun, 'line, 'buffer."
     (define-key map (kbd "C-c j")   #'org-roam-dailies-goto-today)
     (define-key map (kbd "C-c a")   #'org-agenda)
     (define-key map (kbd "C-c SPC") #'org-capture)
+    (define-key map (kbd "C-c f")   #'project-find-file)
 
     ;; refinements
     (define-key map (kbd "M-j") #'dyg|join-line)
