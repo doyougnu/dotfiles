@@ -308,6 +308,8 @@ TYPE can be: 'paren, 'bracket, 'curly, 'string, 'defun, 'line, 'buffer."
     (define-key map (kbd "M-;") #'comment-line)
     (define-key map (kbd "C-M-o") #'scroll-down-command)
     (define-key map (kbd "C-M-i") #'scroll-up-command)
+    (define-key map (kbd "C-v")   #'scroll-other-window-down)
+    (define-key map (kbd "M-v")   #'scroll-other-window)
     (define-key map (kbd "C-;") #'indent-relative)
     (define-key map (kbd "C-,") #'dyg/dispatch-mark-outer)
     (define-key map (kbd "C-.") #'dyg/dispatch-mark-inner)
