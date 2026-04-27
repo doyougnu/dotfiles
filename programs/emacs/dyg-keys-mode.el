@@ -288,6 +288,7 @@ TYPE can be: 'paren, 'bracket, 'curly, 'string, 'defun, 'line, 'buffer."
     (define-key map (kbd "C-c n") dyg/notes-map)
     (define-key map (kbd "C-c e") dyg/error-map)
     (define-key map (kbd "C-c i") dyg/smerge-map)
+    (define-key map (kbd "C-c C-i") #'dyg|erc)
 
     ;; Globals
     (define-key map (kbd "C-t")     #'dyg|avy-goto-char-2)
