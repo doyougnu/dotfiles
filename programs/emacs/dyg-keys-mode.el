@@ -288,7 +288,6 @@ TYPE can be: 'paren, 'bracket, 'curly, 'string, 'defun, 'line, 'buffer."
     (define-key map (kbd "C-c n") dyg/notes-map)
     (define-key map (kbd "C-c e") dyg/error-map)
     (define-key map (kbd "C-c i") dyg/smerge-map)
-
     ;; Globals
     (define-key map (kbd "C-t")     #'dyg|avy-goto-char-2)
     (define-key map (kbd "M-SPC")   #'completion-at-point)
@@ -314,6 +313,8 @@ TYPE can be: 'paren, 'bracket, 'curly, 'string, 'defun, 'line, 'buffer."
     (define-key map (kbd "C-,") #'dyg/dispatch-mark-outer)
     (define-key map (kbd "C-.") #'dyg/dispatch-mark-inner)
     (define-key map (kbd "C-x r e") #'bookmark-jump)
+    (define-key map (kbd "C-v") nil)
+    (define-key map (kbd "M-v") nil)
     map)
   "Keymap for `dyg-keys-mode`.")
 

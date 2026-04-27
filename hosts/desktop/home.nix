@@ -467,6 +467,7 @@ in {
       telegram-desktop
       pianobar
       valgrind
+      ollama-vulkan
       perf
       firefox
   ]);
