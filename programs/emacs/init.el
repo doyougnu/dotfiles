@@ -800,6 +800,28 @@
 
   (setq avy-keys '(?c ?i ?e ?a ?h ?t ?d ?n))) ; reserve s for search
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; erc ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package erc
+  :ensure t
+  :init
+  (setq erc-sasl-mechanism 'plain
+        erc-use-auth-source-with-sasl t
+        erc-join-buffer 'window)
+  (defun dyg|erc ()
+    "Create a new tab named 'IRC' and start an encrypted ERC connection."
+    (interactive)
+    (tab-bar-mode 1)
+    (tab-bar-new-tab)
+    (tab-bar-rename-tab "erc")
+    (erc-tls :server "irc.libera.chat" :port 6697 :nick "doyougnu"))
+  :config
+  (setq erc-server "irc.libera.chat"
+        erc-port 6697
+        erc-nick "doyougnu"
+        erc-user-full-name "doyougnu"
+        erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE")
+        erc-autojoin-channels-alist '(("libera.chat" "#emacs" "#zig"))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; org ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq initial-major-mode 'org-mode)
 
