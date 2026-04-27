@@ -390,6 +390,9 @@
   :straight (:local-repo "~/.emacs.d/lisp" :files ("dyg-keys-mode.el"))
   :demand t
   :config
+  ;; refinements
+  (global-unset-key (kbd "C-v"))
+  (global-unset-key (kbd "M-v"))
   (dyg-keys-mode 1))
 
 
