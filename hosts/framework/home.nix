@@ -117,7 +117,6 @@ in {
 
 
   fonts.fontconfig.enable = true;
-
   services.dunst = {
     enable = true;
     settings = {
@@ -143,11 +142,10 @@ in {
         };
 
         global = {
-          font = "Iosevka 12";
+          font = "Iosevka 10";
           width = 500;
           height = 900;
           transparency = 20;
-          # frame_color = "#eceff1";
           frame_color = "#4287f5";
           corner_radius = 15;
           # center text
