@@ -71,6 +71,7 @@
      ((eq system-type 'windows-nt)
       (shell-command-to-string "powershell.exe -command Get-Clipboard"))))))
 
+
 ;; -----------------------
 ;; Prefix keymaps
 ;; -----------------------
@@ -300,6 +301,7 @@ TYPE can be: 'paren, 'bracket, 'curly, 'string, 'defun, 'line, 'buffer."
     (define-key map (kbd "C-c a")   #'org-agenda)
     (define-key map (kbd "C-c SPC") #'org-capture)
     (define-key map (kbd "C-c f")   #'project-find-file)
+    (define-key map (kbd "C-c +")   #'global-text-scale-adjust)
 
     ;; refinements
     (define-key map (kbd "M-j") #'dyg|join-line)
@@ -314,6 +316,7 @@ TYPE can be: 'paren, 'bracket, 'curly, 'string, 'defun, 'line, 'buffer."
     (define-key map (kbd "C-;") #'indent-relative)
     (define-key map (kbd "C-,") #'dyg/dispatch-mark-outer)
     (define-key map (kbd "C-.") #'dyg/dispatch-mark-inner)
+
     (define-key map (kbd "C-x r e") #'bookmark-jump)
     map)
   "Keymap for `dyg-keys-mode`.")

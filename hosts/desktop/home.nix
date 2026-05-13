@@ -140,7 +140,7 @@ in {
         global = {
           font = "Iosevka 10";
           width = 500;
-          height = 900;
+          # height = 900;
           transparency = 20;
           frame_color = "#4287f5";
           corner_radius = 15;
@@ -148,15 +148,11 @@ in {
           alignment = "center";
           # full markup parsing
           markup = "full";
-          format = ''
-          %a
-          <b>%s</b>
-          %b
-          %p'';
+          format = ''%a/n<b>%s</b>/n%b'';
 
           monitor = "1";
           origin = "bottom-center";
-          offset = "1x1";
+          offset = "(1,1)";
 
           separator_color = "auto";
           # Width of frame around window
@@ -430,6 +426,7 @@ in {
     killall         # for polybar launch script
     moreutils
     multimarkdown
+    obs-studio
     pdfpc           # pdf presentaitons from the shell
     pulseaudio-ctl  # music control in xmonad
     pinentry-gtk2
