@@ -424,6 +424,7 @@ in {
     gforth # aoc2023
     libevent
     killall         # for polybar launch script
+    kdePackages.kdenlive
     moreutils
     multimarkdown
     obs-studio
@@ -434,18 +435,13 @@ in {
     python310Packages.pygments
     yazi
     ripgrep
-    # rnix-lsp
     rsync
-    # sbcl
-    # sdcv             # for polybar
     spotify
     slack
     tex
     xfce.thunar
     unison
     xclip
-    # xorg.xwininfo    # for emacs everywhere
-    # xdotool          # for emacs everywhere
     xdg-dbus-proxy
     xdg-desktop-portal
     xmonad-log
@@ -453,6 +449,7 @@ in {
     w3m              # text browser for emacs-w3m
     sqlite
     wordnet
+    vlc
     zip
   ] ++
     my-fonts
